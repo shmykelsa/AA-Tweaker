@@ -1,18 +1,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/apps_list"
-        android:title="Apps List"
-        app:showAsAction="never"/>
 
     <item android:id="@+id/copy"
         android:title="Copy log"
         app:showAsAction="never"/>
 
-    <item android:id="@+id/trigger_manager"
-        android:title="Triggers Manager"
-        app:showAsAction="never"/>
-
-    <item android:id="@+id/reboot"
-        android:title="Reboot"
-        app:showAsAction="never"/>
 </menu>

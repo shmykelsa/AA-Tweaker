@@ -1,5 +1,20 @@
 <resources>
-    <string name="app_name">AA Phenotype Patcher</string>
+    <string name="app_name">AA AIO Patcher</string>
+    <string name="main_string">Welcome in AA Patcher\nThis utility will let you apply some tweaks to Android Auto\nSelect which tweaks you want to apply then patch :)</string>
+    <string name="start_patching">START PATCHING</string>
+    <string name="select_apps">Select apps</string>
+    <string name="enable_assistant_shortcuts"> Assistant shortcuts</string>
+    <string name="patch_custom_apps">custom apps</string>
+    <string name="disable_speed_limitations"> tap limitations while driving</string>
+    <string name="unlimited_scrolling_when_driving"> speed restrictions when driving</string>
+    <string name="enable_assistant_animation_in_navbar"> Assistant animation in navbar</string>
+    <string name="databaseopen">\"/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db \"</string>
+    <string name="droptrig">--  DROP TRIGGERs  --</string>
+    <string name="splash">"This app can alter Android Auto behaviour and bypass some safety features that Google has implemented in Android Auto.\n
+        By using this software, you agree that YOU, and ONLY YOU, are solely responsible for any possible consequence that may result in altering safety features such as injury to yourself and/or
+        others, property damage, loss of life. Under no circumnstances is the author of this app responsible for its use"</string>
+    <string name="proceed">I understand</string>
+    <string name="navigation_at_start">Navigation at start</string>
 
     <!-- Strings related to Settings -->
 
