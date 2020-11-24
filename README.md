@@ -53,6 +53,8 @@ It's best advised to clear also datas of this app, in that case :)
 
 The console could output some SQLite errors, occasionally. The command should succeed anyways. I'm looking forward to fix this in the next releases
 
+## [DOWNLAOD](https://github.com/shmykelsa/AA-Tweaker/releases)
+
 Credits:<br>
 [Jen94](https://github.com/jen94) for the original app whitelist hack <br>
 [SAAX by agentdr8](https://gitlab.com/agentdr8/saax) who inspired me for some features of this app <br>
