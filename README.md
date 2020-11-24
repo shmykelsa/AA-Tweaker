@@ -54,7 +54,7 @@ It's best advised to clear also datas of this app, in that case :)
 The console could output some SQLite errors, occasionally. The command should succeed anyways. I'm looking forward to fix this in the next releases
 
 Credits:<br>
-[Jan94](https://github.com/jan94) for the original app whitelist hack <br>
+[Jen94](https://github.com/jen94) for the original app whitelist hack <br>
 [SAAX by agentdr8](https://gitlab.com/agentdr8/saax) who inspired me for some features of this app <br>
 [AA Phenotype Patcher by Eselter](https://github.com/Eselter/AA-Phenotype-Patcher) <br>
 
