@@ -5,4 +5,8 @@
         android:title="Copy log"
         app:showAsAction="never"/>
 
+    <item android:id="@+id/about"
+        android:title="About"
+        app:showAsAction="never"/>
+
 </menu>

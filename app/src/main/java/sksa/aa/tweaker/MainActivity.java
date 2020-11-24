@@ -15,6 +15,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -47,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences mysharedpreferences = getPreferences(MODE_PRIVATE);
 
-
         setContentView(R.layout.activity_main);
         Toolbar myToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
@@ -75,14 +77,24 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
 
+        final Button rebootButton = findViewById(R.id.reboot_button);
+        final Animation anim = new AlphaAnimation(0.0f, 1.0f);
+        anim.setDuration(600);
+        anim.setStartOffset(0);
+        anim.setFillAfter(true);
+        rebootButton.setAnimation(anim);
+
+        final Boolean[] animationRun = {false};
 
         final Button nospeed = findViewById(R.id.nospeed);
         final ImageView nospeedimg = findViewById(R.id.speedhackstatus);
-        if(load("speedhack")) {
+        if(load("aa_speed_hack")) {
+            save(true, "aa_speed_hack");
             nospeed.setText("Enable " + getText(R.string.unlimited_scrolling_when_driving));
             nospeedimg.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
             nospeedimg.setColorFilter(Color.argb(255,0,255,0));
         } else {
+            save(false, "aa_speed_hack");
             nospeed.setText("Disable " + getText(R.string.unlimited_scrolling_when_driving));
             nospeedimg.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
             nospeedimg.setColorFilter(Color.argb(255,255,0,0));
@@ -92,27 +104,39 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (load("speedhack")){
+                        if (load("aa_speed_hack")){
                             revert("nospeed");
                             nospeed.setText("Enable " + getText(R.string.unlimited_scrolling_when_driving));
                             nospeedimg.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             nospeedimg.setColorFilter(Color.argb(255,255,0,0));
+                            if(!animationRun[0]) {
+                                rebootButton.setVisibility(View.VISIBLE);
+                                anim.start();
+                                animationRun[0] = true;
+                            }
                         }
                         else {
                             patchforspeed(view, nospeed);
                             nospeedimg.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-                            nospeedimg.setColorFilter(Color.argb(255,0,255,0));
+                            nospeedimg.setColorFilter(Color.argb(255,255,255,0));
+                            if(!animationRun[0]) {
+                                rebootButton.setVisibility(View.VISIBLE);
+                                anim.start();
+                                animationRun[0] = true;
+                            }
                         }
                     }
                 });
 
         final Button assistshort = findViewById(R.id.assistshort);
         final ImageView assisthackimg = findViewById(R.id.shortcutstatus);
-        if(load("assisthack")) {
+        if(load("assist_short")) {
+            save (true, "assist_short");
             assistshort.setText("Disable " + getText(R.string.enable_assistant_shortcuts));
             assisthackimg.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
             assisthackimg.setColorFilter(Color.argb(255,0,255,0));
         } else {
+            save (false, "assist_short");
             assistshort.setText("Enable " + getText(R.string.enable_assistant_shortcuts));
             assisthackimg.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
             assisthackimg.setColorFilter(Color.argb(255,255,0,0));
@@ -123,28 +147,39 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (load("assisthack")){
-                            revert("assisthack");
+                        if (load("assist_short")){
+                            revert("assist_short");
                             assistshort.setText("Disable " + getText(R.string.enable_assistant_shortcuts));
                             assisthackimg.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             assisthackimg.setColorFilter(Color.argb(255,255,0,0));
+                            if(!animationRun[0]) {
+                                rebootButton.setVisibility(View.VISIBLE);
+                                anim.start();
+                                animationRun[0] = true;
+                            }
                         }
                         else {
                             patchforassistshort(view, assistshort);
                             assisthackimg.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-                            assisthackimg.setColorFilter(Color.argb(255,0,255,0));
+                            assisthackimg.setColorFilter(Color.argb(255,255,255,0));
+                            if(!animationRun[0]) {
+                                rebootButton.setVisibility(View.VISIBLE);
+                                anim.start();
+                                animationRun[0] = true;
+                            }
                         }
                     }
                 });
 
         final Button taplimitat = findViewById(R.id.taplimit);
         final ImageView taplimitstatus = findViewById(R.id.sixtapstatus);
-        if(load("sixtaplimit")) {
+        if(load("aa_six_tap")) {
+            save (true, "aa_six_tap");
             taplimitat.setText("Enable " + getText(R.string.disable_speed_limitations));
             taplimitstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
             taplimitstatus.setColorFilter(Color.argb(255,0,255,0));
-
         } else {
+            save (false, "aa_six_tap");
             taplimitat.setText("Disable " + getText(R.string.disable_speed_limitations));
             taplimitstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
             taplimitstatus.setColorFilter(Color.argb(255,255,0,0));
@@ -154,27 +189,39 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (load("sixtaplimit")){
-                            revert("sixtaplimit");
+                        if (load("aa_six_tap")){
+                            revert("aa_six_tap");
                             taplimitat.setText("Enable " + getText(R.string.disable_speed_limitations));
                             taplimitstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             taplimitstatus.setColorFilter(Color.argb(255,255,0,0));
+                            if(!animationRun[0]) {
+                                rebootButton.setVisibility(View.VISIBLE);
+                                anim.start();
+                                animationRun[0] = true;
+                            }
                         }
                         else {
                             patchfortouchlimit(view, taplimitat);
                             taplimitstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-                            taplimitstatus.setColorFilter(Color.argb(255,0,255,0));
+                            taplimitstatus.setColorFilter(Color.argb(255,255,255,0));
+                            if(!animationRun[0]) {
+                                rebootButton.setVisibility(View.VISIBLE);
+                                anim.start();
+                                animationRun[0] = true;
+                            }
                         }
                     }
                 });
 
         final Button startupnav = findViewById(R.id.startup);
         final ImageView navstatus = findViewById(R.id.navstatus);
-        if(load("navigationstatus")) {
+        if(load("aa_startup_policy")) {
+            save (true, "aa_startup_policy");
             startupnav.setText("Enable " + getText(R.string.navigation_at_start));
             navstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
             navstatus.setColorFilter(Color.argb(255,0,255,0));
         } else {
+            save (false, "aa_startup_policy");
             startupnav.setText("Disable " + getText(R.string.navigation_at_start));
             navstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
             navstatus.setColorFilter(Color.argb(255,255,0,0));
@@ -183,16 +230,26 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (load("navigationstatus")){
-                            revert("navigationstatus");
+                        if (load("aa_startup_policy")){
+                            revert("aa_startup_policy");
                             startupnav.setText("Enable " + getText(R.string.navigation_at_start));
                             navstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             navstatus.setColorFilter(Color.argb(255,255,0,0));
+                            if(!animationRun[0]) {
+                                rebootButton.setVisibility(View.VISIBLE);
+                                anim.start();
+                                animationRun[0] = true;
+                            }
                         }
                         else {
                             navpatch(view, startupnav);
                             navstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-                            navstatus.setColorFilter(Color.argb(255,0,255,0));
+                            navstatus.setColorFilter(Color.argb(255,255,255,0));
+                            if(!animationRun[0]) {
+                                rebootButton.setVisibility(View.VISIBLE);
+                                anim.start();
+                                animationRun[0] = true;
+                            }
                         }
                     }
                 });
@@ -200,11 +257,13 @@ public class MainActivity extends AppCompatActivity {
         final Button patchapps = findViewById(R.id.patchapps);
         final ImageView patchappstatus = findViewById(R.id.patchedappstatus);
 
-        if(load("apppatch")) {
+        if(load("aa_patched_apps") || load("after_delete")) {
+            save(true, "aa_patched_apps");
             patchapps.setText("Unpatch " + getText(R.string.patch_custom_apps));
             patchappstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
             patchappstatus.setColorFilter(Color.argb(255,0,255,0));
         } else {
+            save(false, "aa_patched_apps");
             patchapps.setText("Patch " + getText(R.string.patch_custom_apps));
             patchappstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
             patchappstatus.setColorFilter(Color.argb(255,255,0,0));
@@ -214,27 +273,38 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (load("apppatch")){
-                            revert("apppatch");
+                        if (load("aa_patched_apps")){
+                            revert("aa_patched_apps");
                             patchapps.setText("Patch " + getText(R.string.patch_custom_apps));
                             patchappstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             patchappstatus.setColorFilter(Color.argb(255,255,0,0));
+                            if(!animationRun[0]) {
+                                rebootButton.setVisibility(View.VISIBLE);
+                                anim.start();
+                                animationRun[0] = true;
+                            }
                         }
                         else {
-                            patchforapps(view, patchapps);
-                            patchappstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-                            patchappstatus.setColorFilter(Color.argb(255,0,255,0));
+                            patchforapps(view, patchappstatus);
+                            if(!animationRun[0]) {
+                                rebootButton.setVisibility(View.VISIBLE);
+                                anim.start();
+                                animationRun[0] = true;
+                            }
                         }
                     }
                 });
 
         final Button assistanim = findViewById(R.id.assistanim);
         final ImageView assistanimstatus = findViewById(R.id.assistanimstatus);
-        if(load("assistinrail")) {
+        if(load("aa_assistant_rail")) {
+            save (true, "aa_assistant_rail");
             assistanim.setText("Disable " + getText(R.string.enable_assistant_animation_in_navbar));
             assistanimstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
             assistanimstatus.setColorFilter(Color.argb(255,0,255,0));
+
         } else {
+            save (false, "aa_assistant_rail");
             assistanim.setText("Enable " + getText(R.string.enable_assistant_animation_in_navbar));
             assistanimstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
             assistanimstatus.setColorFilter(Color.argb(255,255,0,0));
@@ -244,20 +314,71 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (load("assistinrail")){
-                            revert("assistinrail");
+                        if (load("aa_assistant_rail")){
+                            revert("aa_assistant_rail");
                             assistanim.setText("Enable " + getText(R.string.enable_assistant_animation_in_navbar));
                             assistanimstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             assistanimstatus.setColorFilter(Color.argb(255,255,0,0));
+                            if(!animationRun[0]) {
+                                rebootButton.setVisibility(View.VISIBLE);
+                                anim.start();
+                                animationRun[0] = true;
+                            }
                         }
                         else {
                             patchrailassistant(view, assistanim);
                             assistanimstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-                            assistanimstatus.setColorFilter(Color.argb(255,0,255,0));
+                            assistanimstatus.setColorFilter(Color.argb(255,255,255,0));
+                            if(!animationRun[0]) {
+                                rebootButton.setVisibility(View.VISIBLE);
+                                anim.start();
+                                animationRun[0] = true;
+                            }
                         }
                     }
                 });
 
+        final Button batteryoutline = findViewById(R.id.battoutline);
+        final ImageView batterystatus = findViewById(R.id.batterystatus);
+        if(load("aa_battery_outline")) {
+            save(true, "aa_battery_outline");
+            batteryoutline.setText("Enable " + getText(R.string.battery_outline_string));
+            batterystatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
+            batterystatus.setColorFilter(Color.argb(255,0,255,0));
+
+        } else {
+            save (false, "aa_battery_outline");
+            batteryoutline.setText("Disable " + getText(R.string.battery_outline_string));
+            batterystatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
+            batterystatus.setColorFilter(Color.argb(255,255,0,0));
+        }
+
+        batteryoutline.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (load("aa_battery_outline")){
+                            revert("aa_battery_outline");
+                            batterystatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
+                            batterystatus.setColorFilter(Color.argb(255,255,0,0));
+                            if(!animationRun[0]) {
+                                rebootButton.setVisibility(View.VISIBLE);
+                                anim.start();
+                                animationRun[0] = true;
+                            }
+                        }
+                        else {
+                            battOutline(view, batteryoutline);
+                            batterystatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
+                            batterystatus.setColorFilter(Color.argb(255,255,255,0));
+                            if(!animationRun[0]) {
+rebootButton.setVisibility(View.VISIBLE);
+                                anim.start();
+                                animationRun[0] = true;
+                            }
+                        }
+                    }
+                });
     }
 
 
@@ -284,14 +405,14 @@ public class MainActivity extends AppCompatActivity {
                                 path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
                                         "'DROP TRIGGER IF EXISTS aa_speed_hack;'"
                         ).getStreamLogsWithLabels());
-                        save(false, "speedhack");
+                        save(false, "aa_speed_hack");
                     }
 
 
                 }.start();
                 break;
 
-            case "assisthack":
+            case "assist_short":
 
                 new Thread() {
                     @Override
@@ -305,14 +426,14 @@ public class MainActivity extends AppCompatActivity {
                                 path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
                                         "'DROP TRIGGER IF EXISTS ASSIST_SHORT;'"
                         ).getStreamLogsWithLabels());
-                        save(false, "assisthack");
+                        save(false, "assist_short");
                     }
 
 
                 }.start();
                 break;
 
-            case "apppatch":
+            case "aa_patched_apps":
 
                 new Thread() {
                     @Override
@@ -326,14 +447,14 @@ public class MainActivity extends AppCompatActivity {
                                 path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
                                         "'DROP TRIGGER IF EXISTS aa_patched_apps;'"
                         ).getStreamLogsWithLabels());
-                        save(false, "apppatch");
+                        save(false, "aa_patched_apps");
                     }
 
 
                 }.start();
                 break;
 
-            case "sixtaplimit":
+            case "aa_six_tap":
 
                 new Thread() {
                     @Override
@@ -347,14 +468,14 @@ public class MainActivity extends AppCompatActivity {
                                 path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
                                         "'DROP TRIGGER IF EXISTS aa_six_tap;'"
                         ).getStreamLogsWithLabels());
-                        save(false, "sixtaplimit");
+                        save(false, "aa_six_tap");
                     }
 
 
                 }.start();
                 break;
 
-            case "assistinrail":
+            case "aa_assistant_rail":
 
                 new Thread() {
                     @Override
@@ -368,14 +489,14 @@ public class MainActivity extends AppCompatActivity {
                                 path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
                                         "'DROP TRIGGER IF EXISTS aa_assistant_rail;'"
                         ).getStreamLogsWithLabels());
-                        save(false, "assistinrail");
+                        save(false, "aa_assistant_rail");
                     }
 
 
                 }.start();
                 break;
 
-            case "navigationstatus":
+            case "aa_startup_policy":
                 new Thread() {
                     @Override
                     public void run() {
@@ -388,18 +509,34 @@ public class MainActivity extends AppCompatActivity {
                                 path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
                                         "'DROP TRIGGER IF EXISTS aa_startup_policy;'"
                         ).getStreamLogsWithLabels());
-                        save(false, "navigationstatus");
+                        save(false, "aa_startup_policy");
                     }
 
 
                 }.start();
                 break;
 
+            case "aa_battery_outline":
+                new Thread() {
+                    @Override
+                    public void run() {
+                        String path = getApplicationInfo().dataDir;
+                        boolean suitableMethodFound = true;
+                        copyAssets();
+                        appendText(logs, "\n\n-- Reverting assistant in navbar hack  --");
+                        appendText(logs, runSuWithCmd(
+                                path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                        "'DROP TRIGGER IF EXISTS aa_battery_outline;'"
+                        ).getStreamLogsWithLabels());
+                        save(false, "aa_battery_outline");
+                    }
+
+
+                }.start();
+                break;
         }
 
     }
-
-
 
 
     @Override
@@ -413,13 +550,15 @@ public class MainActivity extends AppCompatActivity {
                 clipboard.setPrimaryClip(clip);
             break;
 
+            case R.id.about:
+                DialogFragment aboutDialog = new AboutDialog();
+                aboutDialog.show(getSupportFragmentManager(), "AboutDialog");
+
             default:
                 return super.onOptionsItemSelected(item);
         }
         return true;
     }
-
-
 
 
     private void save(final boolean isChecked, String key) {
@@ -434,6 +573,8 @@ public class MainActivity extends AppCompatActivity {
         return sharedPreferences.getBoolean(key, false);
     }
 
+
+
     @Override
     public boolean onCreateOptionsMenu( Menu menu )
     {
@@ -442,7 +583,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void patchforapps(final View view, final Button textView) {
+    public void patchforapps(final View view, final ImageView textView) {
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
@@ -605,6 +746,9 @@ public class MainActivity extends AppCompatActivity {
                         ).getStreamLogsWithLabels());
                         appendText(logs, "\n--  end SQL method #4  --");
 
+                        textView.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
+                        textView.setColorFilter(Color.argb(255,255,255,0));
+
                     } else {
                         suitableMethodFound = false;
                         appendText(logs, "\n\n--  Suitable method NOT found!  --");
@@ -659,8 +803,7 @@ public class MainActivity extends AppCompatActivity {
                             appendText(logs, "\n        After:  " + checkStep3.getInputStreamLog().length());
                         }
 
-                        save(true, "apppatch");
-
+                        save(true, "aa_patched_apps");
                     }
                     // Check End
                 }
@@ -720,7 +863,7 @@ public class MainActivity extends AppCompatActivity {
                                 "END;'\n"
                         ).getStreamLogsWithLabels());
                         appendText(logs, "\n--  end SQL method   --");
-                        save(true, "assisthack");
+                        save(true, "assist_short");
                         textView.setText("Enable " + getText(R.string.enable_assistant_shortcuts));
 
                     } else {
@@ -780,7 +923,7 @@ public class MainActivity extends AppCompatActivity {
                     appendText(logs, "\n--  end SQL method   --");
                     textView.setText("Disable " + getText(R.string.enable_assistant_animation_in_navbar));
 
-                    save(true, "assistinrail");
+                    save(true, "aa_assistant_rail");
 
                 } else {
                     suitableMethodFound = false;
@@ -903,7 +1046,7 @@ public class MainActivity extends AppCompatActivity {
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     textView.setText("Disable " + getText(R.string.unlimited_scrolling_when_driving));
-                    save(true, "speedhack");
+                    save(true, "aa_speed_hack");
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
@@ -1048,7 +1191,7 @@ public class MainActivity extends AppCompatActivity {
                             "END;'"
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
-                    save(true, "sixtaplimit");
+                    save(true, "aa_six_tap");
                     textView.setText("Disable " + getText(R.string.disable_speed_limitations));
                 } else {
                     suitableMethodFound = false;
@@ -1112,8 +1255,66 @@ public class MainActivity extends AppCompatActivity {
                                     "END;'\n"
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
-                    save(true, "navstatus");
+                    save(true, "aa_startup_policy");
                     textView.setText("Disable " + getText(R.string.navigation_at_start));
+                } else {
+                    suitableMethodFound = false;
+                    appendText(logs, "\n\n--  Suitable method NOT found!  --");
+                }
+
+            }
+        }.start();
+
+
+    }
+
+    public void battOutline(View view, final Button textView) {
+        final TextView logs = findViewById(R.id.logs);
+        logs.setHorizontallyScrolling(true);
+        logs.setMovementMethod(new ScrollingMovementMethod());
+        logs.setText(null);
+
+        new Thread() {
+            @Override
+            public void run() {
+                String path = getApplicationInfo().dataDir;
+                boolean suitableMethodFound = true;
+                copyAssets();
+
+                appendText(logs, "\n\n-- Drop Triggers  --");
+                appendText(logs, runSuWithCmd(
+                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'DROP TRIGGER IF EXISTS aa_battery_outline;'"
+                ).getStreamLogsWithLabels());
+
+                if (runSuWithCmd(
+                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'SELECT 1 FROM ApplicationStates WHERE packageName=\"com.google.android.projection.gearhead\"'").getInputStreamLog().equals("1")) {
+
+                    appendText(logs, "\n\n--  run SQL method   --");
+                    appendText(logs, runSuWithCmd(
+                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                    "'DELETE FROM Flags WHERE name=\"BatterySaver__icon_outline_enabled\";"+
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BatterySaver__icon_outline_enabled\", \"\",0,1);\n" +
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BatterySaver__icon_outline_enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),0,1);\n" +
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BatterySaver__icon_outline_enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),0,1);\n" +
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BatterySaver__icon_outline_enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),0,1);\n'"
+                    ).getStreamLogsWithLabels());
+
+                    appendText(logs, runSuWithCmd(
+                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                    "'CREATE TRIGGER aa_battery_outline AFTER DELETE\n" +
+                                    "ON FlagOverrides\n" +
+                                    "BEGIN\n" +
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BatterySaver__icon_outline_enabled\", \"\",0,1);\n" +
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BatterySaver__icon_outline_enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),0,1);\n" +
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BatterySaver__icon_outline_enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),0,1);\n" +
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BatterySaver__icon_outline_enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),0,1);\n" +
+                                    "END;'\n"
+                    ).getStreamLogsWithLabels());
+                    appendText(logs, "\n--  end SQL method  --");
+                    save(true, "aa_battery_outline");
+                    textView.setText("Disable " + getText(R.string.battery_outline_string));
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
@@ -1159,32 +1360,7 @@ public class MainActivity extends AppCompatActivity {
         return streamLogs;
     }
 
-    public boolean checkrootcommand(String string) {
-        // TODO Auto-generated method stub
-        Process exec = null;
-        try {
 
-            exec = Runtime.getRuntime().exec(new String[]{"su","-c"});
-
-            final OutputStreamWriter out = new OutputStreamWriter(exec.getOutputStream());
-            out.write("exit");
-            out.flush();
-
-            Log.i(string, "su command executed successfully");
-            return true; // returns zero when the command is executed successfully
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } finally {
-            if (exec != null) {
-                try {
-                    exec.destroy();
-                } catch (Exception ignored) {
-                }
-            }
-        }
-        return false; //returns one when the command execution fails
-    }
 
     public static String readFully(InputStream is) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -1246,6 +1422,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
 
 
