@@ -30,6 +30,10 @@ This app doesn't need Xposed, which in some cases is one more pain to have. Also
 
 Yes, you can. The functionaility is the same, the only "advantage" is not having to install Xposed to make it work. This app won't check if you have SAAX installed so you won't have a green check status at the start. If you are familiar with SAAX and you want to keep it, you may not want to disable speed limitation and six tap with this app.
 
+# What happens if I wipe Google Play Services datas?
+
+It's best advised to clear also datas of this app, in that case :)
+
 Credits:<br>
 [Jan94](https://github.com/jan94) for the original app whitelist hack <br>
 [SAAX by agentdr8](https://gitlab.com/agentdr8/saax) who inspired me for some features of this app <br>
