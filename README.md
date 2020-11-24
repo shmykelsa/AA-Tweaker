@@ -21,7 +21,7 @@ What this app does is making some SQLite queries in order to alter some features
 3. Disable six tap limit (the banner asking to pay attention to road will not be shown anymore)
 4. Enable Assistant Shortcuts (you can learn more here: https://www.reddit.com/r/AndroidAuto/comments/jtli3q/howtoroot_only_force_activation_of_assistant/)
 5. Enable assistant animation in navbar (you can learn more here: https://www.reddit.com/r/AndroidAuto/comments/ju4jo3/inside_aa_theres_a_hidden_animation_that_will/)
-6. Disable start of Navigator app at start
+6. Disable launch of Navigator app at start
 7. Disable red outline on battery icon when Battery Saver is active
 
 Hopefully more to come :)
