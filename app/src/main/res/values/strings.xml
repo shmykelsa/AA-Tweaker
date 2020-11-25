@@ -5,17 +5,18 @@
     <string name="enable_assistant_shortcuts"> Assistant shortcuts</string>
     <string name="patch_custom_apps">custom apps</string>
     <string name="disable_speed_limitations"> tap limitations while driving</string>
-    <string name="unlimited_scrolling_when_driving"> speed restrictions when driving</string>
-    <string name="enable_assistant_animation_in_navbar"> Assistant animation in navbar</string>
+    <string name="unlimited_scrolling_when_driving">   speed restrictions when driving</string>
+    <string name="enable_assistant_animation_in_navbar">   Assistant animation in navbar</string>
     <string name="databaseopen">\"/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db \"</string>
     <string name="droptrig">--  DROP TRIGGERs  --</string>
     <string name="splash">"This app can alter Android Auto behaviour and bypass some safety features that Google has implemented in Android Auto.\n
         By using this software, you agree that YOU, and ONLY YOU, are solely responsible for any possible consequence that may result in altering safety features such as injury to yourself and/or
         others, property damage, loss of life. Under no circumnstances is the author of this app responsible for its use"</string>
     <string name="proceed">I understand</string>
-    <string name="navigation_at_start">Navigation at start</string>
-    <string name="battery_outline_string">battery saver outline</string>
+    <string name="navigation_at_start">   Navigation at start</string>
+    <string name="battery_outline_string"> battery saver outline</string>
     <string name="dialog_text">This app has been developed by Shmykelsa </string>
+    <string name="legend">Status Legend:\nGREEN= Patch applied\nYELLOW= Patch need reboot to be applied\nRED= Patch is not applied</string>
 
     <!-- Strings related to Settings -->
 

@@ -4,222 +4,224 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:theme="@style/AppTheme">
+    android:theme="@style/AppTheme"
+    tools:context=".MainActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="parent"
-
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
         android:theme="?attr/actionBarTheme"
+        app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-    <LinearLayout
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        android:id="@+id/buttonLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize"
-        app:layout_constraintBottom_toTopOf="@id/reboot_button"
-        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <Button
-                android:id="@+id/toapp_button"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-
-                android:text="@string/select_apps" />
-
-
-            <Button
-                android:id="@+id/patchapps"
-                android:layout_width="210dp"
-                android:layout_height="wrap_content"
-                android:text="@string/patch_custom_apps"
-                android:layout_marginStart="15dp"
-                android:focusable="true"
-                android:clickable="true"/>
-
-            <ImageView
-                android:id="@+id/patchedappstatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_check_circle_24"
-                android:padding="11dp"/>
-
-        </LinearLayout>
-
-    <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
-        <Button
-            android:id="@+id/nospeed"
-            android:layout_width="@dimen/button_width_constant"
-            android:layout_height="wrap_content"
-            android:text="@string/unlimited_scrolling_when_driving"
-            android:focusable="true"
-            android:clickable="true"/>
-        <ImageView
-            android:id="@+id/speedhackstatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_check_circle_24"
-            android:padding="11dp"/>
-
-    </LinearLayout>
-    <LinearLayout
+    <TextView
+        android:id="@+id/legend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/taplimit"
-            android:layout_width="@dimen/button_width_constant"
-            android:layout_height="wrap_content"
-            android:text="@string/disable_speed_limitations"
-            android:focusable="true"
-            android:clickable="true"/>
-        <ImageView
-            android:id="@+id/sixtapstatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_check_circle_24"
-            android:padding="11dp"/>
-    </LinearLayout>
-        
-
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
+        android:text="@string/legend"
+        app:layout_constraintBottom_toTopOf="@+id/appPatchLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <LinearLayout
+        android:id="@+id/appPatchLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/assistshort"
-            android:layout_width="@dimen/button_width_constant"
-            android:layout_height="wrap_content"
-            android:text="@string/enable_assistant_shortcuts"
-            android:focusable="true"
-            android:clickable="true"/>
-
-        <ImageView
-            android:id="@+id/shortcutstatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_check_circle_24"
-            android:layout_marginTop="5dp"
-            android:padding="11dp"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/assistanim"
-            android:layout_width="@dimen/button_width_constant"
-            android:layout_height="wrap_content"
-            android:text="@string/enable_assistant_animation_in_navbar"
-            android:focusable="true"
-            android:clickable="true"/>
-
-        <ImageView
-            android:id="@+id/assistanimstatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_check_circle_24"
-            android:padding="11dp"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/startup"
-            android:layout_width="@dimen/button_width_constant"
-            android:layout_height="wrap_content"
-            android:text="@string/navigation_at_start"
-            android:focusable="true"
-            android:clickable="true"/>
-
-        <ImageView
-            android:id="@+id/navstatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_check_circle_24"
-            android:padding="11dp"/>
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/nospeed"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/legend">
 
 
         <Button
-            android:id="@+id/battoutline"
-            android:layout_width="@dimen/button_width_constant"
-            android:layout_height="wrap_content"
-            android:text="@string/battery_outline_string"
-            android:focusable="true"
-            android:clickable="true"/>
-
-        <ImageView
-            android:id="@+id/batterystatus"
+            android:id="@+id/toapp_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_check_circle_24"
-            android:layout_marginTop="5dp"
-            android:padding="9dp"/>
+            android:layout_marginStart="0dp"
+            android:text="@string/select_apps" />
+
+        <Button
+            android:id="@+id/patchapps"
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="9dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/patch_custom_apps" />
+
+        <ImageView
+            android:id="@+id/patchedappstatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_baseline_check_circle_24" />
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/nospeed"
+        android:layout_width="@dimen/button_width_constant"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="@string/unlimited_scrolling_when_driving"
+        app:layout_constraintBottom_toTopOf="@+id/taplimit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appPatchLayout" />
+
+    <ImageView
+        android:id="@+id/speedhackstatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_check_circle_24"
+        app:layout_constraintBottom_toBottomOf="@+id/nospeed"
+        app:layout_constraintStart_toEndOf="@+id/nospeed"
+        app:layout_constraintTop_toTopOf="@+id/nospeed" />
+
+    <Button
+        android:id="@+id/taplimit"
+        android:layout_width="@dimen/button_width_constant"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="@string/disable_speed_limitations"
+        app:layout_constraintBottom_toTopOf="@+id/assistshort"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nospeed" />
+
+    <ImageView
+        android:id="@+id/sixtapstatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_check_circle_24"
+        app:layout_constraintBottom_toBottomOf="@+id/taplimit"
+        app:layout_constraintStart_toEndOf="@+id/taplimit"
+        app:layout_constraintTop_toTopOf="@+id/taplimit" />
 
 
+    <Button
+        android:id="@+id/assistshort"
+        android:layout_width="@dimen/button_width_constant"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="@string/enable_assistant_shortcuts"
+        app:layout_constraintBottom_toTopOf="@+id/assistanim"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/taplimit" />
 
-        <TextView
-            android:id="@+id/logs"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="@dimen/appbar_padding_top"
-            android:scrollbars="vertical|horizontal"
-            android:scrollHorizontally="true"
-            android:text="@string/main_string"
-            app:layout_constraintTop_toBottomOf="@+id/reboot_button"
-            app:layout_constraintBottom_toTopOf="@id/reboot_button"/>
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/shortcutstatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_check_circle_24"
+        app:layout_constraintBottom_toBottomOf="@+id/assistshort"
+        app:layout_constraintStart_toEndOf="@+id/assistshort"
+        app:layout_constraintTop_toTopOf="@+id/assistshort" />
+
+
+    <Button
+        android:id="@+id/assistanim"
+        android:layout_width="@dimen/button_width_constant"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:textSize="12dp"
+        android:focusable="true"
+        android:text="@string/enable_assistant_animation_in_navbar"
+        app:layout_constraintBottom_toTopOf="@+id/startup"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/assistshort" />
+
+    <ImageView
+        android:id="@+id/assistanimstatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_check_circle_24"
+        app:layout_constraintBottom_toBottomOf="@+id/assistanim"
+        app:layout_constraintStart_toEndOf="@+id/assistanim"
+        app:layout_constraintTop_toTopOf="@+id/assistanim" />
+
+
+    <Button
+        android:id="@+id/startup"
+        android:layout_width="@dimen/button_width_constant"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="@string/navigation_at_start"
+        app:layout_constraintBottom_toTopOf="@+id/battoutline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/assistanim" />
+
+    <ImageView
+        android:id="@+id/navstatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_check_circle_24"
+        app:layout_constraintBottom_toBottomOf="@+id/startup"
+        app:layout_constraintStart_toEndOf="@+id/startup"
+        app:layout_constraintTop_toTopOf="@+id/startup" />
+
+
+    <Button
+        android:id="@+id/battoutline"
+        android:layout_width="@dimen/button_width_constant"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="@string/battery_outline_string"
+        app:layout_constraintBottom_toTopOf="@+id/logs"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startup" />
+
+    <ImageView
+        android:id="@+id/batterystatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_check_circle_24"
+        app:layout_constraintBottom_toBottomOf="@+id/battoutline"
+        app:layout_constraintStart_toEndOf="@+id/battoutline"
+        app:layout_constraintTop_toTopOf="@+id/battoutline" />
+
+    <TextView
+        android:id="@+id/logs"
+        android:layout_width="match_parent"
+        android:layout_height="0.0dp"
+        android:layout_marginStart="3dp"
+        android:scrollbars="vertical|horizontal"
+        android:scrollHorizontally="true"
+        android:text="@string/main_string"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/battoutline"
+        app:layout_goneMarginTop="@dimen/appbar_padding_top" />
 
 
     <Button
         android:id="@+id/reboot_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:background="@drawable/fab_background"
-        android:textColor="@android:color/white"
-        android:drawableLeft="@drawable/ic_baseline_settings_backup_restore_24"
-        android:drawablePadding="5dp"
-        android:text="REBOOT TO APPLY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_margin="15dp"
+        android:background="@drawable/fab_background"
+        android:clickable="true"
+        android:drawableStart="@drawable/ic_baseline_settings_backup_restore_24"
+        android:drawablePadding="5dp"
         android:focusable="true"
-        android:clickable="true"/>
+        android:text="REBOOT TO APPLY"
+        android:textColor="@android:color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </android.support.constraint.ConstraintLayout>
