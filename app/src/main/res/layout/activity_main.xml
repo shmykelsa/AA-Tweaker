@@ -170,7 +170,7 @@
         android:focusable="true"
         android:text="@string/navigation_at_start"
         app:layout_constraintEnd_toStartOf="@id/navstatus"
-        app:layout_constraintBottom_toTopOf="@+id/battoutline"
+        app:layout_constraintBottom_toTopOf="@+id/statusbar_opaque"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/assistanim" />
 
@@ -184,6 +184,29 @@
         app:layout_constraintBottom_toBottomOf="@+id/startup"
         app:layout_constraintStart_toEndOf="@+id/startup"
         app:layout_constraintTop_toTopOf="@+id/startup" />
+
+    <Button
+        android:id="@+id/statusbar_opaque"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="@string/statb_opaque_string"
+        app:layout_constraintEnd_toStartOf="@id/navstatus"
+        app:layout_constraintBottom_toTopOf="@+id/battoutline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startup" />
+
+    <ImageView
+        android:id="@+id/statusbar_opaque_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_check_circle_24"
+        android:layout_marginEnd="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/statusbar_opaque"
+        app:layout_constraintStart_toEndOf="@+id/statusbar_opaque"
+        app:layout_constraintTop_toTopOf="@+id/statusbar_opaque" />
 
 
     <Button

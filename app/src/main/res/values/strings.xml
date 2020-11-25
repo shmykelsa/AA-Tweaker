@@ -14,6 +14,7 @@
         others, property damage, loss of life. Under no circumnstances is the author of this app responsible for its use"</string>
     <string name="proceed">I understand</string>
     <string name="navigation_at_start">   Navigation at start</string>
+    <string name="statb_opaque_string">Force Statusbar Opaque</string>
     <string name="battery_outline_string"> battery saver outline</string>
     <string name="dialog_text">This app has been developed by Shmykelsa </string>
     <string name="legend">Status Legend:\nGREEN= Patch applied\nYELLOW= Patch need reboot to be applied\nRED= Patch is not applied</string>
