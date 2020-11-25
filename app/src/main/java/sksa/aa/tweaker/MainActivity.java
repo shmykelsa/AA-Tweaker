@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         if (load("aa_speed_hack")){
-                            revert("nospeed");
+                            revert("aa_speed_hack");
                             nospeed.setText("Enable " + getText(R.string.unlimited_scrolling_when_driving));
                             nospeedimg.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             nospeedimg.setColorFilter(Color.argb(255,255,0,0));
@@ -383,158 +383,35 @@ rebootButton.setVisibility(View.VISIBLE);
 
 
 
-    private void revert(String toRevert) {
+    private void revert(final String toRevert) {
 
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
         logs.setText(null);
 
-        switch (toRevert) {
-            case "nospeed":
+        new Thread() {
+            @Override
+            public void run() {
+                String path = getApplicationInfo().dataDir;
+                boolean suitableMethodFound = true;
+                copyAssets();
 
-                new Thread() {
-                    @Override
-                    public void run() {
-                        String path = getApplicationInfo().dataDir;
-                        boolean suitableMethodFound = true;
-                        copyAssets();
-
-                        appendText(logs, "\n\n-- Reverting speed hack  --");
-                        appendText(logs, runSuWithCmd(
-                                path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                        "'DROP TRIGGER IF EXISTS aa_speed_hack;'"
-                        ).getStreamLogsWithLabels());
-                        save(false, "aa_speed_hack");
-                    }
-
-
-                }.start();
-                break;
-
-            case "assist_short":
-
-                new Thread() {
-                    @Override
-                    public void run() {
-                        String path = getApplicationInfo().dataDir;
-                        boolean suitableMethodFound = true;
-                        copyAssets();
-
-                        appendText(logs, "\n\n-- Reverting assistant shortcut hack  --");
-                        appendText(logs, runSuWithCmd(
-                                path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                        "'DROP TRIGGER IF EXISTS ASSIST_SHORT;'"
-                        ).getStreamLogsWithLabels());
-                        save(false, "assist_short");
-                    }
+                appendText(logs, "\n\n-- Reverting the hack  --");
+                appendText(logs, runSuWithCmd(
+                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'DROP TRIGGER IF EXISTS" + toRevert + ";'\n"
+                ).getStreamLogsWithLabels());
+                appendText(logs, runSuWithCmd(
+                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'DELETE FROM FlagOverrides;'\n" //make sure a good clean is done after dropping the trigger
+                ).getStreamLogsWithLabels());
+                save(false, toRevert);
+            }
 
 
-                }.start();
-                break;
+        }.start();
 
-            case "aa_patched_apps":
-
-                new Thread() {
-                    @Override
-                    public void run() {
-                        String path = getApplicationInfo().dataDir;
-                        boolean suitableMethodFound = true;
-                        copyAssets();
-
-                        appendText(logs, "\n\n-- Reverting patched apps hack  --");
-                        appendText(logs, runSuWithCmd(
-                                path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                        "'DROP TRIGGER IF EXISTS aa_patched_apps;'"
-                        ).getStreamLogsWithLabels());
-                        save(false, "aa_patched_apps");
-                    }
-
-
-                }.start();
-                break;
-
-            case "aa_six_tap":
-
-                new Thread() {
-                    @Override
-                    public void run() {
-                        String path = getApplicationInfo().dataDir;
-                        boolean suitableMethodFound = true;
-                        copyAssets();
-
-                        appendText(logs, "\n\n-- Reverting six tap limit hack  --");
-                        appendText(logs, runSuWithCmd(
-                                path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                        "'DROP TRIGGER IF EXISTS aa_six_tap;'"
-                        ).getStreamLogsWithLabels());
-                        save(false, "aa_six_tap");
-                    }
-
-
-                }.start();
-                break;
-
-            case "aa_assistant_rail":
-
-                new Thread() {
-                    @Override
-                    public void run() {
-                        String path = getApplicationInfo().dataDir;
-                        boolean suitableMethodFound = true;
-                        copyAssets();
-
-                        appendText(logs, "\n\n-- Reverting assistant in navbar hack  --");
-                        appendText(logs, runSuWithCmd(
-                                path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                        "'DROP TRIGGER IF EXISTS aa_assistant_rail;'"
-                        ).getStreamLogsWithLabels());
-                        save(false, "aa_assistant_rail");
-                    }
-
-
-                }.start();
-                break;
-
-            case "aa_startup_policy":
-                new Thread() {
-                    @Override
-                    public void run() {
-                        String path = getApplicationInfo().dataDir;
-                        boolean suitableMethodFound = true;
-                        copyAssets();
-
-                        appendText(logs, "\n\n-- Reverting assistant in navbar hack  --");
-                        appendText(logs, runSuWithCmd(
-                                path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                        "'DROP TRIGGER IF EXISTS aa_startup_policy;'"
-                        ).getStreamLogsWithLabels());
-                        save(false, "aa_startup_policy");
-                    }
-
-
-                }.start();
-                break;
-
-            case "aa_battery_outline":
-                new Thread() {
-                    @Override
-                    public void run() {
-                        String path = getApplicationInfo().dataDir;
-                        boolean suitableMethodFound = true;
-                        copyAssets();
-                        appendText(logs, "\n\n-- Reverting assistant in navbar hack  --");
-                        appendText(logs, runSuWithCmd(
-                                path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                        "'DROP TRIGGER IF EXISTS aa_battery_outline;'"
-                        ).getStreamLogsWithLabels());
-                        save(false, "aa_battery_outline");
-                    }
-
-
-                }.start();
-                break;
-        }
 
     }
 
@@ -843,7 +720,7 @@ rebootButton.setVisibility(View.VISIBLE);
                                         "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"LauncherShortcuts__assistant_shortcut_enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1) ,1,1);\n" +
                                         "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"LauncherShortcuts__enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1) ,1,1);\n" +
                                         "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"LauncherShortcuts__assistant_shortcut_enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1) ,1,1);\n" +
-                                        "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"LauncherShortcuts__enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1) ,1,1);'" +
+                                        "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"LauncherShortcuts__enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1) ,1,1);" +
                                         "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"LauncherShortcuts__assistant_shortcut_enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1) ,1,1);\n'"
                         ).getStreamLogsWithLabels());
 
