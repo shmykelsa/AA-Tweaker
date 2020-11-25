@@ -400,7 +400,7 @@ rebootButton.setVisibility(View.VISIBLE);
                 appendText(logs, "\n\n-- Reverting the hack  --");
                 appendText(logs, runSuWithCmd(
                         path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                "'DROP TRIGGER IF EXISTS" + toRevert + ";'\n"
+                                "'DROP TRIGGER IF EXISTS " + toRevert + ";'\n"
                 ).getStreamLogsWithLabels());
                 appendText(logs, runSuWithCmd(
                         path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +

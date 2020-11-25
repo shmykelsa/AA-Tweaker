@@ -69,11 +69,12 @@
 
     <Button
         android:id="@+id/nospeed"
-        android:layout_width="@dimen/button_width_constant"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="true"
         android:text="@string/unlimited_scrolling_when_driving"
+        app:layout_constraintEnd_toStartOf="@id/speedhackstatus"
         app:layout_constraintBottom_toTopOf="@+id/taplimit"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appPatchLayout" />
@@ -83,26 +84,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_baseline_check_circle_24"
+        android:layout_marginEnd="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/nospeed"
         app:layout_constraintStart_toEndOf="@+id/nospeed"
         app:layout_constraintTop_toTopOf="@+id/nospeed" />
 
     <Button
         android:id="@+id/taplimit"
-        android:layout_width="@dimen/button_width_constant"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="true"
         android:text="@string/disable_speed_limitations"
+        app:layout_constraintEnd_toStartOf="@id/sixtapstatus"
         app:layout_constraintBottom_toTopOf="@+id/assistshort"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nospeed" />
 
     <ImageView
         android:id="@+id/sixtapstatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:src="@drawable/ic_baseline_check_circle_24"
+        android:layout_marginEnd="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/taplimit"
         app:layout_constraintStart_toEndOf="@+id/taplimit"
         app:layout_constraintTop_toTopOf="@+id/taplimit" />
@@ -110,11 +116,12 @@
 
     <Button
         android:id="@+id/assistshort"
-        android:layout_width="@dimen/button_width_constant"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="true"
         android:text="@string/enable_assistant_shortcuts"
+        app:layout_constraintEnd_toStartOf="@id/shortcutstatus"
         app:layout_constraintBottom_toTopOf="@+id/assistanim"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/taplimit" />
@@ -124,6 +131,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_baseline_check_circle_24"
+        android:layout_marginEnd="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/assistshort"
         app:layout_constraintStart_toEndOf="@+id/assistshort"
         app:layout_constraintTop_toTopOf="@+id/assistshort" />
@@ -131,12 +140,12 @@
 
     <Button
         android:id="@+id/assistanim"
-        android:layout_width="@dimen/button_width_constant"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:textSize="12dp"
         android:focusable="true"
         android:text="@string/enable_assistant_animation_in_navbar"
+        app:layout_constraintEnd_toStartOf="@id/assistanimstatus"
         app:layout_constraintBottom_toTopOf="@+id/startup"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/assistshort" />
@@ -146,6 +155,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_baseline_check_circle_24"
+        android:layout_marginEnd="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/assistanim"
         app:layout_constraintStart_toEndOf="@+id/assistanim"
         app:layout_constraintTop_toTopOf="@+id/assistanim" />
@@ -153,11 +164,12 @@
 
     <Button
         android:id="@+id/startup"
-        android:layout_width="@dimen/button_width_constant"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="true"
         android:text="@string/navigation_at_start"
+        app:layout_constraintEnd_toStartOf="@id/navstatus"
         app:layout_constraintBottom_toTopOf="@+id/battoutline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/assistanim" />
@@ -167,6 +179,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_baseline_check_circle_24"
+        android:layout_marginEnd="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/startup"
         app:layout_constraintStart_toEndOf="@+id/startup"
         app:layout_constraintTop_toTopOf="@+id/startup" />
@@ -174,11 +188,12 @@
 
     <Button
         android:id="@+id/battoutline"
-        android:layout_width="@dimen/button_width_constant"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="true"
         android:text="@string/battery_outline_string"
+        app:layout_constraintEnd_toStartOf="@id/batterystatus"
         app:layout_constraintBottom_toTopOf="@+id/logs"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/startup" />
@@ -188,6 +203,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_baseline_check_circle_24"
+        android:layout_marginEnd="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/battoutline"
         app:layout_constraintStart_toEndOf="@+id/battoutline"
         app:layout_constraintTop_toTopOf="@+id/battoutline" />
