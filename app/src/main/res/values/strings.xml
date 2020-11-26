@@ -18,6 +18,9 @@
     <string name="battery_outline_string"> battery saver outline</string>
     <string name="dialog_text">This app has been developed by Shmykelsa </string>
     <string name="legend">Status Legend:\nGREEN= Patch applied\nYELLOW= Patch need reboot to be applied\nRED= Patch is not applied</string>
+    <string name="set_notification_duration_to">Notification duration to</string>
+    <string name="base_no_ws">Widescreen</string>
+    <string name="force_widescreen_text">Force Widescreen</string>
 
     <!-- Strings related to Settings -->
 

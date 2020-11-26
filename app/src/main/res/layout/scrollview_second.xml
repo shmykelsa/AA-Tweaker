@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+        <Button
+            android:id="@+id/assistanim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/enable_assistant_animation_in_navbar"
+            android:layout_toStartOf="@id/assistanimstatus"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"/>
+
+        <ImageView
+            android:id="@+id/assistanimstatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_check_circle_24"
+            android:layout_marginEnd="3dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@id/assistanim"
+            android:layout_alignBottom="@id/assistanim" />
+
+        <Button
+            android:id="@+id/statusbar_opaque"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/statb_opaque_string"
+            android:layout_below="@id/assistanim"
+            android:layout_alignStart="@id/assistanim"
+            android:layout_alignEnd="@id/assistanim" />
+
+        <ImageView
+            android:id="@+id/statusbar_opaque_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_check_circle_24"
+            android:layout_marginEnd="3dp"
+            android:layout_toEndOf="@id/statusbar_opaque"
+            android:layout_alignTop="@id/statusbar_opaque"
+            android:layout_alignBottom="@id/statusbar_opaque"/>
+
+
+        <Button
+            android:id="@+id/battoutline"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/battery_outline_string"
+            android:layout_alignStart="@id/statusbar_opaque"
+            android:layout_alignEnd="@id/statusbar_opaque"
+            android:layout_below="@id/statusbar_opaque"/>
+
+        <ImageView
+            android:id="@+id/batterystatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_check_circle_24"
+            android:layout_marginEnd="3dp"
+            android:layout_alignTop="@id/battoutline"
+            android:layout_toEndOf="@id/battoutline"
+            android:layout_alignBottom="@id/battoutline" />
+
+        <Button
+            android:id="@+id/hunthrottlingbutton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/set_notification_duration_to"
+            android:layout_alignStart="@id/battoutline"
+            android:layout_alignEnd="@id/battoutline"
+            android:layout_below="@id/battoutline"/>
+
+        <ImageView
+            android:id="@+id/huntrottlingstatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_check_circle_24"
+            android:layout_marginEnd="3dp"
+            android:layout_alignTop="@id/hunthrottlingbutton"
+            android:layout_toEndOf="@id/hunthrottlingbutton"
+            android:layout_alignBottom="@id/hunthrottlingbutton" />
+
+        <SeekBar
+            android:id="@+id/hun_ms_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/hunthrottlingbutton"
+            android:layout_alignStart="@id/hunthrottlingbutton"
+            android:layout_toLeftOf="@id/seekbar_text"
+            android:paddingTop="12dp"
+            android:progressTint="#FF0000"
+            android:thumbTint="#660000"
+            android:max="20000" />
+
+        <TextView
+            android:id="@+id/seekbar_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/hun_ms_value"
+            android:layout_alignBottom="@+id/hun_ms_value"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="3dp"
+            android:gravity="center" />
+
+
+</RelativeLayout>

@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
@@ -19,8 +20,11 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.rd.PageIndicatorView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -51,6 +55,16 @@ public class MainActivity extends AppCompatActivity {
         loadStatus(mysharedpreferences, path);
 
         setContentView(R.layout.activity_main);
+
+        ViewPager viewPager = findViewById(R.id.viewpager);
+        CommonPageAdapter adapter = new CommonPageAdapter();
+        adapter.insertViewId(R.id.page_one);
+        adapter.insertViewId(R.id.page_two);
+
+        viewPager.setAdapter(adapter);
+
+
+
         Toolbar myToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
         Button toapp = findViewById(R.id.toapp_button);
@@ -345,7 +359,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         if (load("aa_battery_outline")){
                             revert("aa_battery_outline");
-                            batteryoutline.setText("Enable " + getText(R.string.battery_outline_string));
+                            batteryoutline.setText("Disable " + getText(R.string.battery_outline_string));
                             batterystatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             batterystatus.setColorFilter(Color.argb(255,255,0,0));
                             if(!animationRun[0]) {
@@ -356,7 +370,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else {
                             battOutline(view);
-                            batteryoutline.setText("Disable " + getText(R.string.battery_outline_string));
+                            batteryoutline.setText("Enable " + getText(R.string.battery_outline_string));
                             batterystatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             batterystatus.setColorFilter(Color.argb(255,255,255,0));
                             if(!animationRun[0]) {
@@ -369,7 +383,7 @@ public class MainActivity extends AppCompatActivity {
                 });
 
         final Button statusbaropaque = findViewById(R.id.statusbar_opaque);
-        final ImageView opauqestatus = findViewById(R.id.statusbar_opaque);
+        final ImageView opauqestatus = findViewById(R.id.statusbar_opaque_status);
         if(load("aa_sb_opaque")) {
             statusbaropaque.setText("Enable " + getText(R.string.statb_opaque_string));
             opauqestatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
@@ -381,7 +395,7 @@ public class MainActivity extends AppCompatActivity {
             opauqestatus.setColorFilter(Color.argb(255,255,0,0));
         }
 
-        batteryoutline.setOnClickListener(
+        statusbaropaque.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -409,6 +423,173 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+
+        final Button forceNoWideScreen = findViewById(R.id.force__no_ws_button);
+        final ImageView forceNoWideScreenStatus = findViewById(R.id.force_no_ws_status);
+
+        final Button forceWideScreenButton = findViewById(R.id.force_ws_button);
+        final ImageView forceWideScreenStatus = findViewById(R.id.force_ws_status);
+
+        if(load("force_ws")) {
+            forceWideScreenButton.setText("Disable " + getText(R.string.force_widescreen_text));
+            forceWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
+            forceWideScreenStatus.setColorFilter(Color.argb(255,0,255,0));
+
+        } else {
+            forceWideScreenButton.setText("Enable " + getText(R.string.force_widescreen_text));
+            forceWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
+            forceWideScreenStatus.setColorFilter(Color.argb(255,255,0,0));
+        }
+
+        forceWideScreenButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (load("force_ws")){
+                            revert("force_ws");
+                            forceWideScreenButton.setText("Enable " + getText(R.string.force_widescreen_text));
+                            forceWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
+                            forceWideScreenStatus.setColorFilter(Color.argb(255,255,0,0));
+                            if(!animationRun[0]) {
+                                rebootButton.setVisibility(View.VISIBLE);
+                                anim.start();
+                                animationRun[0] = true;
+                            }
+                        }
+                        else {
+                            forceWideScreen(view, 470);
+                            forceWideScreenButton.setText("Disable " + getText(R.string.force_widescreen_text));
+                            forceWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
+                            forceWideScreenStatus.setColorFilter(Color.argb(255,255,255,0));
+                            save(false,"force_no_ws");
+                            forceNoWideScreen.setText("Force Disable " + getText(R.string.base_no_ws));
+                            forceNoWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
+                            forceNoWideScreenStatus.setColorFilter(Color.argb(255,255,0,0));
+                            if(!animationRun[0]) {
+                                rebootButton.setVisibility(View.VISIBLE);
+                                anim.start();
+                                animationRun[0] = true;
+                            }
+                        }
+                    }
+                });
+
+
+        if(load("force_ws")) {
+            forceNoWideScreen.setText("Reset " + getText(R.string.base_no_ws));
+            forceNoWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
+            forceNoWideScreenStatus.setColorFilter(Color.argb(255,0,255,0));
+
+        } else {
+            forceNoWideScreen.setText("Force Disable " + getText(R.string.base_no_ws));
+            forceNoWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
+            forceNoWideScreenStatus.setColorFilter(Color.argb(255,255,0,0));
+        }
+
+        forceNoWideScreen.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (load("force_no_ws")){
+                            revert("force_no_ws");
+                            forceNoWideScreen.setText("Force Disable " + getText(R.string.base_no_ws));
+                            forceNoWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
+                            forceNoWideScreenStatus.setColorFilter(Color.argb(255,255,0,0));
+                            if(!animationRun[0]) {
+                                rebootButton.setVisibility(View.VISIBLE);
+                                anim.start();
+                                animationRun[0] = true;
+                            }
+                        }
+                        else {
+                            forceWideScreen(view, 1921);
+                            forceNoWideScreen.setText("Reset " + getText(R.string.base_no_ws));
+                            forceNoWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
+                            forceNoWideScreenStatus.setColorFilter(Color.argb(255,255,255,0));
+                            save(false, "force_ws");
+                            forceWideScreenButton.setText("Disable " + getText(R.string.force_widescreen_text));
+                            forceWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
+                            forceWideScreenStatus.setColorFilter(Color.argb(255,255,0,0));
+                            if(!animationRun[0]) {
+                                rebootButton.setVisibility(View.VISIBLE);
+                                anim.start();
+                                animationRun[0] = true;
+                            }
+                        }
+                    }
+                });
+
+
+        final Button huntrottling = findViewById(R.id.hunthrottlingbutton);
+        final int[] scrollbarStatus = {0};
+        final TextView displayValue = findViewById(R.id.seekbar_text);
+        final SeekBar hunSeekbar = findViewById(R.id.hun_ms_value);
+        hunSeekbar.setProgress(8000);
+        displayValue.setText(hunSeekbar.getProgress() + "ms");
+        hunSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                displayValue.setText(hunSeekbar.getProgress() + "ms");
+                huntrottling.setText("Set " + getText(R.string.set_notification_duration_to) + " " + hunSeekbar.getProgress()+ " ms");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                displayValue.setText(hunSeekbar.getProgress() + "ms");
+                huntrottling.setText("Set " + getText(R.string.set_notification_duration_to) + " " + hunSeekbar.getProgress()+ " ms");
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                scrollbarStatus[0] = hunSeekbar.getProgress();
+                displayValue.setText(hunSeekbar.getProgress() + "ms");
+                huntrottling.setText("Set " + getText(R.string.set_notification_duration_to) + " " + hunSeekbar.getProgress()+ " ms");
+            }
+        });
+
+
+        final ImageView hunstatus = findViewById(R.id.huntrottlingstatus);
+        if(load("aa_hun_ms")) {
+            huntrottling.setText("reset " + getText(R.string.set_notification_duration_to) + " default");
+            hunstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
+            hunstatus.setColorFilter(Color.argb(255,0,255,0));
+
+        } else {
+            huntrottling.setText("Set " + getText(R.string.set_notification_duration_to));
+            hunstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
+            hunstatus.setColorFilter(Color.argb(255,255,0,0));
+        }
+
+        huntrottling.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (load("aa_hun_ms")){
+                            revert("aa_hun_ms");
+                            huntrottling.setText("Set " + getText(R.string.set_notification_duration_to));
+                            hunstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
+                            hunSeekbar.setProgress(8000);
+                            hunstatus.setColorFilter(Color.argb(255,255,0,0));
+                            if(!animationRun[0]) {
+                                rebootButton.setVisibility(View.VISIBLE);
+                                anim.start();
+                                animationRun[0] = true;
+                            }
+                        }
+                        else {
+                            setHunDuration(view, scrollbarStatus[0]);
+                            huntrottling.setText("reset " + getText(R.string.set_notification_duration_to) + " default");
+                            hunstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
+                            hunstatus.setColorFilter(Color.argb(255,255,255,0));
+                            if(!animationRun[0]) {
+                                rebootButton.setVisibility(View.VISIBLE);
+                                anim.start();
+                                animationRun[0] = true;
+                            }
+                        }
+                    }
+                });
+
     }
 
 
@@ -1269,6 +1450,123 @@ public class MainActivity extends AppCompatActivity {
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "aa_sb_opaque");
+                } else {
+                    suitableMethodFound = false;
+                    appendText(logs, "\n\n--  Suitable method NOT found!  --");
+                }
+
+            }
+        }.start();
+
+    }
+
+    public void setHunDuration (View view, final int value) {
+        final TextView logs = findViewById(R.id.logs);
+        logs.setHorizontallyScrolling(true);
+        logs.setMovementMethod(new ScrollingMovementMethod());
+        logs.setText(null);
+
+        new Thread() {
+            @Override
+            public void run() {
+                String path = getApplicationInfo().dataDir;
+                boolean suitableMethodFound = true;
+                copyAssets();
+
+                appendText(logs, "\n\n-- Drop Triggers  --");
+                appendText(logs, runSuWithCmd(
+                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'DROP TRIGGER IF EXISTS aa_hun_ms;'"
+                ).getStreamLogsWithLabels());
+
+                if (runSuWithCmd(
+                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'SELECT 1 FROM ApplicationStates WHERE packageName=\"com.google.android.projection.gearhead\"'").getInputStreamLog().equals("1")) {
+
+                    appendText(logs, "\n\n--  run SQL method   --");
+                    appendText(logs, runSuWithCmd(
+                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                    "'DELETE FROM Flags WHERE name=\"SystemUi__hun_default_heads_up_timeout_ms\";"+
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__hun_default_heads_up_timeout_ms\", \"\"," + value + ",1);\n" +
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__hun_default_heads_up_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),\" + value + \",1);\n" +
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__hun_default_heads_up_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),\" + value + \",1);\n" +
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__hun_default_heads_up_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),\" + value + \",1);\n'"
+                    ).getStreamLogsWithLabels());
+
+                    appendText(logs, runSuWithCmd(
+                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                    "'CREATE TRIGGER aa_hun_ms AFTER DELETE\n" +
+                                    "ON FlagOverrides\n" +
+                                    "BEGIN\n" +
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__hun_default_heads_up_timeout_ms\", \"\"," + value + ",1);\n" +
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__hun_default_heads_up_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),\" + value + \",1);\n" +
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__hun_default_heads_up_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),\" + value + \",1);\n" +
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__hun_default_heads_up_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),\" + value + \",1);\n" +
+                                    "END;'\n"
+                    ).getStreamLogsWithLabels());
+                    appendText(logs, "\n--  end SQL method  --");
+                    save(true, "aa_hun_ms");
+                } else {
+                    suitableMethodFound = false;
+                    appendText(logs, "\n\n--  Suitable method NOT found!  --");
+                }
+
+            }
+        }.start();
+
+    }
+
+    public void forceWideScreen (View view, final int value) {
+        final TextView logs = findViewById(R.id.logs);
+        logs.setHorizontallyScrolling(true);
+        logs.setMovementMethod(new ScrollingMovementMethod());
+        logs.setText(null);
+
+        new Thread() {
+            @Override
+            public void run() {
+                String path = getApplicationInfo().dataDir;
+                boolean suitableMethodFound = true;
+                copyAssets();
+
+                appendText(logs, "\n\n-- Drop Triggers  --");
+                appendText(logs, runSuWithCmd(
+                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'DROP TRIGGER IF EXISTS aa_ws; DROP TRIGGER IF EXISTS aa_no_ws;'"
+                ).getStreamLogsWithLabels());
+
+                if (runSuWithCmd(
+                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'SELECT 1 FROM ApplicationStates WHERE packageName=\"com.google.android.projection.gearhead\"'").getInputStreamLog().equals("1")) {
+
+                    appendText(logs, "\n\n--  run SQL method   --");
+                    appendText(logs, runSuWithCmd(
+                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                    "'INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__widescreen_breakpoint_dp\", \"\"," + value + ",1);\n" +
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__widescreen_breakpoint_dp\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),\" + value + \",1);\n" +
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__widescreen_breakpoint_dp\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),\" + value + \",1);\n" +
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__widescreen_breakpoint_dp\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),\" + value + \",1);\n'"
+                    ).getStreamLogsWithLabels());
+
+                    String decideWhat = new String();
+                    switch (value) {
+                        case 470: decideWhat = "aa_ws";
+                        case 1921: decideWhat = "aa_no_ws";
+                    }
+
+                    appendText(logs, runSuWithCmd(
+                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                    "'CREATE TRIGGER " + decideWhat + " AFTER DELETE\n" +
+                                    "ON FlagOverrides\n" +
+                                    "BEGIN\n" +
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__widescreen_breakpoint_dp\", \"\"," + value + ",1);\n" +
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__widescreen_breakpoint_dp\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),\" + value + \",1);\n" +
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__widescreen_breakpoint_dp\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),\" + value + \",1);\n" +
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__widescreen_breakpoint_dp\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),\" + value + \",1);\n" +
+                                    "END;'\n"
+                    ).getStreamLogsWithLabels());
+                    appendText(logs, "\n--  end SQL method  --");
+                    save(true, "force_ws");
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
