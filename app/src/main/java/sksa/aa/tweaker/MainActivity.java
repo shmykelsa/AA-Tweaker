@@ -476,7 +476,7 @@ public class MainActivity extends AppCompatActivity {
                 });
 
 
-        if(load("force_ws")) {
+        if(load("force_no_ws")) {
             forceNoWideScreen.setText("Reset " + getText(R.string.base_no_ws));
             forceNoWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
             forceNoWideScreenStatus.setColorFilter(Color.argb(255,0,255,0));
@@ -525,12 +525,13 @@ public class MainActivity extends AppCompatActivity {
         final int[] scrollbarStatus = {0};
         final TextView displayValue = findViewById(R.id.seekbar_text);
         final SeekBar hunSeekbar = findViewById(R.id.hun_ms_value);
-        hunSeekbar.incrementProgressBy(100);
         hunSeekbar.setProgress(8000);
         displayValue.setText(hunSeekbar.getProgress() + "ms");
         hunSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                progress = ((int)Math.round(progress/100))*100;
+                seekBar.setProgress(progress);
                 displayValue.setText(hunSeekbar.getProgress() + "ms");
                 huntrottling.setText("Set " + getText(R.string.set_notification_duration_to) + " " + hunSeekbar.getProgress()+ " ms");
             }
@@ -566,7 +567,7 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (load("aa_hun_ms")){
+                        if (load("aa_hun_ms") && hunSeekbar.getProgress() == 8000){
                             revert("aa_hun_ms");
                             huntrottling.setText("Set " + getText(R.string.set_notification_duration_to));
                             hunstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
@@ -1552,8 +1553,8 @@ public class MainActivity extends AppCompatActivity {
 
                     String decideWhat = new String();
                     switch (value) {
-                        case 470: decideWhat = "aa_ws";
-                        case 1921: decideWhat = "aa_no_ws";
+                        case 470: decideWhat = "force_ws";
+                        case 1921: decideWhat = "force_no_ws";
                     }
 
                     appendText(logs, runSuWithCmd(

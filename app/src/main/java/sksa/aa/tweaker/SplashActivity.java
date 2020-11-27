@@ -1,7 +1,10 @@
 package sksa.aa.tweaker;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +23,23 @@ public class SplashActivity extends AppCompatActivity {
 
         MainActivity rootChecker = new MainActivity();
         final StreamLogs isDeviceRooted =  runSuWithCmd("echo 1");
+
+        SharedPreferences sharedPreferences = getSharedPreferences("MainActivity", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("aa_speed_hack", false);
+        editor.putBoolean("assist_short", false);
+        editor.putBoolean("aa_six_tap", false);
+        editor.putBoolean("aa_startup_policy", false);
+        editor.putBoolean("aa_patched_apps", false);
+        editor.putBoolean("aa_assistant_rail", false);
+        editor.putBoolean("aa_battery_outline", false);
+        editor.putBoolean("aa_sb_opaque", false);
+        editor.putBoolean("force_ws", false);
+        editor.putBoolean("force_no_ws", false);
+        editor.putBoolean("aa_hun_ms", false);
+        editor.commit();
+
+
 
         Button continueButton = findViewById(R.id.proceed_button);
         continueButton.setOnClickListener(
