@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+        <Button
+            android:id="@+id/force_ws_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/force_widescreen_text"
+            android:layout_toStartOf="@id/force_ws_status"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"/>
+
+        <ImageView
+            android:id="@+id/force_ws_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_check_circle_24"
+            android:layout_marginEnd="3dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@id/force_ws_button"
+            android:layout_alignBottom="@id/force_ws_button"/>
+
+        <Button
+            android:id="@+id/force__no_ws_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/base_no_ws"
+            android:layout_alignEnd="@id/force_ws_button"
+            android:layout_alignStart="@id/force_ws_button"
+            android:layout_below="@id/force_ws_button"/>
+
+        <ImageView
+            android:id="@+id/force_no_ws_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_check_circle_24"
+            android:layout_marginEnd="3dp"
+            android:layout_toEndOf="@id/force__no_ws_button"
+            android:layout_alignTop="@id/force__no_ws_button"
+            android:layout_alignBottom="@id/force__no_ws_button"/>
+
+</RelativeLayout>
+

@@ -43,9 +43,6 @@ public class CommonPageAdapter extends PagerAdapter {
     }
 
 
-
-
-
     @Override
     public int getItemPosition(@NonNull Object object) {
         return POSITION_NONE;

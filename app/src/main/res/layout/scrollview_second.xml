@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
         <Button
             android:id="@+id/assistanim"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
             android:text="@string/enable_assistant_animation_in_navbar"
-            android:layout_toStartOf="@id/assistanimstatus"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"/>
+            app:layout_constraintEnd_toStartOf="@id/assistanimstatus"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
             android:id="@+id/assistanimstatus"
@@ -20,9 +20,9 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_baseline_check_circle_24"
             android:layout_marginEnd="3dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignTop="@id/assistanim"
-            android:layout_alignBottom="@id/assistanim" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/assistanim"
+            app:layout_constraintBottom_toBottomOf="@id/assistanim"/>
 
         <Button
             android:id="@+id/statusbar_opaque"
@@ -31,9 +31,9 @@
             android:clickable="true"
             android:focusable="true"
             android:text="@string/statb_opaque_string"
-            android:layout_below="@id/assistanim"
-            android:layout_alignStart="@id/assistanim"
-            android:layout_alignEnd="@id/assistanim" />
+            app:layout_constraintEnd_toStartOf="@id/assistanimstatus"
+            app:layout_constraintTop_toBottomOf="@id/assistanim"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
             android:id="@+id/statusbar_opaque_status"
@@ -41,9 +41,9 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_baseline_check_circle_24"
             android:layout_marginEnd="3dp"
-            android:layout_toEndOf="@id/statusbar_opaque"
-            android:layout_alignTop="@id/statusbar_opaque"
-            android:layout_alignBottom="@id/statusbar_opaque"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/statusbar_opaque"
+            app:layout_constraintBottom_toBottomOf="@id/statusbar_opaque"/>
 
 
         <Button
@@ -53,9 +53,9 @@
             android:clickable="true"
             android:focusable="true"
             android:text="@string/battery_outline_string"
-            android:layout_alignStart="@id/statusbar_opaque"
-            android:layout_alignEnd="@id/statusbar_opaque"
-            android:layout_below="@id/statusbar_opaque"/>
+            app:layout_constraintEnd_toStartOf="@id/assistanimstatus"
+            app:layout_constraintTop_toBottomOf="@id/statusbar_opaque"
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <ImageView
             android:id="@+id/batterystatus"
@@ -63,9 +63,9 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_baseline_check_circle_24"
             android:layout_marginEnd="3dp"
-            android:layout_alignTop="@id/battoutline"
-            android:layout_toEndOf="@id/battoutline"
-            android:layout_alignBottom="@id/battoutline" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/battoutline"
+            app:layout_constraintBottom_toBottomOf="@id/battoutline" />
 
         <Button
             android:id="@+id/hunthrottlingbutton"
@@ -74,9 +74,9 @@
             android:clickable="true"
             android:focusable="true"
             android:text="@string/set_notification_duration_to"
-            android:layout_alignStart="@id/battoutline"
-            android:layout_alignEnd="@id/battoutline"
-            android:layout_below="@id/battoutline"/>
+            app:layout_constraintEnd_toStartOf="@id/assistanimstatus"
+            app:layout_constraintTop_toBottomOf="@id/battoutline"
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <ImageView
             android:id="@+id/huntrottlingstatus"
@@ -84,17 +84,17 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_baseline_check_circle_24"
             android:layout_marginEnd="3dp"
-            android:layout_alignTop="@id/hunthrottlingbutton"
-            android:layout_toEndOf="@id/hunthrottlingbutton"
-            android:layout_alignBottom="@id/hunthrottlingbutton" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/hunthrottlingbutton"
+            app:layout_constraintBottom_toBottomOf="@id/hunthrottlingbutton" />
 
         <SeekBar
             android:id="@+id/hun_ms_value"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/hunthrottlingbutton"
-            android:layout_alignStart="@id/hunthrottlingbutton"
-            android:layout_toLeftOf="@id/seekbar_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/hunthrottlingbutton"
+            app:layout_constraintEnd_toStartOf="@id/seekbar_text"
             android:paddingTop="12dp"
             android:progressTint="#FF0000"
             android:thumbTint="#660000"
@@ -102,13 +102,13 @@
 
         <TextView
             android:id="@+id/seekbar_text"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/hun_ms_value"
-            android:layout_alignBottom="@+id/hun_ms_value"
-            android:layout_alignParentEnd="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/hun_ms_value"
+            app:layout_constraintBottom_toBottomOf="@id/hun_ms_value"
             android:layout_marginEnd="3dp"
             android:gravity="center" />
 
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>
