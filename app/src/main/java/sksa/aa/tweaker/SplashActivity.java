@@ -37,6 +37,7 @@ public class SplashActivity extends AppCompatActivity {
         editor.putBoolean("aa_ws", false);
         editor.putBoolean("aa_no_ws", false);
         editor.putBoolean("aa_hun_ms", false);
+        editor.putBoolean("aa_media_hun", false);
         editor.commit();
 
 

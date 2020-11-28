@@ -92,12 +92,14 @@
             android:id="@+id/hun_ms_value"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/hunthrottlingbutton"
             app:layout_constraintEnd_toStartOf="@id/seekbar_text"
             android:paddingTop="12dp"
             android:progressTint="#FF0000"
             android:thumbTint="#660000"
+            android:thumb="@drawable/thumb_bg"
             android:max="20000" />
 
         <TextView
@@ -109,6 +111,52 @@
             app:layout_constraintBottom_toBottomOf="@id/hun_ms_value"
             android:layout_marginEnd="3dp"
             android:gravity="center" />
+
+        <Button
+            android:id="@+id/media_throttling_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/media_notification_duration_to"
+            app:layout_constraintEnd_toEndOf="@id/hunthrottlingbutton"
+            app:layout_constraintTop_toBottomOf="@id/hun_ms_value"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <ImageView
+            android:id="@+id/media_trhrottling_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_check_circle_24"
+            android:layout_marginEnd="3dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/media_throttling_button"
+            app:layout_constraintBottom_toBottomOf="@id/media_throttling_button" />
+
+        <SeekBar
+            android:id="@+id/media_hun_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/media_throttling_button"
+            app:layout_constraintEnd_toStartOf="@id/second_seekbar_text"
+            android:paddingTop="12dp"
+            android:progressTint="#FF0000"
+            android:thumbTint="#660000"
+            android:thumb="@drawable/thumb_bg"
+            android:max="900000" />
+
+        <TextView
+            android:id="@+id/second_seekbar_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/media_hun_value"
+            app:layout_constraintBottom_toBottomOf="@id/media_hun_value"
+            android:layout_marginEnd="3dp"
+            android:gravity="center" />
+
+
 
 
 </android.support.constraint.ConstraintLayout>

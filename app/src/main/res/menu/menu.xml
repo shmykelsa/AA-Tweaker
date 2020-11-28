@@ -5,8 +5,14 @@
         android:title="Copy log"
         app:showAsAction="never"/>
 
-    <item android:id="@+id/about"
+    <item
+        android:id="@+id/about"
         android:title="About"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/revert_everything"
+        android:title="Revert everything"
+        app:showAsAction="never" />
 
 </menu>

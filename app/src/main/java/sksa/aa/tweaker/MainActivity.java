@@ -1,5 +1,7 @@
 package sksa.aa.tweaker;
 
+import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -24,8 +26,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.rd.PageIndicatorView;
-
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -34,10 +34,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings("ALL")
 public class MainActivity extends AppCompatActivity {
+
+    public static String appDirectory = new String();
 
     private static Context mContext;
 
@@ -52,8 +55,8 @@ public class MainActivity extends AppCompatActivity {
         copyAssets();
         SharedPreferences mysharedpreferences = getPreferences(MODE_PRIVATE);
         final String path = getApplicationInfo().dataDir;
+        appDirectory = path;
         loadStatus(mysharedpreferences, path);
-
         setContentView(R.layout.activity_main);
 
         ViewPager viewPager = findViewById(R.id.viewpager);
@@ -592,6 +595,77 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+        final Button mediathrottlingbutton = findViewById(R.id.media_throttling_button);
+        final int[] secondScrollBarStatus = {0};
+        final TextView secondDisplayValue = findViewById(R.id.second_seekbar_text);
+        final SeekBar mediaSeekbar = findViewById(R.id.media_hun_value);
+        mediaSeekbar.setProgress(8000);
+        secondDisplayValue.setText(mediaSeekbar.getProgress() + "ms");
+        mediaSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                progress = ((int)Math.round(progress/1000))*1000;
+                mediaSeekbar.setProgress(progress);
+                secondDisplayValue.setText(mediaSeekbar.getProgress() + "ms");
+                mediathrottlingbutton.setText("Set " + getText(R.string.media_notification_duration_to) + " " + mediaSeekbar.getProgress()+ " ms");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                secondDisplayValue.setText(mediaSeekbar.getProgress() + "ms");
+                mediathrottlingbutton.setText("Set " + getText(R.string.media_notification_duration_to) + " " + mediaSeekbar.getProgress()+ " ms");
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                secondScrollBarStatus[0] = mediaSeekbar.getProgress();
+                secondDisplayValue.setText(mediaSeekbar.getProgress() + "ms");
+                mediathrottlingbutton.setText("Set " + getText(R.string.media_notification_duration_to) + " " + mediaSeekbar.getProgress()+ " ms");
+            }
+        });
+
+
+        final ImageView mediaHunStatus = findViewById(R.id.media_trhrottling_status);
+        if(load("aa_media_hun")) {
+            mediathrottlingbutton.setText("reset " + getText(R.string.media_notification_duration_to) + " default");
+            mediaHunStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
+            mediaHunStatus.setColorFilter(Color.argb(255,0,255,0));
+
+        } else {
+            mediathrottlingbutton.setText("Set " + getText(R.string.media_notification_duration_to));
+            mediaHunStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
+            mediaHunStatus.setColorFilter(Color.argb(255,255,0,0));
+        }
+
+        mediathrottlingbutton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (load("aa_media_hun") && mediaSeekbar.getProgress() == 8000){
+                            revert("aa_media_hun");
+                            mediaSeekbar.setProgress(8000);
+                            mediathrottlingbutton.setText("Set " + getText(R.string.media_notification_duration_to));
+                            mediaHunStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
+                            mediaHunStatus.setColorFilter(Color.argb(255,255,0,0));
+                            if(!animationRun[0]) {
+                                rebootButton.setVisibility(View.VISIBLE);
+                                anim.start();
+                                animationRun[0] = true;
+                            }
+                        }
+                        else {
+                            setMediaHunDuration(view, mediaSeekbar.getProgress());
+                            mediathrottlingbutton.setText("reset " + getText(R.string.media_notification_duration_to) + " default");
+                            mediaHunStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
+                            mediaHunStatus.setColorFilter(Color.argb(255,255,255,0));
+                            if(!animationRun[0]) {
+                                rebootButton.setVisibility(View.VISIBLE);
+                                anim.start();
+                                animationRun[0] = true;
+                            }
+                        }
+                    }
+                });
     }
 
 
@@ -628,7 +702,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -644,6 +717,9 @@ public class MainActivity extends AppCompatActivity {
                 DialogFragment aboutDialog = new AboutDialog();
                 aboutDialog.show(getSupportFragmentManager(), "AboutDialog");
 
+            case R.id.revert_everything:
+                final DialogFragment revertDialog = new RevertDialog();
+                revertDialog.show(getSupportFragmentManager(), "RevertDialog");
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -1518,6 +1594,62 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void setMediaHunDuration (View view, final int value) {
+        final TextView logs = findViewById(R.id.logs);
+        logs.setHorizontallyScrolling(true);
+        logs.setMovementMethod(new ScrollingMovementMethod());
+        logs.setText(null);
+
+        new Thread() {
+            @Override
+            public void run() {
+                String path = getApplicationInfo().dataDir;
+                boolean suitableMethodFound = true;
+                copyAssets();
+
+                appendText(logs, "\n\n-- Drop Triggers  --");
+                appendText(logs, runSuWithCmd(
+                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'DROP TRIGGER IF EXISTS aa_media_hun;'"
+                ).getStreamLogsWithLabels());
+
+                if (runSuWithCmd(
+                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'SELECT 1 FROM ApplicationStates WHERE packageName=\"com.google.android.projection.gearhead\"'").getInputStreamLog().equals("1")) {
+
+                    appendText(logs, "\n\n--  run SQL method   --");
+                    appendText(logs, runSuWithCmd(
+                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                    "'DELETE FROM Flags WHERE name=\"SystemUi__media_hun_in_rail_widget_timeout_ms\";"+
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__media_hun_in_rail_widget_timeout_ms\", \"\"," + value + ",1);\n" +
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__media_hun_in_rail_widget_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1)," + value + ",1);\n" +
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__media_hun_in_rail_widget_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1)," + value + ",1);\n" +
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__media_hun_in_rail_widget_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1)," + value + ",1);\n'"
+                    ).getStreamLogsWithLabels());
+
+                    appendText(logs, runSuWithCmd(
+                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                    "'CREATE TRIGGER aa_hun_ms AFTER DELETE\n" +
+                                    "ON FlagOverrides\n" +
+                                    "BEGIN\n" +
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__media_hun_in_rail_widget_timeout_ms\", \"\"," + value + ",1);\n" +
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__media_hun_in_rail_widget_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1)," + value + ",1);\n" +
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__media_hun_in_rail_widget_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1)," + value + ",1);\n" +
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__media_hun_in_rail_widget_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1)," + value + ",1);\n" +
+                                    "END;'\n"
+                    ).getStreamLogsWithLabels());
+                    appendText(logs, "\n--  end SQL method  --");
+                    save(true, "aa_media_hun");
+                } else {
+                    suitableMethodFound = false;
+                    appendText(logs, "\n\n--  Suitable method NOT found!  --");
+                }
+
+            }
+        }.start();
+
+    }
+
     public void forceWideScreen (View view, final int value) {
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
@@ -1692,16 +1824,39 @@ public class MainActivity extends AppCompatActivity {
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
                                     "'SELECT * FROM sqlite_master WHERE name=\""+ key + "\";'").getInputStreamLog().toString().isEmpty()) {
                         save(false, key);
-                        Log.v("AATWEAKER", "RAMO SI" + key );
                     } else {
                         save (true, key);
-                        Log.v("AATWEAKER", "RAMO NO");
                     }
                 }
             }
         });
 
     }
+
+    public static void getAndRemoveOptionsSelected() {
+        final String[] allTriggerString = {new String()};
+
+        new Thread() {
+            @Override
+            public void run() {
+                String path = appDirectory;
+                allTriggerString[0] = path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'";
+                String get_names = runSuWithCmd(
+                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND tbl_name=\"FlagOverrides\";'").getInputStreamLog();
+                Log.v ("AATW", get_names);
+                String[] lines = get_names.split(System.getProperty("line.separator"));
+                for (int i = 0; i < lines.length; i++) {
+                    runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'DROP TRIGGER IF EXISTS \"" + lines[i] + "\";'");
+                }
+                runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'DELETE * FROM FlagOverrides;'");
+            }
+
+        }.start();
+
+        return;
+    }
+
 
 
 

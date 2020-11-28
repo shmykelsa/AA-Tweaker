@@ -21,6 +21,7 @@
     <string name="set_notification_duration_to">Notification duration to</string>
     <string name="base_no_ws">Widescreen</string>
     <string name="force_widescreen_text">Force Widescreen</string>
+    <string name="media_notification_duration_to">Media notification duration to</string>
 
     <!-- Strings related to Settings -->
 
