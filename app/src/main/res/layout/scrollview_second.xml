@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_width="match_parent"
+    android:orientation="vertical">
+<android.support.constraint.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
         <Button
+            android:ellipsize="end"
+            android:maxLines="1"
             android:id="@+id/assistanim"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -25,6 +32,8 @@
             app:layout_constraintBottom_toBottomOf="@id/assistanim"/>
 
         <Button
+            android:ellipsize="end"
+            android:maxLines="1"
             android:id="@+id/statusbar_opaque"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -47,6 +56,8 @@
 
 
         <Button
+            android:ellipsize="end"
+            android:maxLines="1"
             android:id="@+id/battoutline"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -68,6 +79,8 @@
             app:layout_constraintBottom_toBottomOf="@id/battoutline" />
 
         <Button
+            android:ellipsize="end"
+            android:maxLines="1"
             android:id="@+id/hunthrottlingbutton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -113,6 +126,8 @@
             android:gravity="center" />
 
         <Button
+            android:ellipsize="end"
+            android:maxLines="1"
             android:id="@+id/media_throttling_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -160,3 +175,4 @@
 
 
 </android.support.constraint.ConstraintLayout>
+</ScrollView>
