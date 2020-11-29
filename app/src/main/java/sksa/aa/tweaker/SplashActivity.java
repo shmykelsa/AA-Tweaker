@@ -18,7 +18,6 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         final Intent intent = new Intent(this, MainActivity.class);
-
         final NoRootDialog noRootDialog = new NoRootDialog();
 
         MainActivity rootChecker = new MainActivity();

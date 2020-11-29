@@ -9,8 +9,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
         <Button
-            android:ellipsize="end"
-            android:maxLines="1"
             android:id="@+id/assistanim"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -32,8 +30,6 @@
             app:layout_constraintBottom_toBottomOf="@id/assistanim"/>
 
         <Button
-            android:ellipsize="end"
-            android:maxLines="1"
             android:id="@+id/statusbar_opaque"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -56,8 +52,6 @@
 
 
         <Button
-            android:ellipsize="end"
-            android:maxLines="1"
             android:id="@+id/battoutline"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -79,8 +73,6 @@
             app:layout_constraintBottom_toBottomOf="@id/battoutline" />
 
         <Button
-            android:ellipsize="end"
-            android:maxLines="1"
             android:id="@+id/hunthrottlingbutton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -126,7 +118,7 @@
             android:gravity="center" />
 
         <Button
-            android:ellipsize="end"
+            android:paddingTop="9dp"
             android:maxLines="1"
             android:id="@+id/media_throttling_button"
             android:layout_width="0dp"
