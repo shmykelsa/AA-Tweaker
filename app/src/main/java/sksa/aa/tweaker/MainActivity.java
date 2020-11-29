@@ -1,7 +1,5 @@
 package sksa.aa.tweaker;
 
-import android.app.Activity;
-import android.app.ActivityManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -34,7 +32,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings("ALL")
@@ -53,10 +50,9 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         copyAssets();
-        SharedPreferences mysharedpreferences = getPreferences(MODE_PRIVATE);
         final String path = getApplicationInfo().dataDir;
         appDirectory = path;
-        loadStatus(mysharedpreferences, path);
+        loadStatus(path);
         setContentView(R.layout.activity_main);
 
         ViewPager viewPager = findViewById(R.id.viewpager);
@@ -332,6 +328,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else {
                             patchrailassistant(view);
+                            assistanim.setText("Disable " + getText(R.string.enable_assistant_animation_in_navbar));
                             assistanimstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             assistanimstatus.setColorFilter(Color.argb(255,255,255,0));
                             if(!animationRun[0]) {
@@ -751,6 +748,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void patchforapps(final View view) {
         final TextView logs = findViewById(R.id.logs);
+        final Button patchapps = findViewById(R.id.patchapps);
+        final ImageView patchappstatus = findViewById(R.id.patchedappstatus);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
         logs.setText(null);
@@ -811,7 +810,7 @@ public class MainActivity extends AppCompatActivity {
 
                         appendText(logs, runSuWithCmd(
                                 path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                        "'CREATE TRIGGER after_delete AFTER DELETE\n" +
+                                        "'CREATE TRIGGER aa_patched_apps AFTER DELETE\n" +
                                         "ON Flags\n" +
                                         "BEGIN\n" +
                                         "INSERT OR REPLACE INTO Flags (packageName, version, flagType, partitionId, user, name, stringVal, committed) VALUES (\"com.google.android.gms.car#car\", (SELECT version FROM Packages WHERE packageName=\"com.google.android.gms.car#car\"), 0, 0, \"\", \"app_white_list\", \"" + whiteListStringFinal + "\",1);\n" +
@@ -879,7 +878,7 @@ public class MainActivity extends AppCompatActivity {
 
                         appendText(logs, runSuWithCmd(
                                 path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                        "'CREATE TRIGGER after_delete AFTER DELETE\n" +
+                                        "'CREATE TRIGGER aa_patched_apps AFTER DELETE\n" +
                                         "ON Flags\n" +
                                         "BEGIN\n" +
                                         "INSERT OR REPLACE INTO Flags (packageName, version, flagType, partitionId, user, name, stringVal, committed) VALUES (\"com.google.android.gms.car#car\", 240, 0, 0, \"\", \"app_white_list\", \"" + whiteListStringFinal + "\",1);\n" +
@@ -960,6 +959,12 @@ public class MainActivity extends AppCompatActivity {
 
                         if (checkStep1.getInputStreamLog().length() == checkStep3.getInputStreamLog().length()) {
                             appendText(logs, "\n\n--  Check seems OK :)  --");
+                            save(true, "aa_patched_apps");
+
+                            patchapps.setText("Patch " + getText(R.string.patch_custom_apps));
+                            patchappstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
+                            patchappstatus.setColorFilter(Color.argb(255,255,255,0));
+
                         } else {
                             appendText(logs, "\n\n--  Check NOT OK.  --");
                             appendText(logs, "\n     Length before delete and after was not equal.");
@@ -967,7 +972,7 @@ public class MainActivity extends AppCompatActivity {
                             appendText(logs, "\n        After:  " + checkStep3.getInputStreamLog().length());
                         }
 
-                        save(true, "aa_patched_apps");
+
                     }
                     // Check End
                 }
@@ -1629,7 +1634,7 @@ public class MainActivity extends AppCompatActivity {
 
                     appendText(logs, runSuWithCmd(
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                    "'CREATE TRIGGER aa_hun_ms AFTER DELETE\n" +
+                                    "'CREATE TRIGGER aa_media_hun AFTER DELETE\n" +
                                     "ON FlagOverrides\n" +
                                     "BEGIN\n" +
                                     "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__media_hun_in_rail_widget_timeout_ms\", \"\"," + value + ",1);\n" +
@@ -1714,7 +1719,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     public static StreamLogs runSuWithCmd(String cmd) {
         DataOutputStream outputStream = null;
         InputStream inputStream = null;
@@ -1747,8 +1751,6 @@ public class MainActivity extends AppCompatActivity {
 
         return streamLogs;
     }
-
-
 
     public static String readFully(InputStream is) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -1793,7 +1795,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     private void copyFile(InputStream in, OutputStream out) throws IOException {
         byte[] buffer = new byte[1024];
         int read;
@@ -1811,22 +1812,19 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void loadStatus(SharedPreferences mysharedpreferences, final String path) {
+    public void loadStatus(final String path) {
 
-        final Map<String, ?> mymap = mysharedpreferences.getAll();
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                for ( Map.Entry <String, ?> entry : mymap.entrySet()) {
-                    final String key = entry.getKey().toString();
-
-                    if (runSuWithCmd(
-                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                    "'SELECT * FROM sqlite_master WHERE name=\""+ key + "\";'").getInputStreamLog().toString().isEmpty()) {
-                        save(false, key);
-                    } else {
-                        save (true, key);
-                    }
+                String get_names = runSuWithCmd(
+                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND tbl_name=\"FlagOverrides\";" +
+                                "SELECT name FROM sqlite_master WHERE type=\"trigger\" AND tbl_name=\"Flags\" AND name=\"after_delete\";" +
+                                "SELECT name FROM sqlite_master WHERE type=\"trigger\" AND tbl_name=\"Flags\" AND name=\"aa_patched_apps\";'").getInputStreamLog();
+                String[] lines = get_names.split(System.getProperty("line.separator"));
+                for (int i = 0; i < lines.length; i++) {
+                    save(true, lines[i]);
                 }
             }
         });
@@ -1843,8 +1841,10 @@ public class MainActivity extends AppCompatActivity {
                 allTriggerString[0] = path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'";
                 String get_names = runSuWithCmd(
                         path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND tbl_name=\"FlagOverrides\";'").getInputStreamLog();
-                Log.v ("AATW", get_names);
+                                "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND tbl_name=\"FlagOverrides\";" +
+                                "SELECT name FROM sqlite_master WHERE type=\"trigger\" AND tbl_name=\"Flags\" AND name=\"after_delete\";" +
+                                "SELECT name FROM sqlite_master WHERE type=\"trigger\" AND tbl_name=\"Flags\" AND name=\"aa_patched_apps\";'").getInputStreamLog();
+
                 String[] lines = get_names.split(System.getProperty("line.separator"));
                 for (int i = 0; i < lines.length; i++) {
                     runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'DROP TRIGGER IF EXISTS \"" + lines[i] + "\";'");
@@ -1856,8 +1856,5 @@ public class MainActivity extends AppCompatActivity {
 
         return;
     }
-
-
-
 
 }
