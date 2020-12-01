@@ -663,6 +663,50 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+
+        final Button bluetoothoff = findViewById(R.id.bluetooth_disable_button);
+        final ImageView btstatus = findViewById(R.id.bt_disable_status);
+        if(load("bluetooth_pairing_off")) {
+            bluetoothoff.setText("Re-Enable " + getText(R.string.bluetooth_auto_connect));
+            btstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
+            btstatus.setColorFilter(Color.argb(255,0,255,0));
+        } else {
+            bluetoothoff.setText("Disable " + getText(R.string.bluetooth_auto_connect));
+            btstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
+            btstatus.setColorFilter(Color.argb(255,255,0,0));
+        }
+
+        statusbaropaque.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (load("bluetooth_pairing_off")){
+                            revert("bluetooth_pairing_off");
+                            bluetoothoff.setText("Disable " + getText(R.string.bluetooth_auto_connect));
+                            btstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
+                            btstatus.setColorFilter(Color.argb(255,255,0,0));
+                            if(!animationRun[0]) {
+                                rebootButton.setVisibility(View.VISIBLE);
+                                anim.start();
+                                animationRun[0] = true;
+                            }
+                        }
+                        else {
+                            forceNoBt(view);
+                            bluetoothoff.setText("Re-Enable " + getText(R.string.bluetooth_auto_connect));
+                            btstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
+                            btstatus.setColorFilter(Color.argb(255,255,255,0));
+                            if(!animationRun[0]) {
+                                rebootButton.setVisibility(View.VISIBLE);
+                                anim.start();
+                                animationRun[0] = true;
+                            }
+                        }
+                    }
+                });
+
+
+
     }
 
 
@@ -713,10 +757,12 @@ public class MainActivity extends AppCompatActivity {
             case R.id.about:
                 DialogFragment aboutDialog = new AboutDialog();
                 aboutDialog.show(getSupportFragmentManager(), "AboutDialog");
+                break;
 
             case R.id.revert_everything:
                 final DialogFragment revertDialog = new RevertDialog();
                 revertDialog.show(getSupportFragmentManager(), "RevertDialog");
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -1533,6 +1579,77 @@ public class MainActivity extends AppCompatActivity {
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "aa_sb_opaque");
+                } else {
+                    suitableMethodFound = false;
+                    appendText(logs, "\n\n--  Suitable method NOT found!  --");
+                }
+
+            }
+        }.start();
+
+    }
+
+    public void forceNoBt (View view) {
+        final TextView logs = findViewById(R.id.logs);
+        logs.setHorizontallyScrolling(true);
+        logs.setMovementMethod(new ScrollingMovementMethod());
+        logs.setText(null);
+
+        new Thread() {
+            @Override
+            public void run() {
+                String path = getApplicationInfo().dataDir;
+                boolean suitableMethodFound = true;
+                copyAssets();
+
+                appendText(logs, "\n\n-- Drop Triggers  --");
+                appendText(logs, runSuWithCmd(
+                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'DROP TRIGGER IF EXISTS bluetooth_pairing_off;'"
+                ).getStreamLogsWithLabels());
+
+                if (runSuWithCmd(
+                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'SELECT 1 FROM ApplicationStates WHERE packageName=\"com.google.android.projection.gearhead\"'").getInputStreamLog().equals("1")) {
+
+                    appendText(logs, "\n\n--  run SQL method   --");
+                    appendText(logs, runSuWithCmd(
+                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                    "'INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_disable\", \"\",1,1);\n" +
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_skip_pairing\", \"\",1,1);\n" +
+
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_disable\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),1,1);\n" +
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_skip_pairing\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),1,1);\n" +
+
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_disable\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),1,1);\n" +
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_skip_pairing\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),1,1);\n" +
+
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_disable\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),1,1);\n" +
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_skip_pairing\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),1,1);'\n"
+
+                    ).getStreamLogsWithLabels());
+
+                    appendText(logs, runSuWithCmd(
+                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                    "'CREATE TRIGGER bluetooth_pairing_off AFTER DELETE\n" +
+                                    "ON FlagOverrides\n" +
+                                    "BEGIN\n" +
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_disable\", \"\",1,1);\n" +
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_skip_pairing\", \"\",1,1);\n" +
+
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_disable\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),1,1);\n" +
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_skip_pairing\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),1,1);\n" +
+
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_disable\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),1,1);\n" +
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_skip_pairing\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),1,1);\n" +
+
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_disable\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),1,1);\n" +
+                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_skip_pairing\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),1,1);\n" +
+
+                                    "END;'\n"
+                    ).getStreamLogsWithLabels());
+                    appendText(logs, "\n--  end SQL method  --");
+                    save(true, "bluetooth_pairing_off");
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");

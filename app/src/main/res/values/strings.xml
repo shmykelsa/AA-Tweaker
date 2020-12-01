@@ -22,6 +22,11 @@
     <string name="base_no_ws">Widescreen</string>
     <string name="force_widescreen_text">Force Widescreen</string>
     <string name="media_notification_duration_to">Media notification duration to</string>
+    <string name="about_dialog_content">AA AIO TWEAKER is developed and maintained by Shmykelsa.\n
+        Source code is available on <a href="https://github.com/shmykelsa/AA-Tweaker">GitHub</a>\n\n
+        If you really like my work, please consider a donation.\n You can donate me through <a href="http://www.paypal.me/grizzo96">PayPal</a> or copy my
+    "Bitcoin address with the button down below.\n\n Even a small amount will be much appreciated :) </string>
+    <string name="bluetooth_auto_connect">Bluetooth auto connect</string>
 
     <!-- Strings related to Settings -->
 

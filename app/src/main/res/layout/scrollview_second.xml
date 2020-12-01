@@ -163,7 +163,27 @@
             android:layout_marginEnd="3dp"
             android:gravity="center" />
 
+        <Button
+            android:id="@+id/bluetooth_disable_button"
+            android:paddingTop="9dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/bluetooth_auto_connect"
+            app:layout_constraintEnd_toStartOf="@id/assistanimstatus"
+            app:layout_constraintTop_toBottomOf="@id/media_hun_value"
+            app:layout_constraintStart_toStartOf="parent"/>
 
+        <ImageView
+            android:id="@+id/bt_disable_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_check_circle_24"
+            android:layout_marginEnd="3dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/bluetooth_disable_button"
+            app:layout_constraintBottom_toBottomOf="@id/bluetooth_disable_button" />
 
 
 </android.support.constraint.ConstraintLayout>
