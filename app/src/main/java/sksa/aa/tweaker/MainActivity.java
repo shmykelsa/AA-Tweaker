@@ -461,10 +461,15 @@ public class MainActivity extends AppCompatActivity {
                             forceWideScreenButton.setText("Disable " + getText(R.string.force_widescreen_text));
                             forceWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             forceWideScreenStatus.setColorFilter(Color.argb(255,255,255,0));
-                            save(false,"force_no_ws");
-                            forceNoWideScreen.setText("Force Disable " + getText(R.string.base_no_ws));
-                            forceNoWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-                            forceNoWideScreenStatus.setColorFilter(Color.argb(255,255,0,0));
+
+                            save(true, "force_ws");
+                            if (load("force_no_ws")) {
+                                Toast.makeText(getApplicationContext(), "Force disable widescreen has been automatically disabled", Toast.LENGTH_LONG).show();
+                                save(false,"force_no_ws");
+                                forceNoWideScreen.setText("Force Disable " + getText(R.string.base_no_ws));
+                                forceNoWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
+                                forceNoWideScreenStatus.setColorFilter(Color.argb(255, 255, 0, 0));
+                            }
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 anim.start();
@@ -506,10 +511,14 @@ public class MainActivity extends AppCompatActivity {
                             forceNoWideScreen.setText("Reset " + getText(R.string.base_no_ws));
                             forceNoWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             forceNoWideScreenStatus.setColorFilter(Color.argb(255,255,255,0));
-                            save(false, "force_ws");
-                            forceWideScreenButton.setText("Disable " + getText(R.string.force_widescreen_text));
-                            forceWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-                            forceWideScreenStatus.setColorFilter(Color.argb(255,255,0,0));
+                            save(true, "force_no_ws");
+                            if (load ("force_ws")) {
+                                save(false, "force_ws");
+                                Toast.makeText(getApplicationContext(), "Force widescreen has been automatically disabled", Toast.LENGTH_LONG).show();
+                                forceWideScreenButton.setText("Enable " + getText(R.string.force_widescreen_text));
+                                forceWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
+                                forceWideScreenStatus.setColorFilter(Color.argb(255, 255, 0, 0));
+                            }
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 anim.start();
@@ -781,8 +790,6 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         return sharedPreferences.getBoolean(key, false);
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu( Menu menu )
@@ -1788,7 +1795,7 @@ public class MainActivity extends AppCompatActivity {
                 appendText(logs, "\n\n-- Drop Triggers  --");
                 appendText(logs, runSuWithCmd(
                         path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                "'DROP TRIGGER IF EXISTS aa_ws; DROP TRIGGER IF EXISTS aa_no_ws;'"
+                                "'DROP TRIGGER IF EXISTS force_ws; DROP TRIGGER IF EXISTS force_no_ws;'"
                 ).getStreamLogsWithLabels());
 
                 if (runSuWithCmd(
@@ -1910,7 +1917,6 @@ public class MainActivity extends AppCompatActivity {
         }
         Log.v("AATW", runSuWithCmd("chmod 775 " + path + "/sqlite3").getStreamLogsWithLabels());
     }
-
 
     private void copyFile(InputStream in, OutputStream out) throws IOException {
         byte[] buffer = new byte[1024];

@@ -303,26 +303,12 @@
                   <entry key="vectorAssetStep">
                     <value>
                       <PersistentState>
-                        <option name="children">
-                          <map>
-                            <entry key="clipartAsset">
-                              <value>
-                                <PersistentState>
-                                  <option name="values">
-                                    <map>
-                                      <entry key="url" value="jar:file:/E:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/settings_backup_restore/baseline_settings_backup_restore_24.xml" />
-                                    </map>
-                                  </option>
-                                </PersistentState>
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
                         <option name="values">
                           <map>
+                            <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_baseline_settings_backup_restore_24" />
-                            <entry key="sourceFile" value="C:\Users\gabri\StudioProjects\AA-Tweaker" />
+                            <entry key="outputName" value="ic_beta_logo" />
+                            <entry key="sourceFile" value="C:\Users\gabri\Desktop\beta_logo.svg" />
                           </map>
                         </option>
                       </PersistentState>
