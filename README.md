@@ -14,15 +14,20 @@ Google Play Services control a lot of features inside Android Auto. Some of them
 
 What this app does is making some SQLite queries in order to alter some features of Android Auto. It contains the trick inside [AA Phenotype Patcher](https://github.com/Eselter/AA-Phenotype-Patcher) to patch custom apps in order to work in AA (and the same script is contained) and with the same principle it unlocks some other things in Android Auto.
 
-# Available commands (version 1.0):
+# Available commands (version 1.4):
 
-1. Patch for custom Android Auto apps
-2. Disable speed restrictions while driving (preview of messages will be shown always)
-3. Disable six tap limit (the banner asking to pay attention to road will not be shown anymore)
-4. Enable Assistant Shortcuts (you can learn more here: https://www.reddit.com/r/AndroidAuto/comments/jtli3q/howtoroot_only_force_activation_of_assistant/)
-5. Enable assistant animation in navbar (you can learn more here: https://www.reddit.com/r/AndroidAuto/comments/ju4jo3/inside_aa_theres_a_hidden_animation_that_will/)
-6. Disable launch of Navigator app at start
-7. Disable red outline on battery icon when Battery Saver is active
+- Patch for custom Android Auto apps
+- Disable speed restrictions while driving (preview of messages will be shown always)
+- Disable six tap limit (the banner asking to pay attention to road will not be shown anymore)
+- Enable Assistant Shortcuts (you can learn more here: https://www.xda-developers.com/andr...llpaper-and-tests-google-assistant-shortcuts/)
+- Enable assistant animation in navbar
+- Disable launch of Navigator app at start
+- Disable red outline on battery icon when Battery Saver is active
+- Enable force Widescreen (or force disable it)
+- Force statusbar to be black opaque
+- Set notification duration from 0ms to 20 seconds
+- Set media notification duration (on the bar) to up to 15 minutes
+- (BETA) Disable Bluetooth auto connect
 
 Hopefully more to come :)
 
