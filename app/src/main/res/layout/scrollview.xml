@@ -191,6 +191,53 @@
             app:layout_constraintTop_toTopOf="@id/force__no_ws_button"
             app:layout_constraintBottom_toBottomOf="@id/force__no_ws_button"/>
 
+        <Button
+            android:id="@+id/multi_display_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/multi_display_string"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/force__no_ws_button"
+            app:layout_constraintEnd_toEndOf="@id/force_ws_button"/>
+
+        <ImageView
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:id="@+id/multi_display_status"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_baseline_check_circle_24"
+            android:layout_marginEnd="3dp"
+            app:layout_constraintStart_toEndOf="@id/multi_display_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/multi_display_button"
+            app:layout_constraintBottom_toBottomOf="@id/multi_display_button"/>
+
+        <Button
+            android:id="@+id/battery_warning_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/battery_warning"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/multi_display_button"
+            app:layout_constraintEnd_toEndOf="@id/multi_display_button"/>
+
+        <ImageView
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:id="@+id/battery_warning_status"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_baseline_check_circle_24"
+            android:layout_marginEnd="3dp"
+            app:layout_constraintStart_toEndOf="@id/battery_warning_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/battery_warning_button"
+            app:layout_constraintBottom_toBottomOf="@id/battery_warning_button"/>
 
 
 </android.support.constraint.ConstraintLayout>

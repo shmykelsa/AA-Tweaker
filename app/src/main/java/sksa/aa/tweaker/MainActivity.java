@@ -1039,6 +1039,142 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        final Button mdbutton = findViewById(R.id.multi_display_button);
+        final ImageView mdstatus = findViewById(R.id.multi_display_status);
+        if(load("multi_display")) {
+            mdbutton.setText("Disable " + getText(R.string.multi_display_string));
+            mdstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
+            mdstatus.setColorFilter(Color.argb(255,0,255,0));
+        } else {
+            mdbutton.setText("Enable " + getText(R.string.multi_display_string));
+            mdstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
+            mdstatus.setColorFilter(Color.argb(255,255,0,0));
+        }
+
+        mdbutton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (load("multi_display")){
+                            revert("multi_display");
+                            mdbutton.setText("Enable " + getText(R.string.multi_display_string));
+                            mdstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
+                            mdstatus.setColorFilter(Color.argb(255,255,0,0));
+                            if(!animationRun[0]) {
+                                rebootButton.setVisibility(View.VISIBLE);
+                                anim.start();
+                                animationRun[0] = true;
+                            }
+                        }
+                        else {
+                            multiDisplay(view, UserCount);
+                            mdbutton.setText("Disable " + getText(R.string.multi_display_string));
+                            mdstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
+                            mdstatus.setColorFilter(Color.argb(255,255,255,0));
+                            if(!animationRun[0]) {
+                                rebootButton.setVisibility(View.VISIBLE);
+                                anim.start();
+                                animationRun[0] = true;
+                            }
+                        }
+                    }
+                });
+
+        mdbutton.setOnLongClickListener(new View.OnLongClickListener() {
+            public boolean onLongClick(View arg0) {
+                final Dialog dialog = new Dialog(MainActivity.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.setCancelable(true);
+                View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
+
+                TextView tutorial = view.findViewById(R.id.dialog_content);
+                tutorial.setText(getText(R.string.tutorial_multidisplay));
+
+                ImageView img1 = view.findViewById(R.id.tutorialimage1);
+                img1.setImageDrawable(getDrawable(R.drawable.tutorial_md1));
+
+                ImageView img2 = view.findViewById(R.id.tutorialimage2);
+                img2.setImageDrawable(getDrawable(R.drawable.tutorial_md2));
+
+                ImageView img3 = view.findViewById(R.id.tutorialimage3);
+                img3.setImageDrawable(getDrawable(R.drawable.tutorial_md3));
+
+                dialog.setContentView(view);
+
+                dialog.show();
+
+                Window window = dialog.getWindow();
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 600);
+                return true;
+            }
+        });
+
+        final Button batteryWarning = findViewById(R.id.battery_warning_button);
+        final ImageView batteryWarningStatus = findViewById(R.id.battery_warning_status);
+        if(load("battery_saver_warning")) {
+            batteryWarning.setText("Re-Enable " + getText(R.string.battery_warning));
+            batteryWarningStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
+            batteryWarningStatus.setColorFilter(Color.argb(255,0,255,0));
+        } else {
+            batteryWarning.setText("Disable " + getText(R.string.battery_warning));
+            batteryWarningStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
+            batteryWarningStatus.setColorFilter(Color.argb(255,255,0,0));
+        }
+
+        batteryWarning.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (load("battery_saver_warning")){
+                            revert("battery_saver_warning");
+                            batteryWarning.setText("Disable " + getText(R.string.battery_warning));
+                            batteryWarningStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
+                            batteryWarningStatus.setColorFilter(Color.argb(255,255,0,0));
+                            if(!animationRun[0]) {
+                                rebootButton.setVisibility(View.VISIBLE);
+                                anim.start();
+                                animationRun[0] = true;
+                            }
+                        }
+                        else {
+                            disableBatteryWarning(view, UserCount);
+                            batteryWarning.setText("Re-Enable " + getText(R.string.battery_warning));
+                            batteryWarningStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
+                            batteryWarningStatus.setColorFilter(Color.argb(255,255,255,0));
+                            if(!animationRun[0]) {
+                                rebootButton.setVisibility(View.VISIBLE);
+                                anim.start();
+                                animationRun[0] = true;
+                            }
+                        }
+                    }
+                });
+
+        batteryWarning.setOnLongClickListener(new View.OnLongClickListener() {
+            public boolean onLongClick(View arg0) {
+                final Dialog dialog = new Dialog(MainActivity.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.setCancelable(true);
+                View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
+
+                TextView tutorial = view.findViewById(R.id.dialog_content);
+                tutorial.setText(getText(R.string.tutorial_battery_saver_warning));
+
+                ImageView img1 = view.findViewById(R.id.tutorialimage1);
+                img1.setImageDrawable(getDrawable(R.drawable.tutorial_battery_saver));
+
+                dialog.setContentView(view);
+
+                dialog.show();
+
+                Window window = dialog.getWindow();
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 500);
+                return true;
+            }
+        });
         
     }
 
@@ -1049,7 +1185,7 @@ public class MainActivity extends AppCompatActivity {
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
-        logs.setText(null);
+        
 
         new Thread() {
             @Override
@@ -1129,7 +1265,7 @@ public class MainActivity extends AppCompatActivity {
         final ImageView patchappstatus = findViewById(R.id.patchedappstatus);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
-        logs.setText(null);
+        
 
         SharedPreferences appsListPref = getApplicationContext().getSharedPreferences("appsListPref", 0);
         Map<String, ?> allEntries = appsListPref.getAll();
@@ -1361,7 +1497,7 @@ public class MainActivity extends AppCompatActivity {
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
-        logs.setText(null);
+        
 
         final StringBuilder finalCommand = new StringBuilder();
 
@@ -1421,7 +1557,7 @@ public class MainActivity extends AppCompatActivity {
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
-        logs.setText(null);
+        
 
         final StringBuilder finalCommand = new StringBuilder();
 
@@ -1480,7 +1616,7 @@ public class MainActivity extends AppCompatActivity {
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
-        logs.setText(null);
+        
 
         final StringBuilder finalCommand = new StringBuilder();
 
@@ -1562,11 +1698,97 @@ public class MainActivity extends AppCompatActivity {
         }.start();
     }
 
+    public void multiDisplay(final View view, int usercount) {
+        final TextView logs = findViewById(R.id.logs);
+        logs.setHorizontallyScrolling(true);
+        logs.setMovementMethod(new ScrollingMovementMethod());
+        
+
+        final StringBuilder finalCommand = new StringBuilder();
+
+        for (int i = 0; i<=(usercount-1) ; i ++) {
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__multi_region_new_widescreen_activities_enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__require_bfr\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,0,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"EnhancedNavigationMetadata__enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"EnhancedNavigationMetadata__verify_turn_side_when_disabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__clustersim_enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__gal_munger_enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__multi_region_enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+        }
+
+        new Thread() {
+            @Override
+            public void run() {
+                String path = getApplicationInfo().dataDir;
+                boolean suitableMethodFound = true;
+                copyAssets();
+
+                appendText(logs, "\n\n-- Drop Triggers  --");
+                appendText(logs, runSuWithCmd(
+                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'DROP TRIGGER IF EXISTS multi_display;'"
+                ).getStreamLogsWithLabels());
+
+                if (runSuWithCmd(
+                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'SELECT 1 FROM ApplicationStates WHERE packageName=\"com.google.android.projection.gearhead\"'\n").getInputStreamLog().equals("1")) {
+
+                    appendText(logs, "\n\n--  run SQL method   --");
+                    appendText(logs, runSuWithCmd(
+                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                    "'" + finalCommand + "'").getStreamLogsWithLabels());
+
+                    appendText(logs, runSuWithCmd(
+                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                    "'CREATE TRIGGER multi_display AFTER DELETE\n" +
+                                    "ON FlagOverrides\n" +
+                                    "BEGIN\n" +
+                                    finalCommand +
+                                    "END;'\n"
+                    ).getStreamLogsWithLabels());
+                    appendText(logs, "\n--  end SQL method  --");
+                    save(true, "multi_display");
+                } else {
+                    suitableMethodFound = false;
+                    appendText(logs, "\n\n--  Suitable method NOT found!  --");
+                }
+
+
+
+            }
+        }.start();
+    }
+
     public void patchfortouchlimit(final View view, int usercount) {
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
-        logs.setText(null);
+        
 
         final StringBuilder finalCommand = new StringBuilder();
 
@@ -1653,7 +1875,7 @@ public class MainActivity extends AppCompatActivity {
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
-        logs.setText(null);
+        
 
         final StringBuilder finalCommand = new StringBuilder();
 
@@ -1711,11 +1933,78 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void disableBatteryWarning(View view, int usercount) {
+        final TextView logs = findViewById(R.id.logs);
+        logs.setHorizontallyScrolling(true);
+        logs.setMovementMethod(new ScrollingMovementMethod());
+
+
+        final StringBuilder finalCommand = new StringBuilder();
+
+        for (int i = 0; i<=(usercount-1) ; i ++) {
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BatterySaver__warning_enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,0,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BatterySaver__on_at_start_warning_delay_ms\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BatterySaver__switched_on_warning_delay_ms\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+        }
+
+        new Thread() {
+            @Override
+            public void run() {
+                String path = getApplicationInfo().dataDir;
+                boolean suitableMethodFound = true;
+                copyAssets();
+
+                appendText(logs, "\n\n-- Drop Triggers  --");
+                appendText(logs, runSuWithCmd(
+                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'DROP TRIGGER IF EXISTS battery_saver_warning;'"
+                ).getStreamLogsWithLabels());
+
+                if (runSuWithCmd(
+                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'SELECT 1 FROM ApplicationStates WHERE packageName=\"com.google.android.projection.gearhead\"'").getInputStreamLog().equals("1")) {
+
+                    appendText(logs, "\n\n--  run SQL method   --");
+                    appendText(logs, runSuWithCmd(
+                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                    "'DELETE FROM Flags WHERE name=\"BatterySaver__warning_enabled\";\n" +
+                                    "DELETE FROM Flags WHERE name=\"BatterySaver__switched_on_warning_delay_ms\";\n" +
+                                    "DELETE FROM Flags WHERE name=\"BatterySaver__on_at_start_warning_delay_ms\";\n" + finalCommand + "'"
+                    ).getStreamLogsWithLabels());
+
+                    appendText(logs, runSuWithCmd(
+                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                    "'CREATE TRIGGER battery_saver_warning AFTER DELETE\n" +
+                                    "ON FlagOverrides\n" +
+                                    "BEGIN\n" + finalCommand + "END;'\n"
+                    ).getStreamLogsWithLabels());
+                    appendText(logs, "\n--  end SQL method  --");
+                    save(true, "battery_saver_warning");
+                } else {
+                    suitableMethodFound = false;
+                    appendText(logs, "\n\n--  Suitable method NOT found!  --");
+                }
+
+            }
+        }.start();
+
+
+    }
+
     public void battOutline(View view, int usercount) {
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
-        logs.setText(null);
+
 
         final StringBuilder finalCommand = new StringBuilder();
 
@@ -1747,7 +2036,7 @@ public class MainActivity extends AppCompatActivity {
                     appendText(logs, runSuWithCmd(
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
                                     "'DELETE FROM Flags WHERE name=\"BatterySaver__icon_outline_enabled\";\n"+ finalCommand + "'"
-                                    ).getStreamLogsWithLabels());
+                    ).getStreamLogsWithLabels());
 
                     appendText(logs, runSuWithCmd(
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
@@ -1772,7 +2061,7 @@ public class MainActivity extends AppCompatActivity {
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
-        logs.setText(null);
+        
 
         final StringBuilder finalCommand = new StringBuilder();
 
@@ -1827,7 +2116,7 @@ public class MainActivity extends AppCompatActivity {
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
-        logs.setText(null);
+        
 
         final StringBuilder finalCommand = new StringBuilder();
 
@@ -1889,7 +2178,7 @@ public class MainActivity extends AppCompatActivity {
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
-        logs.setText(null);
+        
 
         final StringBuilder finalCommand = new StringBuilder();
 
@@ -1945,7 +2234,7 @@ public class MainActivity extends AppCompatActivity {
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
-        logs.setText(null);
+        
 
         final StringBuilder finalCommand = new StringBuilder();
 
@@ -2001,7 +2290,7 @@ public class MainActivity extends AppCompatActivity {
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
-        logs.setText(null);
+        
 
         final StringBuilder finalCommand = new StringBuilder();
 

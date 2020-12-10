@@ -45,4 +45,10 @@
     <string name="tutorial_bluetooth">BETA This tweak should prevent Bluetooth from turning on when Android Auto is connected. This tweak
     won\'t work if Bluetooth is already on, and currently it is in beta.</string>
     <string name="tutorial_patchapps">This tweak will enable third-party apps made specifically with Android Auto custom SDK to work on Android Auto. If you are familiar with AA Phenotype Patcher, this tweak is pretty much identical. It\'s not possible to add just any app to Android Auto, but it\'s possible to patch sideloaded apps MADE FOR ANDROID AUTO to work in cars.</string>
+    <string name="multi_display_string">Multi Display</string>
+    <string name="tutorial_multidisplay">This is an hidden feature inside Android Auto that will turn the second space in widescreen mode to a real second display that is completely taken by a seond activity. Google Maps will display a full map with navigation status, music and phones will take the full space. Additionally, this mode activate
+        another feature that will let the phone\'s screen be a second display for navigation in Android Auto. Settings for tweaking this feature will be available in Android Auto homescreen. Waze doesn\'t currently support this mode. Android Auto 5.8 or superior is required. This feature is probably under development and could potentially not work as intended.</string>
+    <string name="battery_warning">Battery saver warning</string>
+    <string name="tutorial_battery_saver_warning">This tweak will prevent Android Auto from giving popup warnings when battery saver mode is on</string>
+
 </resources>

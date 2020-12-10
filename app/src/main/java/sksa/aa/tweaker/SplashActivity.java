@@ -1,10 +1,8 @@
 package sksa.aa.tweaker;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -38,6 +36,8 @@ public class SplashActivity extends AppCompatActivity {
         editor.putBoolean("aa_hun_ms", false);
         editor.putBoolean("aa_media_hun", false);
         editor.putBoolean("bluetooth_pairing_off", false);
+        editor.putBoolean("multi_display", false);
+        editor.putBoolean("battery_saver_warning", false);
         editor.commit();
 
 
