@@ -205,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show();
 
                 Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 800);
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 880);
 
                 return true;
             }
@@ -252,6 +252,31 @@ public class MainActivity extends AppCompatActivity {
             taplimitstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
             taplimitstatus.setColorFilter(Color.argb(255,255,0,0));
         }
+
+        taplimitat.setOnLongClickListener(new View.OnLongClickListener() {
+            public boolean onLongClick(View arg0) {
+                final Dialog dialog = new Dialog(MainActivity.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.setCancelable(true);
+                View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
+
+                TextView tutorial = view.findViewById(R.id.dialog_content);
+                tutorial.setText(getText(R.string.tutorial_sixtap));
+
+                ImageView img1 = view.findViewById(R.id.tutorialimage1);
+                img1.setImageDrawable(getDrawable(R.drawable.tutorial_sixtap));
+
+                dialog.setContentView(view);
+
+                dialog.show();
+
+                Window window = dialog.getWindow();
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 800);
+
+                return true;
+            }
+        });
 
         taplimitat.setOnClickListener(
                 new View.OnClickListener() {
@@ -322,6 +347,28 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+        startupnav.setOnLongClickListener(new View.OnLongClickListener() {
+            public boolean onLongClick(View arg0) {
+                final Dialog dialog = new Dialog(MainActivity.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.setCancelable(true);
+                View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
+
+                TextView tutorial = view.findViewById(R.id.dialog_content);
+                tutorial.setText(getText(R.string.tutorial_startup));
+
+                dialog.setContentView(view);
+
+                dialog.show();
+
+                Window window = dialog.getWindow();
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 800);
+
+                return true;
+            }
+        });
+
         final Button patchapps = findViewById(R.id.patchapps);
         final ImageView patchappstatus = findViewById(R.id.patchedappstatus);
 
@@ -360,6 +407,28 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+
+        patchapps.setOnLongClickListener(new View.OnLongClickListener() {
+            public boolean onLongClick(View arg0) {
+                final Dialog dialog = new Dialog(MainActivity.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.setCancelable(true);
+                View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
+
+                TextView tutorial = view.findViewById(R.id.dialog_content);
+                tutorial.setText(getText(R.string.tutorial_patchapps));
+
+                dialog.setContentView(view);
+
+                dialog.show();
+
+                Window window = dialog.getWindow();
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 800);
+
+                return true;
+            }
+        });
 
         final Button assistanim = findViewById(R.id.assistanim);
         final ImageView assistanimstatus = findViewById(R.id.assistanimstatus);
@@ -403,6 +472,31 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+        assistanim.setOnLongClickListener(new View.OnLongClickListener() {
+            public boolean onLongClick(View arg0) {
+                final Dialog dialog = new Dialog(MainActivity.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.setCancelable(true);
+                View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
+
+                TextView tutorial = view.findViewById(R.id.dialog_content);
+                tutorial.setText(getText(R.string.tutorial_animation));
+
+                ImageView img1 = view.findViewById(R.id.tutorialimage1);
+                img1.setImageDrawable(getDrawable(R.drawable.tutorial_animation));
+
+                dialog.setContentView(view);
+
+                dialog.show();
+
+                Window window = dialog.getWindow();
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 600);
+
+                return true;
+            }
+        });
+
         final Button batteryoutline = findViewById(R.id.battoutline);
         final ImageView batterystatus = findViewById(R.id.batterystatus);
         if(load("aa_battery_outline")) {
@@ -445,6 +539,31 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+        batteryoutline.setOnLongClickListener(new View.OnLongClickListener() {
+            public boolean onLongClick(View arg0) {
+                final Dialog dialog = new Dialog(MainActivity.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.setCancelable(true);
+                View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
+
+                TextView tutorial = view.findViewById(R.id.dialog_content);
+                tutorial.setText(getText(R.string.tutorial_battery_outline));
+
+                ImageView img1 = view.findViewById(R.id.tutorialimage1);
+                img1.setImageDrawable(getDrawable(R.drawable.tutorial_outline));
+
+                dialog.setContentView(view);
+
+                dialog.show();
+
+                Window window = dialog.getWindow();
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 500);
+
+                return true;
+            }
+        });
+
         final Button statusbaropaque = findViewById(R.id.statusbar_opaque);
         final ImageView opauqestatus = findViewById(R.id.statusbar_opaque_status);
         if(load("aa_sb_opaque")) {
@@ -486,6 +605,28 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+
+        statusbaropaque.setOnLongClickListener(new View.OnLongClickListener() {
+            public boolean onLongClick(View arg0) {
+                final Dialog dialog = new Dialog(MainActivity.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.setCancelable(true);
+                View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
+
+                TextView tutorial = view.findViewById(R.id.dialog_content);
+                tutorial.setText(getText(R.string.tutorial_statusbar_opaque));
+
+                dialog.setContentView(view);
+
+                dialog.show();
+
+                Window window = dialog.getWindow();
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 200);
+
+                return true;
+            }
+        });
 
         final Button forceNoWideScreen = findViewById(R.id.force__no_ws_button);
         final ImageView forceNoWideScreenStatus = findViewById(R.id.force_no_ws_status);
@@ -542,6 +683,31 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+        forceWideScreenButton.setOnLongClickListener(new View.OnLongClickListener() {
+            public boolean onLongClick(View arg0) {
+                final Dialog dialog = new Dialog(MainActivity.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.setCancelable(true);
+                View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
+
+                TextView tutorial = view.findViewById(R.id.dialog_content);
+                tutorial.setText(getText(R.string.tutorial_widescreen));
+
+                ImageView img1 = view.findViewById(R.id.tutorialimage1);
+                img1.setImageDrawable(getDrawable(R.drawable.tutorial_widescreen));
+
+                dialog.setContentView(view);
+
+                dialog.show();
+
+                Window window = dialog.getWindow();
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 800);
+
+                return true;
+            }
+        });
+
 
         if(load("force_no_ws")) {
             forceNoWideScreen.setText("Reset " + getText(R.string.base_no_ws));
@@ -590,6 +756,31 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+
+        forceNoWideScreen.setOnLongClickListener(new View.OnLongClickListener() {
+            public boolean onLongClick(View arg0) {
+                final Dialog dialog = new Dialog(MainActivity.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.setCancelable(true);
+                View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
+
+                TextView tutorial = view.findViewById(R.id.dialog_content);
+                tutorial.setText(getText(R.string.tutorial_no_widescreen));
+
+                ImageView img1 = view.findViewById(R.id.tutorialimage1);
+                img1.setImageDrawable(getDrawable(R.drawable.tutorial_nowidescreen));
+
+                dialog.setContentView(view);
+
+                dialog.show();
+
+                Window window = dialog.getWindow();
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 800);
+
+                return true;
+            }
+        });
 
 
         final Button huntrottling = findViewById(R.id.hunthrottlingbutton);
@@ -664,6 +855,31 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+        huntrottling.setOnLongClickListener(new View.OnLongClickListener() {
+            public boolean onLongClick(View arg0) {
+                final Dialog dialog = new Dialog(MainActivity.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.setCancelable(true);
+                View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
+
+                TextView tutorial = view.findViewById(R.id.dialog_content);
+                tutorial.setText(getText(R.string.tutorial_hun));
+
+                ImageView img1 = view.findViewById(R.id.tutorialimage1);
+                img1.setImageDrawable(getDrawable(R.drawable.tutorial_hun));
+
+                dialog.setContentView(view);
+
+                dialog.show();
+
+                Window window = dialog.getWindow();
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 500);
+
+                return true;
+            }
+        });
+
         final Button mediathrottlingbutton = findViewById(R.id.media_throttling_button);
         final int[] secondScrollBarStatus = {0};
         final TextView secondDisplayValue = findViewById(R.id.second_seekbar_text);
@@ -736,6 +952,31 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+        mediathrottlingbutton.setOnLongClickListener(new View.OnLongClickListener() {
+            public boolean onLongClick(View arg0) {
+                final Dialog dialog = new Dialog(MainActivity.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.setCancelable(true);
+                View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
+
+                TextView tutorial = view.findViewById(R.id.dialog_content);
+                tutorial.setText(getText(R.string.tutorial_media_hun));
+
+                ImageView img1 = view.findViewById(R.id.tutorialimage1);
+                img1.setImageDrawable(getDrawable(R.drawable.tutorial_media_hun));
+
+                dialog.setContentView(view);
+
+                dialog.show();
+
+                Window window = dialog.getWindow();
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 600);
+
+                return true;
+            }
+        });
+
         final Button bluetoothoff = findViewById(R.id.bluetooth_disable_button);
         final ImageView btstatus = findViewById(R.id.bt_disable_status);
         if(load("bluetooth_pairing_off")) {
@@ -776,6 +1017,28 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+
+        bluetoothoff.setOnLongClickListener(new View.OnLongClickListener() {
+            public boolean onLongClick(View arg0) {
+                final Dialog dialog = new Dialog(MainActivity.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.setCancelable(true);
+                View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
+
+                TextView tutorial = view.findViewById(R.id.dialog_content);
+                tutorial.setText(getText(R.string.tutorial_bluetooth));
+
+                dialog.setContentView(view);
+
+                dialog.show();
+
+                Window window = dialog.getWindow();
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 300);
+
+                return true;
+            }
+        });
         
     }
 

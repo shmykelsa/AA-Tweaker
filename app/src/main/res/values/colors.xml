@@ -8,4 +8,5 @@
     <color name="bottomcolor">#ECECEC</color>
     <color name="centercolor">#E4E4E4</color>
     <color name="topcolor">#E8E8E8</color>
+    <color name="dialog_text_color">#ff000000</color>
 </resources>
