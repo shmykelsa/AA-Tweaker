@@ -1569,11 +1569,11 @@ public class MainActivity extends AppCompatActivity {
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BluetoothPairing__car_bluetooth_service_disable\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.gms.car\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_disable\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BluetoothPairing__car_bluetooth_service_skip_pairing\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.gms.car\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_skip_pairing\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -1600,7 +1600,7 @@ public class MainActivity extends AppCompatActivity {
                     appendText(logs, runSuWithCmd(
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
                                     "'DELETE FROM Flags WHERE name=\"BluetoothPairing__car_bluetooth_service_disable\";\n" +
-                                    "'DELETE FROM Flags WHERE name=\"BluetoothPairing__car_bluetooth_service_skip_pairing\";\n" +
+                                    "DELETE FROM Flags WHERE name=\"BluetoothPairing__car_bluetooth_service_skip_pairing\";\n" +
                                     finalCommand + "'"
                     ).getStreamLogsWithLabels());
 
