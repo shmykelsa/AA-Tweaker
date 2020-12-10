@@ -1373,7 +1373,7 @@ public class MainActivity extends AppCompatActivity {
                     appendText(logs, runSuWithCmd(
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
                                     "'CREATE TRIGGER aa_six_tap AFTER DELETE\n" +
-                                    "ON FlagOverrides\n" + finalCommand + "END;'\n"
+                                    "ON FlagOverrides\n BEGIN\n" + finalCommand + "END;'\n"
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "aa_six_tap");
