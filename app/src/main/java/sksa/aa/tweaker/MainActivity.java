@@ -1,5 +1,6 @@
 package sksa.aa.tweaker;
 
+import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
@@ -53,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
         final String path = getApplicationInfo().dataDir;
         appDirectory = path;
         loadStatus(path);
+        String CountUsers = runSuWithCmd(
+                path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                        "'SELECT COUNT(DISTINCT user) FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\";'").getInputStreamLog();
+        final int UserCount = Integer.parseInt(CountUsers);
         setContentView(R.layout.activity_main);
 
         ViewPager viewPager = findViewById(R.id.viewpager);
@@ -126,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                         else {
-                            patchforspeed(view);
+                            patchforspeed(view, UserCount);
                             nospeed.setText("Re-enable " + getText(R.string.unlimited_scrolling_when_driving));
                             nospeedimg.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             nospeedimg.setColorFilter(Color.argb(255,255,255,0));
@@ -139,6 +145,31 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+        nospeed.setOnLongClickListener(new View.OnLongClickListener() {
+            public boolean onLongClick(View arg0) {
+                final Dialog dialog = new Dialog(MainActivity.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.setCancelable(true);
+                View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
+
+                TextView tutorial = view.findViewById(R.id.dialog_content);
+                tutorial.setText(getText(R.string.tutorial_nospeed));
+
+                ImageView img1 = view.findViewById(R.id.tutorialimage1);
+                img1.setImageDrawable(getDrawable(R.drawable.tutorial_nospeed));
+
+                dialog.setContentView(view);
+
+                dialog.show();
+
+                Window window = dialog.getWindow();
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 800);
+
+                return true;
+            }
+        });
+
         final Button assistshort = findViewById(R.id.assistshort);
         final ImageView assisthackimg = findViewById(R.id.shortcutstatus);
         if(load("assist_short")) {
@@ -150,6 +181,35 @@ public class MainActivity extends AppCompatActivity {
             assisthackimg.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
             assisthackimg.setColorFilter(Color.argb(255,255,0,0));
         }
+
+        assistshort.setOnLongClickListener(new View.OnLongClickListener() {
+            public boolean onLongClick(View arg0) {
+                final Dialog dialog = new Dialog(MainActivity.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.setCancelable(true);
+                View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
+
+                TextView tutorial = view.findViewById(R.id.dialog_content);
+                tutorial.setText(getText(R.string.tutorial_shortcuts));
+
+                ImageView img1 = view.findViewById(R.id.tutorialimage1);
+                ImageView img2 = view.findViewById(R.id.tutorialimage2);
+                ImageView img3 = view.findViewById(R.id.tutorialimage3);
+                img1.setImageDrawable(getDrawable(R.drawable.tutorial_shortcuts_1));
+                img2.setImageDrawable(getDrawable(R.drawable.tutorial_shortcuts_2));
+                img3.setImageDrawable(getDrawable(R.drawable.tutorial_shortcuts_3));
+
+                dialog.setContentView(view);
+
+                dialog.show();
+
+                Window window = dialog.getWindow();
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 800);
+
+                return true;
+            }
+        });
 
 
         assistshort.setOnClickListener(
@@ -168,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                         else {
-                            patchforassistshort(view);
+                            patchforassistshort(view, UserCount);
                             assistshort.setText("Disable " + getText(R.string.enable_assistant_shortcuts));
                             assisthackimg.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             assisthackimg.setColorFilter(Color.argb(255,255,255,0));
@@ -209,7 +269,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                         else {
-                            patchfortouchlimit(view);
+                            patchfortouchlimit(view, UserCount);
                             taplimitat.setText("Re-enable " + getText(R.string.disable_speed_limitations));
                             taplimitstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             taplimitstatus.setColorFilter(Color.argb(255,255,255,0));
@@ -249,7 +309,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                         else {
-                            navpatch(view);
+                            navpatch(view, UserCount);
                             startupnav.setText("Disable " + getText(R.string.navigation_at_start));
                             navstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             navstatus.setColorFilter(Color.argb(255,255,255,0));
@@ -330,7 +390,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                         else {
-                            patchrailassistant(view);
+                            patchrailassistant(view, UserCount);
                             assistanim.setText("Disable " + getText(R.string.enable_assistant_animation_in_navbar));
                             assistanimstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             assistanimstatus.setColorFilter(Color.argb(255,255,255,0));
@@ -372,7 +432,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                         else {
-                            battOutline(view);
+                            battOutline(view, UserCount);
                             batteryoutline.setText("Re-Enable " + getText(R.string.battery_outline_string));
                             batterystatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             batterystatus.setColorFilter(Color.argb(255,255,255,0));
@@ -414,7 +474,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                         else {
-                            opaqueStatusBar(view);
+                            opaqueStatusBar(view, UserCount);
                             statusbaropaque.setText("Disable " + getText(R.string.statb_opaque_string));
                             opauqestatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             opauqestatus.setColorFilter(Color.argb(255,255,255,0));
@@ -460,7 +520,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                         else {
-                            forceWideScreen(view, 470);
+                            forceWideScreen(view, 470, UserCount);
                             forceWideScreenButton.setText("Disable " + getText(R.string.force_widescreen_text));
                             forceWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             forceWideScreenStatus.setColorFilter(Color.argb(255,255,255,0));
@@ -510,7 +570,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                         else {
-                            forceWideScreen(view, 1921);
+                            forceWideScreen(view, 1921, UserCount);
                             forceNoWideScreen.setText("Reset " + getText(R.string.base_no_ws));
                             forceNoWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             forceNoWideScreenStatus.setColorFilter(Color.argb(255,255,255,0));
@@ -591,7 +651,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                         else {
-                            setHunDuration(view, hunSeekbar.getProgress());
+                            setHunDuration(view, hunSeekbar.getProgress(), UserCount);
                             huntrottling.setText("reset " + getText(R.string.set_notification_duration_to) + " default");
                             hunstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             hunstatus.setColorFilter(Color.argb(255,255,255,0));
@@ -663,7 +723,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                         else {
-                            setMediaHunDuration(view, mediaSeekbar.getProgress());
+                            setMediaHunDuration(view, mediaSeekbar.getProgress(), UserCount);
                             mediathrottlingbutton.setText("reset " + getText(R.string.media_notification_duration_to) + " default");
                             mediaHunStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             mediaHunStatus.setColorFilter(Color.argb(255,255,255,0));
@@ -704,7 +764,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                         else {
-                            forceNoBt(view);
+                            forceNoBt(view, UserCount);
                             bluetoothoff.setText("Re-Enable " + getText(R.string.bluetooth_auto_connect));
                             btstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             btstatus.setColorFilter(Color.argb(255,255,255,0));
@@ -716,9 +776,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
-
-
-
+        
     }
 
 
@@ -843,7 +901,7 @@ public class MainActivity extends AppCompatActivity {
                     appendText(logs, "\n\n--  DELETE old Flags  --");
                     appendText(logs, runSuWithCmd(
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                    "'DELETE FROM Flags WHERE name=\"app_white_list\";'"
+                                    "'DELETE FROM Flags WHERE name=\"app_white_list\";'\n"
                     ).getStreamLogsWithLabels());
 
                     if (runSuWithCmd(
@@ -878,7 +936,7 @@ public class MainActivity extends AppCompatActivity {
                                         "INSERT OR REPLACE INTO Flags (packageName, version, flagType, partitionId, user, name, stringVal, committed) VALUES (\"com.google.android.gms.car#car_setup\", (SELECT version FROM Packages WHERE packageName=\"com.google.android.gms.car#car\"), 0, 0, \"\", \"app_white_list\", \"" + whiteListStringFinal + "\",1);\n" +
                                         "INSERT OR REPLACE INTO Flags (packageName, version, flagType, partitionId, user, name, stringVal, committed) VALUES (\"com.google.android.gms.car#car_setup\", 230, 0, 0, \"\", \"app_white_list\", \"" + whiteListStringFinal + "\",1);\n" +
                                         "INSERT OR REPLACE INTO Flags (packageName, version, flagType, partitionId, user, name, stringVal, committed) VALUES (\"com.google.android.gms.car#car_setup\", 234, 0, 0, \"\", \"app_white_list\", \"" + whiteListStringFinal + "\",1);\n" +
-                                        "END;'"
+                                        "END;'\n"
                         ).getStreamLogsWithLabels());
 
                         appendText(logs, "\n--  end SQL method #1  --");
@@ -915,7 +973,7 @@ public class MainActivity extends AppCompatActivity {
                                         "INSERT OR REPLACE INTO Flags (packageName, version, flagType, partitionId, user, name, stringVal, committed) VALUES (\"com.google.android.gms.car#car_setup\", (SELECT version FROM Packages WHERE packageName=\"com.google.android.gms.car\"), 0, 0, \"\", \"app_white_list\", \"" + whiteListStringFinal + "\",1);\n" +
                                         "INSERT OR REPLACE INTO Flags (packageName, version, flagType, partitionId, user, name, stringVal, committed) VALUES (\"com.google.android.gms.car#car_setup\", 230, 0, 0, \"\", \"app_white_list\", \"" + whiteListStringFinal + "\",1);\n" +
                                         "INSERT OR REPLACE INTO Flags (packageName, version, flagType, partitionId, user, name, stringVal, committed) VALUES (\"com.google.android.gms.car#car_setup\", 234, 0, 0, \"\", \"app_white_list\", \"" + whiteListStringFinal + "\",1);\n" +
-                                        "END;'"
+                                        "END;'\n"
                         ).getStreamLogsWithLabels());
                         appendText(logs, "\n--  end SQL method #2  --");
 
@@ -941,7 +999,7 @@ public class MainActivity extends AppCompatActivity {
                                         "INSERT OR REPLACE INTO Flags (packageName, version, flagType, partitionId, user, name, stringVal, committed) VALUES (\"com.google.android.gms.car#car\", (SELECT version FROM ApplicationStates WHERE packageName=\"com.google.android.gms.car#car\"), 0, 0, \"\", \"app_white_list\", \"" + whiteListStringFinal + "\",1);\n" +
                                         "INSERT OR REPLACE INTO Flags (packageName, version, flagType, partitionId, user, name, stringVal, committed) VALUES (\"com.google.android.gms.car\", 240, 0, 0, \"\", \"app_white_list\", \"" + whiteListStringFinal + "\",1);\n" +
                                         "INSERT OR REPLACE INTO Flags (packageName, version, flagType, partitionId, user, name, stringVal, committed) VALUES (\"com.google.android.gms.car\", (SELECT version FROM ApplicationStates WHERE packageName=\"com.google.android.gms.car\"), 0, 0, \"\", \"app_white_list\", \"" + whiteListStringFinal + "\",1);\n" +
-                                        "END;'"
+                                        "END;'\n"
                         ).getStreamLogsWithLabels());
                         appendText(logs, "\n--  end SQL method #3  --");
 
@@ -963,7 +1021,7 @@ public class MainActivity extends AppCompatActivity {
                                         "BEGIN\n" +
                                         "INSERT OR REPLACE INTO Flags (packageName, version, flagType, partitionId, user, name, stringVal, committed) VALUES (\"com.google.android.gms.car\", 240, 0, 0, \"\", \"app_white_list\", \"" + whiteListStringFinal + "\",1);\n" +
                                         "INSERT OR REPLACE INTO Flags (packageName, version, flagType, partitionId, user, name, stringVal, committed) VALUES (\"com.google.android.gms.car\", (SELECT version FROM ApplicationStates WHERE packageName=\"com.google.android.gms.car\"), 0, 0, \"\", \"app_white_list\", \"" + whiteListStringFinal + "\",1);\n" +
-                                        "END;'"
+                                        "END;'\n"
                         ).getStreamLogsWithLabels());
                         appendText(logs, "\n--  end SQL method #4  --");
 
@@ -1036,11 +1094,24 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void patchforassistshort(final View view) {
+    public void patchforassistshort(final View view, int usercount) {
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
         logs.setText(null);
+
+        final StringBuilder finalCommand = new StringBuilder();
+
+        for (int i = 0; i<=(usercount-1) ; i ++) {
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"LauncherShortcuts__enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"LauncherShortcuts__assistant_shortcut_enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+        }
 
             new Thread() {
                 @Override
@@ -1062,26 +1133,15 @@ public class MainActivity extends AppCompatActivity {
                         appendText(logs, "\n\n--  run SQL method   --");
                         appendText(logs, runSuWithCmd(
                                 path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                        "'INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"LauncherShortcuts__enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1) ,1,1);\n" +
-                                        "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"LauncherShortcuts__assistant_shortcut_enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1) ,1,1);\n" +
-                                        "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"LauncherShortcuts__enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1) ,1,1);\n" +
-                                        "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"LauncherShortcuts__assistant_shortcut_enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1) ,1,1);\n" +
-                                        "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"LauncherShortcuts__enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1) ,1,1);" +
-                                        "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"LauncherShortcuts__assistant_shortcut_enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1) ,1,1);\n'"
-                        ).getStreamLogsWithLabels());
+                                        "'" + finalCommand + "'").getStreamLogsWithLabels());
 
                         appendText(logs, runSuWithCmd(
                                 path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
                                         "'CREATE TRIGGER assist_short AFTER DELETE\n" +
                                         "ON FlagOverrides\n" +
                                         "BEGIN\n" +
-                                        "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"LauncherShortcuts__enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1) ,1,1);\n" +
-                                        "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"LauncherShortcuts__assistant_shortcut_enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1) ,1,1);\n" +
-                                        "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"LauncherShortcuts__enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1) ,1,1);\n" +
-                                        "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"LauncherShortcuts__assistant_shortcut_enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1) ,1,1);\n" +
-                                        "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"LauncherShortcuts__enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1) ,1,1);\n" +
-                                        "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"LauncherShortcuts__assistant_shortcut_enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1) ,1,1);\n" +
-                                "END;'\n"
+                                        finalCommand +
+                                        "END;'\n"
                         ).getStreamLogsWithLabels());
                         appendText(logs, "\n--  end SQL method   --");
                         save(true, "assist_short");
@@ -1090,17 +1150,24 @@ public class MainActivity extends AppCompatActivity {
                         appendText(logs, "\n\n--  Suitable method NOT found!  --");
                     }
 
-
-                    
                 }
             }.start();
         }
 
-    public void patchrailassistant(final View view) {
+    public void patchrailassistant(final View view, int usercount) {
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
         logs.setText(null);
+
+        final StringBuilder finalCommand = new StringBuilder();
+
+        for (int i = 0; i<=(usercount-1) ; i ++) {
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__rail_assistant_enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+        }
 
         new Thread() {
             @Override
@@ -1122,19 +1189,14 @@ public class MainActivity extends AppCompatActivity {
                     appendText(logs, "\n\n--  run SQL method   --");
                     appendText(logs, runSuWithCmd(
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                    "'INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__rail_assistant_enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1) ,1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__rail_assistant_enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1) ,1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__rail_assistant_enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1) ,1,1);'\n"
-                    ).getStreamLogsWithLabels());
+                                    "'" + finalCommand + "'").getStreamLogsWithLabels());
 
                     appendText(logs, runSuWithCmd(
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
                                     "'CREATE TRIGGER aa_assistant_rail AFTER DELETE\n" +
                                     "ON FlagOverrides\n" +
                                     "BEGIN\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__rail_assistant_enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1) ,1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__rail_assistant_enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1) ,1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__rail_assistant_enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1) ,1,1);\n" +
+                                    finalCommand+
                                     "END;'\n"
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method   --");
@@ -1151,11 +1213,48 @@ public class MainActivity extends AppCompatActivity {
         }.start();
     }
 
-    public void patchforspeed(final View view) {
+    public void patchforspeed(final View view, int usercount) {
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
         logs.setText(null);
+
+        final StringBuilder finalCommand = new StringBuilder();
+
+        for (int i = 0; i<=(usercount-1) ; i ++) {
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"CarSensorParameters__max_parked_speed_gps_sensor\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,999,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"CarSensorParameters__max_parked_speed_wheel_sensor\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,999,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__enable\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__flake_filter_delay_ms\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,99999999,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__telemetry_enabled_without_smoothing\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,0,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreview__unchained\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreview__chained\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,0,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreviewVisibilityControl__require_high_accuracy_speed_sensor\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,0,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+        }
 
         new Thread() {
             @Override
@@ -1177,69 +1276,15 @@ public class MainActivity extends AppCompatActivity {
                     appendText(logs, "\n\n--  run SQL method   --");
                     appendText(logs, runSuWithCmd(
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                    "'INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"CarSensorParameters__max_parked_speed_gps_sensor\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"CarSensorParameters__max_parked_speed_wheel_sensor\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__enable\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__flake_filter_delay_ms\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),99999999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__telemetry_enabled_without_smoothing\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreview__unchained\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreview__chained\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreviewVisibilityControl__require_high_accuracy_speed_sensor\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),0,1);\n" +
-
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"CarSensorParameters__max_parked_speed_gps_sensor\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"CarSensorParameters__max_parked_speed_wheel_sensor\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__enable\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__flake_filter_delay_ms\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),99999999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__telemetry_enabled_without_smoothing\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreview__unchained\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreview__chained\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreviewVisibilityControl__require_high_accuracy_speed_sensor\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),0,1);\n" +
-
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"CarSensorParameters__max_parked_speed_gps_sensor\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"CarSensorParameters__max_parked_speed_wheel_sensor\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__enable\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__flake_filter_delay_ms\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),99999999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__telemetry_enabled_without_smoothing\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreview__unchained\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreview__chained\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreviewVisibilityControl__require_high_accuracy_speed_sensor\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),0,1);'\n"
-
-                    ).getStreamLogsWithLabels());
+                                    "'" + finalCommand + "'").getStreamLogsWithLabels());
 
                     appendText(logs, runSuWithCmd(
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
                                     "'CREATE TRIGGER aa_speed_hack AFTER DELETE\n" +
                                     "ON FlagOverrides\n" +
                                     "BEGIN\n" +
-
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"CarSensorParameters__max_parked_speed_gps_sensor\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"CarSensorParameters__max_parked_speed_wheel_sensor\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__enable\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__flake_filter_delay_ms\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),99999999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__telemetry_enabled_without_smoothing\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreview__unchained\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreview__chained\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreviewVisibilityControl__require_high_accuracy_speed_sensor\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),0,1);\n" +
-
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"CarSensorParameters__max_parked_speed_gps_sensor\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"CarSensorParameters__max_parked_speed_wheel_sensor\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__enable\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__flake_filter_delay_ms\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),99999999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__telemetry_enabled_without_smoothing\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreview__unchained\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreview__chained\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreviewVisibilityControl__require_high_accuracy_speed_sensor\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),0,1);\n" +
-
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"CarSensorParameters__max_parked_speed_gps_sensor\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"CarSensorParameters__max_parked_speed_wheel_sensor\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__enable\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__flake_filter_delay_ms\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),99999999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__telemetry_enabled_without_smoothing\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreview__unchained\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreview__chained\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreviewVisibilityControl__require_high_accuracy_speed_sensor\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),0,1);\n" +
-
-                                    "END;'"
+                                    finalCommand +
+                                    "END;'\n"
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "aa_speed_hack");
@@ -1254,11 +1299,52 @@ public class MainActivity extends AppCompatActivity {
         }.start();
     }
 
-    public void patchfortouchlimit(final View view) {
+    public void patchfortouchlimit(final View view, int usercount) {
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
         logs.setText(null);
+
+        final StringBuilder finalCommand = new StringBuilder();
+
+        for (int i = 0; i<=(usercount-1) ; i ++) {
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__drawer_default_allowed_taps_touchpad\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,999,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__max_permits\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,999,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__enable_speed_bump_projected\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,0,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__lockout_ms\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,0,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__permits_per_sec\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,999,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__speedbump_unrestricted_consecutive_scroll_up_actions\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,999,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentForwardBrowse__invisalign_default_allowed_items_rotary\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,999,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentForwardBrowse__invisalign_default_allowed_items_touch\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,999,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Dialer__speedbump_enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,0,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+        }
 
         new Thread() {
             @Override
@@ -1267,11 +1353,7 @@ public class MainActivity extends AppCompatActivity {
                 boolean suitableMethodFound = true;
                 copyAssets();
 
-                String CountUsers = runSuWithCmd(
-                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                "'SELECT COUNT(DISTINCT user) FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\";'").getInputStreamLog();
 
-                int UserCount = Integer.parseInt(CountUsers);
 
                 appendText(logs, "\n\n-- Drop Triggers  --");
                 appendText(logs, runSuWithCmd(
@@ -1285,88 +1367,13 @@ public class MainActivity extends AppCompatActivity {
 
                     appendText(logs, "\n\n--  run SQL method   --");
                     appendText(logs, runSuWithCmd(
-                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-
-                                    "'INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__drawer_default_allowed_taps_touchpad\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__max_permits\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__enable_speed_bump_projected\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__lockout_ms\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__permits_per_sec\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__speedbump_unrestricted_consecutive_scroll_up_actions\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentForwardBrowse__invisalign_default_allowed_items_rotary\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentForwardBrowse__invisalign_default_allowed_items_touch\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Mesquite__speedbump_enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MesquiteFull__enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Dialer__speedbump_enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),0,1);\n" +
-
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__drawer_default_allowed_taps_touchpad\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__max_permits\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__enable_speed_bump_projected\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__lockout_ms\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__permits_per_sec\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__speedbump_unrestricted_consecutive_scroll_up_actions\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentForwardBrowse__invisalign_default_allowed_items_rotary\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentForwardBrowse__invisalign_default_allowed_items_touch\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Mesquite__speedbump_enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MesquiteFull__enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Dialer__speedbump_enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),0,1);\n" +
-
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__drawer_default_allowed_taps_touchpad\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__max_permits\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__enable_speed_bump_projected\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__lockout_ms\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__permits_per_sec\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__speedbump_unrestricted_consecutive_scroll_up_actions\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentForwardBrowse__invisalign_default_allowed_items_rotary\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentForwardBrowse__invisalign_default_allowed_items_touch\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Mesquite__speedbump_enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MesquiteFull__enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Dialer__speedbump_enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),0,1);'\n"
-
+                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'" + finalCommand + "'"
                     ).getStreamLogsWithLabels());
 
                     appendText(logs, runSuWithCmd(
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
                                     "'CREATE TRIGGER aa_six_tap AFTER DELETE\n" +
-                                    "ON FlagOverrides\n" +
-                                    "BEGIN\n" +
-
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__drawer_default_allowed_taps_touchpad\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__max_permits\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__enable_speed_bump_projected\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__lockout_ms\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__permits_per_sec\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__speedbump_unrestricted_consecutive_scroll_up_actions\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentForwardBrowse__invisalign_default_allowed_items_rotary\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentForwardBrowse__invisalign_default_allowed_items_touch\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Mesquite__speedbump_enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MesquiteFull__enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Dialer__speedbump_enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),0,1);\n" +
-
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__drawer_default_allowed_taps_touchpad\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__max_permits\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__enable_speed_bump_projected\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__lockout_ms\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__permits_per_sec\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__speedbump_unrestricted_consecutive_scroll_up_actions\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentForwardBrowse__invisalign_default_allowed_items_rotary\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentForwardBrowse__invisalign_default_allowed_items_touch\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Mesquite__speedbump_enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MesquiteFull__enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Dialer__speedbump_enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),0,1);\n" +
-
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__drawer_default_allowed_taps_touchpad\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__max_permits\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__enable_speed_bump_projected\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__lockout_ms\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__permits_per_sec\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__speedbump_unrestricted_consecutive_scroll_up_actions\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentForwardBrowse__invisalign_default_allowed_items_rotary\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentForwardBrowse__invisalign_default_allowed_items_touch\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),999,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Mesquite__speedbump_enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MesquiteFull__enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Dialer__speedbump_enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),0,1);\n" +
-                            "END;'"
+                                    "ON FlagOverrides\n" + finalCommand + "END;'\n"
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "aa_six_tap");
@@ -1379,11 +1386,24 @@ public class MainActivity extends AppCompatActivity {
         }.start();
     }
 
-    public void navpatch(View view) {
+    public void navpatch(View view, int usercount) {
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
         logs.setText(null);
+
+        final StringBuilder finalCommand = new StringBuilder();
+
+        for (int i = 0; i<=(usercount-1) ; i ++) {
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUI__startup_app_policy\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,0,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUI__start_in_launcher_if_no_user_selected_nav_app\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+        }
 
         new Thread() {
             @Override
@@ -1405,28 +1425,15 @@ public class MainActivity extends AppCompatActivity {
                     appendText(logs, "\n\n--  run SQL method   --");
                     appendText(logs, runSuWithCmd(
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                    "'DELETE FROM FLAGS WHERE name=\"SystemUi__startup_app_policy\";"+
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUI__start_in_launcher_if_no_user_selected_nav_app\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUI__startup_app_policy\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUI__start_in_launcher_if_no_user_selected_nav_app\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUI__startup_app_policy\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUI__start_in_launcher_if_no_user_selected_nav_app\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUI__startup_app_policy\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),0,1);\n'"
+                                    "'DELETE FROM FLAGS WHERE packageName=\"com.google.android.projection.gearhead\" AND name LIKE \"SystemUi__start%\";\n"+
+                                    finalCommand + "'"
                     ).getStreamLogsWithLabels());
 
                     appendText(logs, runSuWithCmd(
                                     path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
                                     "'CREATE TRIGGER aa_startup_policy AFTER DELETE\n" +
                                     "ON FlagOverrides\n" +
-                                    "BEGIN\n" +
-                                    "DELETE FROM FLAGS WHERE name=\"SystemUi__startup_app_policy\";"+
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUI__start_in_launcher_if_no_user_selected_nav_app\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUI__startup_app_policy\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUI__start_in_launcher_if_no_user_selected_nav_app\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUI__startup_app_policy\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUI__start_in_launcher_if_no_user_selected_nav_app\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUI__startup_app_policy\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),0,1);\n" +
-                                    "END;'\n"
+                                    "BEGIN\n" + finalCommand + "END;'\n"
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "aa_startup_policy");
@@ -1441,11 +1448,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void battOutline(View view) {
+    public void battOutline(View view, int usercount) {
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
         logs.setText(null);
+
+        final StringBuilder finalCommand = new StringBuilder();
+
+        for (int i = 0; i<=(usercount-1) ; i ++) {
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BatterySaver__icon_outline_enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,0,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+        }
 
         new Thread() {
             @Override
@@ -1467,22 +1483,14 @@ public class MainActivity extends AppCompatActivity {
                     appendText(logs, "\n\n--  run SQL method   --");
                     appendText(logs, runSuWithCmd(
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                    "'DELETE FROM Flags WHERE name=\"BatterySaver__icon_outline_enabled\";"+
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BatterySaver__icon_outline_enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BatterySaver__icon_outline_enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BatterySaver__icon_outline_enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),0,1);\n'"
-                    ).getStreamLogsWithLabels());
+                                    "'DELETE FROM Flags WHERE name=\"BatterySaver__icon_outline_enabled\";\n"+ finalCommand + "'"
+                                    ).getStreamLogsWithLabels());
 
                     appendText(logs, runSuWithCmd(
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
                                     "'CREATE TRIGGER aa_battery_outline AFTER DELETE\n" +
                                     "ON FlagOverrides\n" +
-                                    "BEGIN\n" +
-                                    "DELETE FROM Flags WHERE name=\"BatterySaver__icon_outline_enabled\";"+
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BatterySaver__icon_outline_enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BatterySaver__icon_outline_enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),0,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BatterySaver__icon_outline_enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),0,1);\n" +
-                                    "END;'\n"
+                                    "BEGIN\n" + finalCommand + "END;'\n"
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "aa_battery_outline");
@@ -1497,11 +1505,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void opaqueStatusBar (View view) {
+    public void opaqueStatusBar (View view, int usercount) {
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
         logs.setText(null);
+
+        final StringBuilder finalCommand = new StringBuilder();
+
+        for (int i = 0; i<=(usercount-1) ; i ++) {
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Boardwalk_status_bar_force_opaque\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+        }
 
         new Thread() {
             @Override
@@ -1523,22 +1540,13 @@ public class MainActivity extends AppCompatActivity {
                     appendText(logs, "\n\n--  run SQL method   --");
                     appendText(logs, runSuWithCmd(
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                    "'DELETE FROM Flags WHERE name=\"Boardwalk_status_bar_force_opaque\";"+
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Boardwalk_status_bar_force_opaque\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Boardwalk_status_bar_force_opaque\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Boardwalk_status_bar_force_opaque\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),1,1);\n'"
-                    ).getStreamLogsWithLabels());
+                                    "'DELETE FROM Flags WHERE name=\"Boardwalk_status_bar_force_opaque\";\n"+ finalCommand + "'").getStreamLogsWithLabels());
 
                     appendText(logs, runSuWithCmd(
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
                                     "'CREATE TRIGGER aa_sb_opaque AFTER DELETE\n" +
                                     "ON FlagOverrides\n" +
-                                    "BEGIN\n" +
-                                    "DELETE FROM Flags WHERE name=\"Boardwalk_status_bar_force_opaque\";"+
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Boardwalk_status_bar_force_opaque\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Boardwalk_status_bar_force_opaque\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Boardwalk_status_bar_force_opaque\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),1,1);\n" +
-                                    "END;'\n"
+                                    "BEGIN\n" + finalCommand + "END;'\n"
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "aa_sb_opaque");
@@ -1552,11 +1560,24 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void forceNoBt (View view) {
+    public void forceNoBt (View view, int usercount) {
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
         logs.setText(null);
+
+        final StringBuilder finalCommand = new StringBuilder();
+
+        for (int i = 0; i<=(usercount-1) ; i ++) {
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BluetoothPairing__car_bluetooth_service_disable\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.gms.car\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BluetoothPairing__car_bluetooth_service_skip_pairing\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.gms.car\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+        }
 
         new Thread() {
             @Override
@@ -1578,32 +1599,16 @@ public class MainActivity extends AppCompatActivity {
                     appendText(logs, "\n\n--  run SQL method   --");
                     appendText(logs, runSuWithCmd(
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                    "'INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_disable\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_skip_pairing\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),1,1);\n" +
-
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_disable\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_skip_pairing\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),1,1);\n" +
-
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_disable\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_skip_pairing\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),1,1);'\n"
-
+                                    "'DELETE FROM Flags WHERE name=\"BluetoothPairing__car_bluetooth_service_disable\";\n" +
+                                    "'DELETE FROM Flags WHERE name=\"BluetoothPairing__car_bluetooth_service_skip_pairing\";\n" +
+                                    finalCommand + "'"
                     ).getStreamLogsWithLabels());
 
                     appendText(logs, runSuWithCmd(
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
                                     "'CREATE TRIGGER bluetooth_pairing_off AFTER DELETE\n" +
                                     "ON FlagOverrides\n" +
-                                    "BEGIN\n" +
-                                    "'INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_disable\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_skip_pairing\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),1,1);\n" +
-
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_disable\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_skip_pairing\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),1,1);\n" +
-
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_disable\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),1,1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_skip_pairing\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),1,1);\n" +
-
-                                    "END;'\n"
+                                    "BEGIN\n" + finalCommand + "END;'\n"
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "bluetooth_pairing_off");
@@ -1617,11 +1622,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void setHunDuration (View view, final int value) {
+    public void setHunDuration (View view, final int value, int usercount) {
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
         logs.setText(null);
+
+        final StringBuilder finalCommand = new StringBuilder();
+
+        for (int i = 0; i<=(usercount-1) ; i ++) {
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__hun_default_heads_up_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1)," + value + ",1);");
+            finalCommand.append(System.getProperty("line.separator"));
+        }
 
         new Thread() {
             @Override
@@ -1643,22 +1657,15 @@ public class MainActivity extends AppCompatActivity {
                     appendText(logs, "\n\n--  run SQL method   --");
                     appendText(logs, runSuWithCmd(
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                    "'DELETE FROM Flags WHERE name=\"SystemUi__hun_default_heads_up_timeout_ms\";"+
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__hun_default_heads_up_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1)," + value + ",1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__hun_default_heads_up_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1)," + value + ",1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__hun_default_heads_up_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1)," + value + ",1);\n'"
+                                    "'DELETE FROM Flags WHERE name=\"SystemUi__hun_default_heads_up_timeout_ms\";\n"+ finalCommand + "'"
                     ).getStreamLogsWithLabels());
 
                     appendText(logs, runSuWithCmd(
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
                                     "'CREATE TRIGGER aa_hun_ms AFTER DELETE\n" +
                                     "ON FlagOverrides\n" +
-                                    "BEGIN\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__hun_default_heads_up_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1)," + value + ",1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__hun_default_heads_up_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1)," + value + ",1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__hun_default_heads_up_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1)," + value + ",1);\n" +
-                                    "END;'\n"
-                    ).getStreamLogsWithLabels());
+                                    "BEGIN\n" + finalCommand + "END;'\n"
+                                    ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "aa_hun_ms");
                 } else {
@@ -1671,11 +1678,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void setMediaHunDuration (View view, final int value) {
+    public void setMediaHunDuration (View view, final int value, int usercount) {
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
         logs.setText(null);
+
+        final StringBuilder finalCommand = new StringBuilder();
+
+        for (int i = 0; i<=(usercount-1) ; i ++) {
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__media_hun_in_rail_widget_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1)," + value + ",1);");
+            finalCommand.append(System.getProperty("line.separator"));
+        }
 
         new Thread() {
             @Override
@@ -1697,21 +1713,14 @@ public class MainActivity extends AppCompatActivity {
                     appendText(logs, "\n\n--  run SQL method   --");
                     appendText(logs, runSuWithCmd(
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                    "'DELETE FROM Flags WHERE name=\"SystemUi__media_hun_in_rail_widget_timeout_ms\";"+
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__media_hun_in_rail_widget_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1)," + value + ",1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__media_hun_in_rail_widget_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1)," + value + ",1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__media_hun_in_rail_widget_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1)," + value + ",1);\n'"
-                    ).getStreamLogsWithLabels());
+                                    "'DELETE FROM Flags WHERE name=\"SystemUi__media_hun_in_rail_widget_timeout_ms\";\n"+ finalCommand + "'"
+                                   ).getStreamLogsWithLabels());
 
                     appendText(logs, runSuWithCmd(
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
                                     "'CREATE TRIGGER aa_media_hun AFTER DELETE\n" +
                                     "ON FlagOverrides\n" +
-                                    "BEGIN\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__media_hun_in_rail_widget_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1)," + value + ",1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__media_hun_in_rail_widget_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1)," + value + ",1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__media_hun_in_rail_widget_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1)," + value + ",1);\n" +
-                                    "END;'\n"
+                                    "BEGIN\n" + finalCommand + "END;'\n"
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "aa_media_hun");
@@ -1725,11 +1734,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void forceWideScreen (View view, final int value) {
+    public void forceWideScreen (View view, final int value, int usercount) {
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
         logs.setText(null);
+
+        final StringBuilder finalCommand = new StringBuilder();
+
+        for (int i = 0; i<=(usercount-1) ; i ++) {
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__widescreen_breakpoint_dp\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1)," + value + ",1);");
+            finalCommand.append(System.getProperty("line.separator"));
+        }
 
         new Thread() {
             @Override
@@ -1741,7 +1759,7 @@ public class MainActivity extends AppCompatActivity {
                 appendText(logs, "\n\n-- Drop Triggers  --");
                 appendText(logs, runSuWithCmd(
                         path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                "'DROP TRIGGER IF EXISTS force_ws; DROP TRIGGER IF EXISTS force_no_ws;'"
+                                "'DROP TRIGGER IF EXISTS force_ws;\n DROP TRIGGER IF EXISTS force_no_ws;'"
                 ).getStreamLogsWithLabels());
 
                 if (runSuWithCmd(
@@ -1750,11 +1768,7 @@ public class MainActivity extends AppCompatActivity {
 
                     appendText(logs, "\n\n--  run SQL method   --");
                     appendText(logs, runSuWithCmd(
-                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                    "'INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__widescreen_breakpoint_dp\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),\"" + value + "\",1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__widescreen_breakpoint_dp\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),\"" + value + "\",1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__widescreen_breakpoint_dp\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),\"" + value + "\",1);\n'"
-                    ).getStreamLogsWithLabels());
+                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'" + finalCommand + "'").getStreamLogsWithLabels());
 
                     String decideWhat = new String();
                     String fix_black_letterbox = new String();
@@ -1769,14 +1783,10 @@ public class MainActivity extends AppCompatActivity {
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
                                     "'CREATE TRIGGER " + decideWhat + " AFTER DELETE\n" +
                                     "ON FlagOverrides\n" +
-                                    "BEGIN\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__widescreen_breakpoint_dp\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 0,1),\"" + value + "\",1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__widescreen_breakpoint_dp\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 1,1),\"" + value + "\",1);\n" +
-                                    "INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__widescreen_breakpoint_dp\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT 2,1),\"" + value + "\",1);\n" +
-                                    "END;'\n"
+                                    "BEGIN\n" + finalCommand + "END;'\n"
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
-                    save(true, "force_ws");
+                    save(true, decideWhat);
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
