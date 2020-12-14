@@ -324,6 +324,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         if (load("aa_startup_policy")){
                             revert("aa_startup_policy");
+                            revert("aa_startup_policy_cleanup");
                             startupnav.setText("Re-enable " + getText(R.string.navigation_at_start));
                             navstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             navstatus.setColorFilter(Color.argb(255,255,0,0));
@@ -622,7 +623,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show();
 
                 Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 200);
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 500);
 
                 return true;
             }
@@ -736,7 +737,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                         else {
-                            forceWideScreen(view, 1921, UserCount);
+                            forceWideScreen(view, 3000, UserCount);
                             forceNoWideScreen.setText("Reset " + getText(R.string.base_no_ws));
                             forceNoWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             forceNoWideScreenStatus.setColorFilter(Color.argb(255,255,255,0));
@@ -1034,7 +1035,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show();
 
                 Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 300);
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 500);
 
                 return true;
             }
@@ -1900,7 +1901,7 @@ public class MainActivity extends AppCompatActivity {
                 appendText(logs, "\n\n-- Drop Triggers  --");
                 appendText(logs, runSuWithCmd(
                         path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                "'DROP TRIGGER IF EXISTS aa_startup_policy;'"
+                                "'DROP TRIGGER IF EXISTS aa_startup_policy; DROP TRIGGER IF EXISTS aa_startup_policy_cleanup'"
                 ).getStreamLogsWithLabels());
 
                 if (runSuWithCmd(
@@ -1918,7 +1919,11 @@ public class MainActivity extends AppCompatActivity {
                                     path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
                                     "'CREATE TRIGGER aa_startup_policy AFTER DELETE\n" +
                                     "ON FlagOverrides\n" +
-                                    "BEGIN\n" + finalCommand + "END;'\n"
+                                    "BEGIN\n" + finalCommand + "END;\n" +
+                                            "CREATE TRIGGER aa_startup_policy_cleanup AFTER INSERT\n" +
+                                            "ON Flags\n" +
+                                            "BEGIN\n" + "DELETE FROM FLAGS WHERE packageName=\"com.google.android.projection.gearhead\" AND name LIKE \"SystemUi__start%\";\n" +
+                                            "END;'\n"
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "aa_startup_policy");
@@ -2323,12 +2328,10 @@ public class MainActivity extends AppCompatActivity {
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'" + finalCommand + "'").getStreamLogsWithLabels());
 
                     String decideWhat = new String();
-                    String fix_black_letterbox = new String();
-
 
                     switch (value) {
-                        case 470: decideWhat = "force_ws";
-                        case 1921: decideWhat = "force_no_ws";
+                        case 470: { decideWhat = "force_ws"; break; }
+                        case 3000: { decideWhat = "force_no_ws"; break; }
                     }
 
                     appendText(logs, runSuWithCmd(
