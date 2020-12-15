@@ -12,14 +12,13 @@
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/guideline"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.3"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="WARNING"
+        android:text="@string/warning_title"
         android:textColor="@android:color/holo_red_light"
         android:textSize="25sp"
         android:textStyle="bold"

@@ -107,11 +107,11 @@ public class MainActivity extends AppCompatActivity {
         final Button nospeed = findViewById(R.id.nospeed);
         final ImageView nospeedimg = findViewById(R.id.speedhackstatus);
         if(load("aa_speed_hack")) {
-            nospeed.setText("Re-enable " + getText(R.string.unlimited_scrolling_when_driving));
+            nospeed.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.unlimited_scrolling_when_driving));
             nospeedimg.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
             nospeedimg.setColorFilter(Color.argb(255,0,255,0));
         } else {
-            nospeed.setText("Disable " + getText(R.string.unlimited_scrolling_when_driving));
+            nospeed.setText(getString(R.string.disable_tweak_string) + getString(R.string.unlimited_scrolling_when_driving));
             nospeedimg.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
             nospeedimg.setColorFilter(Color.argb(255,255,0,0));
         }
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         if (load("aa_speed_hack")){
                             revert("aa_speed_hack");
-                            nospeed.setText("Disable " + getText(R.string.unlimited_scrolling_when_driving));
+                            nospeed.setText(getString(R.string.disable_tweak_string) + getString(R.string.unlimited_scrolling_when_driving));
                             nospeedimg.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             nospeedimg.setColorFilter(Color.argb(255,255,0,0));
                             if(!animationRun[0]) {
@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else {
                             patchforspeed(view, UserCount);
-                            nospeed.setText("Re-enable " + getText(R.string.unlimited_scrolling_when_driving));
+                            nospeed.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.unlimited_scrolling_when_driving));
                             nospeedimg.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             nospeedimg.setColorFilter(Color.argb(255,255,255,0));
                             if(!animationRun[0]) {
@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
                 View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
 
                 TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getText(R.string.tutorial_nospeed));
+                tutorial.setText(getString(R.string.tutorial_nospeed));
 
                 ImageView img1 = view.findViewById(R.id.tutorialimage1);
                 img1.setImageDrawable(getDrawable(R.drawable.tutorial_nospeed));
@@ -173,11 +173,11 @@ public class MainActivity extends AppCompatActivity {
         final Button assistshort = findViewById(R.id.assistshort);
         final ImageView assisthackimg = findViewById(R.id.shortcutstatus);
         if(load("assist_short")) {
-            assistshort.setText("Disable " + getText(R.string.enable_assistant_shortcuts));
+            assistshort.setText(getString(R.string.disable_tweak_string) + getString(R.string.enable_assistant_shortcuts));
             assisthackimg.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
             assisthackimg.setColorFilter(Color.argb(255,0,255,0));
         } else {
-            assistshort.setText("Enable " + getText(R.string.enable_assistant_shortcuts));
+            assistshort.setText(getString(R.string.enable_tweak_string) + getString(R.string.enable_assistant_shortcuts));
             assisthackimg.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
             assisthackimg.setColorFilter(Color.argb(255,255,0,0));
         }
@@ -191,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
                 View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
 
                 TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getText(R.string.tutorial_shortcuts));
+                tutorial.setText(getString(R.string.tutorial_shortcuts));
 
                 ImageView img1 = view.findViewById(R.id.tutorialimage1);
                 ImageView img2 = view.findViewById(R.id.tutorialimage2);
@@ -218,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         if (load("assist_short")){
                             revert("assist_short");
-                            assistshort.setText("Enable " + getText(R.string.enable_assistant_shortcuts));
+                            assistshort.setText(getString(R.string.enable_tweak_string) + getString(R.string.enable_assistant_shortcuts));
                             assisthackimg.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             assisthackimg.setColorFilter(Color.argb(255,255,0,0));
                             if(!animationRun[0]) {
@@ -229,7 +229,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else {
                             patchforassistshort(view, UserCount);
-                            assistshort.setText("Disable " + getText(R.string.enable_assistant_shortcuts));
+                            assistshort.setText(getString(R.string.disable_tweak_string) + getString(R.string.enable_assistant_shortcuts));
                             assisthackimg.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             assisthackimg.setColorFilter(Color.argb(255,255,255,0));
                             if(!animationRun[0]) {
@@ -244,11 +244,11 @@ public class MainActivity extends AppCompatActivity {
         final Button taplimitat = findViewById(R.id.taplimit);
         final ImageView taplimitstatus = findViewById(R.id.sixtapstatus);
         if(load("aa_six_tap")) {
-            taplimitat.setText("Re-enable " + getText(R.string.disable_speed_limitations));
+            taplimitat.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.disable_speed_limitations));
             taplimitstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
             taplimitstatus.setColorFilter(Color.argb(255,0,255,0));
         } else {
-            taplimitat.setText("Disable " + getText(R.string.disable_speed_limitations));
+            taplimitat.setText(getString(R.string.disable_tweak_string) + getString(R.string.disable_speed_limitations));
             taplimitstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
             taplimitstatus.setColorFilter(Color.argb(255,255,0,0));
         }
@@ -262,7 +262,7 @@ public class MainActivity extends AppCompatActivity {
                 View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
 
                 TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getText(R.string.tutorial_sixtap));
+                tutorial.setText(getString(R.string.tutorial_sixtap));
 
                 ImageView img1 = view.findViewById(R.id.tutorialimage1);
                 img1.setImageDrawable(getDrawable(R.drawable.tutorial_sixtap));
@@ -284,7 +284,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         if (load("aa_six_tap")){
                             revert("aa_six_tap");
-                            taplimitat.setText("Disable " + getText(R.string.disable_speed_limitations));
+                            taplimitat.setText(getString(R.string.disable_tweak_string) + getString(R.string.disable_speed_limitations));
                             taplimitstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             taplimitstatus.setColorFilter(Color.argb(255,255,0,0));
                             if(!animationRun[0]) {
@@ -295,7 +295,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else {
                             patchfortouchlimit(view, UserCount);
-                            taplimitat.setText("Re-enable " + getText(R.string.disable_speed_limitations));
+                            taplimitat.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.disable_speed_limitations));
                             taplimitstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             taplimitstatus.setColorFilter(Color.argb(255,255,255,0));
                             if(!animationRun[0]) {
@@ -310,11 +310,11 @@ public class MainActivity extends AppCompatActivity {
         final Button startupnav = findViewById(R.id.startup);
         final ImageView navstatus = findViewById(R.id.navstatus);
         if(load("aa_startup_policy")) {
-            startupnav.setText("Re-enable " + getText(R.string.navigation_at_start));
+            startupnav.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.navigation_at_start));
             navstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
             navstatus.setColorFilter(Color.argb(255,0,255,0));
         } else {
-            startupnav.setText("Disable " + getText(R.string.navigation_at_start));
+            startupnav.setText(getString(R.string.disable_tweak_string) + getString(R.string.navigation_at_start));
             navstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
             navstatus.setColorFilter(Color.argb(255,255,0,0));
         }
@@ -325,7 +325,7 @@ public class MainActivity extends AppCompatActivity {
                         if (load("aa_startup_policy")){
                             revert("aa_startup_policy");
                             revert("aa_startup_policy_cleanup");
-                            startupnav.setText("Re-enable " + getText(R.string.navigation_at_start));
+                            startupnav.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.navigation_at_start));
                             navstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             navstatus.setColorFilter(Color.argb(255,255,0,0));
                             if(!animationRun[0]) {
@@ -336,7 +336,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else {
                             navpatch(view, UserCount);
-                            startupnav.setText("Disable " + getText(R.string.navigation_at_start));
+                            startupnav.setText(getString(R.string.disable_tweak_string) + getString(R.string.navigation_at_start));
                             navstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             navstatus.setColorFilter(Color.argb(255,255,255,0));
                             if(!animationRun[0]) {
@@ -357,7 +357,7 @@ public class MainActivity extends AppCompatActivity {
                 View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
 
                 TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getText(R.string.tutorial_startup));
+                tutorial.setText(getString(R.string.tutorial_startup));
 
                 dialog.setContentView(view);
 
@@ -374,11 +374,11 @@ public class MainActivity extends AppCompatActivity {
         final ImageView patchappstatus = findViewById(R.id.patchedappstatus);
 
         if(load("aa_patched_apps") || load("after_delete")) {
-            patchapps.setText("Unpatch " + getText(R.string.patch_custom_apps));
+            patchapps.setText(getString(R.string.unpatch) + getString(R.string.patch_custom_apps));
             patchappstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
             patchappstatus.setColorFilter(Color.argb(255,0,255,0));
         } else {
-            patchapps.setText("Patch " + getText(R.string.patch_custom_apps));
+            patchapps.setText(getString(R.string.patch_app) + getString(R.string.patch_custom_apps));
             patchappstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
             patchappstatus.setColorFilter(Color.argb(255,255,0,0));
         }
@@ -389,7 +389,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         if (load("aa_patched_apps")){
                             revert("aa_patched_apps");
-                            patchapps.setText("Patch " + getText(R.string.patch_custom_apps));
+                            patchapps.setText(getString(R.string.patch_app) + getString(R.string.patch_custom_apps));
                             patchappstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             patchappstatus.setColorFilter(Color.argb(255,255,0,0));
                             if(!animationRun[0]) {
@@ -418,7 +418,7 @@ public class MainActivity extends AppCompatActivity {
                 View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
 
                 TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getText(R.string.tutorial_patchapps));
+                tutorial.setText(getString(R.string.tutorial_patchapps));
 
                 dialog.setContentView(view);
 
@@ -434,12 +434,12 @@ public class MainActivity extends AppCompatActivity {
         final Button assistanim = findViewById(R.id.assistanim);
         final ImageView assistanimstatus = findViewById(R.id.assistanimstatus);
         if(load("aa_assistant_rail")) {
-            assistanim.setText("Disable " + getText(R.string.enable_assistant_animation_in_navbar));
+            assistanim.setText(getString(R.string.disable_tweak_string) + getString(R.string.enable_assistant_animation_in_navbar));
             assistanimstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
             assistanimstatus.setColorFilter(Color.argb(255,0,255,0));
 
         } else {
-            assistanim.setText("Enable " + getText(R.string.enable_assistant_animation_in_navbar));
+            assistanim.setText(getString(R.string.enable_tweak_string) + getString(R.string.enable_assistant_animation_in_navbar));
             assistanimstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
             assistanimstatus.setColorFilter(Color.argb(255,255,0,0));
         }
@@ -450,7 +450,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         if (load("aa_assistant_rail")){
                             revert("aa_assistant_rail");
-                            assistanim.setText("Enable " + getText(R.string.enable_assistant_animation_in_navbar));
+                            assistanim.setText(getString(R.string.enable_tweak_string) + getString(R.string.enable_assistant_animation_in_navbar));
                             assistanimstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             assistanimstatus.setColorFilter(Color.argb(255,255,0,0));
                             if(!animationRun[0]) {
@@ -461,7 +461,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else {
                             patchrailassistant(view, UserCount);
-                            assistanim.setText("Disable " + getText(R.string.enable_assistant_animation_in_navbar));
+                            assistanim.setText(getString(R.string.disable_tweak_string) + getString(R.string.enable_assistant_animation_in_navbar));
                             assistanimstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             assistanimstatus.setColorFilter(Color.argb(255,255,255,0));
                             if(!animationRun[0]) {
@@ -482,7 +482,7 @@ public class MainActivity extends AppCompatActivity {
                 View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
 
                 TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getText(R.string.tutorial_animation));
+                tutorial.setText(getString(R.string.tutorial_animation));
 
                 ImageView img1 = view.findViewById(R.id.tutorialimage1);
                 img1.setImageDrawable(getDrawable(R.drawable.tutorial_animation));
@@ -501,12 +501,12 @@ public class MainActivity extends AppCompatActivity {
         final Button batteryoutline = findViewById(R.id.battoutline);
         final ImageView batterystatus = findViewById(R.id.batterystatus);
         if(load("aa_battery_outline")) {
-            batteryoutline.setText("Re-enable " + getText(R.string.battery_outline_string));
+            batteryoutline.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.battery_outline_string));
             batterystatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
             batterystatus.setColorFilter(Color.argb(255,0,255,0));
 
         } else {
-            batteryoutline.setText("Disable " + getText(R.string.battery_outline_string));
+            batteryoutline.setText(getString(R.string.disable_tweak_string) + getString(R.string.battery_outline_string));
             batterystatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
             batterystatus.setColorFilter(Color.argb(255,255,0,0));
         }
@@ -517,7 +517,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         if (load("aa_battery_outline")){
                             revert("aa_battery_outline");
-                            batteryoutline.setText("Disable " + getText(R.string.battery_outline_string));
+                            batteryoutline.setText(getString(R.string.disable_tweak_string) + getString(R.string.battery_outline_string));
                             batterystatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             batterystatus.setColorFilter(Color.argb(255,255,0,0));
                             if(!animationRun[0]) {
@@ -528,7 +528,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else {
                             battOutline(view, UserCount);
-                            batteryoutline.setText("Re-Enable " + getText(R.string.battery_outline_string));
+                            batteryoutline.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.battery_outline_string));
                             batterystatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             batterystatus.setColorFilter(Color.argb(255,255,255,0));
                             if(!animationRun[0]) {
@@ -549,7 +549,7 @@ public class MainActivity extends AppCompatActivity {
                 View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
 
                 TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getText(R.string.tutorial_battery_outline));
+                tutorial.setText(getString(R.string.tutorial_battery_outline));
 
                 ImageView img1 = view.findViewById(R.id.tutorialimage1);
                 img1.setImageDrawable(getDrawable(R.drawable.tutorial_outline));
@@ -568,12 +568,12 @@ public class MainActivity extends AppCompatActivity {
         final Button statusbaropaque = findViewById(R.id.statusbar_opaque);
         final ImageView opauqestatus = findViewById(R.id.statusbar_opaque_status);
         if(load("aa_sb_opaque")) {
-            statusbaropaque.setText("Disable " + getText(R.string.statb_opaque_string));
+            statusbaropaque.setText(getString(R.string.disable_tweak_string) + getString(R.string.statb_opaque_string));
             opauqestatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
             opauqestatus.setColorFilter(Color.argb(255,0,255,0));
 
         } else {
-            statusbaropaque.setText("Enable " + getText(R.string.statb_opaque_string));
+            statusbaropaque.setText(getString(R.string.enable_tweak_string) + getString(R.string.statb_opaque_string));
             opauqestatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
             opauqestatus.setColorFilter(Color.argb(255,255,0,0));
         }
@@ -584,7 +584,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         if (load("aa_sb_opaque")){
                             revert("aa_sb_opaque");
-                            statusbaropaque.setText("Enable " + getText(R.string.statb_opaque_string));
+                            statusbaropaque.setText(getString(R.string.enable_tweak_string) + getString(R.string.statb_opaque_string));
                             opauqestatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             opauqestatus.setColorFilter(Color.argb(255,255,0,0));
                             if(!animationRun[0]) {
@@ -595,7 +595,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else {
                             opaqueStatusBar(view, UserCount);
-                            statusbaropaque.setText("Disable " + getText(R.string.statb_opaque_string));
+                            statusbaropaque.setText(getString(R.string.disable_tweak_string) + getString(R.string.statb_opaque_string));
                             opauqestatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             opauqestatus.setColorFilter(Color.argb(255,255,255,0));
                             if(!animationRun[0]) {
@@ -616,7 +616,7 @@ public class MainActivity extends AppCompatActivity {
                 View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
 
                 TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getText(R.string.tutorial_statusbar_opaque));
+                tutorial.setText(getString(R.string.tutorial_statusbar_opaque));
 
                 dialog.setContentView(view);
 
@@ -636,12 +636,12 @@ public class MainActivity extends AppCompatActivity {
         final ImageView forceWideScreenStatus = findViewById(R.id.force_ws_status);
 
         if(load("force_ws")) {
-            forceWideScreenButton.setText("Disable " + getText(R.string.force_widescreen_text));
+            forceWideScreenButton.setText(getString(R.string.disable_tweak_string) + getString(R.string.force_widescreen_text));
             forceWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
             forceWideScreenStatus.setColorFilter(Color.argb(255,0,255,0));
 
         } else {
-            forceWideScreenButton.setText("Enable " + getText(R.string.force_widescreen_text));
+            forceWideScreenButton.setText(getString(R.string.enable_tweak_string) + getString(R.string.force_widescreen_text));
             forceWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
             forceWideScreenStatus.setColorFilter(Color.argb(255,255,0,0));
         }
@@ -652,7 +652,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         if (load("force_ws")){
                             revert("force_ws");
-                            forceWideScreenButton.setText("Enable " + getText(R.string.force_widescreen_text));
+                            forceWideScreenButton.setText(getString(R.string.enable_tweak_string) + getString(R.string.force_widescreen_text));
                             forceWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             forceWideScreenStatus.setColorFilter(Color.argb(255,255,0,0));
                             if(!animationRun[0]) {
@@ -663,15 +663,15 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else {
                             forceWideScreen(view, 470, UserCount);
-                            forceWideScreenButton.setText("Disable " + getText(R.string.force_widescreen_text));
+                            forceWideScreenButton.setText(getString(R.string.disable_tweak_string)+ getString(R.string.force_widescreen_text));
                             forceWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             forceWideScreenStatus.setColorFilter(Color.argb(255,255,255,0));
 
                             save(true, "force_ws");
                             if (load("force_no_ws")) {
-                                Toast.makeText(getApplicationContext(), "Force disable widescreen has been automatically disabled", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), R.string.force_disable_widescreen_warning, Toast.LENGTH_LONG).show();
                                 save(false,"force_no_ws");
-                                forceNoWideScreen.setText("Force Disable " + getText(R.string.base_no_ws));
+                                forceNoWideScreen.setText(getString(R.string.force_disable_tweak) + getString(R.string.base_no_ws));
                                 forceNoWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                                 forceNoWideScreenStatus.setColorFilter(Color.argb(255, 255, 0, 0));
                             }
@@ -693,7 +693,7 @@ public class MainActivity extends AppCompatActivity {
                 View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
 
                 TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getText(R.string.tutorial_widescreen));
+                tutorial.setText(getString(R.string.tutorial_widescreen));
 
                 ImageView img1 = view.findViewById(R.id.tutorialimage1);
                 img1.setImageDrawable(getDrawable(R.drawable.tutorial_widescreen));
@@ -711,12 +711,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         if(load("force_no_ws")) {
-            forceNoWideScreen.setText("Reset " + getText(R.string.base_no_ws));
+            forceNoWideScreen.setText(getString(R.string.reset_tweak) + getString(R.string.base_no_ws));
             forceNoWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
             forceNoWideScreenStatus.setColorFilter(Color.argb(255,0,255,0));
 
         } else {
-            forceNoWideScreen.setText("Force Disable " + getText(R.string.base_no_ws));
+            forceNoWideScreen.setText(getString(R.string.force_disable_tweak) + getString(R.string.base_no_ws));
             forceNoWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
             forceNoWideScreenStatus.setColorFilter(Color.argb(255,255,0,0));
         }
@@ -727,7 +727,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         if (load("force_no_ws")){
                             revert("force_no_ws");
-                            forceNoWideScreen.setText("Force Disable " + getText(R.string.base_no_ws));
+                            forceNoWideScreen.setText(getString(R.string.force_disable_tweak) + getString(R.string.base_no_ws));
                             forceNoWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             forceNoWideScreenStatus.setColorFilter(Color.argb(255,255,0,0));
                             if(!animationRun[0]) {
@@ -738,14 +738,14 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else {
                             forceWideScreen(view, 3000, UserCount);
-                            forceNoWideScreen.setText("Reset " + getText(R.string.base_no_ws));
+                            forceNoWideScreen.setText(getString(R.string.reset_tweak) + getString(R.string.base_no_ws));
                             forceNoWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             forceNoWideScreenStatus.setColorFilter(Color.argb(255,255,255,0));
                             save(true, "force_no_ws");
                             if (load ("force_ws")) {
                                 save(false, "force_ws");
-                                Toast.makeText(getApplicationContext(), "Force widescreen has been automatically disabled", Toast.LENGTH_LONG).show();
-                                forceWideScreenButton.setText("Enable " + getText(R.string.force_widescreen_text));
+                                Toast.makeText(getApplicationContext(), R.string.force_widescreen_warning, Toast.LENGTH_LONG).show();
+                                forceWideScreenButton.setText(getString(R.string.enable_tweak_string) + getString(R.string.force_widescreen_text));
                                 forceWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                                 forceWideScreenStatus.setColorFilter(Color.argb(255, 255, 0, 0));
                             }
@@ -767,7 +767,7 @@ public class MainActivity extends AppCompatActivity {
                 View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
 
                 TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getText(R.string.tutorial_no_widescreen));
+                tutorial.setText(getString(R.string.tutorial_no_widescreen));
 
                 ImageView img1 = view.findViewById(R.id.tutorialimage1);
                 img1.setImageDrawable(getDrawable(R.drawable.tutorial_nowidescreen));
@@ -796,32 +796,32 @@ public class MainActivity extends AppCompatActivity {
                 progress = ((int)Math.round(progress/100))*100;
                 seekBar.setProgress(progress);
                 displayValue.setText(hunSeekbar.getProgress() + "ms");
-                huntrottling.setText("Set " + getText(R.string.set_notification_duration_to) + " " + hunSeekbar.getProgress()+ " ms");
+                huntrottling.setText(getString(R.string.set_value) + getString(R.string.set_notification_duration_to) + " " + hunSeekbar.getProgress()+ " ms");
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
                 displayValue.setText(hunSeekbar.getProgress() + "ms");
-                huntrottling.setText("Set " + getText(R.string.set_notification_duration_to) + " " + hunSeekbar.getProgress()+ " ms");
+                huntrottling.setText(getString(R.string.set_value) + getString(R.string.set_notification_duration_to) + " " + hunSeekbar.getProgress()+ " ms");
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 scrollbarStatus[0] = hunSeekbar.getProgress();
                 displayValue.setText(hunSeekbar.getProgress() + "ms");
-                huntrottling.setText("Set " + getText(R.string.set_notification_duration_to) + " " + hunSeekbar.getProgress()+ " ms");
+                huntrottling.setText(getString(R.string.set_value) + getString(R.string.set_notification_duration_to) + " " + hunSeekbar.getProgress()+ " ms");
             }
         });
 
 
         final ImageView hunstatus = findViewById(R.id.huntrottlingstatus);
         if(load("aa_hun_ms")) {
-            huntrottling.setText("reset " + getText(R.string.set_notification_duration_to) + " default");
+            huntrottling.setText(getString(R.string.reset_tweak) + getString(R.string.set_notification_duration_to) + " default");
             hunstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
             hunstatus.setColorFilter(Color.argb(255,0,255,0));
 
         } else {
-            huntrottling.setText("Set " + getText(R.string.set_notification_duration_to));
+            huntrottling.setText(getString(R.string.set_value) + getString(R.string.set_notification_duration_to));
             hunstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
             hunstatus.setColorFilter(Color.argb(255,255,0,0));
         }
@@ -832,7 +832,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         if (load("aa_hun_ms") && hunSeekbar.getProgress() == 8000){
                             revert("aa_hun_ms");
-                            huntrottling.setText("Set " + getText(R.string.set_notification_duration_to));
+                            huntrottling.setText(getString(R.string.set_value) + getString(R.string.set_notification_duration_to));
                             hunstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             hunSeekbar.setProgress(8000);
                             hunstatus.setColorFilter(Color.argb(255,255,0,0));
@@ -844,7 +844,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else {
                             setHunDuration(view, hunSeekbar.getProgress(), UserCount);
-                            huntrottling.setText("reset " + getText(R.string.set_notification_duration_to) + " default");
+                            huntrottling.setText(getString(R.string.reset_tweak) + getString(R.string.set_notification_duration_to) + " default");
                             hunstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             hunstatus.setColorFilter(Color.argb(255,255,255,0));
                             if(!animationRun[0]) {
@@ -865,7 +865,7 @@ public class MainActivity extends AppCompatActivity {
                 View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
 
                 TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getText(R.string.tutorial_hun));
+                tutorial.setText(getString(R.string.tutorial_hun));
 
                 ImageView img1 = view.findViewById(R.id.tutorialimage1);
                 img1.setImageDrawable(getDrawable(R.drawable.tutorial_hun));
@@ -893,32 +893,32 @@ public class MainActivity extends AppCompatActivity {
                 progress = ((int)Math.round(progress/1000))*1000;
                 mediaSeekbar.setProgress(progress);
                 secondDisplayValue.setText(mediaSeekbar.getProgress() + "ms");
-                mediathrottlingbutton.setText("Set " + getText(R.string.media_notification_duration_to) + " " + mediaSeekbar.getProgress()+ " ms");
+                mediathrottlingbutton.setText(getString(R.string.set_value) + getString(R.string.media_notification_duration_to) + " " + mediaSeekbar.getProgress()+ " ms");
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
                 secondDisplayValue.setText(mediaSeekbar.getProgress() + "ms");
-                mediathrottlingbutton.setText("Set " + getText(R.string.media_notification_duration_to) + " " + mediaSeekbar.getProgress()+ " ms");
+                mediathrottlingbutton.setText(getString(R.string.set_value) + getString(R.string.media_notification_duration_to) + " " + mediaSeekbar.getProgress()+ " ms");
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 secondScrollBarStatus[0] = mediaSeekbar.getProgress();
                 secondDisplayValue.setText(mediaSeekbar.getProgress() + "ms");
-                mediathrottlingbutton.setText("Set " + getText(R.string.media_notification_duration_to) + " " + mediaSeekbar.getProgress()+ " ms");
+                mediathrottlingbutton.setText(getString(R.string.set_value) + getString(R.string.media_notification_duration_to) + " " + mediaSeekbar.getProgress()+ " ms");
             }
         });
 
 
         final ImageView mediaHunStatus = findViewById(R.id.media_trhrottling_status);
         if(load("aa_media_hun")) {
-            mediathrottlingbutton.setText("reset " + getText(R.string.media_notification_duration_to) + " default");
+            mediathrottlingbutton.setText(getString(R.string.reset_tweak) + getString(R.string.media_notification_duration_to) + " default");
             mediaHunStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
             mediaHunStatus.setColorFilter(Color.argb(255,0,255,0));
 
         } else {
-            mediathrottlingbutton.setText("Set " + getText(R.string.media_notification_duration_to));
+            mediathrottlingbutton.setText(getString(R.string.set_value) + getString(R.string.media_notification_duration_to));
             mediaHunStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
             mediaHunStatus.setColorFilter(Color.argb(255,255,0,0));
         }
@@ -930,7 +930,7 @@ public class MainActivity extends AppCompatActivity {
                         if (load("aa_media_hun") && mediaSeekbar.getProgress() == 8000){
                             revert("aa_media_hun");
                             mediaSeekbar.setProgress(8000);
-                            mediathrottlingbutton.setText("Set " + getText(R.string.media_notification_duration_to));
+                            mediathrottlingbutton.setText(getString(R.string.set_value) + getString(R.string.media_notification_duration_to));
                             mediaHunStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             mediaHunStatus.setColorFilter(Color.argb(255,255,0,0));
                             if(!animationRun[0]) {
@@ -941,7 +941,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else {
                             setMediaHunDuration(view, mediaSeekbar.getProgress(), UserCount);
-                            mediathrottlingbutton.setText("reset " + getText(R.string.media_notification_duration_to) + " default");
+                            mediathrottlingbutton.setText(getString(R.string.reset_tweak) + getString(R.string.media_notification_duration_to) + " default");
                             mediaHunStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             mediaHunStatus.setColorFilter(Color.argb(255,255,255,0));
                             if(!animationRun[0]) {
@@ -962,7 +962,7 @@ public class MainActivity extends AppCompatActivity {
                 View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
 
                 TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getText(R.string.tutorial_media_hun));
+                tutorial.setText(getString(R.string.tutorial_media_hun));
 
                 ImageView img1 = view.findViewById(R.id.tutorialimage1);
                 img1.setImageDrawable(getDrawable(R.drawable.tutorial_media_hun));
@@ -981,11 +981,11 @@ public class MainActivity extends AppCompatActivity {
         final Button bluetoothoff = findViewById(R.id.bluetooth_disable_button);
         final ImageView btstatus = findViewById(R.id.bt_disable_status);
         if(load("bluetooth_pairing_off")) {
-            bluetoothoff.setText("Re-Enable " + getText(R.string.bluetooth_auto_connect));
+            bluetoothoff.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.bluetooth_auto_connect));
             btstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
             btstatus.setColorFilter(Color.argb(255,0,255,0));
         } else {
-            bluetoothoff.setText("Disable " + getText(R.string.bluetooth_auto_connect));
+            bluetoothoff.setText(getString(R.string.disable_tweak_string) + getString(R.string.bluetooth_auto_connect));
             btstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
             btstatus.setColorFilter(Color.argb(255,255,0,0));
         }
@@ -996,7 +996,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         if (load("bluetooth_pairing_off")){
                             revert("bluetooth_pairing_off");
-                            bluetoothoff.setText("Disable " + getText(R.string.bluetooth_auto_connect));
+                            bluetoothoff.setText(getString(R.string.disable_tweak_string) + getString(R.string.bluetooth_auto_connect));
                             btstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             btstatus.setColorFilter(Color.argb(255,255,0,0));
                             if(!animationRun[0]) {
@@ -1007,7 +1007,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else {
                             forceNoBt(view, UserCount);
-                            bluetoothoff.setText("Re-Enable " + getText(R.string.bluetooth_auto_connect));
+                            bluetoothoff.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.bluetooth_auto_connect));
                             btstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             btstatus.setColorFilter(Color.argb(255,255,255,0));
                             if(!animationRun[0]) {
@@ -1028,7 +1028,7 @@ public class MainActivity extends AppCompatActivity {
                 View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
 
                 TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getText(R.string.tutorial_bluetooth));
+                tutorial.setText(getString(R.string.tutorial_bluetooth));
 
                 dialog.setContentView(view);
 
@@ -1044,11 +1044,11 @@ public class MainActivity extends AppCompatActivity {
         final Button mdbutton = findViewById(R.id.multi_display_button);
         final ImageView mdstatus = findViewById(R.id.multi_display_status);
         if(load("multi_display")) {
-            mdbutton.setText("Disable " + getText(R.string.multi_display_string));
+            mdbutton.setText(getString(R.string.disable_tweak_string) + getString(R.string.multi_display_string));
             mdstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
             mdstatus.setColorFilter(Color.argb(255,0,255,0));
         } else {
-            mdbutton.setText("Enable " + getText(R.string.multi_display_string));
+            mdbutton.setText(getString(R.string.enable_tweak_string) + getString(R.string.multi_display_string));
             mdstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
             mdstatus.setColorFilter(Color.argb(255,255,0,0));
         }
@@ -1059,7 +1059,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         if (load("multi_display")){
                             revert("multi_display");
-                            mdbutton.setText("Enable " + getText(R.string.multi_display_string));
+                            mdbutton.setText(getString(R.string.enable_tweak_string) + getString(R.string.multi_display_string));
                             mdstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             mdstatus.setColorFilter(Color.argb(255,255,0,0));
                             if(!animationRun[0]) {
@@ -1070,7 +1070,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else {
                             multiDisplay(view, UserCount);
-                            mdbutton.setText("Disable " + getText(R.string.multi_display_string));
+                            mdbutton.setText(getString(R.string.disable_tweak_string) + getString(R.string.multi_display_string));
                             mdstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             mdstatus.setColorFilter(Color.argb(255,255,255,0));
                             if(!animationRun[0]) {
@@ -1091,7 +1091,7 @@ public class MainActivity extends AppCompatActivity {
                 View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
 
                 TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getText(R.string.tutorial_multidisplay));
+                tutorial.setText(getString(R.string.tutorial_multidisplay));
 
                 ImageView img1 = view.findViewById(R.id.tutorialimage1);
                 img1.setImageDrawable(getDrawable(R.drawable.tutorial_md1));
@@ -1115,11 +1115,11 @@ public class MainActivity extends AppCompatActivity {
         final Button batteryWarning = findViewById(R.id.battery_warning_button);
         final ImageView batteryWarningStatus = findViewById(R.id.battery_warning_status);
         if(load("battery_saver_warning")) {
-            batteryWarning.setText("Re-Enable " + getText(R.string.battery_warning));
+            batteryWarning.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.battery_warning));
             batteryWarningStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
             batteryWarningStatus.setColorFilter(Color.argb(255,0,255,0));
         } else {
-            batteryWarning.setText("Disable " + getText(R.string.battery_warning));
+            batteryWarning.setText(getString(R.string.disable_tweak_string) + getString(R.string.battery_warning));
             batteryWarningStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
             batteryWarningStatus.setColorFilter(Color.argb(255,255,0,0));
         }
@@ -1130,7 +1130,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         if (load("battery_saver_warning")){
                             revert("battery_saver_warning");
-                            batteryWarning.setText("Disable " + getText(R.string.battery_warning));
+                            batteryWarning.setText(getString(R.string.disable_tweak_string) + getString(R.string.battery_warning));
                             batteryWarningStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             batteryWarningStatus.setColorFilter(Color.argb(255,255,0,0));
                             if(!animationRun[0]) {
@@ -1141,7 +1141,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else {
                             disableBatteryWarning(view, UserCount);
-                            batteryWarning.setText("Re-Enable " + getText(R.string.battery_warning));
+                            batteryWarning.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.battery_warning));
                             batteryWarningStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             batteryWarningStatus.setColorFilter(Color.argb(255,255,255,0));
                             if(!animationRun[0]) {
@@ -1162,7 +1162,7 @@ public class MainActivity extends AppCompatActivity {
                 View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
 
                 TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getText(R.string.tutorial_battery_saver_warning));
+                tutorial.setText(getString(R.string.tutorial_battery_saver_warning));
 
                 ImageView img1 = view.findViewById(R.id.tutorialimage1);
                 img1.setImageDrawable(getDrawable(R.drawable.tutorial_battery_saver));
@@ -1233,6 +1233,9 @@ public class MainActivity extends AppCompatActivity {
                 final DialogFragment revertDialog = new RevertDialog();
                 revertDialog.show(getSupportFragmentManager(), "RevertDialog");
                 break;
+
+            case R.id.version:
+                setTitle("V." + BuildConfig.VERSION_NAME);
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -1475,7 +1478,7 @@ public class MainActivity extends AppCompatActivity {
                             appendText(logs, "\n\n--  Check seems OK :)  --");
                             save(true, "aa_patched_apps");
 
-                            patchapps.setText("Patch " + getText(R.string.patch_custom_apps));
+                            patchapps.setText(getString(R.string.patch_app) + getString(R.string.patch_custom_apps));
                             patchappstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             patchappstatus.setColorFilter(Color.argb(255,255,255,0));
 
@@ -2071,7 +2074,7 @@ public class MainActivity extends AppCompatActivity {
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Boardwalk_status_bar_force_opaque\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Boardwalk__status_bar_force_opaque\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -2097,7 +2100,7 @@ public class MainActivity extends AppCompatActivity {
                     appendText(logs, "\n\n--  run SQL method   --");
                     appendText(logs, runSuWithCmd(
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                    "'DELETE FROM Flags WHERE name=\"Boardwalk_status_bar_force_opaque\";\n"+ finalCommand + "'").getStreamLogsWithLabels());
+                                    "'DELETE FROM Flags WHERE name=\"Boardwalk__status_bar_force_opaque\";\n"+ finalCommand + "'").getStreamLogsWithLabels());
 
                     appendText(logs, runSuWithCmd(
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
