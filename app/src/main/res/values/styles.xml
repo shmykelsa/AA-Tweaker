@@ -8,6 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="MenuTheme">
+        <item name="android:colorBackground">@color/menu_background</item>
+        <item name="android:textColor">@color/menu_text_color</item>
+    </style>
+
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>

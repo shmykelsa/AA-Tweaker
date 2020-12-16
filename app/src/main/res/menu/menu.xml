@@ -1,18 +1,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/copy"
-        android:title="Copy log"
+    <item
+        android:id="@+id/copy"
+        android:title="@string/copy_log"
         app:showAsAction="never"/>
 
     <item
         android:id="@+id/about"
-        android:title="About"
+        android:title="@string/about"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/revert_everything"
-        android:title="Revert everything"
-        app:showAsAction="never" />
+    android:id="@+id/revert_everything"
+    android:title="@string/revert_everything"
+    app:showAsAction="never" />
+
+    <item
+        android:id="@+id/version"
+        app:showAsAction="never"
+        android:title="TODO" />
 
 </menu>
