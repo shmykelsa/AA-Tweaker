@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_string">Benvenuto in AA AIO Tweaker\n
+Questa app ti permetterà di applicare alcune modifiche ad Android Auto\n
+Basta selezionare quale modifica vuoi applicare :)\n
+Se non sei sicuro del significato di una modifica, tieni premuto sul proprio pulsante e verrà visualizzato un tutorial.\n</string>
+    <string name="select_apps">Seleziona app</string>
+    <string name="enable_assistant_shortcuts">Scorciatoie dell\'assistente</string>
+    <string name="patch_custom_apps">app personalizzate</string>
+    <string name="disable_speed_limitations">limite tocchi</string>
+    <string name="unlimited_scrolling_when_driving">restrizioni in marcia</string>
+    <string name="enable_assistant_animation_in_navbar">Animazione assistente in navbar</string>
+    <string name="splash">Questa app può modificare il comportamento di Android Auto e bypassare alcune caratteristiche di sicurezza che Google ha implementato in Android Auto.\n
+Utilizzando questo software, accetti che TU, e SOLAMENTE TU, sei responsabile di eventuali conseguenze dell\'alterazione di impostazioni di sicurezza come: lesioni a se stessi e/o ad altri, danni alla proprietà, perdita di vita/e.\n
+In nessuna circostanza l\'autore di questa app è responsabile per il suo uso.</string>
+    <string name="proceed">Ho capito</string>
+    <string name="navigation_at_start">Navigazione all\'avvio</string>
+    <string name="statb_opaque_string">Barra di stato opaca</string>
+    <string name="battery_outline_string">contorno risparmio batteria</string>
+    <string name="legend">Legenda:\n
+VERDE= Patch applicata\n
+GIALLO= necessario un riavvio per applicare la patch\n
+ROSSO = Patch non applicata</string>
+    <string name="set_notification_duration_to">Durata della notifica a</string>
+    <string name="base_no_ws">Widescreen</string>
+    <string name="force_widescreen_text">Forza Widescreen</string>
+    <string name="media_notification_duration_to">Durata della notifica a</string>
+    <string name="bluetooth_auto_connect">Connessione automatica Bluetooth</string>
+    <string name="tutorial_nospeed">Questo trucco forzerà Android Auto a pensare che l\'auto è a velocità 0. Di conseguenza, Android Auto mostrerà sempre l\'anteprima dei messaggi. Questa modifica non si applica alla tastiera o alla prima configurazione di Android Auto.</string>
+    <string name="tutorial_sixtap">Questo trucco bypasserà il limite di 6 tocchi di Android Auto e renderà la navigazione illimitata di contenuti sempre possibile.</string>
+    <string name="tutorial_shortcuts">Questo trucco sbloccherà la nuova funzione Scorciatoie Assistente. Una volta attivata, recati nelle impostazioni di Android Auto, quindi nella sezione personalizzazione avvio. Avrai la possibilità di aggiungere scorciatoie ai comandi di Google Assistant</string>
+    <string name="tutorial_startup">Questo tweak sovrascriverà il comportamento predefinito di Android Auto di apertura dell\'app di navigazione all\'avvio, e farà partire Android Auto sulla schermata iniziale.\n
+Questo tweak potrebbe occasionalmente fallire perché a volte Android Auto inizia con una navigazione a casa o lavoro in maniera automatica. Questo comportamento rompe il tweak.\n
+In alcuni casi questo tweak disabiliterà l\'avvio automatico della musica. Una soluzione nota è quella di disabilitare e riabilitare l\'opzione all\'interno delle impostazioni di Android automatico.\n
+NON È POSSIBILE IMPOSTARE UN\'APP SPECIFICA ALL\'AVVIO.</string>
+    <string name="tutorial_widescreen">Questo trucco forzerà Android Auto in modalità widescreen.</string>
+    <string name="tutorial_no_widescreen">Questo trucco impedirà ad Android Auto di attivare la modalità widescreen.</string>
+    <string name="tutorial_animation">Questo trucco abilita un\'animazione dell\'Assistente Google nella barra di navigazione.</string>
+    <string name="tutorial_statusbar_opaque">Questo trucco renderà la barra di stato sempre opaca.</string>
+    <string name="tutorial_battery_outline">Questo trucco impedirà che l\'icona della batteria abbia un contono rosso quando il risparmio batteria è acceso.</string>
+    <string name="tutorial_hun">Questo trucco consente di impostare una durata personalizzata per le notifiche fluttuanti</string>
+    <string name="tutorial_media_hun">Questo trucco permette di impostare una durata personalizzata per le notifiche multimediali nella barra di navigazione fino a 15 minuti.</string>
+    <string name="tutorial_bluetooth">BETA Questo trucco dovrebbe impedire che il Bluetooth si accenda quando Android Auto viene connesso. Questa modifica non funzionerà se il Bluetooth è già attivo e attualmente è in forma sperimentale.</string>
+    <string name="tutorial_patchapps">Questo trucco consentirà alle applicazioni di terze parti, realizzate specificamente con Android Auto SDK, di funzionare su Android Auto.\n
+Se hai già sentito parlare di AA Phenotype Patcher, questo trucco è praticamente identico all\'app.\n
+Non è possibile aggiungere qualsiasi app ad Android Auto, ma è possibile eseguire la patch di applicazioni installate manualmente e CREATE PER ANDROID AUTO per farle funzionare in auto.</string>
+    <string name="multi_display_string">Display Multiplo</string>
+    <string name="tutorial_multidisplay">Questa è una funzione nascosta all\'interno di Android Auto che trasformerà lo spazio laterale della modalità widescreen in un vero e proprio secondo display che viene completamente preso da un\'app secondaria. Google Maps mostrerà una mappa completa con le indicazioni del navigatore, e app di musica o telefonate prenderanno tutto lo spazio.\n
+Inoltre, questa modalità attiva un\'altra funzionalità che permetterà di utilizzare lo schermo del telefono come schermo esterno per Android Auto.\n
+Le impostazioni per la modifica di quest\'ultima funzione saranno disponibili nella schermata home di Android Auto.\n
+A quanto pare, solo Google Maps attualmente supporta questa modalità.\n
+Questa funzione è probabilmente in fase di sviluppo e potrebbe non funzionare come previsto.\n
+È richiesto Android Auto 5.8 o maggiore.</string>
+    <string name="battery_warning">Avviso risparmio energetico</string>
+    <string name="tutorial_battery_saver_warning">Questo trucco impedirà a Android Auto di mostrare avvisi popup quando la modalità risparmio batteria è attiva</string>
+    <string name="disable_tweak_string">Disabilita\u0020</string>
+    <string name="enable_tweak_string">Abilita\u0020</string>
+    <string name="re_enable_tweak_string">Riattiva\u0020</string>
+    <string name="copy_log">Copia log</string>
+    <string name="about">Info applicazione</string>
+    <string name="revert_everything">Ripristina tutto</string>
+    <string name="force_disable_tweak">Disabilita forzatamente\u0020</string>
+    <string name="reset_tweak">Reimposta\u0020</string>
+    <string name="force_widescreen_warning">Forza widescreen è stato disabilitato automaticamente</string>
+    <string name="force_disable_widescreen_warning">Forza disabilita widescreen è stato disabilitato automaticamente</string>
+    <string name="set_value">Imposta\u0020</string>
+    <string name="reboot_to_apply">RIAVVIA PER APPLICARE</string>
+    <string name="warning_title">ATTENZIONE</string>
+    <string name="unpatch">Rimuovi\u0020</string>
+    <string name="patch_app">Patch\u0020</string>
+    <string name="default_string">\u0020normale</string>
+</resources>

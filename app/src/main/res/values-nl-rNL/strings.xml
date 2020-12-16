@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_string">Welkom bij AA AIO Tweaker\n
+        Met deze app kunt u enkele aanpassingen doen aan Android Auto\n
+        Selecteer eenvoudig welke aanpassing u wilt toepassen :)\n
+        Als u niet zeker weet wat een tweak doet, kunt u er lang op drukken om een tutorial te laten verschijnen.\n</string>
+    <string name="select_apps">Kies apps</string>
+    <string name="enable_assistant_shortcuts">Assistent-snelkoppelingen</string>
+    <string name="patch_custom_apps">aangepaste apps</string>
+    <string name="disable_speed_limitations">tik beperkingen</string>
+    <string name="unlimited_scrolling_when_driving">snelheidsbeperkingen</string>
+    <string name="enable_assistant_animation_in_navbar">Assistent-animatie in de navigatiebalk</string>
+    <string name="splash">Deze app kan het gedrag van Android veranderen en sommige veiligheidsfuncties omzeilen die Google heeft geïmplementeerd in Android Auto.\n
+        Door deze software te gebruiken, gaat u ermee akkoord dat JIJ en ALLEEN JIJ, verantwoordelijke bent voor alle mogelijke gevolgen van het omzeilen van die veiligheidsvoorzieningen, zoals letsel voor u en/of
+        anderen, schade of overlijden.\n
+        Onder geen omstandigheden is de auteur van deze app verantwoordelijk voor het gebruik ervan</string>
+    <string name="proceed">Begrepen</string>
+    <string name="navigation_at_start">Start met navigatie</string>
+    <string name="statb_opaque_string">Forceer ondoorzichtige statusbalk</string>
+    <string name="battery_outline_string">omtrek batterijbesparing</string>
+    <string name="legend">Status legenda:\n
+        GROEN= Aanpassing toegepast\n
+        GEEL= Toestel moet opnieuw worden opgestart om toe te passen\n
+        ROOD= Aanpassing niet toegepast</string>
+    <string name="set_notification_duration_to">Duur notificatie</string>
+    <string name="base_no_ws">Breedbeeld</string>
+    <string name="force_widescreen_text">Forceer Breedbeeld</string>
+    <string name="media_notification_duration_to">Duur medianotificatie</string>
+    <string name="bluetooth_auto_connect">Bluetooth automatisch verbinden</string>
+    <string name="tutorial_nospeed">Deze tweak zorgt ervoor dat Android Auto denkt dat de auto niet rijdt. Als gevolg daarvan zal Android Auto altijd
+    het voorbeeld van berichten tonen. Deze tweak is niet van toepassing op de toetsenbord- of eerste configuratie van Android Auto.</string>
+    <string name="tutorial_sixtap">Deze tweak overschrijft de limiet van 6 tikken van Android Auto en maakt onbeperkt browsen van inhoud altijd mogelijk.</string>
+    <string name="tutorial_shortcuts">Deze tweak zal de nieuwe Assistent-snelkoppelingen aanzetten. Eenmaal geäctiveerd, kun je in Android Auto instellingen, bij het aanpassen van de launcher, snelkoppelingen aanmaken</string>
+    <string name="tutorial_startup">Deze tweak zal ervoor zorgen dat Android Auto standaard opstart met de launcher in plaats van de navigatie-app.\n
+        Deze tweak kan af en toe mislukken omdat Android Auto met een navigatie naar huis óf autonoom start. Dit gedrag zal de tweak deactiveren.\n
+        In sommige gevallen zal deze tweak het automatisch starten van muziek uitschakelen. In dat geval is het beste om de optie binnen Android Auto instellingen tijdelijk uit te schakelen en daarna weer in te schakelen.\n
+    HET IS NIET MOGELIJK OM ANDROID AUTO MET EEN ANDERE, SPECIFIEKE APP TE STARTEN.</string>
+    <string name="tutorial_widescreen">Deze tweak forceert Android Auto in de breedbeeldmodus.</string>
+    <string name="tutorial_no_widescreen">Deze tweak zal Android Auto forceren in geen breedbeeldmodus.</string>
+    <string name="tutorial_animation">Met deze tweak wordt de animatie van Google Assistant in de navigatiebalk ingeschakeld.</string>
+    <string name="tutorial_statusbar_opaque">Met deze tweak wordt de statusbalk altijd zwart.</string>
+    <string name="tutorial_battery_outline">Met deze tweak wordt het batterijpictogram met de rode omtrek voorkomen wanneer batterijbesparing is ingeschakeld.</string>
+    <string name="tutorial_hun">Met deze tweak kunt u een aangepaste duur instellen voor heads-up meldingen</string>
+    <string name="tutorial_media_hun">Met deze tweak kun je een aangepaste duur voor medianotificaties in de navigatiebalk instellen tot maximaal 15 minuten.</string>
+    <string name="tutorial_bluetooth">BETA Deze tweak voorkomt dat Bluetooth wordt ingeschakeld wanneer Android Auto wordt aangesloten. Deze tweak
+    werkt niet als Bluetooth al aan is en is momenteel nog in BETA.</string>
+    <string name="tutorial_patchapps">Deze tweak zal apps van derden die specifiek met Android Auto Custom SDK zijn gemaakt in staat stellen om te werken op Android Auto.\n
+        Deze tweak is vrijwel identiek aan AA Phenotype Patcher, wellicht bekend.\n
+        Het is niet mogelijk om elke app toe te voegen aan Android Auto, maar het is mogelijk om gedownloade apps GEMAAKT VOOR ANDROID AUTO in auto\'s te laten werken.</string>
+    <string name="multi_display_string">Multi Weergave</string>
+    <string name="tutorial_multidisplay">Dit is een verborgen functie binnen Android auto, die het tweede scherm in de breedbeeldmodus zal veranderen naar een echte tweede display, dat volledig wordt ingenomen door een naaste activiteit. Google Maps zal met volledige kaart met navigatie status, muziek en telefoons die volledige ruimte in beslag nemen.\n
+        Additioneel, deze modus activeert een andere functie die het scherm van het toestel in een tweede weergave zet voor navigatie in Android Auto.\n
+        instellingen voor het aanpassen van deze functie zijn beschikbaar op het Android Auto Startscherm.\n
+        Blijkbaar ondersteunt vooralsnog alleen Google Maps deze modus.\n
+        Deze functie is waarschijnlijk in ontwikkeling en kan mogelijk niet werken zoals bedoeld.\n
+    Android Auto 5.8 of hoger is vereist.</string>
+    <string name="battery_warning">Batterijbesparing waarschuwing</string>
+    <string name="tutorial_battery_saver_warning">Deze tweak voorkomt dat Android Auto een pop-upwaarschuwing geeft wanneer de batterijbesparingsmodus is ingeschakeld</string>
+    <string name="disable_tweak_string">Uitschakelen\u0020</string>
+    <string name="enable_tweak_string">Inschakelen\u0020</string>
+    <string name="re_enable_tweak_string">Opnieuw inschakelen\u0020</string>
+    <string name="copy_log">Kopieer logboek</string>
+    <string name="about">Over</string>
+    <string name="revert_everything">Alles ongedaan maken</string>
+    <string name="force_disable_tweak">Forceer uitschakelen\u0020</string>
+    <string name="reset_tweak">Reset\u0020</string>
+    <string name="force_widescreen_warning">Forceer breedbeeldscherm is automatisch uitgeschakeld</string>
+    <string name="force_disable_widescreen_warning">Forceer uitschakeling breedbeeldscherm is automatisch uitgeschakeld</string>
+    <string name="set_value">Stel in\u0020</string>
+    <string name="reboot_to_apply">REBOOT OM TE TOEPASSEN</string>
+    <string name="warning_title">WAARSCHUWING</string>
+    <string name="unpatch">Unpatch\u0020</string>
+    <string name="patch_app">Patch\u0020</string>
+    <string name="default_string">\u0020Standaard</string>
+</resources>

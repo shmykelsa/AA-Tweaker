@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_string">Bienvenidos a AA AIO Tweaker.\n
+Esta herramienta te permitirá modificar y personalizar Android Auto.\n
+Simplemente selecciona la modificación que quieras aplicar :)\n
+Si no estás seguro de lo que hace alguna función, mantén pulsada la opción y saltará un tutorial.\n</string>
+    <string name="select_apps">Seleccionar aplicaciones:</string>
+    <string name="enable_assistant_shortcuts">Atajos del asistente</string>
+    <string name="patch_custom_apps">Aplicaciones personalizadas</string>
+    <string name="disable_speed_limitations">Limitación de toques</string>
+    <string name="unlimited_scrolling_when_driving">Restricciones de velocidad</string>
+    <string name="enable_assistant_animation_in_navbar">Animación del asistente en la barra de navegación</string>
+    <string name="splash">Esta aplicación modifica el comportamiento de Android Auto y permite saltarse algunas de las medidas de seguridad implementadas por Google en Android Auto.\n
+
+Al usar esta aplicación, aceptas que TÚ y solo TÚ, eres el único responsable de cualquier posible consecuencia que pudiera resultarse al modificar dichas medidas de seguridad, tales como daños físicos a tu persona y/o a terceros, daños a la propiedad, o incluso la perdida de vida.\n
+
+Bajo ninguna circunstancia el autor de esta aplicación se hace responsable de su uso.</string>
+    <string name="proceed">Estoy de acuerdo.</string>
+    <string name="navigation_at_start">Navegador al iniciar</string>
+    <string name="statb_opaque_string">Forzar Barra de Estado Opaca</string>
+    <string name="battery_outline_string">Contorno del icono de ahorro de energía</string>
+    <string name="legend">Significado de los estados:\n
+VERDE = Modificación aplicada\n
+AMARILLO = Se requiere de un reinicio del móvil para aplicar la modificación\n
+ROJO = Modificación no aplicada aun\n</string>
+    <string name="set_notification_duration_to">Duración de la notificación a:</string>
+    <string name="base_no_ws">Pantalla completa</string>
+    <string name="force_widescreen_text">Forzar pantalla completa</string>
+    <string name="media_notification_duration_to">duración de la notificación de reproducción de medios a</string>
+    <string name="bluetooth_auto_connect">Auto conexión Bluetooth</string>
+    <string name="tutorial_nospeed">Esta modificación hará creer a Android Auto que el vehículo esta estacionado. Como resultado, Android Auto siempre mostrará la vista previa de los mensajes. Esta modificación no aplicara al teclado o a la configuración inicial de Android Auto.</string>
+    <string name="tutorial_sixtap">Esta modificación se saltará la limitación de 6 toques seguidos en Android Auto, y permitirá el poder navegar sin restricciones siempre.</string>
+    <string name="tutorial_shortcuts">Esta modificación desbloqueara la nueva función de Atajos del Asistente. Una vez activado, puedes ir a los ajustes de Android Auto, y en la sección de personalización podrás empezar a añadir atajos para los comandos del Asistente de Google.</string>
+    <string name="tutorial_startup">Esta modificación anulara la apertura por defecto de las aplicaciones de navegación al iniciar Android Auto, y te llevara en su lugar a la pantalla de inicio.\n
+Esta modificación podrá fallar ocasionalmente ya que de vez en cuando Android Auto inicia la navegación a casa o al trabajo autónomamente. Este comportamiento aleatorio interfiere con esta modificación.\n
+En algunos casos, esta modificación quizás interfiera en el inicio automático del reproductor de música. Una solución temporal es desactivar y volver a activar esta función dentro de los ajustes de Android Auto.\n
+NO ES POSIBLE DEFINIR UNA APLICACION ESPECIFICA PARA QUE SE EJECUTE AL INICIAR.</string>
+    <string name="tutorial_widescreen">Esta modificación forzara a Android Auto a ejecutarse en modo pantalla completa.</string>
+    <string name="tutorial_no_widescreen">Esta modificación forzara a Android Auto a no ejecutarse en modo pantalla completa.</string>
+    <string name="tutorial_animation">Esta modificación activara la animación del Asistente de Google en la barra de navegación.</string>
+    <string name="tutorial_statusbar_opaque">Esta modificación siempre mostrará la barra de estado con fondo negro.</string>
+    <string name="tutorial_battery_outline">Esta modificación imposibilitara que el contorno del icono de la batería se muestre en rojo mientras el modo ahorro de energía esté activado.</string>
+    <string name="tutorial_hun">Esta modificación te permitirá ajustar la duración de las notificaciones.</string>
+    <string name="tutorial_media_hun">Esta modificación te permitirá ajustar la duración de las notificaciones del reproductor de medios en la barra de navegación hasta un máximo de 15 minutos.</string>
+    <string name="tutorial_bluetooth">BETA: Esta modificación bloqueara el auto inicio de la conexión Bluetooth cuando se inicia Android Auto. No funcionara si el Bluetooth ya está encendido, y actualmente se encuentra en fase beta.</string>
+    <string name="tutorial_patchapps">Esta modificación permitirá el uso en Android Auto de aplicaciones de terceros, siempre que estas hayan sido desarrolladas específicamente con la SDK personalizada de Android Auto.\n
+Si estás familiarizado con AA Phenotype Patcher, esta modificación es prácticamente idéntica.\n
+No es posible simplemente añadir cualquier aplicación a Android Auto, pero si es posible parchear aplicaciones de terceros hechas específicamente para Android Auto para que estas funcionen en el vehículo.</string>
+    <string name="multi_display_string">Multipantalla</string>
+    <string name="tutorial_multidisplay">Esta es una función oculta en Android Auto que convertirá el espacio secundario en el modo pantalla completa en una segunda pantalla real que será ocupada por una segunda actividad. Google Maps mostrará un mapa completo con el estado de la navegación, y la música y el teléfono ocuparan el resto de la pantalla.\n
+Adicionalmente, este modo activara otra función que convertirá la pantalla del teléfono en una segunda pantalla para la navegación en Android Auto.\n
+Los ajustes para controlar esta función aparecerán en la pantalla de Android Auto.\n
+Aparentemente, solo Google Maps soporta este modo actualmente.\n
+Esta función probablemente este aun en desarrollo y podría no funcionar correctamente.\n
+Se requiere de Android Auto 5.8 o superior.</string>
+    <string name="battery_warning">Advertencia de ahorro de bateria.</string>
+    <string name="tutorial_battery_saver_warning">Esta modificación bloqueara las advertencias emergentes en Android Auto cuando el modo de ahorro de batería este activado.</string>
+    <string name="disable_tweak_string">Desactivar\u0020</string>
+    <string name="enable_tweak_string">Activar\u0020</string>
+    <string name="re_enable_tweak_string">Reactivar\u0020</string>
+    <string name="copy_log">Copiar registro</string>
+    <string name="about">Acerca de</string>
+    <string name="revert_everything">Resetear todo</string>
+    <string name="force_disable_tweak">Forzar desactivación\u0020</string>
+    <string name="reset_tweak">Resetear\u0020</string>
+    <string name="force_widescreen_warning">Forzar desactivación automática de modo pantalla completa</string>
+    <string name="force_disable_widescreen_warning">Forzar desactivación automática de modo desactivar pantalla completa</string>
+    <string name="set_value">Fijar\u0020</string>
+    <string name="reboot_to_apply">REINICIAR PARA APLICAR</string>
+    <string name="warning_title">ADVERTENCIA</string>
+    <string name="unpatch">Desparchear\u0020</string>
+    <string name="patch_app">Parchear\u0020</string>
+    <string name="default_string">\u0020Por defecto</string>
+</resources>
