@@ -14,7 +14,7 @@ Google Play Services control a lot of features inside Android Auto. Some of them
 
 What this app does is making some SQLite queries in order to alter some features of Android Auto. It contains the trick inside [AA Phenotype Patcher](https://github.com/Eselter/AA-Phenotype-Patcher) to patch custom apps in order to work in AA (and the same script is contained) and with the same principle it unlocks some other things in Android Auto.
 
-# Available commands (version 1.4):
+# Available commands (version 1.6):
 
 - Patch for custom Android Auto apps
 - Disable speed restrictions while driving (preview of messages will be shown always)
@@ -28,6 +28,8 @@ What this app does is making some SQLite queries in order to alter some features
 - Set notification duration from 0ms to 20 seconds
 - Set media notification duration (on the bar) to up to 15 minutes
 - (BETA) Disable Bluetooth auto connect
+- Enable MultiDisplay and clustersim feature
+- Disable Battery Saver warning
 
 Hopefully more to come :)
 
@@ -49,14 +51,10 @@ This app doesn't need Xposed, which in some cases is one more pain to have. Also
 
 Yes, you can. The functionaility is the same, the only "advantage" is not having to install Xposed to make it work. This app won't check if you have SAAX installed so you won't have a green check status at the start. If you are familiar with SAAX and you want to keep it, you may not want to disable speed limitation and six tap with this app.
 
-# What happens if I wipe Google Play Services datas?
+## NEW
 
-It's best advised to clear also datas of this app, in that case :)
+AA AIO TWEAKER is open to translations! [Join translations on Crowdin](https://crwd.in/aa-aio-tweaker)
 
-
-# KNOWN BUGS:
-
-The console could output some SQLite errors, occasionally. The command should succeed anyways. I'm looking forward to fix this in the next releases
 
 ## [DOWNLAOD](https://github.com/shmykelsa/AA-Tweaker/releases)
 
