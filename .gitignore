@@ -11,3 +11,4 @@
 /captures
 /app/release/output.json
 .externalNativeBuild
+/crowdin.properties

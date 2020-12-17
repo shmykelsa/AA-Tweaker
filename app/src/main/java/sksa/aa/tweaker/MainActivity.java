@@ -816,7 +816,7 @@ public class MainActivity extends AppCompatActivity {
 
         final ImageView hunstatus = findViewById(R.id.huntrottlingstatus);
         if(load("aa_hun_ms")) {
-            huntrottling.setText(getString(R.string.reset_tweak) + getString(R.string.set_notification_duration_to) + " default");
+            huntrottling.setText(getString(R.string.reset_tweak) + getString(R.string.set_notification_duration_to) + getString(R.string.default_string));
             hunstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
             hunstatus.setColorFilter(Color.argb(255,0,255,0));
 
@@ -913,7 +913,7 @@ public class MainActivity extends AppCompatActivity {
 
         final ImageView mediaHunStatus = findViewById(R.id.media_trhrottling_status);
         if(load("aa_media_hun")) {
-            mediathrottlingbutton.setText(getString(R.string.reset_tweak) + getString(R.string.media_notification_duration_to) + " default");
+            mediathrottlingbutton.setText(getString(R.string.reset_tweak) + getString(R.string.media_notification_duration_to) + getString(R.string.default_string));
             mediaHunStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
             mediaHunStatus.setColorFilter(Color.argb(255,0,255,0));
 
@@ -933,6 +933,7 @@ public class MainActivity extends AppCompatActivity {
                             mediathrottlingbutton.setText(getString(R.string.set_value) + getString(R.string.media_notification_duration_to));
                             mediaHunStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             mediaHunStatus.setColorFilter(Color.argb(255,255,0,0));
+//                            save(false, "aa_media_hun");
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 anim.start();
@@ -941,9 +942,10 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else {
                             setMediaHunDuration(view, mediaSeekbar.getProgress(), UserCount);
-                            mediathrottlingbutton.setText(getString(R.string.reset_tweak) + getString(R.string.media_notification_duration_to) + " default");
+                            mediathrottlingbutton.setText(getString(R.string.reset_tweak) + getString(R.string.media_notification_duration_to) + getString(R.string.default_string));
                             mediaHunStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             mediaHunStatus.setColorFilter(Color.argb(255,255,255,0));
+                            //save(true, "aa_media_hun");
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 anim.start();
@@ -999,6 +1001,7 @@ public class MainActivity extends AppCompatActivity {
                             bluetoothoff.setText(getString(R.string.disable_tweak_string) + getString(R.string.bluetooth_auto_connect));
                             btstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             btstatus.setColorFilter(Color.argb(255,255,0,0));
+                            //save(false, "bluetooth_pairing_off");
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 anim.start();
@@ -1010,6 +1013,7 @@ public class MainActivity extends AppCompatActivity {
                             bluetoothoff.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.bluetooth_auto_connect));
                             btstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             btstatus.setColorFilter(Color.argb(255,255,255,0));
+                            //save(true, "bluetooth_pairing_off");
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 anim.start();
@@ -1214,6 +1218,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem item = menu.findItem(R.id.version);
+        item.setTitle("V." + BuildConfig.VERSION_NAME);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.copy:
@@ -1234,8 +1245,7 @@ public class MainActivity extends AppCompatActivity {
                 revertDialog.show(getSupportFragmentManager(), "RevertDialog");
                 break;
 
-            case R.id.version:
-                setTitle("V." + BuildConfig.VERSION_NAME);
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -1244,7 +1254,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void save(final boolean isChecked, String key) {
-        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getPreferences(getContext().MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(key, isChecked);
         editor.apply();
