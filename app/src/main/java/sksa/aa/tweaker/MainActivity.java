@@ -373,6 +373,7 @@ public class MainActivity extends AppCompatActivity {
         final Button patchapps = findViewById(R.id.patchapps);
         final ImageView patchappstatus = findViewById(R.id.patchedappstatus);
 
+
         if(load("aa_patched_apps") || load("after_delete")) {
             patchapps.setText(getString(R.string.unpatch) + getString(R.string.patch_custom_apps));
             patchappstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
@@ -399,11 +400,22 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                         else {
-                            patchforapps(view);
-                            if(!animationRun[0]) {
-                                rebootButton.setVisibility(View.VISIBLE);
-                                anim.start();
-                                animationRun[0] = true;
+                            SharedPreferences appsListPref = getApplicationContext().getSharedPreferences("appsListPref", 0);
+                            Map<String, ?> allEntries = appsListPref.getAll();
+                            if (allEntries.isEmpty()) {
+                                Intent intent = new Intent(MainActivity.this, AppsList.class);
+                                startActivity(intent);
+                                Toast.makeText(getApplicationContext(), "Choose apps to whitelist.", Toast.LENGTH_LONG).show();
+                            } else {
+                                patchforapps(view);
+                                patchapps.setText(getString(R.string.unpatch) + getString(R.string.patch_custom_apps));
+                                patchappstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
+                                patchappstatus.setColorFilter(Color.argb(255, 0, 255, 0));
+                                if (!animationRun[0]) {
+                                    rebootButton.setVisibility(View.VISIBLE);
+                                    anim.start();
+                                    animationRun[0] = true;
+                                }
                             }
                         }
                     }
@@ -1275,19 +1287,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void patchforapps(final View view) {
         final TextView logs = findViewById(R.id.logs);
-        final Button patchapps = findViewById(R.id.patchapps);
-        final ImageView patchappstatus = findViewById(R.id.patchedappstatus);
+
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
         
 
         SharedPreferences appsListPref = getApplicationContext().getSharedPreferences("appsListPref", 0);
         Map<String, ?> allEntries = appsListPref.getAll();
-        if (allEntries.isEmpty()) {
-            Intent intent = new Intent(this, AppsList.class);
-            this.startActivity(intent);
-            Toast.makeText(getApplicationContext(), "Choose apps to whitelist.", Toast.LENGTH_LONG).show();
-        } else {
             logs.append("--  Apps which will be added to whitelist: --\n");
             String whiteListString = "";
             for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
@@ -1488,10 +1494,6 @@ public class MainActivity extends AppCompatActivity {
                             appendText(logs, "\n\n--  Check seems OK :)  --");
                             save(true, "aa_patched_apps");
 
-                            patchapps.setText(getString(R.string.patch_app) + getString(R.string.patch_custom_apps));
-                            patchappstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-                            patchappstatus.setColorFilter(Color.argb(255,255,255,0));
-
                         } else {
                             appendText(logs, "\n\n--  Check NOT OK.  --");
                             appendText(logs, "\n     Length before delete and after was not equal.");
@@ -1504,7 +1506,7 @@ public class MainActivity extends AppCompatActivity {
                     // Check End
                 }
             }.start();
-        }
+
     }
 
     public void patchforassistshort(final View view, int usercount) {

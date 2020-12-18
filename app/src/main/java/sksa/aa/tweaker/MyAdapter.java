@@ -6,9 +6,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.rm.rmswitch.RMSwitch;
 
 import java.util.ArrayList;
 
@@ -19,7 +20,7 @@ public class MyAdapter extends RecyclerView.Adapter {
     private class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView mName;
         public TextView mPackageName;
-        public CheckBox mCheckboxApp;
+        public RMSwitch mCheckboxApp;
 
         public MyViewHolder(View pItem) {
             super(pItem);
@@ -60,6 +61,7 @@ public class MyAdapter extends RecyclerView.Adapter {
         ((MyViewHolder) viewHolder).mCheckboxApp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ((MyViewHolder) viewHolder).mCheckboxApp.setChecked(appInfo.getIsChecked());
                 Log.d("eselter", "Clicked checkboc: " + i);
                 onClickSaveAppsWhiteList(v, i);
                 notifyItemChanged(i);
