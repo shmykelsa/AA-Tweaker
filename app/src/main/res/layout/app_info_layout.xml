@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
@@ -11,15 +12,9 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="5dp">
-
-        <android.support.v7.widget.AppCompatCheckBox
-            android:id="@+id/checkbox_app"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"/>
-
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="30"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="5dp">
@@ -28,6 +23,7 @@
                 android:id="@+id/app_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/raleway_semibold"
                 android:text="Name"
                 android:textSize="20sp" />
 
@@ -36,11 +32,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:fontFamily="@font/raleway_light"
                 android:text="Package Name"
                 android:textColor="#888"
                 android:textSize="14sp" />
 
         </LinearLayout>
+
+        <com.rm.rmswitch.RMSwitch
+            android:layout_weight="3"
+            android:id="@+id/checkbox_app"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center_vertical"
+            app:enabled="true"
+            app:switchDesign="slim"
+            app:switchBkgCheckedColor="#6363FF"
+            app:switchBkgNotCheckedColor="#474747"
+            app:switchToggleCheckedColor="#2298FF"
+            app:switchToggleNotCheckedColor="#121212" />
+
+
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

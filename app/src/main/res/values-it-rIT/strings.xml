@@ -21,10 +21,10 @@ In nessuna circostanza l\'autore di questa app è responsabile per il suo uso.</
 VERDE= Patch applicata\n
 GIALLO= necessario un riavvio per applicare la patch\n
 ROSSO = Patch non applicata</string>
-    <string name="set_notification_duration_to">Durata della notifica a</string>
+    <string name="set_notification_duration_to">Durata notifiche a</string>
     <string name="base_no_ws">Widescreen</string>
     <string name="force_widescreen_text">Forza Widescreen</string>
-    <string name="media_notification_duration_to">Durata della notifica a</string>
+    <string name="media_notification_duration_to">Durata notifiche multimedia a</string>
     <string name="bluetooth_auto_connect">Connessione automatica Bluetooth</string>
     <string name="tutorial_nospeed">Questo trucco forzerà Android Auto a pensare che l\'auto è a velocità 0. Di conseguenza, Android Auto mostrerà sempre l\'anteprima dei messaggi. Questa modifica non si applica alla tastiera o alla prima configurazione di Android Auto.</string>
     <string name="tutorial_sixtap">Questo trucco bypasserà il limite di 6 tocchi di Android Auto e renderà la navigazione illimitata di contenuti sempre possibile.</string>
@@ -66,7 +66,8 @@ Questa funzione è probabilmente in fase di sviluppo e potrebbe non funzionare c
     <string name="set_value">Imposta\u0020</string>
     <string name="reboot_to_apply">RIAVVIA PER APPLICARE</string>
     <string name="warning_title">ATTENZIONE</string>
-    <string name="unpatch">Rimuovi\u0020</string>
-    <string name="patch_app">Patch\u0020</string>
+    <string name="unpatch">Annulla patch\u0020</string>
+    <string name="patch_app">Esegui patch\u0020</string>
     <string name="default_string">\u0020normale</string>
+    <string name="app_list_label">Lista delle app</string>
 </resources>

@@ -9,7 +9,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
         <Button
-            android:id="@+id/assistanim"
+android:id="@+id/assistanim"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:clickable="true"
@@ -31,7 +31,7 @@
 
         <Button
             android:id="@+id/statusbar_opaque"
-            android:layout_width="0dp"
+android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
@@ -53,7 +53,7 @@
 
         <Button
             android:id="@+id/battoutline"
-            android:layout_width="0dp"
+android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
@@ -74,7 +74,7 @@
 
         <Button
             android:id="@+id/hunthrottlingbutton"
-            android:layout_width="0dp"
+android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
@@ -101,7 +101,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/hunthrottlingbutton"
             app:layout_constraintEnd_toStartOf="@id/seekbar_text"
-            android:paddingTop="12dp"
+            android:paddingVertical="15dp"
             android:progressTint="#FF0000"
             android:thumbTint="#660000"
             android:thumb="@drawable/thumb_bg"
@@ -119,8 +119,7 @@
 
         <Button
             android:paddingTop="9dp"
-            android:maxLines="1"
-            android:id="@+id/media_throttling_button"
+android:id="@+id/media_throttling_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:clickable="true"
@@ -128,7 +127,8 @@
             android:text="@string/media_notification_duration_to"
             app:layout_constraintEnd_toEndOf="@id/hunthrottlingbutton"
             app:layout_constraintTop_toBottomOf="@id/hun_ms_value"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            android:singleLine="true" />
 
         <ImageView
             android:id="@+id/media_trhrottling_status"
@@ -147,7 +147,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/media_throttling_button"
             app:layout_constraintEnd_toStartOf="@id/second_seekbar_text"
-            android:paddingTop="12dp"
+            android:paddingVertical="15dp"
             android:progressTint="#FF0000"
             android:thumbTint="#660000"
             android:thumb="@drawable/thumb_bg"
@@ -165,7 +165,7 @@
 
         <Button
             android:id="@+id/bluetooth_disable_button"
-            android:paddingTop="9dp"
+android:paddingTop="9dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:clickable="true"

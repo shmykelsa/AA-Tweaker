@@ -1,39 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 <android.support.constraint.ConstraintLayout android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
         <Button
-            android:ellipsize="end"
-            android:maxLines="1"
             android:id="@+id/patchapps"
             android:layout_width="0dp"
-            app:layout_constraintHorizontal_weight="1"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@id/toapp_button"
-            app:layout_constraintEnd_toStartOf="@id/patchedappstatus"
             android:clickable="true"
-            android:focusable="true"
-            android:text="@string/patch_custom_apps" />
+
+           android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:text="@string/patch_custom_apps"
+            app:layout_constraintEnd_toStartOf="@id/patchedappstatus"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@id/toapp_button"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:ellipsize="end"
-            android:maxLines="1"
-            app:layout_constraintHorizontal_weight="0.6"
             android:id="@+id/toapp_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+
+            android:text="@string/select_apps"
             app:layout_constraintEnd_toStartOf="@id/patchapps"
-            android:text="@string/select_apps" />
+            app:layout_constraintHorizontal_weight="0.6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/patchedappstatus"
@@ -46,20 +44,20 @@
             app:layout_constraintTop_toTopOf="@id/toapp_button" />
 
         <Button
-            android:ellipsize="end"
-            android:maxLines="1"
             android:id="@+id/nospeed"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="true"
-            android:text="@string/unlimited_scrolling_when_driving"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/patchapps"
-            app:layout_constraintTop_toBottomOf="@id/patchapps"
+            android:layout_below="@id/toapp_button"
             android:layout_alignParentStart="true"
             android:layout_toStartOf="@id/speedhackstatus"
-            android:layout_below="@id/toapp_button" />
+            android:clickable="true"
+
+           android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:text="@string/unlimited_scrolling_when_driving"
+            app:layout_constraintEnd_toEndOf="@id/patchapps"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/patchapps" />
 
         <ImageView
             android:id="@+id/speedhackstatus"
@@ -73,17 +71,17 @@
             app:layout_constraintBottom_toBottomOf="@id/nospeed"/>
 
         <Button
-            android:ellipsize="end"
-            android:maxLines="1"
             android:id="@+id/taplimit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:focusable="true"
+
+           android:focusable="true"
+            android:focusableInTouchMode="true"
             android:text="@string/disable_speed_limitations"
+            app:layout_constraintEnd_toEndOf="@id/nospeed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/nospeed"
-            app:layout_constraintEnd_toEndOf="@id/nospeed"/>
+            app:layout_constraintTop_toBottomOf="@id/nospeed" />
 
         <ImageView
             android:id="@+id/sixtapstatus"
@@ -98,17 +96,17 @@
 
 
         <Button
-            android:ellipsize="end"
-            android:maxLines="1"
             android:id="@+id/assistshort"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:focusable="true"
+
+           android:focusable="true"
+            android:focusableInTouchMode="true"
             android:text="@string/enable_assistant_shortcuts"
+            app:layout_constraintEnd_toEndOf="@id/taplimit"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/taplimit"
-            app:layout_constraintEnd_toEndOf="@id/taplimit"/>
+            app:layout_constraintTop_toBottomOf="@id/taplimit" />
 
         <ImageView
             android:id="@+id/shortcutstatus"
@@ -122,17 +120,17 @@
             app:layout_constraintBottom_toBottomOf="@id/assistshort" />
 
         <Button
-            android:ellipsize="end"
-            android:maxLines="1"
             android:id="@+id/startup"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:focusable="true"
+
+           android:focusable="true"
+            android:focusableInTouchMode="true"
             android:text="@string/navigation_at_start"
+            app:layout_constraintEnd_toEndOf="@id/assistshort"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/assistshort"
-            app:layout_constraintEnd_toEndOf="@id/assistshort"/>
+            app:layout_constraintTop_toBottomOf="@id/assistshort" />
 
         <ImageView
             android:id="@+id/navstatus"
@@ -146,17 +144,17 @@
             app:layout_constraintBottom_toBottomOf="@id/startup"/>
 
         <Button
-            android:ellipsize="end"
-            android:maxLines="1"
             android:id="@+id/force_ws_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:focusable="true"
+
+           android:focusable="true"
+            android:focusableInTouchMode="true"
             android:text="@string/force_widescreen_text"
+            app:layout_constraintEnd_toEndOf="@id/startup"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/startup"
-            app:layout_constraintEnd_toEndOf="@id/startup"/>
+            app:layout_constraintTop_toBottomOf="@id/startup" />
 
         <ImageView
             android:id="@+id/force_ws_status"
@@ -174,15 +172,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:focusable="true"
+
+           android:focusable="true"
+            android:focusableInTouchMode="true"
             android:text="@string/base_no_ws"
+            app:layout_constraintEnd_toEndOf="@id/force_ws_button"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/force_ws_button"
-            app:layout_constraintEnd_toEndOf="@id/force_ws_button"/>
+            app:layout_constraintTop_toBottomOf="@id/force_ws_button" />
 
         <ImageView
-            android:ellipsize="end"
-            android:maxLines="1"
+
             android:id="@+id/force_no_ws_status"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
@@ -198,15 +197,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:focusable="true"
+
+           android:focusable="true"
+            android:focusableInTouchMode="true"
             android:text="@string/multi_display_string"
+            app:layout_constraintEnd_toEndOf="@id/force_ws_button"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/force__no_ws_button"
-            app:layout_constraintEnd_toEndOf="@id/force_ws_button"/>
+            app:layout_constraintTop_toBottomOf="@id/force__no_ws_button" />
 
         <ImageView
-            android:ellipsize="end"
-            android:maxLines="1"
             android:id="@+id/multi_display_status"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
@@ -222,15 +221,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:focusable="true"
+
+           android:focusable="true"
+            android:focusableInTouchMode="true"
             android:text="@string/battery_warning"
+            app:layout_constraintEnd_toEndOf="@id/multi_display_button"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/multi_display_button"
-            app:layout_constraintEnd_toEndOf="@id/multi_display_button"/>
+            app:layout_constraintTop_toBottomOf="@id/multi_display_button" />
 
         <ImageView
-            android:ellipsize="end"
-            android:maxLines="1"
             android:id="@+id/battery_warning_status"
             android:layout_width="wrap_content"
             android:layout_height="0dp"

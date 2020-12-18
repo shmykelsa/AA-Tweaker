@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="main_string">Vítejte v AA AIO Tweakeru\n
+    <string name="main_string">Vítejte v aplikaci AA AIO Tweaker\n
         Tato aplikace Vám umožní použít některá vylepšení pro Android Auto\n
         Jednoduše zvolte, jaké vylepšení chcete použít :)\n
         Pokud si nejste jisti, co která možnost dělá, jejím dlouhým podržením se zobrazí návod.\n</string>
@@ -11,9 +11,9 @@
     <string name="unlimited_scrolling_when_driving">rychlostní omezení</string>
     <string name="enable_assistant_animation_in_navbar">Animace asistenta v navigačním panelu</string>
     <string name="splash">Tato aplikace může změnit chování systému Android Auto a obejít některé bezpečnostní funkce, které Google implementoval v systému Android Auto.\n
-        Používáním tohoto softwaru souhlasíte s tím, že na sebe přebíráte plnou zodpovědnost, za případné důsledky způsobené změnou ochranných prvků. Vystavujete se tedyriziku zranění sebe nebo
+        Používáním tohoto softwaru souhlasíte s tím, že na sebe přebíráte plnou zodpovědnost, za případné důsledky způsobené změnou ochranných prvků. Vystavujete se tedy riziku zranění sebe nebo
         jiných osob, poškození majetku, ztráty na životech.\n
-        Autor této aplikace neni za žádných okolností zodpovědný za její používání</string>
+        Autor této aplikace není za žádných okolností zodpovědný za její používání</string>
     <string name="proceed">Rozumím</string>
     <string name="navigation_at_start">Navigace při startu</string>
     <string name="statb_opaque_string">Vynutit neprůhledný stavový panel</string>
@@ -28,49 +28,50 @@
     <string name="media_notification_duration_to">Doba trvání oznámení do</string>
     <string name="bluetooth_auto_connect">Automatické připojení Bluetooth</string>
     <string name="tutorial_nospeed">Toto vylepšení způsobí, že si Android Auto bude myslet, že vozidlo stojí na místě, tedy má nulovou rychlost. Což znamená, že Android Auto bude vždy
-    zobrazovat náhledy zpráv. Toto vylepšení nijak nrovlivni klávesnici nebo prvotní nastavení. show the preview of messages.</string>
-    <string name="tutorial_sixtap">This tweak will override the 6 tap limit of Android Auto and will make unlimited browsing of content always possible.</string>
-    <string name="tutorial_shortcuts">This tweak will unlock the new Assistant Shortcuts feature. Once activated you can go in Android Auto settings, and in the customize launcher
-    section you can start adding shortcuts to Google Assistant commands</string>
-    <string name="tutorial_startup">This tweak will override the default behaviour of Android Auto opening a navigation app at start and will make Android Auto start on launcher.\n
-        This tweak could occasionally fail because sometimes Android Auto starts with a navigation to home or work autonomously. This behaviour breaks the tweak.\n
-        In some cases this tweak will disable auto start of music. A known workaround is to disable and re-enable the option within Android Auto settings.\n
-    IT\'S NOT POSSIBLE TO SET A SPECIFIC APP TO START FIRST.</string>
-    <string name="tutorial_widescreen">This tweak will force Android Auto in widescreen mode.</string>
-    <string name="tutorial_no_widescreen">This tweak will force Android Auto in no widescreen mode.</string>
-    <string name="tutorial_animation">This tweak enable an animation of Google Assistant in the navigation bar.</string>
-    <string name="tutorial_statusbar_opaque">This tweak will make the status bar always black.</string>
-    <string name="tutorial_battery_outline">This tweak will prevent the battery icon with the red outline when battery saver is on.</string>
-    <string name="tutorial_hun">This tweak let you set a custom duration for heads up notifications</string>
-    <string name="tutorial_media_hun">This tweak let you set a custom duration for media notifications in navigation bar to up to 15 minutes.</string>
-    <string name="tutorial_bluetooth">BETA This tweak should prevent Bluetooth from turning on when Android Auto is connected. This tweak
-    won\'t work if Bluetooth is already on, and currently it is in beta.</string>
-    <string name="tutorial_patchapps">This tweak will enable third-party apps made specifically with Android Auto custom SDK to work on Android Auto.\n
-        If you are familiar with AA Phenotype Patcher, this tweak is pretty much identical to it.\n
-        It\'s not possible to add just any app to Android Auto, but it\'s possible to patch sideloaded apps MADE FOR ANDROID AUTO to work in cars.</string>
-    <string name="multi_display_string">Multi Display</string>
-    <string name="tutorial_multidisplay">This is an hidden feature inside Android Auto that will turn the second space in widescreen mode to a real second display that is completely taken by a seond activity. Google Maps will display a full map with navigation status, music and phones will take the full space.\n
-        Additionally, this mode activates another feature that will turn the phone\'s screen in a second display for navigation in Android Auto.\n
-        Settings for tweaking this feature will be available in Android Auto homescreen.\n
-        Apparently, only Google Maps currently support this mode.\n
-        This feature is probably under development and could potentially not work as intended.\n
-    Android Auto 5.8 or superior is required.</string>
-    <string name="battery_warning">Battery saver warning</string>
-    <string name="tutorial_battery_saver_warning">This tweak will prevent Android Auto from giving popup warnings when battery saver mode is on</string>
-    <string name="disable_tweak_string">Disable\u0020</string>
-    <string name="enable_tweak_string">Enable\u0020</string>
-    <string name="re_enable_tweak_string">Re-enable\u0020</string>
-    <string name="copy_log">Copy log</string>
-    <string name="about">About</string>
-    <string name="revert_everything">Revert everything</string>
-    <string name="force_disable_tweak">Force Disable\u0020</string>
+    zobrazovat náhledy zpráv. Toto vylepšení nijak neovlivní klávesnici nebo prvotní nastavení.</string>
+    <string name="tutorial_sixtap">Tato volba přepíše limit 6 klepnutí aplikace Android Auto a umožní neomezené prohlížení obsahu.</string>
+    <string name="tutorial_shortcuts">Tato možnost odemkne novou funkci zkratek asistenta. Po aktivaci můžete přejít na nastavení Android Auto a v sekci přizpůsobení spouštěče
+    můžete začít přidávat zkratky pro příkazy Google Asistenta</string>
+    <string name="tutorial_startup">Tato volba přepíše výchozí chování aplikace Android Auto, která při každém spuštění otevírá  aplikaci navigace.\n
+        Toto vylepšení občas může selhat, protože navigace se občas spouští automaticky a pracuje samostatně. Toto chování přeruší vylepšení.\n
+        V některých případech může tato volba vypnout automatické spouštění hudby. Řešením je zakázat a znovu povolit možnost v nastavení Android Auto.\n
+    NELZE SPECIFIKOVAT, KTERÁ APLIKACE SE BUDE PO STARTU SPOUŠTĚT.</string>
+    <string name="tutorial_widescreen">Tato možnost vynutí režim širokoúhlého obrazu v Android Auto.</string>
+    <string name="tutorial_no_widescreen">Tato možnost vynutí vypnutí režim širokoúhlého obrazu v Android Auto.</string>
+    <string name="tutorial_animation">Tato volba zapne animace Google asistenta v navigačním panelu.</string>
+    <string name="tutorial_statusbar_opaque">Tato možnost přizpůsobí stavovou lištu, aby byla vždy černá.</string>
+    <string name="tutorial_battery_outline">Toto vylepšení zakáže ikonu baterie s červeným obrysem při zapnutí spořiče baterie.</string>
+    <string name="tutorial_hun">Toto vylepšení umožňuje nastavit vlastní dobu trvání plovoucích notifikací</string>
+    <string name="tutorial_media_hun">Toto nastavení umožňuje nastavit vlastní dobu trvání notifikací médií v navigačním panelu až na 15 minut.</string>
+    <string name="tutorial_bluetooth">BETA Tato volba by měla zabránit zapnutí Bluetooth při připojení Android Auto. Tato volba
+    nebude fungovat, pokud je Bluetooth již zapnutý. Vylepšení je stále v beta verzi.</string>
+    <string name="tutorial_patchapps">Tato volba povolí aplikace třetích stran, tak aby tyto aplikace vytvořené s vlastním SDK fungovaly na Android Auto.\n
+        Pokud znáte aplikaci AA Phenotype Patcher, toto vylepšení je s ním do značné míry totožné.\n
+        Není možné přidat jakoukoliv android aplikaci, nicméně lze povolit uživatelské aplikace vytvořené speciálně pro ANDROID AUTO.</string>
+    <string name="multi_display_string">Multi displej</string>
+    <string name="tutorial_multidisplay">Toto je skrytá funkce v aplikaci Android Auto, která zapne druhé místo v režimu širokoúhlého zobrazení. Obrazovka se rozdělí na dvě části, Google Maps zobrazí celou mapu se stavem navigace a hudební přehrávač a telefon zabere cedruhou polovinu obrazovky.\n
+        Kromě toho tento režim aktivuje další funkci, která zapne obrazovku telefonu jako další obrazovku pro navigaci v Android Auto.\n
+        Nastavení této funkce bude k dispozici na domovské obrazovce Android Auto.\n
+        Tento režim podporují zatím pouze Google Mapy.\n
+        Tato funkce je pravděpodobně ve vývoji a potenciálně nemusí fungovat podle plánu.\n
+    Je vyžadován Android Auto 5.8 nebo vyšší.</string>
+    <string name="battery_warning">Varování spořiče baterie</string>
+    <string name="tutorial_battery_saver_warning">Tato volba zabrání systému Android Auto zobrazovat upozornění na vyskakovací okna, když je zapnutý režim spořiče baterie</string>
+    <string name="disable_tweak_string">Vypnout\u0020</string>
+    <string name="enable_tweak_string">Zapnout\u0020</string>
+    <string name="re_enable_tweak_string">Znovu zapnout\u0020</string>
+    <string name="copy_log">Kopírovat Log</string>
+    <string name="about">O aplikaci</string>
+    <string name="revert_everything">Obnovit vše</string>
+    <string name="force_disable_tweak">Vynutit vypnutí\u0020</string>
     <string name="reset_tweak">Reset\u0020</string>
-    <string name="force_widescreen_warning">Force widescreen has been automatically disabled</string>
-    <string name="force_disable_widescreen_warning">Force disable widescreen has been automatically disabled</string>
-    <string name="set_value">Set\u0020</string>
-    <string name="reboot_to_apply">REBOOT TO APPLY</string>
-    <string name="warning_title">WARNING</string>
-    <string name="unpatch">Unpatch\u0020</string>
-    <string name="patch_app">Patch\u0020</string>
-    <string name="default_string">\u0020Default</string>
+    <string name="force_widescreen_warning">Vynucení širokoúhlé obrazovky bylo automaticky zakázáno</string>
+    <string name="force_disable_widescreen_warning">Vynucení vypnutí širokoúhlé obrazovky bylo automaticky zakázáno</string>
+    <string name="set_value">Nastavit\u0020</string>
+    <string name="reboot_to_apply">RESTARTOVAT PRO POUŽITÍ</string>
+    <string name="warning_title">VAROVÁNÍ</string>
+    <string name="unpatch">Odstranit vylepšení\u0020</string>
+    <string name="patch_app">Aplikovat\u0020</string>
+    <string name="default_string">\u0020Výchozí</string>
+    <string name="app_list_label">Apps List</string>
 </resources>

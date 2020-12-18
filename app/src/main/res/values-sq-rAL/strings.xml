@@ -73,4 +73,5 @@
     <string name="unpatch">Unpatch\u0020</string>
     <string name="patch_app">Patch\u0020</string>
     <string name="default_string">\u0020Default</string>
+    <string name="app_list_label">Apps List</string>
 </resources>

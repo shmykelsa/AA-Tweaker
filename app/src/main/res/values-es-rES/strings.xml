@@ -71,4 +71,5 @@ Se requiere de Android Auto 5.8 o superior.</string>
     <string name="unpatch">Desparchear\u0020</string>
     <string name="patch_app">Parchear\u0020</string>
     <string name="default_string">\u0020Por defecto</string>
+    <string name="app_list_label">Apps List</string>
 </resources>

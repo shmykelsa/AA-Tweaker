@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="main_string">Welcome in AA AIO Tweaker\n
-        This app will let you apply some tweaks to Android Auto\n
-        Simply select what tweak you want to apply :)\n
-        If you are unsure of what a tweak does, long press on it and a tutorial will show up.\n</string>
+    <string name="main_string">Vitajte v AA AIO vylepšení\n
+        Táto aplikácia Vám dovolí použiť vylepšenia pre Android Auto\n
+        Jednoducho vyberte vylepšenie ktoré chcete aplikovať :)\n
+        Ak si nie ste istý čo dane vylepšenie robí, dlhým stlačením na ňom sa objaví tutoriál.\n</string>
     <string name="select_apps">Výber aplikácií</string>
     <string name="enable_assistant_shortcuts">Asistent skratiek</string>
-    <string name="patch_custom_apps">custom apps</string>
+    <string name="patch_custom_apps">použiteľné aplikácie</string>
     <string name="disable_speed_limitations">limit kliknutí</string>
-    <string name="unlimited_scrolling_when_driving">obmedzenie rýchlosti</string>
-    <string name="enable_assistant_animation_in_navbar">Animácia asistenta v navbar</string>
-    <string name="splash">This app can alter Android Auto behaviour and bypass some safety features that Google has implemented in Android Auto.\n
-        By using this software, you agree that YOU, and ONLY YOU, are solely responsible for any possible consequence that may result in altering safety features such as injury to yourself and/or
-        others, property damage, loss of life.\n
-        Under no circumnstances is the author of this app responsible for its use</string>
-    <string name="proceed">Roziumiem</string>
+    <string name="unlimited_scrolling_when_driving">obmedzenia rýchlosti</string>
+    <string name="enable_assistant_animation_in_navbar">Animácia asistenta v navigačnom poli</string>
+    <string name="splash">Táto aplikácia môže meniť chovanie Android Auto a premostiť niektoré ochranné funkcie  ktoré Google implementoval do Android Auto.\n
+        Používaním tohto softvéru súhlasíte že VY a LEN VY,  ste výlučne zodpovedný za možné dôsledky ktoré môžu vyplývať zo zmeny bezpečnostných funkcií ako ochrana seba sama a/alebo
+        ostatných, zničenie majetku, straty života.\n
+        Autor tejto aplikácie nie je nijako a za žiadnych okolností zodpovedný za jej užívanie</string>
+    <string name="proceed">Rozumiem</string>
     <string name="navigation_at_start">Navigácia pri štarte</string>
-    <string name="statb_opaque_string">Force Opaque Statusbar</string>
-    <string name="battery_outline_string">battery saver outline</string>
-    <string name="legend">Status Legend:\n
-        GREEN= Patch applied\n
-        YELLOW= Patch need reboot to be applied\n
-        RED= Patch is not applied</string>
+    <string name="statb_opaque_string">Vnútenie Nepriehľadná Status lišta</string>
+    <string name="battery_outline_string">kontúra šetriča batérie</string>
+    <string name="legend">Popis stavu:\n
+        ZELENÁ=Záplata aplikovaná\n
+        ŽLTÁ=Záplata potrebuje reboot pre aplikovanie\n
+        ČERVENÁ=Záplata nie je aplikovaná</string>
     <string name="set_notification_duration_to">Trvanie notifikácie</string>
     <string name="base_no_ws">Širokoúhly</string>
-    <string name="force_widescreen_text">Force Widescreen</string>
+    <string name="force_widescreen_text">Vnútenie Širokoúhleho zobrazenia</string>
     <string name="media_notification_duration_to">Trvanie Media notifikácie</string>
     <string name="bluetooth_auto_connect">Bluetooth automatické pripojenie</string>
-    <string name="tutorial_nospeed">This tweak will make Android Auto think that the car is at 0 speed. As a result, Android Auto will always
-    show the preview of messages. This tweak does not apply to keyboard or first configuration of Android Auto.</string>
-    <string name="tutorial_sixtap">This tweak will override the 6 tap limit of Android Auto and will make unlimited browsing of content always possible.</string>
-    <string name="tutorial_shortcuts">This tweak will unlock the new Assistant Shortcuts feature. Once activated you can go in Android Auto settings, and in the customize launcher
-    section you can start adding shortcuts to Google Assistant commands</string>
+    <string name="tutorial_nospeed">Toto vylepšenie presvedčí Android Auto že auto má nulovú rýchlosť. Výsledkom je že Android Auto bude vždy
+    zobrazovať náhľad správ. Toto vylepšenie nepoužije klávesnicu ako prvú konfiguráciu pre Android Auto.</string>
+    <string name="tutorial_sixtap">Toto vylepšenie prepíše limit 6 dotykov pre Android Auto a dovolí prehliadanie obsahu bez limitu.</string>
+    <string name="tutorial_shortcuts">Toto vylepšenie odomkne skratku funkcií nového asistenta. Jednorázovou aktiváciou sa dostanete do Android Auto nastavení a v prispôsobeniach
+    môžete pridávať skratky príkazov pre Google Assistant</string>
     <string name="tutorial_startup">This tweak will override the default behaviour of Android Auto opening a navigation app at start and will make Android Auto start on launcher.\n
         This tweak could occasionally fail because sometimes Android Auto starts with a navigation to home or work autonomously. This behaviour breaks the tweak.\n
         In some cases this tweak will disable auto start of music. A known workaround is to disable and re-enable the option within Android Auto settings.\n
     IT\'S NOT POSSIBLE TO SET A SPECIFIC APP TO START FIRST.</string>
-    <string name="tutorial_widescreen">This tweak will force Android Auto in widescreen mode.</string>
-    <string name="tutorial_no_widescreen">This tweak will force Android Auto in no widescreen mode.</string>
+    <string name="tutorial_widescreen">Toto vylepšenie vnúti Android Auto širokoúhle zobrazenie.</string>
+    <string name="tutorial_no_widescreen">Toto vylepšenie vnúti Android Auto aby neprechádzal do širokoúhleho módu.</string>
     <string name="tutorial_animation">This tweak enable an animation of Google Assistant in the navigation bar.</string>
     <string name="tutorial_statusbar_opaque">This tweak will make the status bar always black.</string>
     <string name="tutorial_battery_outline">This tweak will prevent the battery icon with the red outline when battery saver is on.</string>
@@ -59,18 +59,19 @@
     <string name="tutorial_battery_saver_warning">This tweak will prevent Android Auto from giving popup warnings when battery saver mode is on</string>
     <string name="disable_tweak_string">Zakázanie\u0020</string>
     <string name="enable_tweak_string">Povolenie\u0020</string>
-    <string name="re_enable_tweak_string">Re-enable\u0020</string>
-    <string name="copy_log">Log kopírovania</string>
+    <string name="re_enable_tweak_string">Opätovné povolenie\u0020</string>
+    <string name="copy_log">Kopírovanie logu</string>
     <string name="about">O</string>
-    <string name="revert_everything">Revert everything</string>
-    <string name="force_disable_tweak">Force Disable\u0020</string>
+    <string name="revert_everything">Vrátiť všetko späť</string>
+    <string name="force_disable_tweak">Vnútenie zakázané\u0020</string>
     <string name="reset_tweak">Reset\u0020</string>
-    <string name="force_widescreen_warning">Force widescreen has been automatically disabled</string>
-    <string name="force_disable_widescreen_warning">Force disable widescreen has been automatically disabled</string>
+    <string name="force_widescreen_warning">Vnútenie širokoúhleho zobrazenia bolo automaticky zakázané</string>
+    <string name="force_disable_widescreen_warning">Vnútenie zakázania širokoúhleho zobrazenia bolo automaticky zakázané</string>
     <string name="set_value">Nastavenie\u0020</string>
     <string name="reboot_to_apply">REŠTARTOVAŤ PRE AKTIVÁCIU</string>
     <string name="warning_title">UPOZORNENIE</string>
-    <string name="unpatch">Unpatch\u0020</string>
-    <string name="patch_app">Patch\u0020</string>
+    <string name="unpatch">Bez záplaty\u0020</string>
+    <string name="patch_app">Záplata \u0020</string>
     <string name="default_string">\u0020Prednastavené</string>
+    <string name="app_list_label">Zoznam aplikácií</string>
 </resources>
