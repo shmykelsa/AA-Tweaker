@@ -14,7 +14,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
-        android:theme="?attr/actionBarTheme"
+        android:theme="@style/MyActionBarTheme"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/MenuTheme" />
 

@@ -1,30 +1,19 @@
 package sksa.aa.tweaker;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.Objects;
-
-import static android.content.Context.CLIPBOARD_SERVICE;
 
 
 public class AboutDialog extends DialogFragment {
@@ -33,24 +22,40 @@ public class AboutDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        final TextView message = new TextView(getContext());
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
-        builder.setMessage(Html.fromHtml("AA AIO TWEAKER is developed and maintained by Shmykelsa.<br><br>" +
-                "Source code is available on <a href=\"https://github.com/shmykelsa/AA-Tweaker\">GitHub</a><br><br>" +
-                "If you really like my work, please consider a donation.<br> You can donate me through <a href=\"http://www.paypal.me/grizzo96\">PayPal</a> or you can copy my" +
-                " Bitcoin address with the button down below.<br><br> Even a small amount will be much appreciated :)"));
+        builder.setMessage(Html.fromHtml(getString(R.string.about_part_one) +
+                getString(R.string.about_part_two)));
         builder.setCancelable(true);
         builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             }
         });
-        builder.setNeutralButton("Source Code", new DialogInterface.OnClickListener() {
+        builder.setNeutralButton(R.string.translators_button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/shmykelsa/AA-Tweaker"));
-                startActivity(browserIntent);
+                final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setMessage(Html.fromHtml("\uD83C\uDDF7\uD83C\uDDFA Diversant96<br>" +
+                        "\uD83C\uDDF3\uD83C\uDDF1 Coyenzo<br>" +
+                        "\uD83C\uDDF8\uD83C\uDDF0 Jozo19<br>" +
+                        "\uD83C\uDDEA\uD83C\uDDF8 Krilok<br>" +
+                        "\uD83C\uDDE8\uD83C\uDDFF Martin2412<br>" +
+                        "\uD83C\uDDEB\uD83C\uDDF7 Nova.Kin<br>" +
+                        "\uD83C\uDDEE\uD83C\uDDF9 Shmykelsa<br>" +
+                        "\uD83C\uDDE7\uD83C\uDDF7 gsproenca<br>" +
+                        "\uD83C\uDDF9\uD83C\uDDF7 uaslan<br>" +
+                        "<br>Want to translate AA AIO TWEAKER in your own language? Join translations on <a href=\"https://crowdin.com/project/aa-aio-tweaker\">Crowdin</a>!"));
+                builder.setCancelable(true);
+                builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                AlertDialog Alert1 = builder.create();
+                Alert1.show();
+                ((TextView) Alert1.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
+
             }
         });
         builder.setNegativeButton("Bitcoin", new DialogInterface.OnClickListener() {
@@ -59,7 +64,7 @@ public class AboutDialog extends DialogFragment {
                 ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("Copied Text", "39bdKem8taTZvm2WeyH8wwDhYKzZ2PzhGn");
                 clipboard.setPrimaryClip(clip);
-                Toast mytoast = Toast.makeText(getContext(), "BTC Address copied to clipboard", Toast.LENGTH_LONG);
+                Toast mytoast = Toast.makeText(getContext(), R.string.copied_address_toast, Toast.LENGTH_LONG);
                 mytoast.show();
             }
         });
@@ -68,5 +73,12 @@ public class AboutDialog extends DialogFragment {
         ((TextView)Alert.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
         return Alert;
     }
+
+    private void startBrowser() {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://crowdin.com/project/aa-aio-tweaker"));
+        browserIntent.putExtra("Activity", "AboutDialog");
+        startActivity(browserIntent);
+    }
+
 
 }

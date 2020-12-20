@@ -9,6 +9,6 @@
 /build
 /app/build
 /captures
-/app/release/output.json
 .externalNativeBuild
 /crowdin.properties
+/app/release

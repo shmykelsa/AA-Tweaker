@@ -18,8 +18,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -96,11 +98,10 @@ public class MainActivity extends AppCompatActivity {
         );
 
         final Button rebootButton = findViewById(R.id.reboot_button);
-        final Animation anim = new AlphaAnimation(0.0f, 1.0f);
-        anim.setDuration(600);
-        anim.setStartOffset(0);
-        anim.setFillAfter(true);
-        rebootButton.setAnimation(anim);
+        final Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.reboot_button_anim);
+        final RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        rotate.setDuration(400);
+        rotate.setInterpolator(new LinearInterpolator());
 
         final Boolean[] animationRun = {false};
 
@@ -125,9 +126,10 @@ public class MainActivity extends AppCompatActivity {
                             nospeed.setText(getString(R.string.disable_tweak_string) + getString(R.string.unlimited_scrolling_when_driving));
                             nospeedimg.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             nospeedimg.setColorFilter(Color.argb(255,255,0,0));
+                            nospeedimg.startAnimation(rotate);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
-                                anim.start();
+                                rebootButton.startAnimation(anim);
                                 animationRun[0] = true;
                             }
                         }
@@ -136,9 +138,10 @@ public class MainActivity extends AppCompatActivity {
                             nospeed.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.unlimited_scrolling_when_driving));
                             nospeedimg.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             nospeedimg.setColorFilter(Color.argb(255,255,255,0));
+                            nospeedimg.startAnimation(rotate);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
-                                anim.start();
+                                rebootButton.startAnimation(anim);
                                 animationRun[0] = true;
                             }
                         }
@@ -153,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.setCancelable(true);
                 View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
 
+
                 TextView tutorial = view.findViewById(R.id.dialog_content);
                 tutorial.setText(getString(R.string.tutorial_nospeed));
 
@@ -161,10 +165,10 @@ public class MainActivity extends AppCompatActivity {
 
                 dialog.setContentView(view);
 
-                dialog.show();
 
                 Window window = dialog.getWindow();
                 window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 800);
+                dialog.show();
 
                 return true;
             }
@@ -189,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.setCanceledOnTouchOutside(true);
                 dialog.setCancelable(true);
                 View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
+
 
                 TextView tutorial = view.findViewById(R.id.dialog_content);
                 tutorial.setText(getString(R.string.tutorial_shortcuts));
@@ -221,9 +226,10 @@ public class MainActivity extends AppCompatActivity {
                             assistshort.setText(getString(R.string.enable_tweak_string) + getString(R.string.enable_assistant_shortcuts));
                             assisthackimg.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             assisthackimg.setColorFilter(Color.argb(255,255,0,0));
+                            assisthackimg.startAnimation(rotate);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
-                                anim.start();
+                                rebootButton.startAnimation(anim);
                                 animationRun[0] = true;
                             }
                         }
@@ -232,9 +238,10 @@ public class MainActivity extends AppCompatActivity {
                             assistshort.setText(getString(R.string.disable_tweak_string) + getString(R.string.enable_assistant_shortcuts));
                             assisthackimg.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             assisthackimg.setColorFilter(Color.argb(255,255,255,0));
+                            assisthackimg.startAnimation(rotate);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
-                                anim.start();
+                                rebootButton.startAnimation(anim);
                                 animationRun[0] = true;
                             }
                         }
@@ -260,6 +267,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.setCanceledOnTouchOutside(true);
                 dialog.setCancelable(true);
                 View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
+
 
                 TextView tutorial = view.findViewById(R.id.dialog_content);
                 tutorial.setText(getString(R.string.tutorial_sixtap));
@@ -287,9 +295,10 @@ public class MainActivity extends AppCompatActivity {
                             taplimitat.setText(getString(R.string.disable_tweak_string) + getString(R.string.disable_speed_limitations));
                             taplimitstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             taplimitstatus.setColorFilter(Color.argb(255,255,0,0));
+                            taplimitstatus.startAnimation(rotate);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
-                                anim.start();
+                                rebootButton.startAnimation(anim);
                                 animationRun[0] = true;
                             }
                         }
@@ -298,9 +307,10 @@ public class MainActivity extends AppCompatActivity {
                             taplimitat.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.disable_speed_limitations));
                             taplimitstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             taplimitstatus.setColorFilter(Color.argb(255,255,255,0));
+                            taplimitstatus.startAnimation(rotate);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
-                                anim.start();
+                                rebootButton.startAnimation(anim);
                                 animationRun[0] = true;
                             }
                         }
@@ -328,9 +338,10 @@ public class MainActivity extends AppCompatActivity {
                             startupnav.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.navigation_at_start));
                             navstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             navstatus.setColorFilter(Color.argb(255,255,0,0));
+                            navstatus.startAnimation(rotate);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
-                                anim.start();
+                                rebootButton.startAnimation(anim);
                                 animationRun[0] = true;
                             }
                         }
@@ -339,9 +350,10 @@ public class MainActivity extends AppCompatActivity {
                             startupnav.setText(getString(R.string.disable_tweak_string) + getString(R.string.navigation_at_start));
                             navstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             navstatus.setColorFilter(Color.argb(255,255,255,0));
+                            navstatus.startAnimation(rotate);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
-                                anim.start();
+                                rebootButton.startAnimation(anim);
                                 animationRun[0] = true;
                             }
                         }
@@ -355,6 +367,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.setCanceledOnTouchOutside(true);
                 dialog.setCancelable(true);
                 View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
+
 
                 TextView tutorial = view.findViewById(R.id.dialog_content);
                 tutorial.setText(getString(R.string.tutorial_startup));
@@ -393,9 +406,10 @@ public class MainActivity extends AppCompatActivity {
                             patchapps.setText(getString(R.string.patch_app) + getString(R.string.patch_custom_apps));
                             patchappstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             patchappstatus.setColorFilter(Color.argb(255,255,0,0));
+                            patchappstatus.startAnimation(rotate);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
-                                anim.start();
+                                rebootButton.startAnimation(anim);
                                 animationRun[0] = true;
                             }
                         }
@@ -411,9 +425,10 @@ public class MainActivity extends AppCompatActivity {
                                 patchapps.setText(getString(R.string.unpatch) + getString(R.string.patch_custom_apps));
                                 patchappstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                                 patchappstatus.setColorFilter(Color.argb(255, 0, 255, 0));
+                                patchappstatus.startAnimation(rotate);
                                 if (!animationRun[0]) {
                                     rebootButton.setVisibility(View.VISIBLE);
-                                    anim.start();
+                                    rebootButton.startAnimation(anim);
                                     animationRun[0] = true;
                                 }
                             }
@@ -428,6 +443,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.setCanceledOnTouchOutside(true);
                 dialog.setCancelable(true);
                 View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
+
 
                 TextView tutorial = view.findViewById(R.id.dialog_content);
                 tutorial.setText(getString(R.string.tutorial_patchapps));
@@ -465,9 +481,10 @@ public class MainActivity extends AppCompatActivity {
                             assistanim.setText(getString(R.string.enable_tweak_string) + getString(R.string.enable_assistant_animation_in_navbar));
                             assistanimstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             assistanimstatus.setColorFilter(Color.argb(255,255,0,0));
+                            assistanimstatus.startAnimation(rotate);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
-                                anim.start();
+                                rebootButton.startAnimation(anim);
                                 animationRun[0] = true;
                             }
                         }
@@ -476,9 +493,10 @@ public class MainActivity extends AppCompatActivity {
                             assistanim.setText(getString(R.string.disable_tweak_string) + getString(R.string.enable_assistant_animation_in_navbar));
                             assistanimstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             assistanimstatus.setColorFilter(Color.argb(255,255,255,0));
+                            assistanimstatus.startAnimation(rotate);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
-                                anim.start();
+                                rebootButton.startAnimation(anim);
                                 animationRun[0] = true;
                             }
                         }
@@ -492,6 +510,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.setCanceledOnTouchOutside(true);
                 dialog.setCancelable(true);
                 View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
+
 
                 TextView tutorial = view.findViewById(R.id.dialog_content);
                 tutorial.setText(getString(R.string.tutorial_animation));
@@ -532,9 +551,10 @@ public class MainActivity extends AppCompatActivity {
                             batteryoutline.setText(getString(R.string.disable_tweak_string) + getString(R.string.battery_outline_string));
                             batterystatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             batterystatus.setColorFilter(Color.argb(255,255,0,0));
+                            batterystatus.startAnimation(rotate);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
-                                anim.start();
+                                rebootButton.startAnimation(anim);
                                 animationRun[0] = true;
                             }
                         }
@@ -543,9 +563,10 @@ public class MainActivity extends AppCompatActivity {
                             batteryoutline.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.battery_outline_string));
                             batterystatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             batterystatus.setColorFilter(Color.argb(255,255,255,0));
+                            batterystatus.startAnimation(rotate);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
-                                anim.start();
+                                rebootButton.startAnimation(anim);
                                 animationRun[0] = true;
                             }
                         }
@@ -559,6 +580,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.setCanceledOnTouchOutside(true);
                 dialog.setCancelable(true);
                 View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
+
 
                 TextView tutorial = view.findViewById(R.id.dialog_content);
                 tutorial.setText(getString(R.string.tutorial_battery_outline));
@@ -599,9 +621,10 @@ public class MainActivity extends AppCompatActivity {
                             statusbaropaque.setText(getString(R.string.enable_tweak_string) + getString(R.string.statb_opaque_string));
                             opauqestatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             opauqestatus.setColorFilter(Color.argb(255,255,0,0));
+                            opauqestatus.startAnimation(rotate);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
-                                anim.start();
+                                rebootButton.startAnimation(anim);
                                 animationRun[0] = true;
                             }
                         }
@@ -610,9 +633,10 @@ public class MainActivity extends AppCompatActivity {
                             statusbaropaque.setText(getString(R.string.disable_tweak_string) + getString(R.string.statb_opaque_string));
                             opauqestatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             opauqestatus.setColorFilter(Color.argb(255,255,255,0));
+                            opauqestatus.startAnimation(rotate);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
-                                anim.start();
+                                rebootButton.startAnimation(anim);
                                 animationRun[0] = true;
                             }
                         }
@@ -626,6 +650,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.setCanceledOnTouchOutside(true);
                 dialog.setCancelable(true);
                 View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
+
 
                 TextView tutorial = view.findViewById(R.id.dialog_content);
                 tutorial.setText(getString(R.string.tutorial_statusbar_opaque));
@@ -667,9 +692,10 @@ public class MainActivity extends AppCompatActivity {
                             forceWideScreenButton.setText(getString(R.string.enable_tweak_string) + getString(R.string.force_widescreen_text));
                             forceWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             forceWideScreenStatus.setColorFilter(Color.argb(255,255,0,0));
+                            forceWideScreenStatus.startAnimation(rotate);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
-                                anim.start();
+                                rebootButton.startAnimation(anim);
                                 animationRun[0] = true;
                             }
                         }
@@ -678,7 +704,7 @@ public class MainActivity extends AppCompatActivity {
                             forceWideScreenButton.setText(getString(R.string.disable_tweak_string)+ getString(R.string.force_widescreen_text));
                             forceWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             forceWideScreenStatus.setColorFilter(Color.argb(255,255,255,0));
-
+                            forceWideScreenStatus.startAnimation(rotate);
                             save(true, "force_ws");
                             if (load("force_no_ws")) {
                                 Toast.makeText(getApplicationContext(), R.string.force_disable_widescreen_warning, Toast.LENGTH_LONG).show();
@@ -686,10 +712,11 @@ public class MainActivity extends AppCompatActivity {
                                 forceNoWideScreen.setText(getString(R.string.force_disable_tweak) + getString(R.string.base_no_ws));
                                 forceNoWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                                 forceNoWideScreenStatus.setColorFilter(Color.argb(255, 255, 0, 0));
+                                forceNoWideScreenStatus.startAnimation(rotate);
                             }
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
-                                anim.start();
+                                rebootButton.startAnimation(anim);
                                 animationRun[0] = true;
                             }
                         }
@@ -703,6 +730,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.setCanceledOnTouchOutside(true);
                 dialog.setCancelable(true);
                 View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
+
 
                 TextView tutorial = view.findViewById(R.id.dialog_content);
                 tutorial.setText(getString(R.string.tutorial_widescreen));
@@ -742,9 +770,10 @@ public class MainActivity extends AppCompatActivity {
                             forceNoWideScreen.setText(getString(R.string.force_disable_tweak) + getString(R.string.base_no_ws));
                             forceNoWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             forceNoWideScreenStatus.setColorFilter(Color.argb(255,255,0,0));
+                            forceNoWideScreenStatus.startAnimation(rotate);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
-                                anim.start();
+                                rebootButton.startAnimation(anim);
                                 animationRun[0] = true;
                             }
                         }
@@ -753,6 +782,7 @@ public class MainActivity extends AppCompatActivity {
                             forceNoWideScreen.setText(getString(R.string.reset_tweak) + getString(R.string.base_no_ws));
                             forceNoWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             forceNoWideScreenStatus.setColorFilter(Color.argb(255,255,255,0));
+                            forceNoWideScreenStatus.startAnimation(rotate);
                             save(true, "force_no_ws");
                             if (load ("force_ws")) {
                                 save(false, "force_ws");
@@ -760,10 +790,11 @@ public class MainActivity extends AppCompatActivity {
                                 forceWideScreenButton.setText(getString(R.string.enable_tweak_string) + getString(R.string.force_widescreen_text));
                                 forceWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                                 forceWideScreenStatus.setColorFilter(Color.argb(255, 255, 0, 0));
+                                forceWideScreenStatus.startAnimation(rotate);
                             }
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
-                                anim.start();
+                                rebootButton.startAnimation(anim);
                                 animationRun[0] = true;
                             }
                         }
@@ -777,6 +808,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.setCanceledOnTouchOutside(true);
                 dialog.setCancelable(true);
                 View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
+
 
                 TextView tutorial = view.findViewById(R.id.dialog_content);
                 tutorial.setText(getString(R.string.tutorial_no_widescreen));
@@ -848,9 +880,10 @@ public class MainActivity extends AppCompatActivity {
                             hunstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             hunSeekbar.setProgress(8000);
                             hunstatus.setColorFilter(Color.argb(255,255,0,0));
+                            hunstatus.startAnimation(rotate);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
-                                anim.start();
+                                rebootButton.startAnimation(anim);
                                 animationRun[0] = true;
                             }
                         }
@@ -859,9 +892,10 @@ public class MainActivity extends AppCompatActivity {
                             huntrottling.setText(getString(R.string.reset_tweak) + getString(R.string.set_notification_duration_to) + " default");
                             hunstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             hunstatus.setColorFilter(Color.argb(255,255,255,0));
+                            hunstatus.startAnimation(rotate);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
-                                anim.start();
+                                rebootButton.startAnimation(anim);
                                 animationRun[0] = true;
                             }
                         }
@@ -875,6 +909,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.setCanceledOnTouchOutside(true);
                 dialog.setCancelable(true);
                 View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
+
 
                 TextView tutorial = view.findViewById(R.id.dialog_content);
                 tutorial.setText(getString(R.string.tutorial_hun));
@@ -945,10 +980,11 @@ public class MainActivity extends AppCompatActivity {
                             mediathrottlingbutton.setText(getString(R.string.set_value) + getString(R.string.media_notification_duration_to));
                             mediaHunStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             mediaHunStatus.setColorFilter(Color.argb(255,255,0,0));
+                            mediaHunStatus.startAnimation(rotate);
 //                            save(false, "aa_media_hun");
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
-                                anim.start();
+                                rebootButton.startAnimation(anim);
                                 animationRun[0] = true;
                             }
                         }
@@ -957,10 +993,11 @@ public class MainActivity extends AppCompatActivity {
                             mediathrottlingbutton.setText(getString(R.string.reset_tweak) + getString(R.string.media_notification_duration_to) + getString(R.string.default_string));
                             mediaHunStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             mediaHunStatus.setColorFilter(Color.argb(255,255,255,0));
+                            mediaHunStatus.startAnimation(rotate);
                             //save(true, "aa_media_hun");
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
-                                anim.start();
+                                rebootButton.startAnimation(anim);
                                 animationRun[0] = true;
                             }
                         }
@@ -974,6 +1011,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.setCanceledOnTouchOutside(true);
                 dialog.setCancelable(true);
                 View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
+
 
                 TextView tutorial = view.findViewById(R.id.dialog_content);
                 tutorial.setText(getString(R.string.tutorial_media_hun));
@@ -1013,10 +1051,12 @@ public class MainActivity extends AppCompatActivity {
                             bluetoothoff.setText(getString(R.string.disable_tweak_string) + getString(R.string.bluetooth_auto_connect));
                             btstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             btstatus.setColorFilter(Color.argb(255,255,0,0));
+                            btstatus.startAnimation(rotate);
+
                             //save(false, "bluetooth_pairing_off");
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
-                                anim.start();
+                                rebootButton.startAnimation(anim);
                                 animationRun[0] = true;
                             }
                         }
@@ -1025,10 +1065,11 @@ public class MainActivity extends AppCompatActivity {
                             bluetoothoff.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.bluetooth_auto_connect));
                             btstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             btstatus.setColorFilter(Color.argb(255,255,255,0));
+                            btstatus.startAnimation(rotate);
                             //save(true, "bluetooth_pairing_off");
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
-                                anim.start();
+                                rebootButton.startAnimation(anim);
                                 animationRun[0] = true;
                             }
                         }
@@ -1042,6 +1083,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.setCanceledOnTouchOutside(true);
                 dialog.setCancelable(true);
                 View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
+
 
                 TextView tutorial = view.findViewById(R.id.dialog_content);
                 tutorial.setText(getString(R.string.tutorial_bluetooth));
@@ -1078,9 +1120,11 @@ public class MainActivity extends AppCompatActivity {
                             mdbutton.setText(getString(R.string.enable_tweak_string) + getString(R.string.multi_display_string));
                             mdstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             mdstatus.setColorFilter(Color.argb(255,255,0,0));
+                            mdstatus.startAnimation(rotate);
+
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
-                                anim.start();
+                                rebootButton.startAnimation(anim);
                                 animationRun[0] = true;
                             }
                         }
@@ -1089,9 +1133,11 @@ public class MainActivity extends AppCompatActivity {
                             mdbutton.setText(getString(R.string.disable_tweak_string) + getString(R.string.multi_display_string));
                             mdstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             mdstatus.setColorFilter(Color.argb(255,255,255,0));
+                            mdstatus.startAnimation(rotate);
+
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
-                                anim.start();
+                                rebootButton.startAnimation(anim);
                                 animationRun[0] = true;
                             }
                         }
@@ -1105,6 +1151,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.setCanceledOnTouchOutside(true);
                 dialog.setCancelable(true);
                 View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
+
 
                 TextView tutorial = view.findViewById(R.id.dialog_content);
                 tutorial.setText(getString(R.string.tutorial_multidisplay));
@@ -1149,9 +1196,11 @@ public class MainActivity extends AppCompatActivity {
                             batteryWarning.setText(getString(R.string.disable_tweak_string) + getString(R.string.battery_warning));
                             batteryWarningStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                             batteryWarningStatus.setColorFilter(Color.argb(255,255,0,0));
+                            batteryWarningStatus.startAnimation(rotate);
+
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
-                                anim.start();
+                                rebootButton.startAnimation(anim);
                                 animationRun[0] = true;
                             }
                         }
@@ -1160,9 +1209,11 @@ public class MainActivity extends AppCompatActivity {
                             batteryWarning.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.battery_warning));
                             batteryWarningStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             batteryWarningStatus.setColorFilter(Color.argb(255,255,255,0));
+                            batteryWarningStatus.startAnimation(rotate);
+
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
-                                anim.start();
+                                rebootButton.startAnimation(anim);
                                 animationRun[0] = true;
                             }
                         }
@@ -1176,6 +1227,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.setCanceledOnTouchOutside(true);
                 dialog.setCancelable(true);
                 View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
+
 
                 TextView tutorial = view.findViewById(R.id.dialog_content);
                 tutorial.setText(getString(R.string.tutorial_battery_saver_warning));

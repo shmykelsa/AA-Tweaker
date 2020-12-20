@@ -71,5 +71,10 @@ Se requiere de Android Auto 5.8 o superior.</string>
     <string name="unpatch">Desparchear\u0020</string>
     <string name="patch_app">Parchear\u0020</string>
     <string name="default_string">\u0020Por defecto</string>
-    <string name="app_list_label">Apps List</string>
+    <string name="app_list_label">Lista de Aplicaciones</string>
+    <string name="positive_button">Aceptar</string>
+    <string name="translators_button">Traducido por</string>
+    <string name="about_part_one"><![CDATA[AA AIO TWEAKER está desarrollado y mantenido por Shmykelsa.<br><br>El código fuente está disponible en <a href=\"https://github.com/shmykelsa/AA-Tweaker\">GitHub</a><br><br>]]></string>
+    <string name="about_part_two"><![CDATA[Si realmente te gusta mi trabajo, por favor considera realizar una donación.<br> Puedes donar a través de <a href=\"http://www.paypal.me/grizzo96\">PayPal</a> o puedes copiar mi dirección de Bitcoin con el botón de abajo.<br><br>Aunque sea sólo una pequeña cantidad será muy apreciada :)]]></string>
+    <string name="copied_address_toast">Dirección BTC copiada al portapapeles</string>
 </resources>

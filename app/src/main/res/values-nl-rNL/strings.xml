@@ -72,5 +72,10 @@
     <string name="unpatch">Unpatch\u0020</string>
     <string name="patch_app">Patch\u0020</string>
     <string name="default_string">\u0020Standaard</string>
-    <string name="app_list_label">Apps List</string>
+    <string name="app_list_label">Lijst met apps</string>
+    <string name="positive_button">OK</string>
+    <string name="translators_button">Vertaald door</string>
+    <string name="about_part_one"><![CDATA[AA AIO TWEAKER is ontwikkeld en onderhouden door Shmykelsa.<br><br>Broncode is beschikbaar op <a href=\"https://github.com/shmykelsa/AA-Tweaker\">GitHub</a><br><br>]]></string>
+    <string name="about_part_two"><![CDATA[Als mijn werk je echt bevalt, overweeg dan een donatie.<br> U kunt aan mij doneren via <a href=\"http://www.paypal.me/grizzo96\">PayPal</a> of u kunt mijn Bitcoin adres kopiëren met de knop hieronder.<br><br>Ook een klein bedrag wordt zeer gewaardeerd :)]]></string>
+    <string name="copied_address_toast">BTC adres gekopieerd naar klembord</string>
 </resources>

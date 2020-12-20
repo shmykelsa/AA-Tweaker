@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="main_string">Добро пожаловать в AA AIO Tweaker\n
-Это приложение позволит вам внести изменения в настройки Android Auto\n
-Просто выберите настройку, которую хотите применить :)\n
+    <string name="main_string">Добро пожаловать в AA AIO Tweaker!\n
+Это приложение позволит вам внести изменения в настройки Android Auto.\n
+Просто выберите настройку, которую хотите применить. :)\n
 Долгое нажатие на настройку, позволяет получить разъяснение о её действии.\n</string>
     <string name="select_apps">Приложения</string>
     <string name="enable_assistant_shortcuts">Ярлыки Ассистента</string>
     <string name="patch_custom_apps">приложения</string>
-    <string name="disable_speed_limitations">ограничение в 6 касаний</string>
-    <string name="unlimited_scrolling_when_driving">просмотр сообщений в движении</string>
+    <string name="disable_speed_limitations">лимит касаний</string>
+    <string name="unlimited_scrolling_when_driving">ограничение скорости</string>
     <string name="enable_assistant_animation_in_navbar">Анимацию ассистента в панели навигации</string>
     <string name="splash">Это приложение может изменить настройки Android Auto и обойти некоторые функции безопасности, которые Google реализовал в Android Auto.\n
 Используя это приложение, Вы соглашаетесь с тем, что сами несёте исключительную ответственность за возможные последствия, которые могут привести к гибели \nи/или травмам людей и/или ущербу имущества.\n
@@ -16,33 +16,34 @@
     <string name="proceed">Согласен</string>
     <string name="navigation_at_start">Автозапуск навигации</string>
     <string name="statb_opaque_string">Непрозрачность Строки Состояния</string>
-    <string name="battery_outline_string">информацию о работе в режиме энергосбережения</string>
+    <string name="battery_outline_string">отображение экономии заряда батареи</string>
     <string name="legend">Статус функции:\n
 ЗЕЛЁНЫЙ = Настройка активна\n
-ЖЁЛТЫЙ = Для применения настройки требуется перезагрузка\n
+ЖЁЛТЫЙ = Требуется перезагрузка\n
+для применения настройки \n
 КРАСНЫЙ = Настройка не применена</string>
     <string name="set_notification_duration_to">Время уведомлений</string>
-    <string name="base_no_ws">Широкоэкранный режим</string>
-    <string name="force_widescreen_text">Широкоэкранный режим</string>
-    <string name="media_notification_duration_to">Длительность медиа уведомления</string>
+    <string name="base_no_ws">\"Режим широкого экрана\"</string>
+    <string name="force_widescreen_text">\"Режим широкого экрана\"</string>
+    <string name="media_notification_duration_to">Время медиа уведомлений</string>
     <string name="bluetooth_auto_connect">Автозапуск Bluetooth</string>
-    <string name="tutorial_nospeed">После применения этой настройки Android Auto будет считать, что скорость  автомобиля 0км/ч. В результате Android Auto всегда будет показывать предварительный просмотр сообщений. Эта настройка не применима к клавиатуре или первоначальной настройке Android Auto.</string>
-    <string name="tutorial_sixtap">Эта настройка отменит лимит в 6 касаний на экране ГУ для Android Auto и сделает просмотр контента неограниченным.</string>
+    <string name="tutorial_nospeed">После применения этой настройки Android Auto будет считать, что скорость  автомобиля 0км/ч. В результате Android Auto всегда будет показывать предварительный просмотр сообщений. Функция не применима к клавиатуре или первоначальной настройке Android Auto.</string>
+    <string name="tutorial_sixtap">Эта настройка отменяет лимит в 6 касаний на экране ГУ для Android Auto и делает просмотр контента неограниченным.</string>
     <string name="tutorial_shortcuts">Эта настройка включает функцию добавления ярлыков Ассистента. После активации вы можете перейти в Настройки -&gt; Настройки панели запуска -&gt; Добавить ярлык на панель запуска и создать ярлык для вызова контакта или  для действия Ассистента.</string>
-    <string name="tutorial_startup">Эта настройка запрещает автозапуск активной (последней использованной) навигационной программы ( Google Maps, 2Gis, Sygik и других) при старте Android Auto. Android Auto будет запускаться с открытым меню приложений.\n
+    <string name="tutorial_startup">Эта настройка запрещает автозапуск активной (последней использованной) навигационной программы при старте Android Auto. Android Auto будет запускаться с открытым меню приложений.\n
 Это будет удобно тем, кто использует зеркало (AAM, Screen2Auto), т.к. позволит исключить одно лишнее нажатие при запуске зеркала, при этом будет экономия оперативной памяти телефона.\n
 Иногда может потребоваться повторное применение этой настройки.\n
-В некоторых случаях эта настройка может отключить автозапуск музыки. В таком случае потребуется  отключить и повторно включить опцию в настройках Android Auto.\n
+В некоторых случаях эта настройка может отключить автозапуск музыки. Тогда потребуется  отключить и повторно включить опцию в настройках Android Auto.\n
 НАЗНАЧИТЬ СВОЁ ПРИЛОЖЕНИЕ ДЛЯ АВТОЗАПУСКА НЕВОЗМОЖНО.</string>
-    <string name="tutorial_widescreen">Эта настройка позволит запускать Android Auto в широкоформатном режиме.</string>
-    <string name="tutorial_no_widescreen">Эта настройка позволит отключить запуск Android Auto в широкоформатном режиме.</string>
+    <string name="tutorial_widescreen">Эта настройка позволяет запускать Android Auto в режиме широкого экрана.</string>
+    <string name="tutorial_no_widescreen">Эта настройка позволяет отключить запуск Android Auto в режиме широкого экрана.</string>
     <string name="tutorial_animation">Эта настройка включает анимацию для значка Ассистента в панели навигации.</string>
     <string name="tutorial_statusbar_opaque">Эта настройка убирает прозрачность строки состояния.</string>
     <string name="tutorial_battery_outline">Эта настройка убирает красный контур значка батареи при включенном режиме энергосбережения.</string>
-    <string name="tutorial_hun">Эта настройка позволит изменить время отображения всплывающих уведомлений.</string>
-    <string name="tutorial_media_hun">Эта настройка позволит изменить время отображения медиа уведомлений  в панели навигации. Максимальное время отображения 15 минут.</string>
+    <string name="tutorial_hun">Эта настройка позволяет изменить время отображения всплывающих уведомлений.</string>
+    <string name="tutorial_media_hun">Эта настройка позволяет изменить время отображения медиа уведомлений  в панели навигации. Максимальное время отображения 15 минут.</string>
     <string name="tutorial_bluetooth">BETA. Эта настройка блокирует включение Bluetooth при запуске Android Auto. Если Bluetooth уже включен, то выключить его, применив эту настройку, невозможно. В настоящее время функция находится в бета-тестировании.</string>
-    <string name="tutorial_patchapps">Эта настройка включает/отключает отображение сторонних приложений, созданных специально для Android Auto (AAM, Screen2Auto, Fermata  и других).\n
+    <string name="tutorial_patchapps">Эта настройка включает/отключает отображение сторонних приложений, созданных специально для Android Auto.\n
 Её действие в значительной степени идентично работе приложения AA Phenotype Patcher.\n
 Возможно добавить только  те приложения, которые специально созданы для работы в Android Auto.</string>
     <string name="multi_display_string">Дополнительный экран</string>
@@ -56,14 +57,14 @@
     <string name="tutorial_battery_saver_warning">Эта настройка убирает всплывающие предупреждения при включенном режиме энергосбережения</string>
     <string name="disable_tweak_string">Отключить\u0020</string>
     <string name="enable_tweak_string">Включить\u0020</string>
-    <string name="re_enable_tweak_string">Переподключить\u0020</string>
+    <string name="re_enable_tweak_string">Деактивировать\u0020</string>
     <string name="copy_log">Копировать лог</string>
     <string name="about">О приложении</string>
-    <string name="revert_everything">Отменить применённые настройки</string>
-    <string name="force_disable_tweak">Принудительно выключить\u0020</string>
-    <string name="reset_tweak">Выключить\u0020</string>
-    <string name="force_widescreen_warning">Широкоэкранный режим отключен</string>
-    <string name="force_disable_widescreen_warning">Отключение широкоэкранного режима</string>
+    <string name="revert_everything">Сброс настроек</string>
+    <string name="force_disable_tweak">Принудительное отключение\u0020</string>
+    <string name="reset_tweak">Отключить\u0020</string>
+    <string name="force_widescreen_warning">Режим широкого экрана отключен</string>
+    <string name="force_disable_widescreen_warning">Отключение режима широкого экрана</string>
     <string name="set_value">Установить\u0020</string>
     <string name="reboot_to_apply">Перезагрузить телефон</string>
     <string name="warning_title">ПРЕДУПРЕЖДЕНИЕ!</string>
@@ -71,4 +72,9 @@
     <string name="patch_app">Патч\u0020</string>
     <string name="default_string">\u0020По умолчанию</string>
     <string name="app_list_label">Выбор приложений</string>
+    <string name="positive_button">ok</string>
+    <string name="translators_button">Авторы перевода</string>
+    <string name="about_part_one"><![CDATA[AIO TWEAKER разработан и поддерживается Shmykelsa.<br><br>Исходный код доступен на сайте <a href=\"https://github.com/shmykelsa/AA-Tweaker\">GitHub</a><br><br>]]></string>
+    <string name="about_part_two"><![CDATA[Если вам нравится моя работа, пожалуйста, подумайте о том, чтобы угостить меня кофе.<br> Вы можете это  сделать через <a href=\"http://www.paypal.me/grizzo96\">PayPal</a> или через Bitcoin.Скопировать мой Bitcoin можно кнопкой ниже .<br><br>Даже небольшое пожертвование будет оценено. :)]]></string>
+    <string name="copied_address_toast">Bitcoin адрес скопирован в буфер обмена</string>
 </resources>

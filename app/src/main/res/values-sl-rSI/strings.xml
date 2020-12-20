@@ -1,77 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="main_string">Welcome in AA AIO Tweaker\n
-        This app will let you apply some tweaks to Android Auto\n
-        Simply select what tweak you want to apply :)\n
-        If you are unsure of what a tweak does, long press on it and a tutorial will show up.\n</string>
-    <string name="select_apps">Select apps</string>
-    <string name="enable_assistant_shortcuts">Assistant shortcuts</string>
-    <string name="patch_custom_apps">custom apps</string>
-    <string name="disable_speed_limitations">tap limitations</string>
-    <string name="unlimited_scrolling_when_driving">speed restrictions</string>
-    <string name="enable_assistant_animation_in_navbar">Assistant animation in navbar</string>
-    <string name="splash">This app can alter Android Auto behaviour and bypass some safety features that Google has implemented in Android Auto.\n
-        By using this software, you agree that YOU, and ONLY YOU, are solely responsible for any possible consequence that may result in altering safety features such as injury to yourself and/or
-        others, property damage, loss of life.\n
-        Under no circumnstances is the author of this app responsible for its use</string>
-    <string name="proceed">I understand</string>
-    <string name="navigation_at_start">Navigation at start</string>
-    <string name="statb_opaque_string">Force Opaque Statusbar</string>
-    <string name="battery_outline_string">battery saver outline</string>
-    <string name="legend">Status Legend:\n
-        GREEN= Patch applied\n
-        YELLOW= Patch need reboot to be applied\n
-        RED= Patch is not applied</string>
-    <string name="set_notification_duration_to">Notification duration to</string>
-    <string name="base_no_ws">Widescreen</string>
-    <string name="force_widescreen_text">Force Widescreen</string>
-    <string name="media_notification_duration_to">Media notification duration to</string>
-    <string name="bluetooth_auto_connect">Bluetooth auto connect</string>
-    <string name="tutorial_nospeed">This tweak will make Android Auto think that the car is at 0 speed. As a result, Android Auto will always
-    show the preview of messages. This tweak does not apply to keyboard or first configuration of Android Auto.</string>
-    <string name="tutorial_sixtap">This tweak will override the 6 tap limit of Android Auto and will make unlimited browsing of content always possible.</string>
-    <string name="tutorial_shortcuts">This tweak will unlock the new Assistant Shortcuts feature. Once activated you can go in Android Auto settings, and in the customize launcher
-    section you can start adding shortcuts to Google Assistant commands</string>
-    <string name="tutorial_startup">This tweak will override the default behaviour of Android Auto opening a navigation app at start and will make Android Auto start on launcher.\n
-        This tweak could occasionally fail because sometimes Android Auto starts with a navigation to home or work autonomously. This behaviour breaks the tweak.\n
-        In some cases this tweak will disable auto start of music. A known workaround is to disable and re-enable the option within Android Auto settings.\n
-    IT\'S NOT POSSIBLE TO SET A SPECIFIC APP TO START FIRST.</string>
-    <string name="tutorial_widescreen">This tweak will force Android Auto in widescreen mode.</string>
-    <string name="tutorial_no_widescreen">This tweak will force Android Auto in no widescreen mode.</string>
-    <string name="tutorial_animation">This tweak enable an animation of Google Assistant in the navigation bar.</string>
-    <string name="tutorial_statusbar_opaque">This tweak will make the status bar always black.</string>
-    <string name="tutorial_battery_outline">This tweak will prevent the battery icon with the red outline when battery saver is on.</string>
-    <string name="tutorial_hun">This tweak let you set a custom duration for heads up notifications</string>
-    <string name="tutorial_media_hun">This tweak let you set a custom duration for media notifications in navigation bar to up to 15 minutes.</string>
-    <string name="tutorial_bluetooth">BETA This tweak should prevent Bluetooth from turning on when Android Auto is connected. This tweak
-    won\'t work if Bluetooth is already on, and currently it is in beta.</string>
-    <string name="tutorial_patchapps">This tweak will enable third-party apps made specifically with Android Auto custom SDK to work on Android Auto.\n
-        If you are familiar with AA Phenotype Patcher, this tweak is pretty much identical to it.\n
-        It\'s not possible to add just any app to Android Auto, but it\'s possible to patch sideloaded apps MADE FOR ANDROID AUTO to work in cars.</string>
-    <string name="multi_display_string">Multi Display</string>
-    <string name="tutorial_multidisplay">This is an hidden feature inside Android Auto that will turn the second space in widescreen mode to a real second display that is completely taken by a seond activity. Google Maps will display a full map with navigation status, music and phones will take the full space.\n
-        Additionally, this mode activates another feature that will turn the phone\'s screen in a second display for navigation in Android Auto.\n
-        Settings for tweaking this feature will be available in Android Auto homescreen.\n
-        Apparently, only Google Maps currently support this mode.\n
-        This feature is probably under development and could potentially not work as intended.\n
-    Android Auto 5.8 or superior is required.</string>
-    <string name="battery_warning">Battery saver warning</string>
-    <string name="tutorial_battery_saver_warning">This tweak will prevent Android Auto from giving popup warnings when battery saver mode is on</string>
-    <string name="disable_tweak_string">Disable\u0020</string>
-    <string name="enable_tweak_string">Enable\u0020</string>
-    <string name="re_enable_tweak_string">Re-enable\u0020</string>
-    <string name="copy_log">Copy log</string>
-    <string name="about">About</string>
-    <string name="revert_everything">Revert everything</string>
-    <string name="force_disable_tweak">Force Disable\u0020</string>
-    <string name="reset_tweak">Reset\u0020</string>
-    <string name="force_widescreen_warning">Force widescreen has been automatically disabled</string>
-    <string name="force_disable_widescreen_warning">Force disable widescreen has been automatically disabled</string>
-    <string name="set_value">Set\u0020</string>
-    <string name="reboot_to_apply">REBOOT TO APPLY</string>
-    <string name="warning_title">WARNING</string>
-    <string name="unpatch">Unpatch\u0020</string>
-    <string name="patch_app">Patch\u0020</string>
-    <string name="default_string">\u0020Default</string>
-    <string name="app_list_label">Apps List</string>
+    <string name="main_string">Dobrodošli v AA AIO Tweaker\n
+        S to aplikacijo vam bo mogoče prilagoditi Android Auto\n
+        Preprosto: izberite želeno spremembo :)\n
+        Če niste gotovi o kaki spremembi, dolgo pritisnite nanjo, da prikličete vadnico.\n</string>
+    <string name="select_apps">Izberite aplikacijo</string>
+    <string name="enable_assistant_shortcuts">Povezave Asistenta</string>
+    <string name="patch_custom_apps">aplikacija po meri</string>
+    <string name="disable_speed_limitations">limita tapkanja</string>
+    <string name="unlimited_scrolling_when_driving">omejitev hitrosti</string>
+    <string name="enable_assistant_animation_in_navbar">Animacija Asistenta v navigacijski vrstici</string>
+    <string name="splash">Ta aplikacija lahko spremeni kako se Android Auto vede in lahko zaobide določene varnostne ukrepe, ki jih je Google določil za Android Auto.\n
+        Ob uporabi te programske opreme sprejmete, da ste SAMI odgovorni za morebitne posledice, do katerih lahko pride v primeru sprememb varnostnih ukrepov aplikacije, kot na primer telesne poškodbe in /ali
+        poškodbe tretjih oseb, materialne škode, življenska nevarnost in smrt.\n
+        Ustvarjalec aplikacije ne prevzame odgovornosti in ni pod nobenim pogojem odgovoren za uporabo le-te</string>
+    <string name="proceed">Razumem</string>
+    <string name="navigation_at_start">Navigacijski način ob zagonu</string>
+    <string name="statb_opaque_string">Prisili neprozorno vrstico stanja</string>
+    <string name="battery_outline_string">oris varčevanja energije</string>
+    <string name="legend">Legenda:\n
+        ZELENA= Popravek nameščen\n
+        RUMENA= Popravek potrebuje ponovni zagon za namestitev\n
+        RDEČA= Popravek ni nameščen</string>
+    <string name="set_notification_duration_to">Trajanje opozoril</string>
+    <string name="base_no_ws">Široki zaslon</string>
+    <string name="force_widescreen_text">Prisili Široki zaslon</string>
+    <string name="media_notification_duration_to">Trajanje medijskih opozoril</string>
+    <string name="bluetooth_auto_connect">Samodejna povezava Bluetooth-a</string>
+    <string name="tutorial_nospeed">Popravek omogoči, da Android Auto misli, da je hitrost avtomobila 0. Zaradi tega Android Auto bo vedno pokazal predogled sporočil. Popravek ne velja za tipkovnico ali ob prvi nastavitvi Android Auto.</string>
+    <string name="tutorial_sixtap">Popravek preglasi limito 6 tapkanj v Android Auto in omogoči neomejeno brskanje vsebine.</string>
+    <string name="tutorial_shortcuts">Popravek bo odklenil novo funkcijo Asistentove Povezave. Ko je enkrat vklopljen lahko greste v Android Auto nastavitve in v prilagoditvah zaganjalnika
+    lahko začnete dodajati hitre povezave ukazom Google Asistenta</string>
+    <string name="tutorial_startup">Popravek bo preglasil privzeto vedenje Android Auto, ki odpre aplikacijo navigacije ob zagonu, namesto tega bo Android Auto zagnal zaganjalnik.\n
+        Popravek lahko občasno ne deluje, saj se Android Auto občasno samodejno zažene z vožnjo proti domu ali delovnem mestu. To dejanje preglasi popravek.\n
+        V nekaterih primerih bo ta popravek onemogočil samodejni začetek predvajanja glasbe. Znana rešitev je izklop in ponovni vklop te funkcije v nastavitvah Android Auto.\n
+    NI MOGOČE DOLOČITI APLIKACIJE OB ZAGONU.</string>
+    <string name="tutorial_widescreen">Popravek bo prisilil Širokozaslonski način v Android Auto.</string>
+    <string name="tutorial_no_widescreen">Popravek bo prisilil, da Android Auto ni v širokozaslonskem načinu.</string>
+    <string name="tutorial_animation">Popravek omogoči animacijo Google Asistenta v navigacijski vrstici.</string>
+    <string name="tutorial_statusbar_opaque">Popravek bo nastavil navigacijsko vrstico črne barve.</string>
+    <string name="tutorial_battery_outline">Popravek bo preprečil rdeč oris baterije, ko je vklopljeno energijsko varčevanje.</string>
+    <string name="tutorial_hun">Popravek omogoči nastavitev po želji trajanja heads-up opozoril</string>
+    <string name="tutorial_media_hun">Popravek omogoči, da izberete trajanje medijskih obvestil v navigacijski vrstici, do vključno 15 minut.</string>
+    <string name="tutorial_bluetooth">BETA Ta popravek naj bi preprečil zagon Bluetooth-a, ob povezavi Android Auto. Popravek
+    ne deluje, ko je Bluetooth prižgan in je trenutno v beta različici.</string>
+    <string name="tutorial_patchapps">Popravek omogoči neodvisne aplikacije, izrecno ustvarjene z Android Auto custom SDK, da delujejo z Android Auto.\n
+        Delovanje tega popravka je bolj ali manj enako kot AA Phenotype Patcher, če vam je ta program znan.\n
+        Ni mogoče dodati kar katerokoli aplikacijo Android Autu, je pa mogoče nastaviti popravke bočno nastavljenim aplikacijam (sideloaded apps), USTVARJENIM ZA ANDROID AUTO, da lahko delujejo v avtomobilih.</string>
+    <string name="multi_display_string">Več ekranov</string>
+    <string name="tutorial_multidisplay">To je funkcija, skrita v globinah Android Auto programa: spremeni drugi prostor v širokozaslonskem načinu v resnični drugi ekran, ki se uporablja za neko drugo funkcijo. Google Maps bo pokazal celotno mapo z navigacijskim stanjem, glasba in telefon bosta zavzela cel prostor.\n
+        Poleg tega, ta funkcija bo vklopila še dodatno funkcijo katera bo preklopila ekran telefona v dodatni ekran za navigacijo v Android Auto.\n
+        Nastavitve popravkov funkcije bodo na razpolago na začetnem ekranu Android Auto.\n
+        Trenutno zgleda, da samo Google Maps podpira to način delovanja.\n
+        Funkcija je trenutno v izdelavi, torej obstaja možnost, da še ne deluje kot bi morala.\n
+    Potrebna verzija Android Auto 5.8 ali višje.</string>
+    <string name="battery_warning">Opozorilo energijskega varčevanja</string>
+    <string name="tutorial_battery_saver_warning">Popravek prepreči, da Android Auto prikaže popup opozorila, ko je vklopljeno energijsko varčevanje</string>
+    <string name="disable_tweak_string">Izklopi\u0020</string>
+    <string name="enable_tweak_string">Vklopi\u0020</string>
+    <string name="re_enable_tweak_string">Ponovno vklopi\u0020</string>
+    <string name="copy_log">Kopiraj spisek</string>
+    <string name="about">O programu</string>
+    <string name="revert_everything">Ponastavi vse</string>
+    <string name="force_disable_tweak">Prisili izklop\u0020</string>
+    <string name="reset_tweak">Ponastavi\u0020</string>
+    <string name="force_widescreen_warning">Samodejna izključitev prisilnega vklopa širokega zaslona</string>
+    <string name="force_disable_widescreen_warning">Samodejna izključitev prisilnega izklopa širokega zaslona</string>
+    <string name="set_value">Izberi\u0020</string>
+    <string name="reboot_to_apply">PONOVNI ZAGON ZA NAMESTITEV</string>
+    <string name="warning_title">OPOZORILO</string>
+    <string name="unpatch">Ponastavi popravek\u0020</string>
+    <string name="patch_app">Popravi\u0020</string>
+    <string name="default_string">\u0020Privzeto</string>
+    <string name="app_list_label">Seznam aplikacij</string>
+    <string name="positive_button">v redu</string>
+    <string name="translators_button">Prevedel</string>
+    <string name="about_part_one"><![CDATA[AA AIO TWEAKER razvija in servisira Shmykelsa.<br><br>Izvirna koda je na razpolago na <a href=\"https://github.com/shmykelsa/AA-Tweaker\">GitHub</a><br><br>]]></string>
+    <string name="about_part_two"><![CDATA[Če vam je moje delo všeč, prosim razmislite o donaciji.<br> Lahko donirate preko <a href=\"http://www.paypal.me/grizzo96\">PayPal</a> ali lahko kopirate moj Bitcoin naslov s sledečim gumbom.<br><br>Tudi mala vsota je zelo cenjena :)]]></string>
+    <string name="copied_address_toast">BTC Naslov kopiran v odložišče</string>
 </resources>

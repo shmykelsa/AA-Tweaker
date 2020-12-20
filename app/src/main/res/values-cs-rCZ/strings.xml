@@ -73,5 +73,10 @@
     <string name="unpatch">Odstranit vylepšení\u0020</string>
     <string name="patch_app">Aplikovat\u0020</string>
     <string name="default_string">\u0020Výchozí</string>
-    <string name="app_list_label">Apps List</string>
+    <string name="app_list_label">Seznam aplikací</string>
+    <string name="positive_button">ok</string>
+    <string name="translators_button">Přeložil</string>
+    <string name="about_part_one"><![CDATA[AA AIO TWEAKER je vyvíjen a spravován uživatelem Shmykelsa.<br><br>Zdrojový kód je k dispozici na <a href=\"https://github.com/shmykelsa/AA-Tweaker\">GitHub</a><br><br>]]></string>
+    <string name="about_part_two"><![CDATA[Pokud se vám opravdu líbí moje práce, zvažte prosím příspěvek.<br> Podpořit mě můžete prostřednictvím <a href=\"http://www.paypal.me/grizzo96\">PayPal</a> nebo můžete zkopírovat mou Bitcoin adresu pomocí tlačítka níže.<br><br>Dokonce i malá částka mi bude odměnou :)]]></string>
+    <string name="copied_address_toast">BTC Adresa zkopírována do schránky</string>
 </resources>

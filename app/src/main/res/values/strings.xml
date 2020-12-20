@@ -74,4 +74,9 @@
     <string name="patch_app">Patch\u0020</string>
     <string name="default_string">\u0020Default</string>
     <string name="app_list_label">Apps List</string>
+    <string name="positive_button">ok</string>
+    <string name="translators_button">Translators</string>
+    <string name="about_part_one"><![CDATA[AA AIO TWEAKER is developed and maintained by Shmykelsa.<br><br>Source code is available on <a href=\"https://github.com/shmykelsa/AA-Tweaker\">GitHub</a><br><br>]]></string>
+    <string name="about_part_two"><![CDATA[If you really like my work, please consider a donation.<br> You can donate me through <a href=\"http://www.paypal.me/grizzo96\">PayPal</a> or you can copy my Bitcoin address with the button down below.<br><br>Even a small amount will be much appreciated :)]]></string>
+    <string name="copied_address_toast">BTC Address copied to clipboard</string>
 </resources>

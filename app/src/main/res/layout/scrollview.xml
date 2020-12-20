@@ -13,9 +13,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:clickable="true"
-
+            style="@style/ButtonStyle"
            android:focusable="true"
-            android:focusableInTouchMode="true"
+
             android:text="@string/patch_custom_apps"
             app:layout_constraintEnd_toStartOf="@id/patchedappstatus"
             app:layout_constraintHorizontal_weight="1"
@@ -26,7 +26,7 @@
             android:id="@+id/toapp_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-
+            style="@style/ButtonStyle"
             android:text="@string/select_apps"
             app:layout_constraintEnd_toStartOf="@id/patchapps"
             app:layout_constraintHorizontal_weight="0.6"
@@ -45,15 +45,17 @@
 
         <Button
             android:id="@+id/nospeed"
+            style="@style/ButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/toapp_button"
             android:layout_alignParentStart="true"
             android:layout_toStartOf="@id/speedhackstatus"
+            app:layout_constraintStart_toEndOf="@id/patchapps"
             android:clickable="true"
 
            android:focusable="true"
-            android:focusableInTouchMode="true"
+
             android:text="@string/unlimited_scrolling_when_driving"
             app:layout_constraintEnd_toEndOf="@id/patchapps"
             app:layout_constraintStart_toStartOf="parent"
@@ -75,11 +77,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:clickable="true"
-
+            style="@style/ButtonStyle"
            android:focusable="true"
-            android:focusableInTouchMode="true"
+
             android:text="@string/disable_speed_limitations"
-            app:layout_constraintEnd_toEndOf="@id/nospeed"
+            app:layout_constraintEnd_toEndOf="@id/patchapps"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/nospeed" />
 
@@ -100,11 +102,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:clickable="true"
-
+            style="@style/ButtonStyle"
            android:focusable="true"
-            android:focusableInTouchMode="true"
+
             android:text="@string/enable_assistant_shortcuts"
-            app:layout_constraintEnd_toEndOf="@id/taplimit"
+            app:layout_constraintEnd_toEndOf="@id/patchapps"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/taplimit" />
 
@@ -124,11 +126,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:clickable="true"
-
+            style="@style/ButtonStyle"
            android:focusable="true"
-            android:focusableInTouchMode="true"
+
             android:text="@string/navigation_at_start"
-            app:layout_constraintEnd_toEndOf="@id/assistshort"
+            app:layout_constraintEnd_toEndOf="@id/patchapps"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/assistshort" />
 
@@ -148,11 +150,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:clickable="true"
-
+            style="@style/ButtonStyle"
            android:focusable="true"
-            android:focusableInTouchMode="true"
+
             android:text="@string/force_widescreen_text"
-            app:layout_constraintEnd_toEndOf="@id/startup"
+            app:layout_constraintEnd_toEndOf="@id/patchapps"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/startup" />
 
@@ -172,11 +174,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:clickable="true"
-
+            style="@style/ButtonStyle"
            android:focusable="true"
-            android:focusableInTouchMode="true"
+
             android:text="@string/base_no_ws"
-            app:layout_constraintEnd_toEndOf="@id/force_ws_button"
+            app:layout_constraintEnd_toEndOf="@id/patchapps"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/force_ws_button" />
 
@@ -197,11 +199,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:clickable="true"
-
+            style="@style/ButtonStyle"
            android:focusable="true"
-            android:focusableInTouchMode="true"
+
             android:text="@string/multi_display_string"
-            app:layout_constraintEnd_toEndOf="@id/force_ws_button"
+            app:layout_constraintEnd_toEndOf="@id/patchapps"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/force__no_ws_button" />
 
@@ -221,11 +223,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:clickable="true"
-
+            style="@style/ButtonStyle"
            android:focusable="true"
-            android:focusableInTouchMode="true"
+
             android:text="@string/battery_warning"
-            app:layout_constraintEnd_toEndOf="@id/multi_display_button"
+            app:layout_constraintEnd_toEndOf="@id/patchapps"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/multi_display_button" />
 

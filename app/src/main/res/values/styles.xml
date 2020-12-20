@@ -7,9 +7,6 @@
         <item name="colorPrimaryDark">#FFFFFF</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="titleTextColor">#000000</item>
-        <item name="android:colorControlNormal">#000000</item>
-        <item name="android:textColorPrimary">#000000</item>
-        <item name="android:tint">#000000</item>
     </style>
 
     <style name="TitleBarTextAppearance" parent="android:TextAppearance">
@@ -17,9 +14,22 @@
         <item name="android:textColor">#000000</item>
     </style>
 
+    <style name="MyActionBarTheme" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:background">?colorPrimary</item>
+        <item name="popupTheme">?titleTextColor</item>
+        <item name="tint">?titleTextColor</item>
+    </style>
+
     <style name="MenuTheme">
         <item name="android:colorBackground">@color/menu_background</item>
         <item name="android:textColor">@color/menu_text_color</item>
+    </style>
+
+    <style name="ButtonStyle">
+        <item name="android:layout_margin">3dp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:background">@drawable/button_background</item>
+        <item name="android:fontFamily">@font/raleway_medium</item>
     </style>
 
 

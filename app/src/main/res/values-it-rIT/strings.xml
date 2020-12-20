@@ -19,7 +19,7 @@ In nessuna circostanza l\'autore di questa app è responsabile per il suo uso.</
     <string name="battery_outline_string">contorno risparmio batteria</string>
     <string name="legend">Legenda:\n
 VERDE= Patch applicata\n
-GIALLO= necessario un riavvio per applicare la patch\n
+GIALLO= Riavvio necessario per applicare la patch\n
 ROSSO = Patch non applicata</string>
     <string name="set_notification_duration_to">Durata notifiche a</string>
     <string name="base_no_ws">Widescreen</string>
@@ -70,4 +70,9 @@ Questa funzione è probabilmente in fase di sviluppo e potrebbe non funzionare c
     <string name="patch_app">Esegui patch\u0020</string>
     <string name="default_string">\u0020normale</string>
     <string name="app_list_label">Lista delle app</string>
+    <string name="positive_button">ok</string>
+    <string name="translators_button">Tradotto da</string>
+    <string name="about_part_one"><![CDATA[AA AIO TWEAKER è sviluppato e mantenuto da Shmykelsa.<br><br>Il codice sorgente è disponibile su <a href=\"https://github.com/shmykelsa/AA-Tweaker\">GitHub</a><br><br>]]></string>
+    <string name="about_part_two"><![CDATA[Se apprezzi il mio lavoro, per favore, considera una donazione.<br> Puoi donarmi tramite <a href=\"http://www.paypal.me/grizzo96\">PayPal</a> o puoi copiare il mio indirizzo Bitcoin con il pulsante qui sotto.<br><br>Anche una piccola donazione sarà molto apprezzata :)]]></string>
+    <string name="copied_address_toast">Indirizzo BTC copiato negli appunti</string>
 </resources>
