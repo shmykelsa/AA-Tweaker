@@ -41,11 +41,13 @@ public class AboutDialog extends DialogFragment {
                         "\uD83C\uDDF8\uD83C\uDDF0 Jozo19<br>" +
                         "\uD83C\uDDEA\uD83C\uDDF8 Krilok<br>" +
                         "\uD83C\uDDE8\uD83C\uDDFF Martin2412<br>" +
-                        "\uD83C\uDDEB\uD83C\uDDF7 Nova.Kin<br>" +
+                        "\uD83C\uDDF8\uD83C\uDDEE Brubblu<br>" +
+                        "\uD83C\uDDEB\uD83C\uDDF7 Nova.kin<br>" +
                         "\uD83C\uDDEE\uD83C\uDDF9 Shmykelsa<br>" +
-                        "\uD83C\uDDE7\uD83C\uDDF7 gsproenca<br>" +
-                        "\uD83C\uDDF9\uD83C\uDDF7 uaslan<br>" +
-                        "<br>Want to translate AA AIO TWEAKER in your own language? Join translations on <a href=\"https://crowdin.com/project/aa-aio-tweaker\">Crowdin</a>!"));
+                        "\uD83C\uDDE7\uD83C\uDDF7 Gsproenca<br>" +
+                        "\uD83C\uDDF9\uD83C\uDDF7 Uaslan<br>" +
+                        "\uD83C\uDDE9\uD83C\uDDEA Lassmiranda<br>" +
+                        "<br>Interested in translating AA AIO TWEAKER in your own language? Join translations on <a href=\"https://crowdin.com/project/aa-aio-tweaker\">Crowdin</a>!"));
                 builder.setCancelable(true);
                 builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
                     @Override
@@ -79,6 +81,7 @@ public class AboutDialog extends DialogFragment {
         browserIntent.putExtra("Activity", "AboutDialog");
         startActivity(browserIntent);
     }
+
 
 
 }

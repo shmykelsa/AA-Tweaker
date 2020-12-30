@@ -13,7 +13,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,11 +29,8 @@ import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -53,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        copyAssets();
         final String path = getApplicationInfo().dataDir;
         appDirectory = path;
         loadStatus(path);
@@ -1261,7 +1256,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 String path = getApplicationInfo().dataDir;
                 boolean suitableMethodFound = true;
-                copyAssets();
+                
 
                 appendText(logs, "\n\n-- Reverting the hack  --");
                 appendText(logs, runSuWithCmd(
@@ -1361,7 +1356,7 @@ public class MainActivity extends AppCompatActivity {
                 public void run() {
                     String path = getApplicationInfo().dataDir;
                     boolean suitableMethodFound = true;
-                    copyAssets();
+                    
 
                     appendText(logs, "\n\n-- Drop Triggers  --");
                     appendText(logs, runSuWithCmd(
@@ -1585,7 +1580,7 @@ public class MainActivity extends AppCompatActivity {
                 public void run() {
                     String path = getApplicationInfo().dataDir;
                     boolean suitableMethodFound = true;
-                    copyAssets();
+                    
 
                     appendText(logs, "\n\n-- Drop Triggers  --");
                     appendText(logs, runSuWithCmd(
@@ -1641,7 +1636,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 String path = getApplicationInfo().dataDir;
                 boolean suitableMethodFound = true;
-                copyAssets();
+                
 
                 appendText(logs, "\n\n-- Drop Triggers  --");
                 appendText(logs, runSuWithCmd(
@@ -1728,7 +1723,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 String path = getApplicationInfo().dataDir;
                 boolean suitableMethodFound = true;
-                copyAssets();
+                
 
                 appendText(logs, "\n\n-- Drop Triggers  --");
                 appendText(logs, runSuWithCmd(
@@ -1814,7 +1809,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 String path = getApplicationInfo().dataDir;
                 boolean suitableMethodFound = true;
-                copyAssets();
+                
 
                 appendText(logs, "\n\n-- Drop Triggers  --");
                 appendText(logs, runSuWithCmd(
@@ -1904,7 +1899,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 String path = getApplicationInfo().dataDir;
                 boolean suitableMethodFound = true;
-                copyAssets();
+                
 
 
 
@@ -1963,7 +1958,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 String path = getApplicationInfo().dataDir;
                 boolean suitableMethodFound = true;
-                copyAssets();
+                
 
                 appendText(logs, "\n\n-- Drop Triggers  --");
                 appendText(logs, runSuWithCmd(
@@ -2033,7 +2028,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 String path = getApplicationInfo().dataDir;
                 boolean suitableMethodFound = true;
-                copyAssets();
+                
 
                 appendText(logs, "\n\n-- Drop Triggers  --");
                 appendText(logs, runSuWithCmd(
@@ -2092,7 +2087,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 String path = getApplicationInfo().dataDir;
                 boolean suitableMethodFound = true;
-                copyAssets();
+                
 
                 appendText(logs, "\n\n-- Drop Triggers  --");
                 appendText(logs, runSuWithCmd(
@@ -2149,7 +2144,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 String path = getApplicationInfo().dataDir;
                 boolean suitableMethodFound = true;
-                copyAssets();
+                
 
                 appendText(logs, "\n\n-- Drop Triggers  --");
                 appendText(logs, runSuWithCmd(
@@ -2208,7 +2203,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 String path = getApplicationInfo().dataDir;
                 boolean suitableMethodFound = true;
-                copyAssets();
+                
 
                 appendText(logs, "\n\n-- Drop Triggers  --");
                 appendText(logs, runSuWithCmd(
@@ -2266,7 +2261,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 String path = getApplicationInfo().dataDir;
                 boolean suitableMethodFound = true;
-                copyAssets();
+                
 
                 appendText(logs, "\n\n-- Drop Triggers  --");
                 appendText(logs, runSuWithCmd(
@@ -2322,7 +2317,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 String path = getApplicationInfo().dataDir;
                 boolean suitableMethodFound = true;
-                copyAssets();
+                
 
                 appendText(logs, "\n\n-- Drop Triggers  --");
                 appendText(logs, runSuWithCmd(
@@ -2378,7 +2373,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 String path = getApplicationInfo().dataDir;
                 boolean suitableMethodFound = true;
-                copyAssets();
+                
 
                 appendText(logs, "\n\n-- Drop Triggers  --");
                 appendText(logs, runSuWithCmd(
@@ -2452,6 +2447,63 @@ public class MainActivity extends AppCompatActivity {
         return streamLogs;
     }
 
+    public void forceAssistantFocus (View view, int usercount) {
+        final TextView logs = findViewById(R.id.logs);
+        logs.setHorizontallyScrolling(true);
+        logs.setMovementMethod(new ScrollingMovementMethod());
+
+
+        final StringBuilder finalCommand = new StringBuilder();
+
+        for (int i = 0; i<=(usercount-1) ; i ++) {
+            finalCommand.append("'INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"AssistantUiProviderFeature__assistant_car_activity_steals_focus_enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,0,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+        }
+
+        new Thread() {
+            @Override
+            public void run() {
+                String path = getApplicationInfo().dataDir;
+                boolean suitableMethodFound = true;
+
+
+                appendText(logs, "\n\n-- Drop Triggers  --");
+                appendText(logs, runSuWithCmd(
+                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'DROP TRIGGER IF EXISTS assistant_focus_force;'"
+                ).getStreamLogsWithLabels());
+
+                if (runSuWithCmd(
+                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'SELECT 1 FROM ApplicationStates WHERE packageName=\"com.google.android.projection.gearhead\"'").getInputStreamLog().equals("1")) {
+
+                    appendText(logs, "\n\n--  run SQL method   --");
+                    appendText(logs, runSuWithCmd(
+                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                    finalCommand + "'\n"
+                    ).getStreamLogsWithLabels());
+
+                    appendText(logs, runSuWithCmd(
+                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                    "'CREATE TRIGGER assistant_focus_force AFTER DELETE\n" +
+                                    "ON FlagOverrides\n" +
+                                    "BEGIN\n" + finalCommand + "END;'\n"
+                    ).getStreamLogsWithLabels());
+                    appendText(logs, "\n--  end SQL method  --");
+                    save(true, "assistant_focus_force");
+                } else {
+                    suitableMethodFound = false;
+                    appendText(logs, "\n\n--  Suitable method NOT found!  --");
+                }
+
+            }
+        }.start();
+
+    }
+
+
     public static String readFully(InputStream is) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];
@@ -2462,45 +2514,6 @@ public class MainActivity extends AppCompatActivity {
         return baos.toString("UTF-8");
     }
 
-    private void copyAssets() {
-        String path = getApplicationInfo().dataDir;
-        final TextView logs = findViewById(R.id.logs);
-        File file = new File(path, "sqlite3");
-        if (!file.exists()) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Log.v("AATW", "\n--  Copy sqlite3 to data directory  --");
-                }
-            });
-            InputStream in;
-            OutputStream out;
-            try {
-                in = this.getResources().openRawResource(R.raw.sqlite3);
-
-                String outDir = getApplicationInfo().dataDir;
-
-                File outFile = new File(outDir, "sqlite3");
-
-                out = new FileOutputStream(outFile);
-                copyFile(in, out);
-                in.close();
-                out.flush();
-                out.close();
-            } catch(IOException e) {
-                Log.e("AATW", "Failed to copy asset file: sqlite3", e);
-            }
-        }
-        Log.v("AATW", runSuWithCmd("chmod 775 " + path + "/sqlite3").getStreamLogsWithLabels());
-    }
-
-    private void copyFile(InputStream in, OutputStream out) throws IOException {
-        byte[] buffer = new byte[1024];
-        int read;
-        while((read = in.read(buffer)) != -1){
-            out.write(buffer, 0, read);
-        }
-    }
 
     private void appendText(final TextView textView, final String s){
         runOnUiThread(new Runnable() {

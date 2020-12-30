@@ -132,8 +132,7 @@ android:id="@+id/media_throttling_button"
             android:text="@string/media_notification_duration_to"
             app:layout_constraintEnd_toEndOf="@id/hunthrottlingbutton"
             app:layout_constraintTop_toBottomOf="@id/hun_ms_value"
-            app:layout_constraintStart_toStartOf="parent"
-            android:singleLine="true" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
             android:id="@+id/media_trhrottling_status"

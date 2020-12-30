@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="main_string">Vitajte v AA AIO vylepšení\n
-        Táto aplikácia Vám dovolí použiť vylepšenia pre Android Auto\n
-        Jednoducho vyberte vylepšenie ktoré chcete aplikovať :)\n
-        Ak si nie ste istý čo dane vylepšenie robí, dlhým stlačením na ňom sa objaví tutoriál.\n</string>
+    <string name="main_string">Vitajte v AA AIO Vylepšení\n
+ Táto aplikácia Vám dovolí použiť vylepšenia pre Android Auto\n
+ Jednoducho vyberte vylepšenie ktoré chcete aplikovať :)\n
+ Ak si nie ste istý čo dané vylepšenie robí, dlhým stlačením na ňom sa objaví návod.\n</string>
     <string name="select_apps">Výber aplikácií</string>
     <string name="enable_assistant_shortcuts">Asistent skratiek</string>
     <string name="patch_custom_apps">použiteľné aplikácie</string>
@@ -17,46 +17,46 @@
     <string name="proceed">Rozumiem</string>
     <string name="navigation_at_start">Navigácia pri štarte</string>
     <string name="statb_opaque_string">Vnútenie Nepriehľadná Status lišta</string>
-    <string name="battery_outline_string">kontúra šetriča batérie</string>
+    <string name="battery_outline_string">obrys šetriča batérie</string>
     <string name="legend">Popis stavu:\n
         ZELENÁ=Záplata aplikovaná\n
         ŽLTÁ=Záplata potrebuje reboot pre aplikovanie\n
         ČERVENÁ=Záplata nie je aplikovaná</string>
     <string name="set_notification_duration_to">Trvanie notifikácie</string>
-    <string name="base_no_ws">Širokoúhly</string>
-    <string name="force_widescreen_text">Vnútenie Širokoúhleho zobrazenia</string>
+    <string name="base_no_ws">Širokouhlý</string>
+    <string name="force_widescreen_text">Vnútenie Širokouhlého zobrazenia</string>
     <string name="media_notification_duration_to">Trvanie Media notifikácie</string>
     <string name="bluetooth_auto_connect">Bluetooth automatické pripojenie</string>
     <string name="tutorial_nospeed">Toto vylepšenie presvedčí Android Auto že auto má nulovú rýchlosť. Výsledkom je že Android Auto bude vždy
     zobrazovať náhľad správ. Toto vylepšenie nepoužije klávesnicu ako prvú konfiguráciu pre Android Auto.</string>
     <string name="tutorial_sixtap">Toto vylepšenie prepíše limit 6 dotykov pre Android Auto a dovolí prehliadanie obsahu bez limitu.</string>
-    <string name="tutorial_shortcuts">Toto vylepšenie odomkne skratku funkcií nového asistenta. Jednorázovou aktiváciou sa dostanete do Android Auto nastavení a v prispôsobeniach
-    môžete pridávať skratky príkazov pre Google Assistant</string>
-    <string name="tutorial_startup">This tweak will override the default behaviour of Android Auto opening a navigation app at start and will make Android Auto start on launcher.\n
-This tweak could occasionally fail because sometimes Android Auto starts with a navigation to home or work autonomously. This behaviour breaks the tweak.\n
-In some cases this tweak will disable auto start of music. A known workaround is to disable and re-enable the option within Android Auto settings.\n
-IT\'S NOT POSSIBLE TO SET A SPECIFIC APP TO START FIRST.</string>
+    <string name="tutorial_shortcuts">Toto vylepšenie odomkne skratku funkcií nového asistenta. Jednorázovou aktiváciou sa dostanete do Android Auto nastavení a v prispôsobeniach môžete pridávať skratky príkazov pre Google Assistant</string>
+    <string name="tutorial_startup">Toto vylepšenie prepíše predvolené správanie aplikácie Android Auto pri otvorení navigačnej aplikácie pri spustení a spôsobí spustenie aplikácie Android Auto v spúšťači.\n
+Toto vylepšenie môže občas zlyhať, pretože Android Auto sa niekedy spúšťa autonómnou navigáciou domov alebo do práce. Toto správanie preruší vylepšenie.\n
+V niektorých prípadoch táto úprava zakáže automatické spustenie hudby. Známe riešenie je vypnúť a znova povoliť túto možnosť v nastaveniach Android Auto.\n
+NIE JE MOŽNÉ NASTAVIŤ KONKRÉTNU APLIKÁCIU KTORÁ SA SPUSTÍ AKO PRVÁ.</string>
     <string name="tutorial_widescreen">Toto vylepšenie vnúti Android Auto širokoúhle zobrazenie.</string>
-    <string name="tutorial_no_widescreen">Toto vylepšenie vnúti Android Auto aby neprechádzal do širokoúhleho módu.</string>
-    <string name="tutorial_animation">This tweak enable an animation of Google Assistant in the navigation bar.</string>
-    <string name="tutorial_statusbar_opaque">This tweak will make the status bar always with an opaque background (default is transparent)</string>
-    <string name="tutorial_battery_outline">This tweak will prevent the battery icon with the red outline when battery saver is on.</string>
-    <string name="tutorial_hun">This tweak let you set a custom duration for heads up notifications</string>
-    <string name="tutorial_media_hun">This tweak let you set a custom duration for media notifications in navigation bar to up to 15 minutes.</string>
-    <string name="tutorial_bluetooth">BETA This tweak should prevent Bluetooth from turning on when Android Auto is connected. This tweak
-    won\'t work if Bluetooth is already on, and currently it is in beta.</string>
-    <string name="tutorial_patchapps">This tweak will enable third-party apps made specifically with Android Auto custom SDK to work on Android Auto.\n
-        If you are familiar with AA Phenotype Patcher, this tweak is pretty much identical to it.\n
-        It\'s not possible to add just any app to Android Auto, but it\'s possible to patch sideloaded apps MADE FOR ANDROID AUTO to work in cars.</string>
+    <string name="tutorial_no_widescreen">Toto vylepšenie vnúti Android Auto aby neprechádzal do širokouhlého módu.</string>
+    <string name="tutorial_animation">Toto vylepšenie povolí animáciu Google Asistenta na navigačnej lište.</string>
+    <string name="tutorial_statusbar_opaque">Toto vylepšenie spôsobí, že stavový riadok bude mať vždy nepriehľadné pozadie (predvolené nastavenie je transparentné)</string>
+    <string name="tutorial_battery_outline">Toto vylepšenie zabráni ikonu batérie s červeným obrysom, keď je zapnutý šetrič batérie.</string>
+    <string name="tutorial_hun">Toto vylepšenie vám dovolí nastaviť trvanie upozornení head up</string>
+    <string name="tutorial_media_hun">Toto vylepšenie vám umožní nastaviť vlastné trvanie upozornení na médiá na navigačnej lište až na 15 minút.</string>
+    <string name="tutorial_bluetooth">BETA Toto vylepšenie by malo zabrániť zapnutiu Bluetooth pri pripojení Android Auto. 
+Toto vylepšenie
+    nebude fungovať, ak je Bluetooth už zapnuté a momentálne je v beta verzii.</string>
+    <string name="tutorial_patchapps">Toto vylepšenie povolí aplikácie tretích strán vytvorené špeciálne pre Android Auto zákaznícke SDK na spoluprácu s Android Auto.\n
+        Ak poznáte AA Phenotype Patcher, táto vylepšenie je do značnej miery totožná s ním.\n
+        Do aplikácie Android Auto nie je možné pridať ľubovoľnú aplikáciu, ale je možné opraviť postranné aplikácie VYROBENÉ PRE ANDROID AUTO tak, aby fungovali v automobiloch.</string>
     <string name="multi_display_string">Multi Zobrazenie</string>
-    <string name="tutorial_multidisplay">This is an hidden feature inside Android Auto that will turn the second space in widescreen mode to a real second display that is completely taken by another activity. Google Maps will display a full map with navigation status, music and phones will take the full space.\n
-        Additionally, this mode activates another feature that will turn the phone\'s screen in a second display for navigation in Android Auto.\n
-        Settings for tweaking this feature will be available in Android Auto homescreen.\n
-        Apparently, only Google Maps currently support this mode.\n
-        This feature is probably under development and could potentially not work as intended.\n
-    Android Auto 5.8 or superior is required.</string>
+    <string name="tutorial_multidisplay">Toto je skrytá funkcia v Android Auto ktorá zobrazí druhú obrazovku v širokouhlom zobrazení ako reálny druhý displej ktorý je kompletne určený na inú činnosť. Google maps bude zobrazovať plnú mapu s navigačným stavom, hudbou a telefónom na plnom displeji.\n
+        Tento režim navyše aktivuje ďalšiu funkciu, ktorá zmení obrazovku telefónu na druhý displej pre navigáciu v systéme Android Auto.\n
+        Nastavenia vylepšenia tejto funkcie budú k dispozícii na domovskej obrazovke Android Auto.\n
+        Zdá sa, že len Mapy Google v súčasnosti podporuje tento režim.\n
+        Táto funkcia je vo vývoji a nemusí fungovať tak, ako by mala.\n
+    Android Auto 5.8 a vyšší je požadovaná.</string>
     <string name="battery_warning">Hlásenie šetrenia batérie</string>
-    <string name="tutorial_battery_saver_warning">This tweak will prevent Android Auto from giving popup warnings when battery saver mode is on</string>
+    <string name="tutorial_battery_saver_warning">Toto vylepšenie zabráni Android Auto zobrazovaniu upozornení, keď je zapnutý režim šetriča batérie</string>
     <string name="disable_tweak_string">Zakázanie\u0020</string>
     <string name="enable_tweak_string">Povolenie\u0020</string>
     <string name="re_enable_tweak_string">Opätovné povolenie\u0020</string>
@@ -64,9 +64,9 @@ IT\'S NOT POSSIBLE TO SET A SPECIFIC APP TO START FIRST.</string>
     <string name="about">O</string>
     <string name="revert_everything">Vrátiť všetko späť</string>
     <string name="force_disable_tweak">Vnútenie zakázané\u0020</string>
-    <string name="reset_tweak">Reset\u0020</string>
+    <string name="reset_tweak">Resetovanie\u0020</string>
     <string name="force_widescreen_warning">Vnútenie širokoúhleho zobrazenia bolo automaticky zakázané</string>
-    <string name="force_disable_widescreen_warning">Vnútenie zakázania širokoúhleho zobrazenia bolo automaticky zakázané</string>
+    <string name="force_disable_widescreen_warning">Vnútenie zákazu širokohlého zobrazenia bolo automaticky zakázané</string>
     <string name="set_value">Nastavenie\u0020</string>
     <string name="reboot_to_apply">REŠTARTOVAŤ PRE AKTIVÁCIU</string>
     <string name="warning_title">UPOZORNENIE</string>
@@ -75,8 +75,8 @@ IT\'S NOT POSSIBLE TO SET A SPECIFIC APP TO START FIRST.</string>
     <string name="default_string">\u0020Prednastavené</string>
     <string name="app_list_label">Zoznam aplikácií</string>
     <string name="positive_button">ok</string>
-    <string name="translators_button">Translated by</string>
-    <string name="about_part_one"><![CDATA[AA AIO TWEAKER is developed and maintained by Shmykelsa.<br><br>Source code is available on <a href=\"https://github.com/shmykelsa/AA-Tweaker\">GitHub</a><br><br>]]></string>
-    <string name="about_part_two"><![CDATA[If you really like my work, please consider a donation.<br> You can donate me through <a href=\"http://www.paypal.me/grizzo96\">PayPal</a> or you can copy my Bitcoin address with the button down below.<br><br>Even a small amount will be much appreciated :)]]></string>
-    <string name="copied_address_toast">BTC Address copied to clipboard</string>
+    <string name="translators_button">Preložil</string>
+    <string name="about_part_one"><![CDATA[AA AIO TWEAKER je vyvíjaný a spravovaný s p. Shmykelsa.<br><br>Zdrojový kód je dostupný na<a href=\"https://github.com/shmykelsa/AA-Tweaker\">GitHub</a><br><br>]]></string>
+    <string name="about_part_two"><![CDATA[Ak skutočne mate radi moju prácu, prosím zvážte príspevok.<br>Môžete ma podporiť cez<a href=\"http://www.paypal.me/grizzo96\">PayPal</a>alebo môžete kopírovať moju Bitcoin adresu s tlačítkom nižšie.<br><br>Aj malé množstvo bude veľmi ocenené :)]]></string>
+    <string name="copied_address_toast">BTC adresa skopírovaná na nástenku</string>
 </resources>
