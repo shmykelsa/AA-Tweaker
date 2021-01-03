@@ -36,17 +36,19 @@ public class AboutDialog extends DialogFragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setMessage(Html.fromHtml("\uD83C\uDDF7\uD83C\uDDFA Diversant96<br>" +
-                        "\uD83C\uDDF3\uD83C\uDDF1 Coyenzo<br>" +
-                        "\uD83C\uDDF8\uD83C\uDDF0 Jozo19<br>" +
-                        "\uD83C\uDDEA\uD83C\uDDF8 Krilok<br>" +
-                        "\uD83C\uDDE8\uD83C\uDDFF Martin2412<br>" +
-                        "\uD83C\uDDF8\uD83C\uDDEE Brubblu<br>" +
-                        "\uD83C\uDDEB\uD83C\uDDF7 Nova.kin<br>" +
-                        "\uD83C\uDDEE\uD83C\uDDF9 Shmykelsa<br>" +
-                        "\uD83C\uDDE7\uD83C\uDDF7 Gsproenca<br>" +
-                        "\uD83C\uDDF9\uD83C\uDDF7 Uaslan<br>" +
-                        "\uD83C\uDDE9\uD83C\uDDEA Lassmiranda<br>" +
+                builder.setMessage(Html.fromHtml("Russian: Diversant96<br>" +
+                        "Dutch: Coyenzo<br>" +
+                        "Slovak: Jozo19<br>" +
+                        "Spanish: Krilok<br>" +
+                        "Czech: Martin2412<br>" +
+                        "Slovenian: Brubblu<br>" +
+                        "French: Nova.kin<br>" +
+                        "Italian: Shmykelsa<br>" +
+                        "Brazilian Portuguese: Gsproenca<br>" +
+                        "Vietnamese: Quang.chk1<br>" +
+                        "German: Lassmiranda<br>" +
+                        "Korean: Mabig<br>" +
+                        "Catalan: rogerpi95" +
                         "<br>Interested in translating AA AIO TWEAKER in your own language? Join translations on <a href=\"https://crowdin.com/project/aa-aio-tweaker\">Crowdin</a>!"));
                 builder.setCancelable(true);
                 builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {

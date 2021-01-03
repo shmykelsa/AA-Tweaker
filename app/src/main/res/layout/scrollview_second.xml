@@ -77,7 +77,7 @@ android:layout_width="0dp"
 
         <Button
             android:id="@+id/hunthrottlingbutton"
-android:layout_width="0dp"
+            android:layout_width="0dp"
             style="@style/ButtonStyle"
             android:layout_height="wrap_content"
             android:clickable="true"
@@ -175,7 +175,6 @@ android:id="@+id/media_throttling_button"
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
-            android:drawableEnd="@drawable/ic_beta_logo"
             android:drawablePadding="2dp"
             android:text="@string/bluetooth_auto_connect"
             app:layout_constraintEnd_toStartOf="@id/assistanimstatus"
@@ -191,6 +190,56 @@ android:id="@+id/media_throttling_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/bluetooth_disable_button"
             app:layout_constraintBottom_toBottomOf="@id/bluetooth_disable_button" />
+
+        <Button
+            android:id="@+id/dark_mode_tweak_button"
+            android:paddingTop="9dp"
+            android:layout_width="0dp"
+            style="@style/ButtonStyle"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:drawableEnd="@drawable/ic_beta_logo"
+            android:drawablePadding="9dp"
+            android:text="@string/dark_mode_tweak"
+            app:layout_constraintEnd_toStartOf="@id/assistanimstatus"
+            app:layout_constraintTop_toBottomOf="@id/bluetooth_disable_button"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/dark_mode_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_check_circle_24"
+            android:layout_marginEnd="3dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/dark_mode_tweak_button"
+            app:layout_constraintBottom_toBottomOf="@id/dark_mode_tweak_button" />
+
+        <Button
+            android:id="@+id/telemetry_disable_tweak"
+            android:paddingTop="9dp"
+            android:layout_width="0dp"
+            style="@style/ButtonStyle"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:drawableEnd="@drawable/ic_beta_logo"
+            android:drawablePadding="9dp"
+            android:text="@string/telemetry_string"
+            app:layout_constraintEnd_toStartOf="@id/assistanimstatus"
+            app:layout_constraintTop_toBottomOf="@id/dark_mode_tweak_button"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/telemetry_disable_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_check_circle_24"
+            android:layout_marginEnd="3dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/telemetry_disable_tweak"
+            app:layout_constraintBottom_toBottomOf="@id/telemetry_disable_tweak" />
 
 
 </android.support.constraint.ConstraintLayout>

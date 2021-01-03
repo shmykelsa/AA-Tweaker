@@ -42,7 +42,7 @@
     <string name="tutorial_battery_outline">Эта настройка убирает красный контур значка батареи при включенном режиме энергосбережения.</string>
     <string name="tutorial_hun">Эта настройка позволяет изменить время отображения всплывающих уведомлений.</string>
     <string name="tutorial_media_hun">Эта настройка позволяет изменить время отображения медиа уведомлений  в панели навигации. Максимальное время отображения 15 минут.</string>
-    <string name="tutorial_bluetooth">BETA. Эта настройка блокирует включение Bluetooth при запуске Android Auto. Если Bluetooth уже включен, то выключить его, применив эту настройку, невозможно. В настоящее время функция находится в бета-тестировании.</string>
+    <string name="tutorial_bluetooth">This tweak should prevent Bluetooth from turning on when Android Auto is connected. This tweak won\'t work if Bluetooth is already on.</string>
     <string name="tutorial_patchapps">Эта настройка включает/отключает отображение сторонних приложений, созданных специально для Android Auto.\n
 Её действие в значительной степени идентично работе приложения AA Phenotype Patcher.\n
 Возможно добавить только  те приложения, которые специально созданы для работы в Android Auto.</string>
@@ -77,4 +77,9 @@
     <string name="about_part_one"><![CDATA[AIO TWEAKER разработан и поддерживается Shmykelsa.<br><br>Исходный код доступен на сайте <a href=\"https://github.com/shmykelsa/AA-Tweaker\">GitHub</a><br><br>]]></string>
     <string name="about_part_two"><![CDATA[Если вам нравится моя работа, пожалуйста, подумайте о том, чтобы угостить меня кофе.<br> Вы можете это  сделать через <a href=\"http://www.paypal.me/grizzo96\">PayPal</a> или через Bitcoin.Скопировать мой Bitcoin можно кнопкой ниже .<br><br>Даже небольшое пожертвование будет оценено. :)]]></string>
     <string name="copied_address_toast">Bitcoin адрес скопирован в буфер обмена</string>
+    <string name="custom_wallpapers">Wallpapers</string>
+    <string name="tutorial_wallpapers">This tweak will activate the new built in wallpaper changer in Android Auto. Android Auto 5.8 or superior is required.\nWARNING: If you are a user of Wallpapers For Android Auto, you will need to update it to at least version 3.0, otherwise this tweak will break Wallpapers For Android Auto functionality.</string>
+    <string name="tutorial_dark_mode">Starting from December 2020, Google reverted a behaviour that happened since Android 10. Previously, the light/dark mode on Android Auto followed the light/dark mode on the phone and vice versa. This meant that switching the phone to dark mode had effect on the car, or if the phone was in dark mode and the car had lights off it used to switch on the light theme on the phone.\n However, since this feature of \"independent\" dark mode was introduced, users with Aftermarket headunits have no way to switch to dark mode anymore without actually wiring the stereo to the car\'s lights.\n This tweak makes sure that night mode is again dependent from phone and switching light/dark mode on phone will have its effects on cars too.</string>
+    <string name="dark_mode_tweak">independent dark mode</string>
+    <string name="telemetry_string">telemetry</string>
 </resources>

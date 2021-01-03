@@ -44,7 +44,8 @@ public class SplashActivity extends AppCompatActivity {
         editor.putBoolean("bluetooth_pairing_off", false);
         editor.putBoolean("multi_display", false);
         editor.putBoolean("battery_saver_warning", false);
-        editor.putBoolean("assistant_focus_force", false);
+        editor.putBoolean("aa_wallpapers", false);
+        editor.putBoolean("aa_night_mode_revert", false);
         editor.commit();
 
 

@@ -40,7 +40,7 @@ NON È POSSIBILE IMPOSTARE UN\'APP SPECIFICA ALL\'AVVIO.</string>
     <string name="tutorial_battery_outline">Questo trucco impedirà che l\'icona della batteria abbia un contono rosso quando il risparmio batteria è acceso.</string>
     <string name="tutorial_hun">Questo trucco consente di impostare una durata personalizzata per le notifiche fluttuanti</string>
     <string name="tutorial_media_hun">Questo trucco permette di impostare una durata personalizzata per le notifiche multimediali nella barra di navigazione fino a 15 minuti.</string>
-    <string name="tutorial_bluetooth">BETA Questo trucco dovrebbe impedire che il Bluetooth si accenda quando Android Auto viene connesso. Questa modifica non funzionerà se il Bluetooth è già attivo e attualmente è in forma sperimentale.</string>
+    <string name="tutorial_bluetooth">Questo tweak impedirà l\'accensione automatica del Bluetooth e l\'accoppiamento automatico con l\'auto quando Android Auto viene connesso. Questo trucco non funziona se il Bluetooth è già attivo.</string>
     <string name="tutorial_patchapps">Questo trucco consentirà alle applicazioni di terze parti, realizzate specificamente con Android Auto SDK, di funzionare su Android Auto.\n
 Se hai già sentito parlare di AA Phenotype Patcher, questo trucco è praticamente identico all\'app.\n
 Non è possibile aggiungere qualsiasi app ad Android Auto, ma è possibile eseguire la patch di applicazioni installate manualmente e CREATE PER ANDROID AUTO per farle funzionare in auto.</string>
@@ -75,4 +75,9 @@ Questa funzione è probabilmente in fase di sviluppo e potrebbe non funzionare c
     <string name="about_part_one"><![CDATA[AA AIO TWEAKER è sviluppato e mantenuto da Shmykelsa.<br><br>Il codice sorgente è disponibile su <a href=\"https://github.com/shmykelsa/AA-Tweaker\">GitHub</a><br><br>]]></string>
     <string name="about_part_two"><![CDATA[Se apprezzi il mio lavoro, per favore, considera una donazione.<br> Puoi donarmi tramite <a href=\"http://www.paypal.me/grizzo96\">PayPal</a> o puoi copiare il mio indirizzo Bitcoin con il pulsante qui sotto.<br><br>Anche una piccola donazione sarà molto apprezzata :)]]></string>
     <string name="copied_address_toast">Indirizzo BTC copiato negli appunti</string>
+    <string name="custom_wallpapers">Sfondi</string>
+    <string name="tutorial_wallpapers">Questo tweak attiverà la nuova funzione per cambiare gli sfondi in Android Auto. È richiesto Android Auto 5.8 o superiore.\nATTENZIONE: se sei un utente di Wallpapers For Android Auto, dovrai aggiornarlo almeno alla versione 3.0, altrimenti questo tweak non farà funzionare Wallpapers For Android Auto.</string>
+    <string name="tutorial_dark_mode">A partire da dicembre 2020, Google ha ripristinato un comportamento presente sin da Android 10. In precedenza, la modalità giorno/notte su Android Auto ha seguito la modalità chiara/scura del telefono e viceversa. Ciò significa che il passaggio del telefono a modalità scura aveva effetto anche sulla macchina, oppure se il telefono era in modalità scura e l\'auto aveva le luci spente, automaticamente si attivava la modalità chiara sul telefono.\n Tuttavia, da quando questa modalità è stata resa \"indipendente\", gli utenti con unità aftermarket non hanno più modo di passare alla modalità scura senza effettivamente cablare lo stereo alle luci dell\'auto.\n Questa modifica assicura che la modalità notturna dipenda di nuovo dal telefono e la commutazione della modalità chiara/scura sul telefono avrà i suoi effetti anche sull\'auto.</string>
+    <string name="dark_mode_tweak">modalità scura indipendente</string>
+    <string name="telemetry_string">Telemetria</string>
 </resources>

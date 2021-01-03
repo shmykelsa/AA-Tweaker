@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name" translatable="false">AA AIO Tweaker</string>
     <string name="main_string">Welcome in AA AIO Tweaker\n
-        This app will let you apply some tweaks to Android Auto\n
-        Simply select what tweak you want to apply :)\n
-        If you are unsure of what a tweak does, long press on it and a tutorial will show up.\n</string>
+This app will let you apply some tweaks to Android Auto\n
+Simply select what tweak you want to apply :)\n
+If you are unsure of what a tweak does, long press on it and a tutorial will show up.\n</string>
     <string name="select_apps">Select apps</string>
     <string name="enable_assistant_shortcuts">Assistant shortcuts</string>
     <string name="patch_custom_apps">custom apps</string>
@@ -11,31 +12,27 @@
     <string name="unlimited_scrolling_when_driving">speed restrictions</string>
     <string name="enable_assistant_animation_in_navbar">Assistant animation in navbar</string>
     <string name="splash">This app can alter Android Auto behaviour and bypass some safety features that Google has implemented in Android Auto.\n
-        By using this software, you agree that YOU, and ONLY YOU, are solely responsible for any possible consequence that may result in altering safety features such as injury to yourself and/or
-        others, property damage, loss of life.\n
-        Under no circumnstances is the author of this app responsible for its use</string>
+By using this software, you agree that YOU, and ONLY YOU, are solely responsible for any possible consequence that may result in altering safety features such as injury to yourself and/or others, property damage, loss of life.\n
+Under no circumnstances is the author of this app responsible for its use</string>
     <string name="proceed">I understand</string>
     <string name="navigation_at_start">Navigation at start</string>
     <string name="statb_opaque_string">Force Opaque Statusbar</string>
     <string name="battery_outline_string">battery saver outline</string>
     <string name="legend">Status Legend:\n
-        GREEN= Patch applied\n
-        YELLOW= Patch need reboot to be applied\n
-        RED= Patch is not applied</string>
+GREEN= Patch applied\n
+YELLOW = Reboot is needed to apply patch\n
+RED= Patch is not applied</string>
     <string name="set_notification_duration_to">Notification duration to</string>
     <string name="base_no_ws">Widescreen</string>
     <string name="force_widescreen_text">Force Widescreen</string>
     <string name="media_notification_duration_to">Media notification duration to</string>
     <string name="bluetooth_auto_connect">Bluetooth auto connect</string>
-    <string name="tutorial_nospeed">This tweak will make Android Auto think that the car is at 0 speed. As a result, Android Auto will always
-    show the preview of messages. This tweak does not apply to keyboard or first configuration of Android Auto.</string>
+    <string name="tutorial_nospeed">This tweak will make Android Auto think that the car is at 0 speed. As a result, Android Auto will always show the preview of messages. This tweak does not apply to keyboard or first configuration of Android Auto.</string>
     <string name="tutorial_sixtap">This tweak will override the 6 tap limit of Android Auto and will make unlimited browsing of content always possible.</string>
-    <string name="tutorial_shortcuts">This tweak will unlock the new Assistant Shortcuts feature. Once activated you can go in Android Auto settings, and in the customize launcher
-    section you can start adding shortcuts to Google Assistant commands</string>
+    <string name="tutorial_shortcuts">This tweak will unlock the new Assistant Shortcuts feature. Once activated you can go in Android Auto settings, and in the customize launcher section you can start adding shortcuts to Google Assistant commands</string>
     <string name="tutorial_startup">This tweak will override the default behaviour of Android Auto opening a navigation app at start and will make Android Auto start on launcher.\n
-        This tweak could occasionally fail because sometimes Android Auto starts with a navigation to home or work autonomously. This behaviour breaks the tweak.\n
-        In some cases this tweak will disable auto start of music. A known workaround is to disable and re-enable the option within Android Auto settings.\n
-    IT\'S NOT POSSIBLE TO SET A SPECIFIC APP TO START FIRST.</string>
+In some cases this tweak will disable auto start of music. A known workaround is to disable and re-enable the option within Android Auto settings.\n
+IT\'S NOT POSSIBLE TO SET A SPECIFIC APP TO START FIRST.</string>
     <string name="tutorial_widescreen">This tweak will force Android Auto in widescreen mode.</string>
     <string name="tutorial_no_widescreen">This tweak will force Android Auto in no widescreen mode.</string>
     <string name="tutorial_animation">This tweak enable an animation of Google Assistant in the navigation bar.</string>
@@ -43,18 +40,17 @@
     <string name="tutorial_battery_outline">This tweak will prevent the battery icon with the red outline when battery saver is on.</string>
     <string name="tutorial_hun">This tweak let you set a custom duration for heads up notifications</string>
     <string name="tutorial_media_hun">This tweak let you set a custom duration for media notifications in navigation bar to up to 15 minutes.</string>
-    <string name="tutorial_bluetooth">BETA This tweak should prevent Bluetooth from turning on when Android Auto is connected. This tweak
-    won\'t work if Bluetooth is already on, and currently it is in beta.</string>
+    <string name="tutorial_bluetooth">This tweak should prevent Bluetooth from turning on when Android Auto is connected. This tweak won\'t work if Bluetooth is already on.</string>
     <string name="tutorial_patchapps">This tweak will enable third-party apps made specifically with Android Auto custom SDK to work on Android Auto.\n
-        If you are familiar with AA Phenotype Patcher, this tweak is pretty much identical to it.\n
-        It\'s not possible to add just any app to Android Auto, but it\'s possible to patch sideloaded apps MADE FOR ANDROID AUTO to work in cars.</string>
+If you are familiar with AA Phenotype Patcher, this tweak is pretty much identical to it.\n
+It\'s not possible to add just any app to Android Auto, but it\'s possible to patch sideloaded apps MADE FOR ANDROID AUTO to work in cars.</string>
     <string name="multi_display_string">Multi Display</string>
     <string name="tutorial_multidisplay">This is an hidden feature inside Android Auto that will turn the second space in widescreen mode to a real second display that is completely taken by a seond activity. Google Maps will display a full map with navigation status, music and phones will take the full space.\n
-        Additionally, this mode activates another feature that will turn the phone\'s screen in a second display for navigation in Android Auto.\n
-        Settings for tweaking this feature will be available in Android Auto homescreen.\n
-        Apparently, only Google Maps currently support this mode.\n
-        This feature is probably under development and could potentially not work as intended.\n
-    Android Auto 5.8 or superior is required.</string>
+Additionally, this mode activates another feature that will turn the phone\'s screen in a second display for navigation in Android Auto.\n
+Settings for tweaking this feature will be available in Android Auto homescreen.\n
+Apparently, only Google Maps currently support this mode.\n
+This feature is probably under development and could potentially not work as intended.\n
+Android Auto 5.8 or superior is required.</string>
     <string name="battery_warning">Battery saver warning</string>
     <string name="tutorial_battery_saver_warning">This tweak will prevent Android Auto from giving popup warnings when battery saver mode is on</string>
     <string name="disable_tweak_string">Disable\u0020</string>
@@ -75,8 +71,15 @@
     <string name="default_string">\u0020Default</string>
     <string name="app_list_label">Apps List</string>
     <string name="positive_button">ok</string>
-    <string name="translators_button">Translators</string>
+    <string name="translators_button">Translated by</string>
     <string name="about_part_one"><![CDATA[AA AIO TWEAKER is developed and maintained by Shmykelsa.<br><br>Source code is available on <a href=\"https://github.com/shmykelsa/AA-Tweaker\">GitHub</a><br><br>]]></string>
     <string name="about_part_two"><![CDATA[If you really like my work, please consider a donation.<br> You can donate me through <a href=\"http://www.paypal.me/grizzo96\">PayPal</a> or you can copy my Bitcoin address with the button down below.<br><br>Even a small amount will be much appreciated :)]]></string>
     <string name="copied_address_toast">BTC Address copied to clipboard</string>
+    <string name="custom_wallpapers">Wallpapers</string>
+    <string name="tutorial_wallpapers">This tweak will activate the new built in wallpaper changer in Android Auto. Android Auto 5.8 or superior is required.\nWARNING: If you are a user of Wallpapers For Android Auto, you will need to update it to at least version 3.0, otherwise this tweak will break Wallpapers For Android Auto functionality.</string>
+    <string name="tutorial_dark_mode">Starting from December 2020, Google reverted a behaviour that happened since Android 10. Previously, the light/dark mode on Android Auto followed the light/dark mode on the phone and vice versa. This meant that switching the phone to dark mode had effect on the car, or if the phone was in dark mode and the car had lights off it used to switch on the light theme on the phone.\n However, since this feature of \"independent\" dark mode was introduced, users with Aftermarket headunits have no way to switch to dark mode anymore without actually wiring the stereo to the car\'s lights.\n This tweak makes sure that night mode is again dependent from phone and switching light/dark mode on phone will have its effects on cars too.</string>
+    <string name="dark_mode_tweak">independent dark mode</string>
+    <string name="telemetry_string">telemetry</string>
+    <string name="tutorial_telemetry">It\'s no mistery that Google logs a lot of datas about us. This tweak will make so that Google Play Services will stop a lot of tracking and logging activity.\n
+WARNING: This tweak has not been extensively tested and could potentially break Android Auto. If you find out that this tweak breaks Android Auto, please open an issue on GitHub.</string>
 </resources>

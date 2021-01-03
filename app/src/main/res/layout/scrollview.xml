@@ -242,6 +242,30 @@
             app:layout_constraintTop_toTopOf="@id/battery_warning_button"
             app:layout_constraintBottom_toBottomOf="@id/battery_warning_button"/>
 
+        <Button
+            android:id="@+id/custom_wallpapers_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            style="@style/ButtonStyle"
+            android:focusable="true"
+
+            android:text="@string/custom_wallpapers"
+            app:layout_constraintEnd_toEndOf="@id/patchapps"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/battery_warning_button" />
+
+        <ImageView
+            android:id="@+id/custom_wallpapers_status"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_baseline_check_circle_24"
+            android:layout_marginEnd="3dp"
+            app:layout_constraintStart_toEndOf="@id/custom_wallpapers_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/custom_wallpapers_button"
+            app:layout_constraintBottom_toBottomOf="@id/custom_wallpapers_button"/>
+
 
 </android.support.constraint.ConstraintLayout>
 

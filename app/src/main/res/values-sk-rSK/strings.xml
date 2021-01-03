@@ -42,9 +42,7 @@ NIE JE MOŽNÉ NASTAVIŤ KONKRÉTNU APLIKÁCIU KTORÁ SA SPUSTÍ AKO PRVÁ.</str
     <string name="tutorial_battery_outline">Toto vylepšenie zabráni ikonu batérie s červeným obrysom, keď je zapnutý šetrič batérie.</string>
     <string name="tutorial_hun">Toto vylepšenie vám dovolí nastaviť trvanie upozornení head up</string>
     <string name="tutorial_media_hun">Toto vylepšenie vám umožní nastaviť vlastné trvanie upozornení na médiá na navigačnej lište až na 15 minút.</string>
-    <string name="tutorial_bluetooth">BETA Toto vylepšenie by malo zabrániť zapnutiu Bluetooth pri pripojení Android Auto. 
-Toto vylepšenie
-    nebude fungovať, ak je Bluetooth už zapnuté a momentálne je v beta verzii.</string>
+    <string name="tutorial_bluetooth">This tweak should prevent Bluetooth from turning on when Android Auto is connected. This tweak won\'t work if Bluetooth is already on.</string>
     <string name="tutorial_patchapps">Toto vylepšenie povolí aplikácie tretích strán vytvorené špeciálne pre Android Auto zákaznícke SDK na spoluprácu s Android Auto.\n
         Ak poznáte AA Phenotype Patcher, táto vylepšenie je do značnej miery totožná s ním.\n
         Do aplikácie Android Auto nie je možné pridať ľubovoľnú aplikáciu, ale je možné opraviť postranné aplikácie VYROBENÉ PRE ANDROID AUTO tak, aby fungovali v automobiloch.</string>
@@ -79,4 +77,9 @@ Toto vylepšenie
     <string name="about_part_one"><![CDATA[AA AIO TWEAKER je vyvíjaný a spravovaný s p. Shmykelsa.<br><br>Zdrojový kód je dostupný na<a href=\"https://github.com/shmykelsa/AA-Tweaker\">GitHub</a><br><br>]]></string>
     <string name="about_part_two"><![CDATA[Ak skutočne mate radi moju prácu, prosím zvážte príspevok.<br>Môžete ma podporiť cez<a href=\"http://www.paypal.me/grizzo96\">PayPal</a>alebo môžete kopírovať moju Bitcoin adresu s tlačítkom nižšie.<br><br>Aj malé množstvo bude veľmi ocenené :)]]></string>
     <string name="copied_address_toast">BTC adresa skopírovaná na nástenku</string>
+    <string name="custom_wallpapers">Wallpapers</string>
+    <string name="tutorial_wallpapers">This tweak will activate the new built in wallpaper changer in Android Auto. Android Auto 5.8 or superior is required.\nWARNING: If you are a user of Wallpapers For Android Auto, you will need to update it to at least version 3.0, otherwise this tweak will break Wallpapers For Android Auto functionality.</string>
+    <string name="tutorial_dark_mode">Starting from December 2020, Google reverted a behaviour that happened since Android 10. Previously, the light/dark mode on Android Auto followed the light/dark mode on the phone and vice versa. This meant that switching the phone to dark mode had effect on the car, or if the phone was in dark mode and the car had lights off it used to switch on the light theme on the phone.\n However, since this feature of \"independent\" dark mode was introduced, users with Aftermarket headunits have no way to switch to dark mode anymore without actually wiring the stereo to the car\'s lights.\n This tweak makes sure that night mode is again dependent from phone and switching light/dark mode on phone will have its effects on cars too.</string>
+    <string name="dark_mode_tweak">independent dark mode</string>
+    <string name="telemetry_string">telemetry</string>
 </resources>
