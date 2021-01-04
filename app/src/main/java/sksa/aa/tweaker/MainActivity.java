@@ -1572,7 +1572,7 @@ public class MainActivity extends AppCompatActivity {
                     appendText(logs, "\n\n-- Drop Triggers  --");
                     appendText(logs, runSuWithCmd(
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                    "'DROP TRIGGER IF EXISTS aa_patched_apps;'"
+                                    "'DROP TRIGGER IF EXISTS aa_patched_apps; DROP TRIGGER IF EXISTS app_white_list;'"
                     ).getStreamLogsWithLabels());
 
                     appendText(logs, "\n\n--  DELETE old Flags  --");

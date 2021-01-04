@@ -75,4 +75,6 @@
     <string name="tutorial_dark_mode">Starting from December 2020, Google reverted a behaviour that happened since Android 10. Previously, the light/dark mode on Android Auto followed the light/dark mode on the phone and vice versa. This meant that switching the phone to dark mode had effect on the car, or if the phone was in dark mode and the car had lights off it used to switch on the light theme on the phone.\n However, since this feature of \"independent\" dark mode was introduced, users with Aftermarket headunits have no way to switch to dark mode anymore without actually wiring the stereo to the car\'s lights.\n This tweak makes sure that night mode is again dependent from phone and switching light/dark mode on phone will have its effects on cars too.</string>
     <string name="dark_mode_tweak">independent dark mode</string>
     <string name="telemetry_string">telemetry</string>
+    <string name="tutorial_telemetry">It\'s no mistery that Google logs a lot of datas about us. This tweak will make so that Google Play Services will stop a lot of tracking and logging activity.\n
+WARNING: This tweak has not been extensively tested and could potentially break Android Auto. If you find out that this tweak breaks Android Auto, please open an issue on GitHub.</string>
 </resources>

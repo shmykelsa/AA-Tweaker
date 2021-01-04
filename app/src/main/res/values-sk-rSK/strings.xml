@@ -23,29 +23,29 @@
         ŽLTÁ=Záplata potrebuje reboot pre aplikovanie\n
         ČERVENÁ=Záplata nie je aplikovaná</string>
     <string name="set_notification_duration_to">Trvanie notifikácie</string>
-    <string name="base_no_ws">Širokouhlý</string>
+    <string name="base_no_ws">Širokouhlé zobrazenie</string>
     <string name="force_widescreen_text">Vnútenie Širokouhlého zobrazenia</string>
-    <string name="media_notification_duration_to">Trvanie Media notifikácie</string>
+    <string name="media_notification_duration_to">Trvanie notifikácie Média</string>
     <string name="bluetooth_auto_connect">Bluetooth automatické pripojenie</string>
     <string name="tutorial_nospeed">Toto vylepšenie presvedčí Android Auto že auto má nulovú rýchlosť. Výsledkom je že Android Auto bude vždy
     zobrazovať náhľad správ. Toto vylepšenie nepoužije klávesnicu ako prvú konfiguráciu pre Android Auto.</string>
     <string name="tutorial_sixtap">Toto vylepšenie prepíše limit 6 dotykov pre Android Auto a dovolí prehliadanie obsahu bez limitu.</string>
-    <string name="tutorial_shortcuts">Toto vylepšenie odomkne skratku funkcií nového asistenta. Jednorázovou aktiváciou sa dostanete do Android Auto nastavení a v prispôsobeniach môžete pridávať skratky príkazov pre Google Assistant</string>
-    <string name="tutorial_startup">Toto vylepšenie prepíše predvolené správanie aplikácie Android Auto pri otvorení navigačnej aplikácie pri spustení a spôsobí spustenie aplikácie Android Auto v spúšťači.\n
+    <string name="tutorial_shortcuts">Toto vylepšenie odomkne funkciu skratky nového asistenta. Jednorázovou aktiváciou sa dostanete do Android Auto nastavení a v prispôsobeniach môžete pridávať skratky príkazov pre Google Assistant</string>
+    <string name="tutorial_startup">Toto vylepšenie prepíše predvolené správanie aplikácie Android Auto že otvorí navigačnú aplikáciu pri spustení a spôsobí spustenie aplikácie Android Auto len do menu spúšťača.\n
 Toto vylepšenie môže občas zlyhať, pretože Android Auto sa niekedy spúšťa autonómnou navigáciou domov alebo do práce. Toto správanie preruší vylepšenie.\n
 V niektorých prípadoch táto úprava zakáže automatické spustenie hudby. Známe riešenie je vypnúť a znova povoliť túto možnosť v nastaveniach Android Auto.\n
 NIE JE MOŽNÉ NASTAVIŤ KONKRÉTNU APLIKÁCIU KTORÁ SA SPUSTÍ AKO PRVÁ.</string>
-    <string name="tutorial_widescreen">Toto vylepšenie vnúti Android Auto širokoúhle zobrazenie.</string>
+    <string name="tutorial_widescreen">Toto vylepšenie vnúti Android Auto širokouhlé zobrazenie.</string>
     <string name="tutorial_no_widescreen">Toto vylepšenie vnúti Android Auto aby neprechádzal do širokouhlého módu.</string>
     <string name="tutorial_animation">Toto vylepšenie povolí animáciu Google Asistenta na navigačnej lište.</string>
     <string name="tutorial_statusbar_opaque">Toto vylepšenie spôsobí, že stavový riadok bude mať vždy nepriehľadné pozadie (predvolené nastavenie je transparentné)</string>
-    <string name="tutorial_battery_outline">Toto vylepšenie zabráni ikonu batérie s červeným obrysom, keď je zapnutý šetrič batérie.</string>
-    <string name="tutorial_hun">Toto vylepšenie vám dovolí nastaviť trvanie upozornení head up</string>
+    <string name="tutorial_battery_outline">Toto vylepšenie zabráni ikone batérie zobrazenie červeným obrysom, keď je zapnutý šetrič batérie.</string>
+    <string name="tutorial_hun">Toto vylepšenie vám dovolí nastaviť trvanie upozornení heads up</string>
     <string name="tutorial_media_hun">Toto vylepšenie vám umožní nastaviť vlastné trvanie upozornení na médiá na navigačnej lište až na 15 minút.</string>
-    <string name="tutorial_bluetooth">This tweak should prevent Bluetooth from turning on when Android Auto is connected. This tweak won\'t work if Bluetooth is already on.</string>
-    <string name="tutorial_patchapps">Toto vylepšenie povolí aplikácie tretích strán vytvorené špeciálne pre Android Auto zákaznícke SDK na spoluprácu s Android Auto.\n
-        Ak poznáte AA Phenotype Patcher, táto vylepšenie je do značnej miery totožná s ním.\n
-        Do aplikácie Android Auto nie je možné pridať ľubovoľnú aplikáciu, ale je možné opraviť postranné aplikácie VYROBENÉ PRE ANDROID AUTO tak, aby fungovali v automobiloch.</string>
+    <string name="tutorial_bluetooth">Toto vylepšenie zabráni zapnúť Bluetooth keď je Android Auto pripojené. Toto vylepšenie nebude pracovať ak je Bluetooth už zapnuté.</string>
+    <string name="tutorial_patchapps">Toto vylepšenie povolí aplikácie tretích strán vytvorených špeciálne pre Android Auto zákaznícke SDK na spoluprácu s Android Auto.\n
+Ak poznáte AA Phenotype Patcher, táto vylepšenie je do značnej miery totožná s ním.\n
+Do aplikácie Android Auto nie je možné pridať ľubovoľnú aplikáciu, ale je možné opraviť postranné aplikácie VYROBENÉ PRE ANDROID AUTO tak, aby fungovali v automobiloch.</string>
     <string name="multi_display_string">Multi Zobrazenie</string>
     <string name="tutorial_multidisplay">Toto je skrytá funkcia v Android Auto ktorá zobrazí druhú obrazovku v širokouhlom zobrazení ako reálny druhý displej ktorý je kompletne určený na inú činnosť. Google maps bude zobrazovať plnú mapu s navigačným stavom, hudbou a telefónom na plnom displeji.\n
         Tento režim navyše aktivuje ďalšiu funkciu, ktorá zmení obrazovku telefónu na druhý displej pre navigáciu v systéme Android Auto.\n
@@ -63,8 +63,8 @@ NIE JE MOŽNÉ NASTAVIŤ KONKRÉTNU APLIKÁCIU KTORÁ SA SPUSTÍ AKO PRVÁ.</str
     <string name="revert_everything">Vrátiť všetko späť</string>
     <string name="force_disable_tweak">Vnútenie zakázané\u0020</string>
     <string name="reset_tweak">Resetovanie\u0020</string>
-    <string name="force_widescreen_warning">Vnútenie širokoúhleho zobrazenia bolo automaticky zakázané</string>
-    <string name="force_disable_widescreen_warning">Vnútenie zákazu širokohlého zobrazenia bolo automaticky zakázané</string>
+    <string name="force_widescreen_warning">Vnútenie širokouhlého zobrazenia bolo automaticky zakázané</string>
+    <string name="force_disable_widescreen_warning">Vnútenie zákazu širokouhlého zobrazenia bolo automaticky zakázané</string>
     <string name="set_value">Nastavenie\u0020</string>
     <string name="reboot_to_apply">REŠTARTOVAŤ PRE AKTIVÁCIU</string>
     <string name="warning_title">UPOZORNENIE</string>
@@ -75,11 +75,13 @@ NIE JE MOŽNÉ NASTAVIŤ KONKRÉTNU APLIKÁCIU KTORÁ SA SPUSTÍ AKO PRVÁ.</str
     <string name="positive_button">ok</string>
     <string name="translators_button">Preložil</string>
     <string name="about_part_one"><![CDATA[AA AIO TWEAKER je vyvíjaný a spravovaný s p. Shmykelsa.<br><br>Zdrojový kód je dostupný na<a href=\"https://github.com/shmykelsa/AA-Tweaker\">GitHub</a><br><br>]]></string>
-    <string name="about_part_two"><![CDATA[Ak skutočne mate radi moju prácu, prosím zvážte príspevok.<br>Môžete ma podporiť cez<a href=\"http://www.paypal.me/grizzo96\">PayPal</a>alebo môžete kopírovať moju Bitcoin adresu s tlačítkom nižšie.<br><br>Aj malé množstvo bude veľmi ocenené :)]]></string>
+    <string name="about_part_two"><![CDATA[Ak skutočne mate radi moju prácu, prosím zvážte príspevok.<br>Môžete ma podporiť cez<a href=\"http://www.paypal.me/grizzo96\">PayPal</a>alebo môžete kopírovať moju Bitcoin adresu s tlačidlom nižšie.<br><br>Aj malé množstvo bude veľmi ocenené :)]]></string>
     <string name="copied_address_toast">BTC adresa skopírovaná na nástenku</string>
-    <string name="custom_wallpapers">Wallpapers</string>
-    <string name="tutorial_wallpapers">This tweak will activate the new built in wallpaper changer in Android Auto. Android Auto 5.8 or superior is required.\nWARNING: If you are a user of Wallpapers For Android Auto, you will need to update it to at least version 3.0, otherwise this tweak will break Wallpapers For Android Auto functionality.</string>
-    <string name="tutorial_dark_mode">Starting from December 2020, Google reverted a behaviour that happened since Android 10. Previously, the light/dark mode on Android Auto followed the light/dark mode on the phone and vice versa. This meant that switching the phone to dark mode had effect on the car, or if the phone was in dark mode and the car had lights off it used to switch on the light theme on the phone.\n However, since this feature of \"independent\" dark mode was introduced, users with Aftermarket headunits have no way to switch to dark mode anymore without actually wiring the stereo to the car\'s lights.\n This tweak makes sure that night mode is again dependent from phone and switching light/dark mode on phone will have its effects on cars too.</string>
-    <string name="dark_mode_tweak">independent dark mode</string>
-    <string name="telemetry_string">telemetry</string>
+    <string name="custom_wallpapers">Tapety</string>
+    <string name="tutorial_wallpapers">Toto vylepšenie aktivuje novú zostavu v meniči tapiet v Android Auto. Android Auto 5.8 alebo novší je potrebný.\nUPOZORNENIE: Ak ste používateľom tapiet pre Android Auto, bude nutné ju aktualizovať aspoň na verziu 3.0, v opačnom prípade vylepšenie Tapiet pre Android Auto nebude funkčné.</string>
+    <string name="tutorial_dark_mode">Od decembra 2020 Google vrátil správanie, ktoré bolo od Androidu 10. Predtým svetlý / tmavý režim v aplikácii Android Auto nasledoval svetlý / tmavý režim v telefóne a naopak. To znamenalo, že prepnutie telefónu do tmavého režimu malo vplyv na auto, alebo ak bol telefón v tmavom režime a auto malo vypnuté svetlá, používalo sa na zapnutie svetlej témy na telefóne.\n Odkedy však bola predstavená táto funkcia „nezávislého“ tmavého režimu, používatelia s jednotkami Aftermarket už nemajú možnosť prepnúť do tmavého režimu bez toho, aby skutočne zapojili signál jednotky do svetiel vozidla.\n Toto vylepšenie zaisťuje, že nočný režim opäť závisí od telefónu a prepínanie svetlého / tmavého režimu na telefóne bude mať vplyv aj na auto.</string>
+    <string name="dark_mode_tweak">nezávislý tmavý mód</string>
+    <string name="telemetry_string">telemetria</string>
+    <string name="tutorial_telemetry">Nie je tajomstvo že Google zbiera veľa dát o nás. Toto vylepšenie zastaví množstvo sledovaní a zbieranie dát s Google Play Services.\n
+UPOZORNENIE: Toto vylepšenie nebolo podrobne testované a mohlo by potenciálne poškodiť Android Auto. Ak zistíte že toto vylepšenie porušuje Android Auto, otvorte problém na GitHub.</string>
 </resources>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="main_string">Vítejte v aplikaci AA AIO Tweaker\n
-        Tato aplikace Vám umožní použít některá vylepšení pro Android Auto\n
-        Jednoduše zvolte, jaké vylepšení chcete použít :)\n
-        Pokud si nejste jisti, co která možnost dělá, jejím dlouhým podržením se zobrazí návod.\n</string>
+    <string name="main_string">Welcome in AA AIO Tweaker\n
+This app will let you apply some tweaks to Android Auto\n
+Simply select what tweak you want to apply :)\n
+If you are unsure of what a tweak does, long press on it and a tutorial will show up.\n</string>
     <string name="select_apps">Výběr aplikací</string>
     <string name="enable_assistant_shortcuts">Zkratky asistenta</string>
     <string name="patch_custom_apps">vlastní aplikace</string>
-    <string name="disable_speed_limitations">omezení poklepání</string>
+    <string name="disable_speed_limitations">tap limitations</string>
     <string name="unlimited_scrolling_when_driving">rychlostní omezení</string>
     <string name="enable_assistant_animation_in_navbar">Animace asistenta v navigačním panelu</string>
     <string name="splash">Tato aplikace může změnit chování systému Android Auto a obejít některé bezpečnostní funkce, které Google implementoval v systému Android Auto.\n
@@ -27,11 +27,9 @@
     <string name="force_widescreen_text">Vynutit širokoúhlý obraz</string>
     <string name="media_notification_duration_to">Doba trvání oznámení do</string>
     <string name="bluetooth_auto_connect">Automatické připojení Bluetooth</string>
-    <string name="tutorial_nospeed">Toto vylepšení způsobí, že si Android Auto bude myslet, že vozidlo stojí na místě, tedy má nulovou rychlost. Což znamená, že Android Auto bude vždy
-    zobrazovat náhledy zpráv. Toto vylepšení nijak neovlivní klávesnici nebo prvotní nastavení.</string>
+    <string name="tutorial_nospeed">Toto vylepšení způsobí, že si Android Auto bude myslet, že vozidlo stojí na místě, tedy má nulovou rychlost. Což znamená, že Android Auto bude vždy zobrazovat náhledy zpráv. Toto vylepšení nijak neovlivní klávesnici nebo prvotní nastavení.</string>
     <string name="tutorial_sixtap">Tato volba přepíše limit 6 klepnutí aplikace Android Auto a umožní neomezené prohlížení obsahu.</string>
-    <string name="tutorial_shortcuts">Tato možnost odemkne novou funkci zkratek asistenta. Po aktivaci můžete přejít na nastavení Android Auto a v sekci přizpůsobení spouštěče
-    můžete začít přidávat zkratky pro příkazy Google Asistenta</string>
+    <string name="tutorial_shortcuts">Tato možnost odemkne novou funkci zkratek asistenta. Po aktivaci můžete přejít na nastavení Android Auto a v sekci přizpůsobení spouštěče můžete začít přidávat zkratky pro příkazy Google Asistenta</string>
     <string name="tutorial_startup">Tato volba přepíše výchozí chování aplikace Android Auto, která při každém spuštění otevírá  aplikaci navigace.\n
         Toto vylepšení občas může selhat, protože navigace se občas spouští automaticky a pracuje samostatně. Toto chování přeruší vylepšení.\n
         V některých případech může tato volba vypnout automatické spouštění hudby. Řešením je zakázat a znovu povolit možnost v nastavení Android Auto.\n
@@ -83,4 +81,6 @@
     <string name="tutorial_dark_mode">Starting from December 2020, Google reverted a behaviour that happened since Android 10. Previously, the light/dark mode on Android Auto followed the light/dark mode on the phone and vice versa. This meant that switching the phone to dark mode had effect on the car, or if the phone was in dark mode and the car had lights off it used to switch on the light theme on the phone.\n However, since this feature of \"independent\" dark mode was introduced, users with Aftermarket headunits have no way to switch to dark mode anymore without actually wiring the stereo to the car\'s lights.\n This tweak makes sure that night mode is again dependent from phone and switching light/dark mode on phone will have its effects on cars too.</string>
     <string name="dark_mode_tweak">independent dark mode</string>
     <string name="telemetry_string">telemetry</string>
+    <string name="tutorial_telemetry">It\'s no mistery that Google logs a lot of datas about us. This tweak will make so that Google Play Services will stop a lot of tracking and logging activity.\n
+WARNING: This tweak has not been extensively tested and could potentially break Android Auto. If you find out that this tweak breaks Android Auto, please open an issue on GitHub.</string>
 </resources>

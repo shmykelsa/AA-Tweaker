@@ -26,14 +26,12 @@ RED= Patch is not applied</string>
     <string name="force_widescreen_text">Force Widescreen</string>
     <string name="media_notification_duration_to">Media notification duration to</string>
     <string name="bluetooth_auto_connect">Bluetooth auto connect</string>
-    <string name="tutorial_nospeed">This tweak will make Android Auto think that the car is at 0 speed. As a result, Android Auto will always
-    show the preview of messages. This tweak does not apply to keyboard or first configuration of Android Auto.</string>
+    <string name="tutorial_nospeed">This tweak will make Android Auto think that the car is at 0 speed. As a result, Android Auto will always show the preview of messages. This tweak does not apply to keyboard or first configuration of Android Auto.</string>
     <string name="tutorial_sixtap">This tweak will override the 6 tap limit of Android Auto and will make unlimited browsing of content always possible.</string>
-    <string name="tutorial_shortcuts">This tweak will unlock the new Assistant Shortcuts feature. Once activated you can go in Android Auto settings, and in the customize launcher
-    section you can start adding shortcuts to Google Assistant commands</string>
+    <string name="tutorial_shortcuts">This tweak will unlock the new Assistant Shortcuts feature. Once activated you can go in Android Auto settings, and in the customize launcher section you can start adding shortcuts to Google Assistant commands</string>
     <string name="tutorial_startup">This tweak will override the default behaviour of Android Auto opening a navigation app at start and will make Android Auto start on launcher.\n
-        In some cases this tweak will disable auto start of music. A known workaround is to disable and re-enable the option within Android Auto settings.\n
-    IT\'S NOT POSSIBLE TO SET A SPECIFIC APP TO START FIRST.</string>
+In some cases this tweak will disable auto start of music. A known workaround is to disable and re-enable the option within Android Auto settings.\n
+IT\'S NOT POSSIBLE TO SET A SPECIFIC APP TO START FIRST.</string>
     <string name="tutorial_widescreen">This tweak will force Android Auto in widescreen mode.</string>
     <string name="tutorial_no_widescreen">This tweak will force Android Auto in no widescreen mode.</string>
     <string name="tutorial_animation">This tweak enable an animation of Google Assistant in the navigation bar.</string>
@@ -81,4 +79,6 @@ Android Auto 5.8 or superior is required.</string>
     <string name="tutorial_dark_mode">Starting from December 2020, Google reverted a behaviour that happened since Android 10. Previously, the light/dark mode on Android Auto followed the light/dark mode on the phone and vice versa. This meant that switching the phone to dark mode had effect on the car, or if the phone was in dark mode and the car had lights off it used to switch on the light theme on the phone.\n However, since this feature of \"independent\" dark mode was introduced, users with Aftermarket headunits have no way to switch to dark mode anymore without actually wiring the stereo to the car\'s lights.\n This tweak makes sure that night mode is again dependent from phone and switching light/dark mode on phone will have its effects on cars too.</string>
     <string name="dark_mode_tweak">independent dark mode</string>
     <string name="telemetry_string">telemetry</string>
+    <string name="tutorial_telemetry">It\'s no mistery that Google logs a lot of datas about us. This tweak will make so that Google Play Services will stop a lot of tracking and logging activity.\n
+WARNING: This tweak has not been extensively tested and could potentially break Android Auto. If you find out that this tweak breaks Android Auto, please open an issue on GitHub.</string>
 </resources>
