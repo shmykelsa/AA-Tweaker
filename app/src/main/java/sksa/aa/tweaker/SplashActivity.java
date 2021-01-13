@@ -46,6 +46,7 @@ public class SplashActivity extends AppCompatActivity {
         editor.putBoolean("battery_saver_warning", false);
         editor.putBoolean("aa_wallpapers", false);
         editor.putBoolean("aa_night_mode_revert", false);
+        editor.putBoolean("kill_telemetry", false);
         editor.commit();
 
 

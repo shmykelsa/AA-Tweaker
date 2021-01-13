@@ -4,7 +4,7 @@
     <string name="main_string">Welcome in AA AIO Tweaker\n
 This app will let you apply some tweaks to Android Auto\n
 Simply select what tweak you want to apply :)\n
-If you are unsure of what a tweak does, long press on it and a tutorial will show up.\n</string>
+If you are unsure of what a tweak does, long press on it and a tutorial will show up.</string>
     <string name="select_apps">Select apps</string>
     <string name="enable_assistant_shortcuts">Assistant shortcuts</string>
     <string name="patch_custom_apps">custom apps</string>
@@ -20,8 +20,8 @@ Under no circumnstances is the author of this app responsible for its use</strin
     <string name="battery_outline_string">battery saver outline</string>
     <string name="legend">Status Legend:\n
 GREEN= Patch applied\n
-YELLOW = Reboot is needed to apply patch\n
-RED= Patch is not applied</string>
+YELLOW= Reboot is needed to apply patch\n
+RED= Patch is not applied\n</string>
     <string name="set_notification_duration_to">Notification duration to</string>
     <string name="base_no_ws">Widescreen</string>
     <string name="force_widescreen_text">Force Widescreen</string>
@@ -48,7 +48,7 @@ It\'s not possible to add just any app to Android Auto, but it\'s possible to pa
     <string name="tutorial_multidisplay">This is an hidden feature inside Android Auto that will turn the second space in widescreen mode to a real second display that is completely taken by a seond activity. Google Maps will display a full map with navigation status, music and phones will take the full space.\n
 Additionally, this mode activates another feature that will turn the phone\'s screen in a second display for navigation in Android Auto.\n
 Settings for tweaking this feature will be available in Android Auto homescreen.\n
-Apparently, only Google Maps currently support this mode.\n
+Apparently, only Google Maps currently supports this mode.\n
 This feature is probably under development and could potentially not work as intended.\n
 Android Auto 5.8 or superior is required.</string>
     <string name="battery_warning">Battery saver warning</string>

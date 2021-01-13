@@ -3,7 +3,7 @@
     <string name="main_string">Benvenuto in AA AIO Tweaker\n
 Questa app ti permetterà di applicare alcune modifiche ad Android Auto\n
 Basta selezionare quale modifica vuoi applicare :)\n
-Se non sei sicuro del significato di una modifica, tieni premuto sul proprio pulsante e verrà visualizzato un tutorial.\n</string>
+Se non sei sicuro del significato di una modifica, tieni premuto sul proprio pulsante e verrà visualizzato un tutorial.</string>
     <string name="select_apps">Seleziona app</string>
     <string name="enable_assistant_shortcuts">Scorciatoie dell\'assistente</string>
     <string name="patch_custom_apps">app personalizzate</string>
@@ -20,7 +20,7 @@ In nessuna circostanza l\'autore di questa app è responsabile per il suo uso.</
     <string name="legend">Legenda:\n
 VERDE= Patch applicata\n
 GIALLO= Riavvio necessario per applicare la patch\n
-ROSSO = Patch non applicata</string>
+ROSSO= Patch non applicata\n</string>
     <string name="set_notification_duration_to">Durata notifiche a</string>
     <string name="base_no_ws">Widescreen</string>
     <string name="force_widescreen_text">Forza Widescreen</string>

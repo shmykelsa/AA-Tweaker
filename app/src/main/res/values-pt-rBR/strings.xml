@@ -3,7 +3,7 @@
     <string name="main_string">Bem-vindo ao AA AIO Tweaker\n
 Este aplicativo permitirá que você aplique alguns ajustes no Android Auto\n
 Basta selecionar o ajustes que você deseja aplicar :)\n
-Se você não tem certeza do que faz um ajuste, toque longo nele e um tutorial será exibido.\n\n</string>
+Se você não tem certeza do que faz um ajuste, toque longo nele e um tutorial será exibido.</string>
     <string name="select_apps">Apps selecionados</string>
     <string name="enable_assistant_shortcuts">Atalhos da assistente</string>
     <string name="patch_custom_apps">apps Personalizados</string>
@@ -18,9 +18,9 @@ Sob nenhuma circunstância é o autor deste app responsável pela sua utilizaç�
     <string name="statb_opaque_string">Forçar Statusbar Opaca</string>
     <string name="battery_outline_string">contorno da economia de bateria</string>
     <string name="legend">Status Legend:\n
-        VERDE= Patch aplicado\n
-        AMARELO= Patch precisa ser reiniciado para ser aplicado\n
-        VERMELHO= Patch não é aplicável</string>
+VERDE= Patch aplicado\n
+AMARELO= Patch precisa ser reiniciado para ser aplicado\n
+VERMELHO= Patch não é aplicável\n</string>
     <string name="set_notification_duration_to">Duração das notificações para</string>
     <string name="base_no_ws">Tela Cheia</string>
     <string name="force_widescreen_text">Forçar tela cheia</string>

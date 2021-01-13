@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="main_string">Welkom bij AA AIO Tweaker\n
-        Met deze app kunt u enkele aanpassingen doen aan Android Auto\n
-        Selecteer eenvoudig welke aanpassing u wilt toepassen :)\n
-        Als u niet zeker weet wat een tweak doet, kunt u er lang op drukken om een tutorial te laten verschijnen.\n</string>
+Met deze app kunt u enkele aanpassingen doen aan Android Auto\n
+Selecteer eenvoudig welke aanpassing u wilt toepassen :)\n
+Als u niet zeker weet wat een tweak doet, kunt u er lang op drukken om een tutorial te laten verschijnen.</string>
     <string name="select_apps">Kies apps</string>
     <string name="enable_assistant_shortcuts">Assistent-snelkoppelingen</string>
     <string name="patch_custom_apps">aangepaste apps</string>
@@ -19,9 +19,9 @@
     <string name="statb_opaque_string">Forceer ondoorzichtige statusbalk</string>
     <string name="battery_outline_string">omtrek batterijbesparing</string>
     <string name="legend">Status legenda:\n
-        GROEN= Aanpassing toegepast\n
-        GEEL= Toestel moet opnieuw worden opgestart om toe te passen\n
-        ROOD= Aanpassing niet toegepast</string>
+GROEN= Aanpassing toegepast\n
+GEEL= Toestel moet opnieuw worden opgestart om toe te passen\n
+ROOD = Aanpassing niet toegepast\n</string>
     <string name="set_notification_duration_to">Duur notificatie</string>
     <string name="base_no_ws">Breedbeeld</string>
     <string name="force_widescreen_text">Forceer Breedbeeld</string>

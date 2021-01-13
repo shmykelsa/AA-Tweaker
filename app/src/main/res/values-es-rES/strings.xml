@@ -3,7 +3,7 @@
     <string name="main_string">Bienvenidos a AA AIO Tweaker.\n
 Esta herramienta te permitirá modificar y personalizar Android Auto.\n
 Simplemente selecciona la modificación que quieras aplicar :)\n
-Si no estás seguro de lo que hace alguna función, mantén pulsada la opción y saltará un tutorial.\n</string>
+Si no estás seguro de lo que hace alguna función, mantén pulsada la opción y saltará un tutorial.</string>
     <string name="select_apps">Seleccionar aplicaciones:</string>
     <string name="enable_assistant_shortcuts">Atajos del asistente</string>
     <string name="patch_custom_apps">Aplicaciones personalizadas</string>

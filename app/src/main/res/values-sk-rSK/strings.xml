@@ -3,7 +3,7 @@
     <string name="main_string">Vitajte v AA AIO Vylepšení\n
  Táto aplikácia Vám dovolí použiť vylepšenia pre Android Auto\n
  Jednoducho vyberte vylepšenie ktoré chcete aplikovať :)\n
- Ak si nie ste istý čo dané vylepšenie robí, dlhým stlačením na ňom sa objaví návod.\n</string>
+ Ak si nie ste istý čo dané vylepšenie robí, dlhým stlačením na ňom sa objaví návod.</string>
     <string name="select_apps">Výber aplikácií</string>
     <string name="enable_assistant_shortcuts">Asistent skratiek</string>
     <string name="patch_custom_apps">použiteľné aplikácie</string>
@@ -19,9 +19,9 @@
     <string name="statb_opaque_string">Vnútenie Nepriehľadná Status lišta</string>
     <string name="battery_outline_string">obrys šetriča batérie</string>
     <string name="legend">Popis stavu:\n
-        ZELENÁ=Záplata aplikovaná\n
-        ŽLTÁ=Záplata potrebuje reboot pre aplikovanie\n
-        ČERVENÁ=Záplata nie je aplikovaná</string>
+ZELENÁ=Záplata aplikovaná\n
+ŽLTÁ=Záplata potrebuje reboot pre aplikovanie\n
+ČERVENÁ=Záplata nie je aplikovaná\n</string>
     <string name="set_notification_duration_to">Trvanie notifikácie</string>
     <string name="base_no_ws">Širokouhlé zobrazenie</string>
     <string name="force_widescreen_text">Vnútenie Širokouhlého zobrazenia</string>

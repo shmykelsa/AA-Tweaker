@@ -3,7 +3,7 @@
     <string name="main_string">Welcome in AA AIO Tweaker\n
 This app will let you apply some tweaks to Android Auto\n
 Simply select what tweak you want to apply :)\n
-If you are unsure of what a tweak does, long press on it and a tutorial will show up.\n</string>
+If you are unsure of what a tweak does, long press on it and a tutorial will show up.</string>
     <string name="select_apps">Výběr aplikací</string>
     <string name="enable_assistant_shortcuts">Zkratky asistenta</string>
     <string name="patch_custom_apps">vlastní aplikace</string>
@@ -19,9 +19,9 @@ If you are unsure of what a tweak does, long press on it and a tutorial will sho
     <string name="statb_opaque_string">Vynutit neprůhledný stavový panel</string>
     <string name="battery_outline_string">obrys spořiče baterie</string>
     <string name="legend">Legenda Stavů:\n
-        ZELENÁ= Patch aplikován\n
-        ŽLUTÁ= Patch vyžaduje restart aplikace\n
-        ČERVENÁ= Patch není aplikován</string>
+ZELENÁ= Patch aplikován\n
+ŽLUTÁ= Patch vyžaduje restart aplikace\n
+ČERVENÁ= Patch není aplikován\n</string>
     <string name="set_notification_duration_to">Doba trvání oznámení do</string>
     <string name="base_no_ws">Širokoúhlá obrazovka</string>
     <string name="force_widescreen_text">Vynutit širokoúhlý obraz</string>

@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
@@ -33,6 +34,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 @SuppressWarnings("ALL")
 public class MainActivity extends AppCompatActivity {
@@ -99,6 +102,45 @@ public class MainActivity extends AppCompatActivity {
         rotate.setInterpolator(new LinearInterpolator());
 
         final Boolean[] animationRun = {false};
+        final TextView upperTextView = findViewById(R.id.legend);
+        upperTextView.setText(R.string.main_string);
+        final AlphaAnimation legendAnim;
+        legendAnim = new AlphaAnimation(1.0f, 0.0f);
+        legendAnim.setDuration(100);
+        legendAnim.setRepeatCount(1);
+        legendAnim.setRepeatMode(Animation.REVERSE);
+        legendAnim.setAnimationListener(new Animation.AnimationListener() {
+
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+            @Override
+            public void onAnimationEnd(Animation animation) {
+            }
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+                if (upperTextView.getText().toString().equals(getString(R.string.legend))){
+                    upperTextView.setText(R.string.main_string);
+                } else {
+                    upperTextView.setText(R.string.legend);
+                }
+            }
+        });
+
+        Timer _timer = new Timer();
+
+        _timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // use runOnUiThread(Runnable action)
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        upperTextView.startAnimation(legendAnim);
+                    }
+                });
+            }
+        }, 12000, 12000);
 
         final Button nospeed = findViewById(R.id.nospeed);
         final ImageView nospeedimg = findViewById(R.id.speedhackstatus);
@@ -125,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
+
                                 animationRun[0] = true;
                             }
                         }
@@ -137,6 +180,8 @@ public class MainActivity extends AppCompatActivity {
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
+
+
                                 animationRun[0] = true;
                             }
                         }
@@ -225,6 +270,8 @@ public class MainActivity extends AppCompatActivity {
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
+
+
                                 animationRun[0] = true;
                             }
                         }
@@ -237,6 +284,8 @@ public class MainActivity extends AppCompatActivity {
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
+
+
                                 animationRun[0] = true;
                             }
                         }
@@ -294,6 +343,8 @@ public class MainActivity extends AppCompatActivity {
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
+
+
                                 animationRun[0] = true;
                             }
                         }
@@ -306,6 +357,8 @@ public class MainActivity extends AppCompatActivity {
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
+
+
                                 animationRun[0] = true;
                             }
                         }
@@ -337,6 +390,8 @@ public class MainActivity extends AppCompatActivity {
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
+
+
                                 animationRun[0] = true;
                             }
                         }
@@ -349,6 +404,8 @@ public class MainActivity extends AppCompatActivity {
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
+
+
                                 animationRun[0] = true;
                             }
                         }
@@ -405,6 +462,8 @@ public class MainActivity extends AppCompatActivity {
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
+
+
                                 animationRun[0] = true;
                             }
                         }
@@ -424,6 +483,8 @@ public class MainActivity extends AppCompatActivity {
                                 if (!animationRun[0]) {
                                     rebootButton.setVisibility(View.VISIBLE);
                                     rebootButton.startAnimation(anim);
+
+
                                     animationRun[0] = true;
                                 }
                             }
@@ -480,6 +541,8 @@ public class MainActivity extends AppCompatActivity {
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
+
+
                                 animationRun[0] = true;
                             }
                         }
@@ -492,6 +555,8 @@ public class MainActivity extends AppCompatActivity {
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
+
+
                                 animationRun[0] = true;
                             }
                         }
@@ -550,6 +615,8 @@ public class MainActivity extends AppCompatActivity {
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
+
+
                                 animationRun[0] = true;
                             }
                         }
@@ -562,6 +629,8 @@ public class MainActivity extends AppCompatActivity {
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
+
+
                                 animationRun[0] = true;
                             }
                         }
@@ -620,6 +689,8 @@ public class MainActivity extends AppCompatActivity {
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
+
+
                                 animationRun[0] = true;
                             }
                         }
@@ -632,6 +703,8 @@ public class MainActivity extends AppCompatActivity {
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
+
+
                                 animationRun[0] = true;
                             }
                         }
@@ -691,6 +764,8 @@ public class MainActivity extends AppCompatActivity {
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
+
+
                                 animationRun[0] = true;
                             }
                         }
@@ -712,6 +787,8 @@ public class MainActivity extends AppCompatActivity {
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
+
+
                                 animationRun[0] = true;
                             }
                         }
@@ -769,6 +846,8 @@ public class MainActivity extends AppCompatActivity {
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
+
+
                                 animationRun[0] = true;
                             }
                         }
@@ -790,6 +869,8 @@ public class MainActivity extends AppCompatActivity {
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
+
+
                                 animationRun[0] = true;
                             }
                         }
@@ -879,6 +960,8 @@ public class MainActivity extends AppCompatActivity {
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
+
+
                                 animationRun[0] = true;
                             }
                         }
@@ -891,6 +974,8 @@ public class MainActivity extends AppCompatActivity {
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
+
+
                                 animationRun[0] = true;
                             }
                         }
@@ -980,6 +1065,8 @@ public class MainActivity extends AppCompatActivity {
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
+
+
                                 animationRun[0] = true;
                             }
                         }
@@ -993,6 +1080,8 @@ public class MainActivity extends AppCompatActivity {
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
+
+
                                 animationRun[0] = true;
                             }
                         }
@@ -1052,6 +1141,8 @@ public class MainActivity extends AppCompatActivity {
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
+
+
                                 animationRun[0] = true;
                             }
                         }
@@ -1065,6 +1156,8 @@ public class MainActivity extends AppCompatActivity {
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
+
+
                                 animationRun[0] = true;
                             }
                         }
@@ -1120,6 +1213,8 @@ public class MainActivity extends AppCompatActivity {
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
+
+
                                 animationRun[0] = true;
                             }
                         }
@@ -1133,6 +1228,8 @@ public class MainActivity extends AppCompatActivity {
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
+
+
                                 animationRun[0] = true;
                             }
                         }
@@ -1196,6 +1293,8 @@ public class MainActivity extends AppCompatActivity {
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
+
+
                                 animationRun[0] = true;
                             }
                         }
@@ -1209,6 +1308,8 @@ public class MainActivity extends AppCompatActivity {
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
+
+
                                 animationRun[0] = true;
                             }
                         }
@@ -1266,6 +1367,8 @@ public class MainActivity extends AppCompatActivity {
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
+
+
                                 animationRun[0] = true;
                             }
                         }
@@ -1279,6 +1382,8 @@ public class MainActivity extends AppCompatActivity {
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
+
+
                                 animationRun[0] = true;
                             }
                         }
@@ -1342,6 +1447,8 @@ public class MainActivity extends AppCompatActivity {
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
+
+
                                 animationRun[0] = true;
                             }
                         }
@@ -1355,6 +1462,8 @@ public class MainActivity extends AppCompatActivity {
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
+
+
                                 animationRun[0] = true;
                             }
                         }
@@ -1410,6 +1519,8 @@ public class MainActivity extends AppCompatActivity {
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
+
+
                                 animationRun[0] = true;
                             }
                         }
@@ -1423,6 +1534,8 @@ public class MainActivity extends AppCompatActivity {
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
+
+
                                 animationRun[0] = true;
                             }
                         }

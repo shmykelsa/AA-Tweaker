@@ -5,8 +5,6 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
@@ -17,8 +15,6 @@ import android.widget.Toast;
 
 
 public class AboutDialog extends DialogFragment {
-
-    Context context = MainActivity.getContext();
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -49,9 +45,10 @@ public class AboutDialog extends DialogFragment {
                         "German: Lassmiranda<br>" +
                         "Korean: Mabig<br>" +
                         "Catalan: rogerpi95" +
+                        "Polish: Nor7ovich, MarcinzSowie" +
                         "<br>Interested in translating AA AIO TWEAKER in your own language? Join translations on <a href=\"https://crowdin.com/project/aa-aio-tweaker\">Crowdin</a>!"));
                 builder.setCancelable(true);
-                builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton(getString(R.string.positive_button), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                     }
@@ -77,13 +74,6 @@ public class AboutDialog extends DialogFragment {
         ((TextView)Alert.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
         return Alert;
     }
-
-    private void startBrowser() {
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://crowdin.com/project/aa-aio-tweaker"));
-        browserIntent.putExtra("Activity", "AboutDialog");
-        startActivity(browserIntent);
-    }
-
 
 
 }

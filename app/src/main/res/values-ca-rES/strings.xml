@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="main_string">Benvinguts a AA AIO Tweaker.\n
-    Aquesta eina et permetrà modificar i personalitzar Android Auto.\n
-    Simplement selecciona la modificació que vols aplicar :)\n
-    Si no esteu segur del que fa un ajust, mantingueu-lo premut i apareixerà un tutorial.\n</string>
+Aquesta eina et permetrà modificar i personalitzar Android Auto.\n
+Simplement selecciona la modificació que vols aplicar :)\n
+Si no esteu segur del que fa un ajust, mantingueu-lo premut i apareixerà un tutorial.</string>
     <string name="select_apps">Seleccionar aplicacions</string>
     <string name="enable_assistant_shortcuts">Dreceres de l’assistent</string>
     <string name="patch_custom_apps">aplicacions personalitzades</string>
@@ -18,9 +18,9 @@
     <string name="statb_opaque_string">Forçar Barra d\'Estat Opaca</string>
     <string name="battery_outline_string">contorn de la icona d\'estalvi d\'energia</string>
     <string name="legend">LLegenda:\n
-    VERD= Patch aplicat\n
-    GROC= Cal reiniciar per aplicar el patch\n
-    VERMELL= Patch no aplicat</string>
+VERD= Patch aplicat\n
+GROC= Cal reiniciar per aplicar el patch\n
+VERMELL= Patch no aplicat\n</string>
     <string name="set_notification_duration_to">Duració de la notificació a</string>
     <string name="base_no_ws">Pantalla completa</string>
     <string name="force_widescreen_text">Forçar pantalla completa</string>

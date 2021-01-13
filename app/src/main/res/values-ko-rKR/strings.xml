@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="main_string">AA AIO Tweaker에 오신것을 환영합니다\n
-        이 앱을 사용하면 Android Auto에 트윅을 할 수 있습니다\n
-        수정할것을 선택하기만 하면 됩니다\n
-        수정할것이 무엇인지 잘 모르겠다면 수정할것을 길게 누르면 튜토리얼이 표시됩니다\n</string>
+이 앱을 사용하면 Android Auto에 트윅을 할 수 있습니다\n
+수정할것을 선택하기만 하면 됩니다\n
+수정할것이 무엇인지 잘 모르겠다면 수정할것을 길게 누르면 튜토리얼이 표시됩니다</string>
     <string name="select_apps">앱 선택</string>
     <string name="enable_assistant_shortcuts">어시스턴트 단축키</string>
     <string name="patch_custom_apps">커스텀 앱</string>
@@ -18,9 +18,9 @@
     <string name="statb_opaque_string">상태 표시줄 강제 불투명화</string>
     <string name="battery_outline_string">배터리 세이버 윤곽선</string>
     <string name="legend">상태:\n
-        초록색= 패치됨\n
-        노랑색= 패치를 적용하려면 재부팅 필요\n
-        빨강색= 패치되지 않음</string>
+초록색= 패치됨\n
+노랑색= 패치를 적용하려면 재부팅 필요\n
+빨강색= 패치되지 않음\n</string>
     <string name="set_notification_duration_to">알림 표시 시간</string>
     <string name="base_no_ws">와이드스크린</string>
     <string name="force_widescreen_text">강제 와이드스크린</string>

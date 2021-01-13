@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="main_string">Bienvenue dans AA AIO Tweaker\n
-        Cette application vous permettra d\'appliquer quelques améliorations à Android Auto\n
-        Sélectionnez simplement le réglage que vous voulez appliquer :)\n
-        Si vous n\'êtes pas certain de ce que fait un tweak appuyez longuement et un tutoriel apparaîtra.\n</string>
+Cette application vous permettra d\'appliquer quelques améliorations à Android Auto\n
+Sélectionnez simplement le réglage que vous voulez appliquer :)\n
+Si vous n\'êtes pas certain de ce que fait un tweak appuyez longuement et un tutoriel apparaîtra.</string>
     <string name="select_apps">Sélectionner les applications</string>
     <string name="enable_assistant_shortcuts">Raccourcis de l\'assistant</string>
     <string name="patch_custom_apps">Applications personnalisées</string>
@@ -18,9 +18,9 @@ En aucun cas l\'auteur de cette application n\'est responsable de son utilisatio
     <string name="statb_opaque_string">Force Opaque Statusbar</string>
     <string name="battery_outline_string">Contour de l\'économiseur de batterie</string>
     <string name="legend">Légende de statut :\n
-        GREEN= Patch appliqué\n
-        JAIN= Le correctif doit être redémarré pour être appliqué\n
-        RED= Le correctif n\'est pas appliqué</string>
+GREEN= Patch appliqué\n
+JAIN= Le correctif doit être redémarré pour être appliqué\n
+RED= Le correctif n\'est pas appliqué\n</string>
     <string name="set_notification_duration_to">Durée de la notification</string>
     <string name="base_no_ws">Écran large</string>
     <string name="force_widescreen_text">Forcer l\'écran large</string>

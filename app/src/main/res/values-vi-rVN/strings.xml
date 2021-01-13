@@ -3,7 +3,7 @@
     <string name="main_string">Chào mừng bạn sử dụng AA AIO Tweaker\n
 Đây là ứng dụng sẽ giúp bạn tinh chỉnh một vài thông số trong Android Auto\n
 Chỉ đơn giản là chọn và điều chỉnh các thông số mà bạn muốn :)\n
-Nếu bạn chưa chắc chắn gì những gì công cụ sẽ làm, chỉ cần ấn giữ và bảng hướng dẫn sẽ hiện ra.\n</string>
+Nếu bạn chưa chắc chắn gì những gì công cụ sẽ làm, chỉ cần ấn giữ và bảng hướng dẫn sẽ hiện ra.</string>
     <string name="select_apps">Select app</string>
     <string name="enable_assistant_shortcuts">Lối tắt đến lệnh</string>
     <string name="patch_custom_apps">ứng dụng ngoài</string>
@@ -20,7 +20,7 @@ Trong mọi trường hợp, tác giả của ứng dụng này không chịu tr
     <string name="legend">Biểu tượng trạng thái:\n
 XANH LÁ CÂY: Đã áp dụng thay đổi\n
 VÀNG: Cần khởi động lại để áp dụng\n
-ĐỎ: Thay đổi chưa được áp dụng</string>
+ĐỎ: Thay đổi chưa được áp dụng\n</string>
     <string name="set_notification_duration_to">Thời lượng thông báo đến</string>
     <string name="base_no_ws">Màn hình dài</string>
     <string name="force_widescreen_text">Ép thành màn hình dài</string>
