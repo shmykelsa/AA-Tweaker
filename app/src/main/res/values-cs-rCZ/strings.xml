@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="main_string">Vítejte v aplikaci AA AIO Tweaker!\n\n
-Tato aplikace Vám umožní změnit některá nastavení pro Android Auto.\n\n
-Jednoduše vyberte, jaká nastavení chcete použít.\n\n
+    <string name="main_string">Vítejte v aplikaci AA AIO Tweaker!\n
+Tato aplikace Vám umožní změnit některá nastavení pro Android Auto.\n
+Jednoduše vyberte, jaká nastavení chcete použít.\n
 Pokud si nejste jisti, dlouhým stisknutím na text se zobrazí nápověda.</string>
     <string name="select_apps">Vybrat\naplikace</string>
     <string name="enable_assistant_shortcuts">Zkratky asistenta</string>
@@ -10,9 +10,9 @@ Pokud si nejste jisti, dlouhým stisknutím na text se zobrazí nápověda.</str
     <string name="disable_speed_limitations">Omezení klikání</string>
     <string name="unlimited_scrolling_when_driving">Rychlostní omezení</string>
     <string name="enable_assistant_animation_in_navbar">Animaci asistenta v navigačním panelu</string>
-    <string name="splash">Tato aplikace může změnit chování systému Android Auto a obejít některé bezpečnostní funkce, které Google implementoval v systému Android Auto.\n\n
-Používáním této aplikace souhlasíte s tím, že na sebe přebíráte plnou zodpovědnost, za případné důsledky způsobené změnou ochranných prvků.\n\n
-Vystavujete se tedy riziku zranění sebe nebo jiných osob, poškození majetku, ztráty na životech.\n\n
+    <string name="splash">Tato aplikace může změnit chování systému Android Auto a obejít některé bezpečnostní funkce, které Google implementoval v systému Android Auto.\n
+Používáním této aplikace souhlasíte s tím, že na sebe přebíráte plnou zodpovědnost, za případné důsledky způsobené změnou ochranných prvků.\n
+Vystavujete se tedy riziku zranění sebe nebo jiných osob, poškození majetku, ztráty na životech.\n
 Autor této aplikace není za žádných okolností zodpovědný za její používání.</string>
     <string name="proceed">Rozumím</string>
     <string name="navigation_at_start">Navigaci při spuštění</string>
@@ -27,16 +27,16 @@ ZELENÁ= Oprava aplikována\n
     <string name="force_widescreen_text">Vynucení širokoúhlé obrazovky</string>
     <string name="media_notification_duration_to">Délku trvání oznámení médií</string>
     <string name="bluetooth_auto_connect">Automatické připojení Bluetooth</string>
-    <string name="tutorial_nospeed">Toto nastavení změní v Android Auto informaci o jízdě vozidla tak, že Android Auto si bude myslet, že vozidlo stojí.\n\n
-Android Auto bude vždy zobrazovat náhledy zpráv.\n\n
+    <string name="tutorial_nospeed">Toto nastavení změní v Android Auto informaci o jízdě vozidla tak, že Android Auto si bude myslet, že vozidlo stojí.\n
+Android Auto bude vždy zobrazovat náhledy zpráv.\n
 Toto nastavení neovlivní klávesnici nebo výchozí nastavení.</string>
     <string name="tutorial_sixtap">Toto nastavení zruší limit 6 kliknutí v aplikaci Android Auto a umožní neomezené prohlížení obsahu.</string>
-    <string name="tutorial_shortcuts">Toto nastavení odemkne novou funkci zkratek asistenta.\n\n
+    <string name="tutorial_shortcuts">Toto nastavení odemkne novou funkci zkratek asistenta.\n
 Po aktivaci můžete přejít do nastavení Android Auto a v sekci přizpůsobení spouštěče můžete začít přidávat zkratky pro příkazy Google Asistenta.</string>
-    <string name="tutorial_startup">Toto nastavení změní výchozí chování aplikace Android Auto, která při každém spuštění otevře aplikaci navigace.\n\n
-Toto nastavení může občas selhat, protože navigace se spouští automaticky a pracuje samostatně.\n\n
-V některých případech může toto nastavení vypnout automatické spouštění hudby.\n\n
-Řešením je zakázat a znovu povolit v nastavení Android Auto.\n\n
+    <string name="tutorial_startup">Toto nastavení změní výchozí chování aplikace Android Auto, která při každém spuštění otevře aplikaci navigace.\n
+Toto nastavení může občas selhat, protože navigace se spouští automaticky a pracuje samostatně.\n
+V některých případech může toto nastavení vypnout automatické spouštění hudby.\n
+Řešením je zakázat a znovu povolit v nastavení Android Auto.\n
 NELZE SPECIFIKOVAT, KTERÁ APLIKACE SE BUDE PŘI SPUŠTĚNÍ ANDROID AUTO SPOUŠTĚT.</string>
     <string name="tutorial_widescreen">Toto nastavení vynutí režim širokoúhlé obrazovky v Android Auto.</string>
     <string name="tutorial_no_widescreen">Toto nastavení zakáže režim širokoúhlé obrazovky v Android Auto.</string>
@@ -45,37 +45,37 @@ NELZE SPECIFIKOVAT, KTERÁ APLIKACE SE BUDE PŘI SPUŠTĚNÍ ANDROID AUTO SPOUŠ
     <string name="tutorial_battery_outline">Toto nastavení zakáže ikonu baterie s červeným obrysem při zapnutém režimu spořiče baterie.</string>
     <string name="tutorial_hun">Toto nastavení umožňuje nastavit vlastní délku trvání plovoucích oznámení.</string>
     <string name="tutorial_media_hun">Toto nastavení umožňuje nastavit vlastní délku trvání oznámení médií v navigačním panelu až na 15 minut.</string>
-    <string name="tutorial_bluetooth">Toto nastavení zabrání zapnutí Bluetooth při připojení k Android Auto.\n\n
+    <string name="tutorial_bluetooth">Toto nastavení zabrání zapnutí Bluetooth při připojení k Android Auto.\n
 Toto nastavení nebude fungovat, pokud je funkce Bluetooth již zapnutá.</string>
-    <string name="tutorial_patchapps">Toto nastavení povolí aplikace třetích stran, tak aby tyto aplikace vytvořené s vlastním SDK fungovaly v Android Auto.\n\n
-Pokud znáte aplikaci AA Phenotype Patcher, je tato aplikace prakticky totožná.\n\n
+    <string name="tutorial_patchapps">Toto nastavení povolí aplikace třetích stran, tak aby tyto aplikace vytvořené s vlastním SDK fungovaly v Android Auto.\n
+Pokud znáte aplikaci AA Phenotype Patcher, je tato aplikace prakticky totožná.\n
 Není možné přidat jakoukoliv aplikaci. Lze povolit modifikované aplikace vytvořené speciálně pro ANDROID AUTO.</string>
     <string name="multi_display_string">Vícefunkční obrazovku</string>
-    <string name="tutorial_multidisplay">Toto je skrytá funkce v aplikaci Android Auto, která rozdělí obrazovku v režimu širokoúhlého zobrazení.\n\n
-Obrazovka se rozdělí na dvě části.\n\n
-Aplikace Google Mapy zobrazí celou mapu se stavem navigace na jedné polovině, a hudební přehrávač a telefon se zobrazí na druhé polovině obrazovky.\n\n
-Kromě toho tento režim aktivuje další funkci, která zapne obrazovku telefonu jako další obrazovku pro navigaci v Android Auto.\n\n
-Nastavení této funkce bude k dispozici na domovské obrazovce Android Auto.\n\n
-Tento režim zatím podporuje pouze aplikace Google Mapy.\n\n
-Tato funkce je ve vývoji a nemusí spolehlivě fungovat.\n\n
+    <string name="tutorial_multidisplay">Toto je skrytá funkce v aplikaci Android Auto, která rozdělí obrazovku v režimu širokoúhlého zobrazení.\n
+Obrazovka se rozdělí na dvě části.\n
+Aplikace Google Mapy zobrazí celou mapu se stavem navigace na jedné polovině, a hudební přehrávač a telefon se zobrazí na druhé polovině obrazovky.\n
+Kromě toho tento režim aktivuje další funkci, která zapne obrazovku telefonu jako další obrazovku pro navigaci v Android Auto.\n
+Nastavení této funkce bude k dispozici na domovské obrazovce Android Auto.\n
+Tento režim zatím podporuje pouze aplikace Google Mapy.\n
+Tato funkce je ve vývoji a nemusí spolehlivě fungovat.\n
 Je vyžadován Android Auto verze 5.8 a vyšší.</string>
     <string name="battery_warning">Upozornění spořiče baterie</string>
     <string name="tutorial_battery_saver_warning">Toto nastavení zabrání systému Android Auto zobrazovat upozornění na vyskakovací okna při zapnutém režimu spořiče baterie.</string>
-    <string name="disable_tweak_string">ZAKÁZAT\n</string>
-    <string name="enable_tweak_string">POVOLIT\n</string>
+    <string name="disable_tweak_string">ZAKÁZAT</string>
+    <string name="enable_tweak_string">POVOLIT</string>
     <string name="re_enable_tweak_string">Znovu povolit\n</string>
     <string name="copy_log">Kopírovat záznam</string>
     <string name="about">O aplikaci</string>
     <string name="revert_everything">Obnovit vše</string>
-    <string name="force_disable_tweak">ZAKÁZAT\n</string>
-    <string name="reset_tweak">Resetovat\n</string>
+    <string name="force_disable_tweak">ZAKÁZAT</string>
+    <string name="reset_tweak">Resetovat</string>
     <string name="force_widescreen_warning">Vynucení zapnutí širokoúhlé obrazovky bylo automaticky zakázáno</string>
     <string name="force_disable_widescreen_warning">Vynucení vypnutí širokoúhlé obrazovky bylo automaticky zakázáno</string>
     <string name="set_value">NASTAVIT\n</string>
     <string name="reboot_to_apply">RESTARTOVAT PRO POUŽITÍ</string>
     <string name="warning_title">UPOZORNĚNÍ</string>
-    <string name="unpatch">Nepoužít opravu na\n</string>
-    <string name="patch_app">Použít opravu na\n</string>
+    <string name="unpatch">Nepoužít opravu na</string>
+    <string name="patch_app">Použít opravu na</string>
     <string name="default_string">\u0020Výchozí</string>
     <string name="app_list_label">Seznam aplikací</string>
     <string name="positive_button">OK</string>
@@ -84,14 +84,14 @@ Je vyžadován Android Auto verze 5.8 a vyšší.</string>
     <string name="about_part_two"><![CDATA[Pokud se Vám opravdu líbí moje práce, zvažte zaslání příspěvku.<br> Podpořit mě můžete prostřednictvím <a href=\"http://www.paypal.me/grizzo96\">PayPal</a> nebo můžete zkopírovat mou Bitcoin adresu pomocí tlačítka níže.<br><br>Dokonce i malá částka mně bude odměnou :)]]></string>
     <string name="copied_address_toast">Adresa BTC zkopírována do schránky</string>
     <string name="custom_wallpapers">Tapety</string>
-    <string name="tutorial_wallpapers">Toto nastavení aktivuje změnu vestavěné tapety v Android Auto. Je vyžadován Android Auto verze 5.8 a vyšší.\n\n
+    <string name="tutorial_wallpapers">Toto nastavení aktivuje změnu vestavěné tapety v Android Auto. Je vyžadován Android Auto verze 5.8 a vyšší.\n
 UPOZORNĚNÍ: Pokud používáte aplikaci Wallpapers for Android Auto, budete jí muset aktualizovat alespoň na verzi 3, jinak toto mastavení naruší funkčnost aplikace Wallpapers for Android Auto.</string>
-    <string name="tutorial_dark_mode">Od prosince 2020 se Google vrátil ke způsobu, který skončil s Androidem 10. Prakticky byl ukončen režim motivu v Android Auto tak, aby byl stejný jak v telefonu a obráceně.\n\n
-To znamená, že přepnutí telefonu do tmavého režimu neovlivní vozidlo, nebo pokud je telefon v tmavém režimu a vozidlo má zhasnutá světla, dojde ke změně na světlý motiv v telefonu.\n\n
-Vzhledem k tomu, že byla zavedena tato funkce /"nezávislého"/ tmavého režimu, nemají uživatelé s jednotkami /"Aftermarket"/ žádnou možnost, jak se přepnout do tmavého režimu, aniž by zapnuli světla vozidla.\n\n
+    <string name="tutorial_dark_mode">Od prosince 2020 se Google vrátil ke způsobu, který skončil s Androidem 10. Prakticky byl ukončen režim motivu v Android Auto tak, aby byl stejný jak v telefonu a obráceně.\n
+To znamená, že přepnutí telefonu do tmavého režimu neovlivní vozidlo, nebo pokud je telefon v tmavém režimu a vozidlo má zhasnutá světla, dojde ke změně na světlý motiv v telefonu.\n
+Vzhledem k tomu, že byla zavedena tato funkce \"nezávislého\" tmavého režimu, nemají uživatelé s jednotkami \"Aftermarket\" žádnou možnost, jak se přepnout do tmavého režimu, aniž by zapnuli světla vozidla.\n
 Toto nastavení zajišťuje, že noční režim je opět závislý na telefonu a přepínání režimu motivu v telefonu ovlivní vozidlo.</string>
     <string name="dark_mode_tweak">Nezávislý tmavý režim</string>
     <string name="telemetry_string">Telemetrii</string>
-    <string name="tutorial_telemetry">Není žádným tajemstvím, že Google o nás zaznamenává spoustu dat. Toto nastavení umožní, aby služby Google Play zastavily spoustu aktivit sledování a protokolování.\n\n
+    <string name="tutorial_telemetry">Není žádným tajemstvím, že Google o nás zaznamenává spoustu dat. Toto nastavení umožní, aby služby Google Play zastavily spoustu aktivit sledování a protokolování.\n
 UPOZORNĚNÍ: Toto nastavení nebylo podrobeno rozsáhlému testování a mohlo by narušit chování Android Auto. Nahlaste problém v GitHub, pokud zjistíte, že s tímto nastavením Android Auto špatně funguje.</string>
 </resources>

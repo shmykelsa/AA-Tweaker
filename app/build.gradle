@@ -19,9 +19,9 @@ android {
     defaultConfig {
         applicationId 'sksa.aa.tweaker'
         minSdkVersion 23
-        targetSdkVersion 29
-        versionCode 9
-        versionName '2.0'
+        targetSdkVersion 30
+        versionCode 10
+        versionName '2.3'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         setProperty("archivesBaseName","AA-AIO-TWEAKER-" + versionName)
     }
