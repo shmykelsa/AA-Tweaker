@@ -44,8 +44,8 @@ public class AboutDialog extends DialogFragment {
                         "Vietnamese: Quang.chk1<br>" +
                         "German: Lassmiranda<br>" +
                         "Korean: Mabig<br>" +
-                        "Catalan: rogerpi95" +
-                        "Polish: Nor7ovich, MarcinzSowie" +
+                        "Catalan: rogerpi95<br>" +
+                        "Polish: Nor7ovich, MarcinzSowie<br>" +
                         "<br>Interested in translating AA AIO TWEAKER in your own language? Join translations on <a href=\"https://crowdin.com/project/aa-aio-tweaker\">Crowdin</a>!"));
                 builder.setCancelable(true);
                 builder.setPositiveButton(getString(R.string.positive_button), new DialogInterface.OnClickListener() {

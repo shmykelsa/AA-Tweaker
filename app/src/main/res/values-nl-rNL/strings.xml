@@ -42,7 +42,7 @@ ROOD = Aanpassing niet toegepast\n</string>
     <string name="tutorial_battery_outline">Met deze tweak wordt het batterijpictogram met de rode omtrek voorkomen wanneer batterijbesparing is ingeschakeld.</string>
     <string name="tutorial_hun">Met deze tweak kunt u een aangepaste duur instellen voor heads-up meldingen</string>
     <string name="tutorial_media_hun">Met deze tweak kun je een aangepaste duur voor medianotificaties in de navigatiebalk instellen tot maximaal 15 minuten.</string>
-    <string name="tutorial_bluetooth">This tweak should prevent Bluetooth from turning on when Android Auto is connected. This tweak won\'t work if Bluetooth is already on.</string>
+    <string name="tutorial_bluetooth">Deze tweak moet voorkomen dat Bluetooth wordt ingeschakeld wanneer Android Auto is aangesloten. Deze tweak werkt niet als Bluetooth al ingeschakeld is.</string>
     <string name="tutorial_patchapps">Deze tweak zal apps van derden die specifiek met Android Auto Custom SDK zijn gemaakt in staat stellen om te werken op Android Auto.\n
         Deze tweak is vrijwel identiek aan AA Phenotype Patcher, wellicht bekend.\n
         Het is niet mogelijk om elke app toe te voegen aan Android Auto, maar het is mogelijk om gedownloade apps GEMAAKT VOOR ANDROID AUTO in auto\'s te laten werken.</string>
@@ -77,11 +77,11 @@ ROOD = Aanpassing niet toegepast\n</string>
     <string name="about_part_one"><![CDATA[AA AIO TWEAKER is ontwikkeld en onderhouden door Shmykelsa.<br><br>Broncode is beschikbaar op <a href=\"https://github.com/shmykelsa/AA-Tweaker\">GitHub</a><br><br>]]></string>
     <string name="about_part_two"><![CDATA[Als mijn werk je echt bevalt, overweeg dan een donatie.<br> U kunt aan mij doneren via <a href=\"http://www.paypal.me/grizzo96\">PayPal</a> of u kunt mijn Bitcoin adres kopiëren met de knop hieronder.<br><br>Ook een klein bedrag wordt zeer gewaardeerd :)]]></string>
     <string name="copied_address_toast">BTC adres gekopieerd naar klembord</string>
-    <string name="custom_wallpapers">Wallpapers</string>
-    <string name="tutorial_wallpapers">This tweak will activate the new built in wallpaper changer in Android Auto. Android Auto 5.8 or superior is required.\nWARNING: If you are a user of Wallpapers For Android Auto, you will need to update it to at least version 3.0, otherwise this tweak will break Wallpapers For Android Auto functionality.</string>
-    <string name="tutorial_dark_mode">Starting from December 2020, Google reverted a behaviour that happened since Android 10. Previously, the light/dark mode on Android Auto followed the light/dark mode on the phone and vice versa. This meant that switching the phone to dark mode had effect on the car, or if the phone was in dark mode and the car had lights off it used to switch on the light theme on the phone.\n However, since this feature of \"independent\" dark mode was introduced, users with Aftermarket headunits have no way to switch to dark mode anymore without actually wiring the stereo to the car\'s lights.\n This tweak makes sure that night mode is again dependent from phone and switching light/dark mode on phone will have its effects on cars too.</string>
-    <string name="dark_mode_tweak">independent dark mode</string>
-    <string name="telemetry_string">telemetry</string>
-    <string name="tutorial_telemetry">It\'s no mistery that Google logs a lot of datas about us. This tweak will make so that Google Play Services will stop a lot of tracking and logging activity.\n
-WARNING: This tweak has not been extensively tested and could potentially break Android Auto. If you find out that this tweak breaks Android Auto, please open an issue on GitHub.</string>
+    <string name="custom_wallpapers">Achtergronden</string>
+    <string name="tutorial_wallpapers">Deze tweak zal de nieuwe ingebouwde wallpaper changer activeren in Android Auto. Android Auto versie 5.8 of hoger is vereist.\nWAARSCHUWING: Als je een gebruiker bent van Wallpapers voor Android Auto, moet je de versie bijwerken naar ten minste versie 3.0. Anders zal deze tweak Wallpapers voor Android onbruikbaar maken.</string>
+    <string name="tutorial_dark_mode">Vanaf december 2020 heeft Google functionaliteit teruggedraaid dat sinds Android 10 gebeurde. Eerder volgde de licht/donkere modus op Android Auto op de licht/donkere modus op de telefoon en omgekeerd. Dit betekende dat het wisselen van de telefoon naar donkere modus van invloed was op de auto, of als de telefoon in donkere modus was en de auto had de lichten uit om het lichtthema op de telefoon aan te zetten.\n Omdat er een \"onafhankelijke\" donkere modus is geïntroduceerd, kunnen gebruikers met niet officiele headunits niet meer naar de donkere modus overschakelen zonder deze aan te sluiten op de lichten van de auto.\n Deze tweak zorgt ervoor dat de nachtmodus weer afhankelijk is van de telefoon. Als je lichte/donkere modus op de telefoon schakelt, heeft dit ook gevolgen voor de modus in de auto.</string>
+    <string name="dark_mode_tweak">onafhankelijke donkere modus</string>
+    <string name="telemetry_string">telemetrie</string>
+    <string name="tutorial_telemetry">Het is geen geheim dat Google veel data over ons logt. Deze tweak zal ervoor zorgen dat Google Play Services stop met het volgen en loggen van veel activiteitein.\n
+WAARSCHUWING: Deze tweak is niet uitgebreid getest en kan Android Auto mogelijk onbruikbaar maken. Als u erachter komt dat deze tweak Android Auto onbruikbaar maakt, open dan een probleem op GitHub.</string>
 </resources>
