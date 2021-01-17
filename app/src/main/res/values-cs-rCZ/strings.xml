@@ -18,7 +18,7 @@ Autor této aplikace není za žádných okolností zodpovědný za její použ�
     <string name="navigation_at_start">Navigaci při spuštění</string>
     <string name="statb_opaque_string">Neprůhledný stavový panel</string>
     <string name="battery_outline_string">Obrys spořiče baterie</string>
-    <string name="legend">Stav:\n
+    <string name="legend">Stav:\n\n
 ZELENÁ= Oprava aplikována\n
 ŽLUTÁ= Oprava vyžaduje restart aplikace\n
 ČERVENÁ= Oprava není aplikována\n</string>
@@ -61,21 +61,21 @@ Tato funkce je ve vývoji a nemusí spolehlivě fungovat.\n
 Je vyžadován Android Auto verze 5.8 a vyšší.</string>
     <string name="battery_warning">Upozornění spořiče baterie</string>
     <string name="tutorial_battery_saver_warning">Toto nastavení zabrání systému Android Auto zobrazovat upozornění na vyskakovací okna při zapnutém režimu spořiče baterie.</string>
-    <string name="disable_tweak_string">ZAKÁZAT</string>
-    <string name="enable_tweak_string">POVOLIT</string>
+    <string name="disable_tweak_string">ZAKÁZAT\n</string>
+    <string name="enable_tweak_string">POVOLIT\n</string>
     <string name="re_enable_tweak_string">Znovu povolit\n</string>
     <string name="copy_log">Kopírovat záznam</string>
     <string name="about">O aplikaci</string>
     <string name="revert_everything">Obnovit vše</string>
-    <string name="force_disable_tweak">ZAKÁZAT</string>
-    <string name="reset_tweak">Resetovat</string>
+    <string name="force_disable_tweak">ZAKÁZAT\n</string>
+    <string name="reset_tweak">Obnovit\n</string>
     <string name="force_widescreen_warning">Vynucení zapnutí širokoúhlé obrazovky bylo automaticky zakázáno</string>
     <string name="force_disable_widescreen_warning">Vynucení vypnutí širokoúhlé obrazovky bylo automaticky zakázáno</string>
     <string name="set_value">NASTAVIT\n</string>
     <string name="reboot_to_apply">RESTARTOVAT PRO POUŽITÍ</string>
     <string name="warning_title">UPOZORNĚNÍ</string>
-    <string name="unpatch">Nepoužít opravu na</string>
-    <string name="patch_app">Použít opravu na</string>
+    <string name="unpatch">Nepoužít opravu na\n</string>
+    <string name="patch_app">Použít opravu na\n</string>
     <string name="default_string">\u0020Výchozí</string>
     <string name="app_list_label">Seznam aplikací</string>
     <string name="positive_button">OK</string>
