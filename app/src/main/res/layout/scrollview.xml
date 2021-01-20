@@ -8,6 +8,11 @@
 <android.support.constraint.ConstraintLayout android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/buttons_area"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
         <Button
             android:id="@+id/patchapps"
             android:layout_width="0dp"
@@ -486,7 +491,6 @@
             android:drawableEnd="@drawable/ic_beta_logo"
             android:drawablePadding="9dp"
             android:text="@string/telemetry_string"
-            app:layout_constraintBottom_toTopOf="@id/extra_space"
             app:layout_constraintEnd_toStartOf="@id/assistanimstatus"
             app:layout_constraintTop_toBottomOf="@id/dark_mode_tweak_button"
             app:layout_constraintStart_toStartOf="parent" />
@@ -501,14 +505,63 @@
             app:layout_constraintTop_toTopOf="@id/telemetry_disable_tweak"
             app:layout_constraintBottom_toBottomOf="@id/telemetry_disable_tweak" />
 
+        <Button
+            android:id="@+id/calendar_more_events_button"
+            android:paddingTop="9dp"
+            android:layout_width="0dp"
+            style="@style/ButtonStyle"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:drawablePadding="9dp"
+            android:text="@string/calendar_tweak"
+            app:layout_constraintEnd_toStartOf="@id/assistanimstatus"
+            app:layout_constraintTop_toBottomOf="@id/telemetry_disable_tweak"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/calendar_more_events_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_check_circle_24"
+            android:layout_marginEnd="3dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/calendar_more_events_button"
+            app:layout_constraintBottom_toBottomOf="@id/calendar_more_events_button" />
+
+        <SeekBar
+            android:id="@+id/calendar_days_seekbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/calendar_more_events_button"
+            app:layout_constraintEnd_toStartOf="@id/calendar_days_seekbar_text"
+            android:paddingVertical="15dp"
+            android:progressTint="#FF0000"
+            android:thumbTint="#660000"
+            android:thumb="@drawable/thumb_bg"
+            android:max="14" />
+
+        <TextView
+            android:id="@+id/calendar_days_seekbar_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/calendar_days_seekbar"
+            app:layout_constraintBottom_toBottomOf="@id/calendar_days_seekbar"
+            android:layout_marginEnd="10dp"
+            android:gravity="center" />
+
+        </android.support.constraint.ConstraintLayout>
+
         <Space
             android:id="@+id/extra_space"
             android:layout_width="match_parent"
             android:layout_height="75dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
-
+            app:layout_constraintTop_toBottomOf="@id/buttons_area"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>
 

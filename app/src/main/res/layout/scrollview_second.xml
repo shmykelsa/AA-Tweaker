@@ -11,7 +11,7 @@
             android:layout_height="match_parent"
             android:scrollbars="vertical|horizontal"
             android:scrollHorizontally="true"
-            android:text="LOG:\n"
+            android:text="@string/log_first_line"
             android:layout_marginHorizontal="4dp"
             android:layout_marginTop="15dp"
             app:layout_constraintBottom_toBottomOf="parent"

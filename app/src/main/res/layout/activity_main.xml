@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="3dp"
         android:text="@string/legend"
-        android:minLines="5"
+        android:minLines="7"
         app:layout_constraintBottom_toTopOf="@id/viewpager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
