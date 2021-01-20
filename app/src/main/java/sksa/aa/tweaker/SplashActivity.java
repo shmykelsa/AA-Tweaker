@@ -22,11 +22,15 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.v("sksa.aa.tweaker", "Activity created");
         setContentView(R.layout.activity_splash);
+        Log.v("sksa.aa.tweaker", "Content created");
         final Intent intent = new Intent(this, MainActivity.class);
         final NoRootDialog noRootDialog = new NoRootDialog();
         final StreamLogs isDeviceRooted =  runSuWithCmd("echo 1");
+
         copyAssets();
+        Log.v("sksa.aa.tweaker", "Assets copied");
         SharedPreferences sharedPreferences = getSharedPreferences("MainActivity", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("aa_speed_hack", false);
@@ -48,10 +52,12 @@ public class SplashActivity extends AppCompatActivity {
         editor.putBoolean("aa_night_mode_revert", false);
         editor.putBoolean("kill_telemetry", false);
         editor.commit();
+        Log.v("sksa.aa.tweaker", "Preferences restored");
 
 
         final Button continueButton = findViewById(R.id.proceed_button);
         continueButton.setEnabled(false);
+        Log.v("sksa.aa.tweaker", "Engaging countdown");
         new CountDownTimer(5000, 10) {
             public void onTick(long millisUntilFinished) {
                 int secondsRemaining = (int) ( 1 + (millisUntilFinished/1000));
@@ -95,7 +101,7 @@ public class SplashActivity extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Log.v("AATW", "\n--  Copy sqlite3 to data directory  --");
+                    Log.v("sksa.aa.tweaker", "\n--  Copy sqlite3 to data directory  --");
                 }
             });
             InputStream in;
@@ -113,10 +119,10 @@ public class SplashActivity extends AppCompatActivity {
                 out.flush();
                 out.close();
             } catch(IOException e) {
-                Log.e("AATW", "Failed to copy asset file: sqlite3", e);
+                Log.e("sksa.aa.tweaker", "Failed to copy asset file: sqlite3", e);
             }
         }
-        Log.v("AATW", runSuWithCmd("chmod 775 " + path + "/sqlite3").getStreamLogsWithLabels());
+        Log.v("sksa.aa.tweaker", runSuWithCmd("chmod 775 " + path + "/sqlite3").getStreamLogsWithLabels());
     }
 
 

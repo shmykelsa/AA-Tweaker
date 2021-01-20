@@ -1,6 +1,8 @@
 package sksa.aa.tweaker;
 
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,6 +37,7 @@ public class MyAdapter extends RecyclerView.Adapter {
         setHasStableIds(true);
     }
 
+    @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, final int i) {
         View view = LayoutInflater.from(viewGroup.getContext())
@@ -52,7 +55,7 @@ public class MyAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder viewHolder, final int i) {
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder, final int i) {
         final AppInfo appInfo = mAppInfo.get(i);
         ((MyViewHolder) viewHolder).mName.setText(appInfo.getName());
         ((MyViewHolder) viewHolder).mPackageName.setText(appInfo.getPackageName());
@@ -76,12 +79,12 @@ public class MyAdapter extends RecyclerView.Adapter {
             editor.remove(mAppInfo.get(position).getPackageName());
             editor.apply();
             mAppInfo.get(position).setIsChecked(false);
-            Toast.makeText(v.getContext(), "Removed: " + mAppInfo.get(position).getPackageName(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(v.getContext(), Resources.getSystem().getString(R.string.removed_app_action) + mAppInfo.get(position).getPackageName(), Toast.LENGTH_SHORT).show();
         } else {
             editor.putString(mAppInfo.get(position).getPackageName(), mAppInfo.get(position).getName());
             editor.commit();
             mAppInfo.get(position).setIsChecked(true);
-            Toast.makeText(v.getContext(), "Added: " + mAppInfo.get(position).getPackageName(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(v.getContext(), Resources.getSystem().getString(R.string.added_app_action) + mAppInfo.get(position).getPackageName(), Toast.LENGTH_SHORT).show();
         }
     }
 
