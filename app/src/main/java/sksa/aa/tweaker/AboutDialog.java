@@ -36,9 +36,9 @@ public class AboutDialog extends DialogFragment {
                         "Dutch: Coyenzo<br>" +
                         "Slovak: Jozo19<br>" +
                         "Spanish: Krilok<br>" +
-                        "Czech: Martin2412<br>" +
+                        "Czech: Martin2412, LLZN<br>" +
                         "Slovenian: Brubblu<br>" +
-                        "French: Nova.kin<br>" +
+                        "French: Nova.kin, Sperafico<br>" +
                         "Italian: Shmykelsa<br>" +
                         "Brazilian Portuguese: Gsproenca<br>" +
                         "Vietnamese: Quang.chk1<br>" +
