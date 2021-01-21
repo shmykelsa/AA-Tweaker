@@ -65,7 +65,7 @@ public class AboutDialog extends DialogFragment {
                 ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("Copied Text", "39bdKem8taTZvm2WeyH8wwDhYKzZ2PzhGn");
                 clipboard.setPrimaryClip(clip);
-                Toast mytoast = Toast.makeText(getContext(), R.string.copied_address_toast, Toast.LENGTH_LONG);
+                Toast mytoast = Toast.makeText(getContext(), getString(R.string.copied_address_toast), Toast.LENGTH_LONG);
                 mytoast.show();
             }
         });

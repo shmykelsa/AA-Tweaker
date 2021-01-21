@@ -18,6 +18,7 @@ import java.util.Map;
 
 public class AppsList extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

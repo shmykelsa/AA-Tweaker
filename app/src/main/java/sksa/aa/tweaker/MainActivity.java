@@ -779,7 +779,7 @@ public class MainActivity extends AppCompatActivity {
                             forceWideScreenStatus.startAnimation(rotate);
                             save(true, "force_ws");
                             if (load("force_no_ws")) {
-                                Toast.makeText(getApplicationContext(), R.string.force_disable_widescreen_warning, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), getString(R.string.force_disable_widescreen_warning), Toast.LENGTH_LONG).show();
                                 save(false,"force_no_ws");
                                 forceNoWideScreen.setText(getString(R.string.force_disable_tweak) + getString(R.string.base_no_ws));
                                 forceNoWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
