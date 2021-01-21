@@ -84,4 +84,16 @@ Do aplikácie Android Auto nie je možné pridať ľubovoľnú aplikáciu, ale j
     <string name="telemetry_string">telemetria</string>
     <string name="tutorial_telemetry">Nie je tajomstvo že Google zbiera veľa dát o nás. Toto vylepšenie zastaví množstvo sledovaní a zbieranie dát s Google Play Services.\n
 UPOZORNENIE: Toto vylepšenie nebolo podrobne testované a mohlo by potenciálne poškodiť Android Auto. Ak zistíte že toto vylepšenie porušuje Android Auto, otvorte problém na GitHub.</string>
+    <string name="reboot_prompt">Reštartovať telefón teraz?</string>
+    <string name="rebooting_action">Reštartovanie…</string>
+    <string name="negative_button">zrušenie</string>
+    <string name="added_app_action">Pridané: </string>
+    <string name="removed_app_action">Odobraté: </string>
+    <string name="root_access_warning">Zamietnutý Root prístup. Prosím povoľte Root prístup.</string>
+    <string name="revert_everything_dialog">Chcete všetko vrátiť späť? Po vykonaní aplikáciu reštartujte manuálne</string>
+    <string name="calendar_tweak">Nastaviť %1$s viditeľných dní v kalendári</string>
+    <string name="calendar_tweak_single">Nastavenie %1$s viditeľných dní v kalendári</string>
+    <string name="tutorial_calendar_tweak">Toto vylepšenie umožní, aby aplikácia kalendára v aplikácii Android Auto mohla zobrazovať viac dní ako iba jeden. Upozorňujem, že ani pri zvyšovaní počtu dní stále nie je zjavne možné rozlíšiť, udalosti ktorého dňa si prezeráte. Android Auto iba zobrazí počet udalostí nastavených za jeden deň a neukáže, o ktorý deň ide.</string>
+    <string name="choose_apps_warning">Vyberte aplikácie, ktoré chcete pridať na bielu listinu</string>
+    <string name="log_first_line">Logovanie:\n</string>
 </resources>

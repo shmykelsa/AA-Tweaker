@@ -82,4 +82,16 @@ Questa funzione è probabilmente in fase di sviluppo e potrebbe non funzionare c
     <string name="telemetry_string">Telemetria</string>
     <string name="tutorial_telemetry">Non è un mistero che Google mantenga molti dei nostri dati. Questo tweak farà in modo che i Servizi Google non terranno più traccia di molte attività di Android Auto.\n
 ATTENZIONE: Questo tweak non è stato testato estensivamente e potenzialmente può rompere il funzionamento di Android Auto. Se scopri che questo tweak non fa più funzionare Android Auto, per favore, apri una segnalazione su GitHub. </string>
+    <string name="reboot_prompt">Riavviare il telefono ora?</string>
+    <string name="rebooting_action">Riavvio in corso…</string>
+    <string name="negative_button">annulla</string>
+    <string name="added_app_action">Aggiunta: </string>
+    <string name="removed_app_action">Rimossa: </string>
+    <string name="root_access_warning">Accesso root negato. Consenti l\'accesso root.</string>
+    <string name="revert_everything_dialog">Vuoi ripristinare tutto? Dovrai riavviare l\'app manualmente dopo aver fatto questa operazione.</string>
+    <string name="calendar_tweak">Imposta %1$s giorni visibili nel calendario</string>
+    <string name="calendar_tweak_single">Imposta %1$s giorno visibile nel calendario</string>
+    <string name="tutorial_calendar_tweak">Questo tweak farà in modo che l\'applicazione calendario in Android Auto possa mostrare più giorni invece che uno solo. Nota bene: anche aumentando il numero di giorni, per come è stato disegnato Android Auto, non è ancora possibile distinguere il giorno del quale si stanno consultando gli eventi. Android Auto mostrerà solo quanti eventi sono impostati in un giorno e non mostrerà quale giorno è.</string>
+    <string name="choose_apps_warning">Scegli le app da mettere in whitelist</string>
+    <string name="log_first_line">REGISTRO:\n</string>
 </resources>

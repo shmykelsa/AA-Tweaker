@@ -9,6 +9,14 @@ allprojects {
 }
 
 android {
+    signingConfigs {
+        'new' {
+            storeFile file('D:\\SigninKeys\\persubstratum.jks')
+            storePassword 'trottola'
+            keyAlias 'key0'
+            keyPassword 'trottola'
+        }
+    }
     lintOptions {
         checkReleaseBuilds false
         // Or, if you prefer, you can continue to check for errors in release builds,
@@ -19,11 +27,12 @@ android {
     defaultConfig {
         applicationId 'sksa.aa.tweaker'
         minSdkVersion 23
-        targetSdkVersion 30
-        versionCode 11
-        versionName '2.4'
+        targetSdkVersion 29
+        versionCode 12
+        versionName '2.5'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         setProperty("archivesBaseName","AA-AIO-TWEAKER-" + versionName)
+        signingConfig signingConfigs.'new'
     }
 
     buildTypes {

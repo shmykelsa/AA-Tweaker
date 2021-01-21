@@ -932,7 +932,7 @@ public class MainActivity extends AppCompatActivity {
                 messagesHunScrollbarValue[0] = hunSeekbar.getProgress();
                 displayValue.setText(hunSeekbar.getProgress() + "ms");
                 if (hunSeekbar.getProgress() == 8000) {
-                    messagesHunThrottling.setText(getString(R.string.set_value) + getString(R.string.set_notification_duration_to) + getString(R.string.default_string));
+                    messagesHunThrottling.setText(getString(R.string.reset_tweak) + getString(R.string.set_notification_duration_to) + getString(R.string.default_string));
                 } else {
                     messagesHunThrottling.setText(getString(R.string.set_value) + getString(R.string.set_notification_duration_to) + " " + hunSeekbar.getProgress()+ " ms");
                 }
@@ -975,7 +975,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else {
                             setHunDuration(view, hunSeekbar.getProgress(), UserCount);
-                            messagesHunThrottling.setText(getString(R.string.reset_tweak) + getString(R.string.set_notification_duration_to) + " default");
                             messagesHunStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             messagesHunStatus.setColorFilter(Color.argb(255,255,255,0));
                             messagesHunStatus.startAnimation(rotate);
@@ -1039,7 +1038,11 @@ public class MainActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
                 secondScrollBarStatus[0] = mediaSeekbar.getProgress();
                 secondDisplayValue.setText(mediaSeekbar.getProgress() + "ms");
-                mediathrottlingbutton.setText(getString(R.string.set_value) + getString(R.string.media_notification_duration_to) + " " + mediaSeekbar.getProgress()+ " ms");
+                if (hunSeekbar.getProgress() == 8000) {
+                    mediathrottlingbutton.setText(getString(R.string.reset_tweak) + getString(R.string.media_notification_duration_to) + getString(R.string.default_string));
+                } else {
+                    mediathrottlingbutton.setText(getString(R.string.set_value) + getString(R.string.media_notification_duration_to) + " " + mediaSeekbar.getProgress()+ " ms");
+                }
             }
         });
 
@@ -1132,8 +1135,8 @@ public class MainActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 calendarSeekbar.setProgress(progress);
                 calendarSeekbarTextView.setText(calendarSeekbar.getProgress() + "");
-                if (progress == 1) {
-                    moreCalendarButton.setText(getString(R.string.calendar_tweak, "default"));
+                if (progress == 1 || progress == 0) {
+                    moreCalendarButton.setText(getString(R.string.calendar_tweak_single, calendarSeekbar.getProgress()));
                 } else {
                     moreCalendarButton.setText(getString(R.string.calendar_tweak, calendarSeekbar.getProgress()));
                 }
@@ -1155,12 +1158,12 @@ public class MainActivity extends AppCompatActivity {
 
         final ImageView calendarTweakStatus = findViewById(R.id.calendar_more_events_status);
         if(load("calendar_aa_tweak")) {
-            moreCalendarButton.setText(getString(R.string.calendar_tweak, "default"));
+            moreCalendarButton.setText(getString(R.string.calendar_tweak_single, calendarSeekbar.getProgress()));
             calendarTweakStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
             calendarTweakStatus.setColorFilter(Color.argb(255,0,255,0));
 
         } else {
-            moreCalendarButton.setText(getString(R.string.set_value) + getString(R.string.calendar_tweak));
+            moreCalendarButton.setText(getString(R.string.calendar_tweak_single, calendarSeekbar.getProgress()));
             calendarTweakStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
             calendarTweakStatus.setColorFilter(Color.argb(255,255,0,0));
         }
@@ -2727,10 +2730,6 @@ public class MainActivity extends AppCompatActivity {
             finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"IndependentNightModeFeature__enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
-            finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"should_bypass_validation\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
-            finalCommand.append(i);
-            finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
         }
 

@@ -4,12 +4,12 @@
 Tato aplikace Vám umožní změnit některá nastavení pro Android Auto.\n
 Jednoduše vyberte, jaká nastavení chcete použít.\n
 Pokud si nejste jisti, dlouhým stisknutím na text se zobrazí nápověda.</string>
-    <string name="select_apps">Vybrat\naplikace</string>
+    <string name="select_apps">Vybrat aplikace</string>
     <string name="enable_assistant_shortcuts">Zkratky asistenta</string>
-    <string name="patch_custom_apps">Vlastní aplikace</string>
+    <string name="patch_custom_apps">vlastní aplikace</string>
     <string name="disable_speed_limitations">Omezení klikání</string>
-    <string name="unlimited_scrolling_when_driving">Rychlostní omezení</string>
-    <string name="enable_assistant_animation_in_navbar">Animaci asistenta v navigačním panelu</string>
+    <string name="unlimited_scrolling_when_driving">rychlostní omezení</string>
+    <string name="enable_assistant_animation_in_navbar">Animace asistenta v navigačním panelu</string>
     <string name="splash">Tato aplikace může změnit chování systému Android Auto a obejít některé bezpečnostní funkce, které Google implementoval v systému Android Auto.\n
 Používáním této aplikace souhlasíte s tím, že na sebe přebíráte plnou zodpovědnost, za případné důsledky způsobené změnou ochranných prvků.\n
 Vystavujete se tedy riziku zranění sebe nebo jiných osob, poškození majetku, ztráty na životech.\n
@@ -22,10 +22,10 @@ Autor této aplikace není za žádných okolností zodpovědný za její použ�
 ZELENÁ= Oprava aplikována\n
 ŽLUTÁ= Oprava vyžaduje restart aplikace\n
 ČERVENÁ= Oprava není aplikována\n</string>
-    <string name="set_notification_duration_to">Délku trvání plovoucích oznámení</string>
+    <string name="set_notification_duration_to">Doba trvání oznámení do</string>
     <string name="base_no_ws">Širokoúhlou obrazovku</string>
     <string name="force_widescreen_text">Vynucení širokoúhlé obrazovky</string>
-    <string name="media_notification_duration_to">Délku trvání oznámení médií</string>
+    <string name="media_notification_duration_to">Doba trvání oznámení do</string>
     <string name="bluetooth_auto_connect">Automatické připojení Bluetooth</string>
     <string name="tutorial_nospeed">Toto nastavení změní v Android Auto informaci o jízdě vozidla tak, že Android Auto si bude myslet, že vozidlo stojí.\n
 Android Auto bude vždy zobrazovat náhledy zpráv.\n
@@ -61,21 +61,21 @@ Tato funkce je ve vývoji a nemusí spolehlivě fungovat.\n
 Je vyžadován Android Auto verze 5.8 a vyšší.</string>
     <string name="battery_warning">Upozornění spořiče baterie</string>
     <string name="tutorial_battery_saver_warning">Toto nastavení zabrání systému Android Auto zobrazovat upozornění na vyskakovací okna při zapnutém režimu spořiče baterie.</string>
-    <string name="disable_tweak_string">ZAKÁZAT</string>
-    <string name="enable_tweak_string">POVOLIT</string>
-    <string name="re_enable_tweak_string">Znovu povolit\n</string>
+    <string name="disable_tweak_string">Vypnout\u0020</string>
+    <string name="enable_tweak_string">Zapnout\u0020</string>
+    <string name="re_enable_tweak_string">Znovu zapnout\u0020</string>
     <string name="copy_log">Kopírovat záznam</string>
     <string name="about">O aplikaci</string>
     <string name="revert_everything">Obnovit vše</string>
-    <string name="force_disable_tweak">ZAKÁZAT</string>
-    <string name="reset_tweak">Resetovat</string>
-    <string name="force_widescreen_warning">Vynucení zapnutí širokoúhlé obrazovky bylo automaticky zakázáno</string>
+    <string name="force_disable_tweak">Vynutit vypnutí\u0020</string>
+    <string name="reset_tweak">Reset\u0020</string>
+    <string name="force_widescreen_warning">Vynucení širokoúhlé obrazovky bylo automaticky zakázáno</string>
     <string name="force_disable_widescreen_warning">Vynucení vypnutí širokoúhlé obrazovky bylo automaticky zakázáno</string>
-    <string name="set_value">NASTAVIT\n</string>
+    <string name="set_value">Nastavit\u0020</string>
     <string name="reboot_to_apply">RESTARTOVAT PRO POUŽITÍ</string>
     <string name="warning_title">UPOZORNĚNÍ</string>
-    <string name="unpatch">Nepoužít opravu na</string>
-    <string name="patch_app">Použít opravu na</string>
+    <string name="unpatch">Nepoužít opravu na\u0020</string>
+    <string name="patch_app">Použít opravu na\u0020</string>
     <string name="default_string">\u0020Výchozí</string>
     <string name="app_list_label">Seznam aplikací</string>
     <string name="positive_button">OK</string>
@@ -94,4 +94,16 @@ Toto nastavení zajišťuje, že noční režim je opět závislý na telefonu a
     <string name="telemetry_string">Telemetrii</string>
     <string name="tutorial_telemetry">Není žádným tajemstvím, že Google o nás zaznamenává spoustu dat. Toto nastavení umožní, aby služby Google Play zastavily spoustu aktivit sledování a protokolování.\n
 UPOZORNĚNÍ: Toto nastavení nebylo podrobeno rozsáhlému testování a mohlo by narušit chování Android Auto. Nahlaste problém v GitHub, pokud zjistíte, že s tímto nastavením Android Auto špatně funguje.</string>
+    <string name="reboot_prompt">Chcete restartovat telefon nyní?</string>
+    <string name="rebooting_action">Restartování…</string>
+    <string name="negative_button">zrušit</string>
+    <string name="added_app_action">Přidáno: </string>
+    <string name="removed_app_action">Odstraněno: </string>
+    <string name="root_access_warning">Přístup k ROOT byl odepřen. Povolte přístup k ROOT.</string>
+    <string name="revert_everything_dialog">Chcete obnovit vše? Po ukončení činnosti manuálně restartujte aplikaci.</string>
+    <string name="calendar_tweak">Nastavit počet dní: %1$s zobrazených v kalendáři</string>
+    <string name="calendar_tweak_single">Nastavit počet dní: %1$s zobrazených v kalendáři</string>
+    <string name="tutorial_calendar_tweak">Toto nastavení umožní, aby aplikace kalendáře v Android Auto mohla zobrazovat více než jeden den. Vezměte na vědomí, že i když se počet dní zvýší, stále nebude možné rozlišit, ve který den sledujete události. Android Auto pouze zobrazí, kolik událostí je nastaveno za jeden den, ale nezobrazí, o který den jde.</string>
+    <string name="choose_apps_warning">Vyberte aplikaci do seznamu oblíbených</string>
+    <string name="log_first_line">ZÁZNAM:\n</string>
 </resources>
