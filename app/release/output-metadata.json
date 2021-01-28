@@ -11,10 +11,10 @@
       "type": "SINGLE",
       "filters": [],
       "properties": [],
-      "versionCode": 9,
-      "versionName": "2.0",
+      "versionCode": 13,
+      "versionName": "2.6",
       "enabled": true,
-      "outputFile": "AA-AIO-TWEAKER-2.0-release.apk"
+      "outputFile": "AA-AIO-TWEAKER-2.6-release.apk"
     }
   ]
 }

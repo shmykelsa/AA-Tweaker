@@ -23,7 +23,7 @@ public class AboutDialog extends DialogFragment {
         builder.setMessage(Html.fromHtml(getString(R.string.about_part_one) +
                 getString(R.string.about_part_two)));
         builder.setCancelable(true);
-        builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(android.R.string.ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             }
@@ -48,7 +48,7 @@ public class AboutDialog extends DialogFragment {
                         "Polish: Nor7ovich, MarcinzSowie<br>" +
                         "<br>Interested in translating AA AIO TWEAKER in your own language? Join translations on <a href=\"https://crowdin.com/project/aa-aio-tweaker\">Crowdin</a>!"));
                 builder.setCancelable(true);
-                builder.setPositiveButton(getString(R.string.positive_button), new DialogInterface.OnClickListener() {
+                builder.setPositiveButton(getString(android.R.string.ok), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                     }

@@ -12,12 +12,12 @@ public class RevertDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(getString(R.string.revert_everything_dialog))
-                .setPositiveButton(getString(R.string.positive_button), new DialogInterface.OnClickListener() {
+                .setPositiveButton(getString(android.R.string.ok), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         MainActivity.getAndRemoveOptionsSelected();
                     }
                 })
-                .setNegativeButton(getString(R.string.negative_button), new DialogInterface.OnClickListener() {
+                .setNegativeButton(getString(android.R.string.cancel), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                     }

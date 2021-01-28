@@ -363,7 +363,7 @@
             app:layout_constraintBottom_toBottomOf="@id/hunthrottlingbutton" />
 
         <SeekBar
-            android:id="@+id/hun_ms_value"
+            android:id="@+id/messages_hun_seekbar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginVertical="8dp"
@@ -381,10 +381,17 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/hun_ms_value"
-            app:layout_constraintBottom_toBottomOf="@id/hun_ms_value"
-            android:layout_marginEnd="3dp"
-            android:gravity="center" />
+            app:layout_constraintBottom_toBottomOf="@id/messages_hun_seekbar"
+            android:layout_marginEnd="3dp" />
+
+                <TextView
+                    android:id="@+id/notification_currently_set"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/messages_hun_seekbar"
+                    android:layout_marginEnd="3dp"
+                    android:layout_gravity="top" />
 
         <Button
             android:paddingTop="9dp"
@@ -396,7 +403,7 @@
             android:focusable="true"
             android:text="@string/media_notification_duration_to"
             app:layout_constraintEnd_toEndOf="@id/hunthrottlingbutton"
-            app:layout_constraintTop_toBottomOf="@id/hun_ms_value"
+            app:layout_constraintTop_toBottomOf="@id/messages_hun_seekbar"
             app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
@@ -427,10 +434,18 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/media_hun_value"
             app:layout_constraintBottom_toBottomOf="@id/media_hun_value"
             android:layout_marginEnd="3dp"
             android:gravity="center" />
+
+                <TextView
+                    android:id="@+id/media_notification_currently_set"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/media_hun_value"
+                    android:layout_marginEnd="3dp"
+                    android:gravity="center" />
 
         <Button
             android:id="@+id/bluetooth_disable_button"
@@ -548,10 +563,43 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/calendar_days_seekbar"
             app:layout_constraintBottom_toBottomOf="@id/calendar_days_seekbar"
             android:layout_marginEnd="10dp"
             android:gravity="center" />
+
+                <TextView
+                    android:id="@+id/calendar_days_currently_set"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/calendar_days_seekbar"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center" />
+
+
+        <Button
+            android:id="@+id/messaging_app_unlock_button"
+            android:paddingTop="9dp"
+            android:layout_width="0dp"
+            style="@style/ButtonStyle"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:drawablePadding="9dp"
+            app:layout_constraintEnd_toStartOf="@id/assistanimstatus"
+            app:layout_constraintTop_toBottomOf="@id/calendar_days_seekbar"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/messaging_tweak_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_check_circle_24"
+            android:layout_marginEnd="3dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/messaging_app_unlock_button"
+            app:layout_constraintBottom_toBottomOf="@id/messaging_app_unlock_button" />
+
 
         </android.support.constraint.ConstraintLayout>
 

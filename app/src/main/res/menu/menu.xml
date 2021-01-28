@@ -21,4 +21,9 @@
         app:showAsAction="never"
         android:title="TODO" />
 
+    <item
+        android:id="@+id/aa_settings"
+        app:showAsAction="never"
+        android:title="@string/menu_aa_settings" />
+
 </menu>

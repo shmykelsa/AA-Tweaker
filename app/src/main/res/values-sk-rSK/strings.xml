@@ -96,4 +96,10 @@ UPOZORNENIE: Toto vylepšenie nebolo podrobne testované a mohlo by potenciálne
     <string name="tutorial_calendar_tweak">Toto vylepšenie umožní, aby aplikácia kalendára v aplikácii Android Auto mohla zobrazovať viac dní ako iba jeden. Upozorňujem, že ani pri zvyšovaní počtu dní stále nie je zjavne možné rozlíšiť, udalosti ktorého dňa si prezeráte. Android Auto iba zobrazí počet udalostí nastavených za jeden deň a neukáže, o ktorý deň ide.</string>
     <string name="choose_apps_warning">Vyberte aplikácie, ktoré chcete pridať na bielu listinu</string>
     <string name="log_first_line">Logovanie:\n</string>
+    <string name="menu_aa_settings">Otvoriť Android Auto nastavenia</string>
+    <string name="not_enabled_warning">Android Auto nie je povolené</string>
+    <string name="not_installed_warning">Android Auto nie je inštalované</string>
+    <string name="currently_set">"Aktuálne nastavené: "</string>
+    <string name="tutorial_messages_tweak">"Toto vylepšenie umožní niektorým aplikáciám na odosielanie správ sa zobraziť ako ikona v Android Auto. Po otvorení sa zobrazia upozornenia príslušnej aplikácie. Oznámenia sa budú naďalej dostávať aj do centra upozornení. "</string>
+    <string name="messages_tweak_string">aplikácie na odosielanie správ</string>
 </resources>

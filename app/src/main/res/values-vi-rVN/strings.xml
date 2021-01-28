@@ -81,16 +81,22 @@ Yêu cầu sử dụng Android Auto 5.8 hoặc cao hơn.</string>
     <string name="telemetry_string">từ xa</string>
     <string name="tutorial_telemetry">Nếu không nhầm thì Google ghi lại rất nhiều dữ liệu về chúng tôi. Tùy chỉnh này sẽ làm cho Google Play Services dừng thu thập nhật ký hoạt động.\n
 CẢNH BÁO: Tùy chỉnh này chưa được thử nghiệm rộng rãi và có khả năng phá hỏng Android Auto. Nếu bạn phát hiện ra tùy chỉnh này phá hỏng Android Auto, vui lòng mở gợi ý sự cố trên GitHub.</string>
-    <string name="reboot_prompt">Reboot phone now?</string>
-    <string name="rebooting_action">Rebooting…</string>
-    <string name="negative_button">cancel</string>
-    <string name="added_app_action">Added: </string>
-    <string name="removed_app_action">Removed: </string>
-    <string name="root_access_warning">Root access denied. Please allow root access.</string>
-    <string name="revert_everything_dialog">Do you want to revert everything? Please manually restart the app after doing so</string>
-    <string name="calendar_tweak">Set %1$s visible days in calendar</string>
-    <string name="calendar_tweak_single">Set %1$s visible day in calendar</string>
-    <string name="tutorial_calendar_tweak">This tweak will make so that calendar app into Android Auto can show more days than just one. Please note that even increasing the number of days, it\'s still not obviously possible to distinguish which day you are viewing the events of. Android Auto will just show how many events are set in one day and it won\'t show which day it is.</string>
-    <string name="choose_apps_warning">Choose apps to whitelist</string>
+    <string name="reboot_prompt">Khởi động lại điện thoại ngay bây giờ?</string>
+    <string name="rebooting_action">Đang khởi động lại…</string>
+    <string name="negative_button">hủy</string>
+    <string name="added_app_action">Đã thêm: </string>
+    <string name="removed_app_action">Đã gỡ bỏ: </string>
+    <string name="root_access_warning">Quyền root bị từ chối. Vui lòng cho phép truy cập quyền root.</string>
+    <string name="revert_everything_dialog">Bạn có chắc là muốn trở lại nguyên thể mọi thứ? Vui lòng khởi động app bằng tay sau khi thực hiện</string>
+    <string name="calendar_tweak">Cài đặt %1$s nhiều ngày khả dụng trong lịch</string>
+    <string name="calendar_tweak_single">Cài đặt %1$s ngày khả dụng trong lịch</string>
+    <string name="tutorial_calendar_tweak">Tinh chỉnh này sẽ giúp ứng dụng lịch trong Android Auto có thể hiển thị nhiều ngày thay vì chỉ một ngày. Xin lưu ý rằng ngay cả khi tăng số ngày, rõ ràng vẫn không thể phân biệt được ngày nào bạn đang xem các sự kiện. Android Auto sẽ chỉ hiển thị số lượng sự kiện được thiết lập trong một ngày và nó sẽ không hiển thị đó là ngày nào.</string>
+    <string name="choose_apps_warning">Chọn những app vào trong whitelist</string>
     <string name="log_first_line">LOG:\n</string>
+    <string name="menu_aa_settings">Mở các cài đặt Android Auto</string>
+    <string name="not_enabled_warning">Android Auto không khả dụng</string>
+    <string name="not_installed_warning">Android Auto chưa cài đặt</string>
+    <string name="currently_set">"Cài đặt hiện tại: "</string>
+    <string name="tutorial_messages_tweak">"Tinh chỉnh này sẽ làm cho một số ứng dụng nhắn tin xuất hiện dưới dạng biểu tượng trên Android Auto. Sau khi mở, các thông báo của ứng dụng đó sẽ xuất hiện. Thông báo cũng sẽ được nhận trên trung tâm thông báo. "</string>
+    <string name="messages_tweak_string">những app tin nhắn</string>
 </resources>

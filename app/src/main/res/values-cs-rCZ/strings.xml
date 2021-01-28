@@ -22,10 +22,10 @@ Autor této aplikace není za žádných okolností zodpovědný za její použ�
 ZELENÁ= Oprava aplikována\n
 ŽLUTÁ= Oprava vyžaduje restart aplikace\n
 ČERVENÁ= Oprava není aplikována\n</string>
-    <string name="set_notification_duration_to">Doba trvání oznámení do</string>
-    <string name="base_no_ws">Širokoúhlou obrazovku</string>
+    <string name="set_notification_duration_to">Délku trvání plovoucích oznámení</string>
+    <string name="base_no_ws">Širokoúhlé obrazovky</string>
     <string name="force_widescreen_text">Vynucení širokoúhlé obrazovky</string>
-    <string name="media_notification_duration_to">Doba trvání oznámení do</string>
+    <string name="media_notification_duration_to">Délku trvání oznámení médií</string>
     <string name="bluetooth_auto_connect">Automatické připojení Bluetooth</string>
     <string name="tutorial_nospeed">Toto nastavení změní v Android Auto informaci o jízdě vozidla tak, že Android Auto si bude myslet, že vozidlo stojí.\n
 Android Auto bude vždy zobrazovat náhledy zpráv.\n
@@ -41,7 +41,7 @@ NELZE SPECIFIKOVAT, KTERÁ APLIKACE SE BUDE PŘI SPUŠTĚNÍ ANDROID AUTO SPOUŠ
     <string name="tutorial_widescreen">Toto nastavení vynutí režim širokoúhlé obrazovky v Android Auto.</string>
     <string name="tutorial_no_widescreen">Toto nastavení zakáže režim širokoúhlé obrazovky v Android Auto.</string>
     <string name="tutorial_animation">Toto nastavení zapne animaci Google Asistenta v navigačním panelu.</string>
-    <string name="tutorial_statusbar_opaque">Toto nastavení přizpůsobí stavovou lištu  tak, aby byla vždy černá.</string>
+    <string name="tutorial_statusbar_opaque">Toto nastavení přizpůsobí stavovou lištu tak, aby byla vždy černá.</string>
     <string name="tutorial_battery_outline">Toto nastavení zakáže ikonu baterie s červeným obrysem při zapnutém režimu spořiče baterie.</string>
     <string name="tutorial_hun">Toto nastavení umožňuje nastavit vlastní délku trvání plovoucích oznámení.</string>
     <string name="tutorial_media_hun">Toto nastavení umožňuje nastavit vlastní délku trvání oznámení médií v navigačním panelu až na 15 minut.</string>
@@ -101,9 +101,15 @@ UPOZORNĚNÍ: Toto nastavení nebylo podrobeno rozsáhlému testování a mohlo 
     <string name="removed_app_action">Odstraněno: </string>
     <string name="root_access_warning">Přístup k ROOT byl odepřen. Povolte přístup k ROOT.</string>
     <string name="revert_everything_dialog">Chcete obnovit vše? Po ukončení činnosti manuálně restartujte aplikaci.</string>
-    <string name="calendar_tweak">Nastavit počet dní: %1$s zobrazených v kalendáři</string>
-    <string name="calendar_tweak_single">Nastavit počet dní: %1$s zobrazených v kalendáři</string>
+    <string name="calendar_tweak">Nastavit počet dní zobrazených v kalendáři: %1$s</string>
+    <string name="calendar_tweak_single">Nastavit počet dní zobrazených v kalendáři: %1$s</string>
     <string name="tutorial_calendar_tweak">Toto nastavení umožní, aby aplikace kalendáře v Android Auto mohla zobrazovat více než jeden den. Vezměte na vědomí, že i když se počet dní zvýší, stále nebude možné rozlišit, ve který den sledujete události. Android Auto pouze zobrazí, kolik událostí je nastaveno za jeden den, ale nezobrazí, o který den jde.</string>
     <string name="choose_apps_warning">Vyberte aplikaci do seznamu oblíbených</string>
     <string name="log_first_line">ZÁZNAM:\n</string>
+    <string name="menu_aa_settings">Otevřít nastavení Android Auto</string>
+    <string name="not_enabled_warning">Android Auto není povoleno</string>
+    <string name="not_installed_warning">Android Auto není nainstalováno</string>
+    <string name="currently_set">"Aktuálně nastaveno: "</string>
+    <string name="tutorial_messages_tweak">"Toto nastavení umožní zobrazení některých aplikací pro zasílání zpráv v Android Auto jako ikona. Po otevření se zobrazí oznámení dané aplikace. Oznámení budou stále přijímána také do centra oznámení. "</string>
+    <string name="messages_tweak_string">Aplikace pro zasílání zpráv</string>
 </resources>

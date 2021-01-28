@@ -6,6 +6,8 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -909,7 +911,7 @@ public class MainActivity extends AppCompatActivity {
         final Button messagesHunThrottling = findViewById(R.id.hunthrottlingbutton);
         final int[] messagesHunScrollbarValue = {0};
         final TextView displayValue = findViewById(R.id.seekbar_text);
-        final SeekBar hunSeekbar = findViewById(R.id.hun_ms_value);
+        final SeekBar hunSeekbar = findViewById(R.id.messages_hun_seekbar);
         hunSeekbar.setProgress(8000);
         displayValue.setText(hunSeekbar.getProgress() + "ms");
         hunSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -941,10 +943,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         final ImageView messagesHunStatus = findViewById(R.id.huntrottlingstatus);
+        final TextView currentlySetHun = findViewById(R.id.notification_currently_set);
         if(load("aa_hun_ms")) {
             messagesHunThrottling.setText(getString(R.string.reset_tweak) + getString(R.string.set_notification_duration_to) + getString(R.string.default_string));
             messagesHunStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
             messagesHunStatus.setColorFilter(Color.argb(255,0,255,0));
+            currentlySetHun.setText(getString(R.string.currently_set) + loadValue("messages_hun_value"));
         } else {
             messagesHunThrottling.setText(getString(R.string.set_value) + getString(R.string.set_notification_duration_to));
             messagesHunStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
@@ -961,11 +965,13 @@ public class MainActivity extends AppCompatActivity {
                                 messagesHunStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                                 messagesHunStatus.setColorFilter(Color.argb(255, 255, 0, 0));
                                 messagesHunStatus.startAnimation(rotate);
+                                currentlySetHun.setText("");
                             } else {
                                 setHunDuration(view, hunSeekbar.getProgress(), UserCount);
                                 messagesHunStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                                 messagesHunStatus.setColorFilter(Color.argb(255,255,255,0));
                                 messagesHunStatus.startAnimation(rotate);
+                                currentlySetHun.setText(getString(R.string.currently_set) + hunSeekbar.getProgress());
                             }
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
@@ -978,6 +984,7 @@ public class MainActivity extends AppCompatActivity {
                             messagesHunStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             messagesHunStatus.setColorFilter(Color.argb(255,255,255,0));
                             messagesHunStatus.startAnimation(rotate);
+                            currentlySetHun.setText(getString(R.string.currently_set) + hunSeekbar.getProgress());
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
@@ -1046,13 +1053,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        final TextView currentlySetMediaHun = findViewById(R.id.media_notification_currently_set);
         final ImageView mediaHunStatus = findViewById(R.id.media_trhrottling_status);
         if(load("aa_media_hun")) {
             mediathrottlingbutton.setText(getString(R.string.reset_tweak) + getString(R.string.media_notification_duration_to) + getString(R.string.default_string));
             mediaHunStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
             mediaHunStatus.setColorFilter(Color.argb(255,0,255,0));
-
+            currentlySetMediaHun.setText(getString(R.string.currently_set) + loadValue("media_hun_value"));
         } else {
             mediathrottlingbutton.setText(getString(R.string.set_value) + getString(R.string.media_notification_duration_to));
             mediaHunStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
@@ -1069,13 +1076,14 @@ public class MainActivity extends AppCompatActivity {
                                 mediaHunStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                                 mediaHunStatus.setColorFilter(Color.argb(255, 255, 0, 0));
                                 mediaHunStatus.startAnimation(rotate);
+                                currentlySetMediaHun.setText("");
                             } else {
                                 setMediaHunDuration(view, mediaSeekbar.getProgress(), UserCount);
                                 mediaHunStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                                 mediaHunStatus.setColorFilter(Color.argb(255,255,255,0));
                                 mediaHunStatus.startAnimation(rotate);
+                                currentlySetMediaHun.setText(getString(R.string.currently_set) + mediaSeekbar.getProgress());
                             }
-//                            save(false, "aa_media_hun");
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
@@ -1087,7 +1095,7 @@ public class MainActivity extends AppCompatActivity {
                             mediaHunStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             mediaHunStatus.setColorFilter(Color.argb(255,255,255,0));
                             mediaHunStatus.startAnimation(rotate);
-                            //save(true, "aa_media_hun");
+                            currentlySetMediaHun.setText(getString(R.string.currently_set) + mediaSeekbar.getProgress());
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
@@ -1155,13 +1163,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        final TextView currentlySetAgendaDays = findViewById(R.id.calendar_days_currently_set);
         final ImageView calendarTweakStatus = findViewById(R.id.calendar_more_events_status);
         if(load("calendar_aa_tweak")) {
             moreCalendarButton.setText(getString(R.string.calendar_tweak_single, calendarSeekbar.getProgress()));
             calendarTweakStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
             calendarTweakStatus.setColorFilter(Color.argb(255,0,255,0));
-
+            currentlySetAgendaDays.setText(getString(R.string.currently_set) + loadValue("agenda_value"));
         } else {
             moreCalendarButton.setText(getString(R.string.calendar_tweak_single, calendarSeekbar.getProgress()));
             calendarTweakStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
@@ -1178,12 +1186,13 @@ public class MainActivity extends AppCompatActivity {
                                 calendarTweakStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
                                 calendarTweakStatus.setColorFilter(Color.argb(255, 255, 0, 0));
                                 calendarTweakStatus.startAnimation(rotate);
-//                            save(false, "aa_media_hun");
+                                currentlySetAgendaDays.setText("");
                             } else {
                                 setCalendarEvents(view, calendarSeekbar.getProgress(), UserCount);
                                 calendarTweakStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                                 calendarTweakStatus.setColorFilter(Color.argb(255,255,255,0));
                                 calendarTweakStatus.startAnimation(rotate);
+                                currentlySetAgendaDays.setText(getString(R.string.currently_set) + calendarSeekbar.getProgress());
                             }
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
@@ -1196,12 +1205,10 @@ public class MainActivity extends AppCompatActivity {
                             calendarTweakStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
                             calendarTweakStatus.setColorFilter(Color.argb(255,255,255,0));
                             calendarTweakStatus.startAnimation(rotate);
-
+                            currentlySetAgendaDays.setText(getString(R.string.currently_set) + calendarSeekbar.getProgress());
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
-
-
                                 animationRun[0] = true;
                             }
                         }
@@ -1299,6 +1306,82 @@ public class MainActivity extends AppCompatActivity {
 
                 TextView tutorial = view.findViewById(R.id.dialog_content);
                 tutorial.setText(getString(R.string.tutorial_bluetooth));
+
+                dialog.setContentView(view);
+
+                dialog.show();
+
+                Window window = dialog.getWindow();
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 800);
+
+                return true;
+            }
+        });
+
+        final Button messagesButton = findViewById(R.id.messaging_app_unlock_button);
+        final ImageView messagesTweakStatus = findViewById(R.id.messaging_tweak_status);
+        if(load("aa_messaging_apps")) {
+            messagesButton.setText(getString(R.string.disable_tweak_string) + getString(R.string.messages_tweak_string));
+            messagesTweakStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
+            messagesTweakStatus.setColorFilter(Color.argb(255,0,255,0));
+        } else {
+            messagesButton.setText(getString(R.string.enable_tweak_string) + getString(R.string.messages_tweak_string));
+            messagesTweakStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
+            messagesTweakStatus.setColorFilter(Color.argb(255,255,0,0));
+        }
+
+        messagesButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (load("aa_messaging_apps")){
+                            revert("aa_messaging_apps");
+                            messagesButton.setText(getString(R.string.enable_tweak_string) + getString(R.string.messages_tweak_string));
+                            messagesTweakStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
+                            messagesTweakStatus.setColorFilter(Color.argb(255,255,0,0));
+                            messagesTweakStatus.startAnimation(rotate);
+
+                            if(!animationRun[0]) {
+                                rebootButton.setVisibility(View.VISIBLE);
+                                rebootButton.startAnimation(anim);
+                                animationRun[0] = true;
+                            }
+                        }
+                        else {
+                            messagesTweak(view, UserCount);
+                            messagesButton.setText(getString(R.string.disable_tweak_string) + getString(R.string.messages_tweak_string));
+                            messagesTweakStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
+                            messagesTweakStatus.setColorFilter(Color.argb(255,255,255,0));
+                            messagesTweakStatus.startAnimation(rotate);
+                            if(!animationRun[0]) {
+                                rebootButton.setVisibility(View.VISIBLE);
+                                rebootButton.startAnimation(anim);
+                                animationRun[0] = true;
+                            }
+                        }
+                    }
+                });
+
+        messagesButton.setOnLongClickListener(new View.OnLongClickListener() {
+            public boolean onLongClick(View arg0) {
+                final Dialog dialog = new Dialog(MainActivity.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.setCancelable(true);
+                View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
+
+
+                TextView tutorial = view.findViewById(R.id.dialog_content);
+                tutorial.setText(getString(R.string.tutorial_messages_tweak));
+
+                ImageView img1 = view.findViewById(R.id.tutorialimage1);
+                img1.setImageDrawable(getDrawable(R.drawable.tutorial_messaging_1));
+
+                ImageView img2 = view.findViewById(R.id.tutorialimage2);
+                img2.setImageDrawable(getDrawable(R.drawable.tutorial_messaging_2));
+
+                ImageView img3 = view.findViewById(R.id.tutorialimage3);
+                img3.setImageDrawable(getDrawable(R.drawable.tutorial_messaging_3));
 
                 dialog.setContentView(view);
 
@@ -1753,6 +1836,9 @@ public class MainActivity extends AppCompatActivity {
                 revertDialog.show(getSupportFragmentManager(), "RevertDialog");
                 break;
 
+            case R.id.aa_settings:
+                String packageName = "com.google.android.projection.gearhead";
+                openApp(getApplicationContext(), packageName);
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -1768,9 +1854,21 @@ public class MainActivity extends AppCompatActivity {
         editor.apply();
     }
 
+    public void saveValue(final int value, String key) {
+        SharedPreferences sharedPreferences = getPreferences(getContext().MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(key, value);
+        editor.apply();
+    }
+
      public boolean load(String key) {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         return sharedPreferences.getBoolean(key, false);
+    }
+
+    public int loadValue(String key) {
+        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+        return sharedPreferences.getInt(key, 0);
     }
 
     @Override
@@ -3271,6 +3369,75 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void messagesTweak (View view, int usercount) {
+        final TextView logs = findViewById(R.id.logs);
+        logs.setHorizontallyScrolling(true);
+        logs.setMovementMethod(new ScrollingMovementMethod());
+
+
+        final StringBuilder finalCommand = new StringBuilder();
+
+        for (int i = 0; i<=(usercount-1) ; i ++) {
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MesquiteFull__enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MesquiteLite__notification_enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MesquiteLite__sms_enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"NotificationClientAbstraction__enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+        }
+
+        new Thread() {
+            @Override
+            public void run() {
+                String path = getApplicationInfo().dataDir;
+                boolean suitableMethodFound = true;
+
+
+                appendText(logs, "\n\n-- Drop Triggers  --");
+                appendText(logs, runSuWithCmd(
+                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'DROP TRIGGER IF EXISTS aa_messaging_apps;'"
+                ).getStreamLogsWithLabels());
+
+                if (runSuWithCmd(
+                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'SELECT 1 FROM ApplicationStates WHERE packageName=\"com.google.android.projection.gearhead\"'").getInputStreamLog().equals("1")) {
+
+                    appendText(logs, "\n\n--  run SQL method   --");
+                    appendText(logs, runSuWithCmd(
+                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'" +
+                                    finalCommand + "'\n"
+                    ).getStreamLogsWithLabels());
+
+                    appendText(logs, runSuWithCmd(
+                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                    "'CREATE TRIGGER aa_messaging_apps AFTER DELETE\n" +
+                                    "ON FlagOverrides\n" +
+                                    "BEGIN\n" + finalCommand + "END;'\n"
+                    ).getStreamLogsWithLabels());
+                    appendText(logs, "\n--  end SQL method  --");
+                    save(true, "aa_messaging_apps");
+                } else {
+                    suitableMethodFound = false;
+                    appendText(logs, "\n\n--  Suitable method NOT found!  --");
+                }
+
+            }
+        }.start();
+
+    }
+
+
 
     public static String readFully(InputStream is) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -3306,6 +3473,21 @@ public class MainActivity extends AppCompatActivity {
                 for (int i = 0; i < lines.length; i++) {
                     save(true, lines[i]);
                 }
+                if (load("aa_hun_ms")) {
+                    saveValue(Integer.parseInt(runSuWithCmd(
+                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                            "'SELECT DISTINCT intVal FROM FlagOverrides WHERE name=\"SystemUi__hun_default_heads_up_timeout_ms\";'").getInputStreamLog()), "messages_hun_value");
+                }
+                if (load("aa_media_hun")) {
+                    saveValue(Integer.parseInt(runSuWithCmd(
+                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                    "'SELECT DISTINCT intVal FROM FlagOverrides WHERE name=\"SystemUi__media_hun_in_rail_widget_timeout_ms\";'").getInputStreamLog()), "media_hun_value");
+                }
+                if (load("calendar_aa_tweak")) {
+                    saveValue(Integer.parseInt(runSuWithCmd(
+                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                    "'SELECT DISTINCT intVal FROM FlagOverrides WHERE name=\"McFly__num_days_in_agenda_view\";'").getInputStreamLog()), "agenda_value");
+                }
             }
         });
 
@@ -3329,12 +3511,47 @@ public class MainActivity extends AppCompatActivity {
                 for (int i = 0; i < lines.length; i++) {
                     runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'DROP TRIGGER IF EXISTS \"" + lines[i] + "\";'");
                 }
-                runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'DELETE * FROM FlagOverrides;'");
+                runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'DELETE FROM FlagOverrides;'");
             }
 
         }.start();
 
         return;
+    }
+
+    public static void openApp(Context context, String packageName) {
+        if (isAppInstalled(context, packageName))
+            if (isAppEnabled(context, packageName)) {
+                PackageManager pm = context.getPackageManager();
+                Intent launchIntent = new Intent( "com.google.android.projection.gearhead.SETTINGS");
+                launchIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(launchIntent);
+            }
+            else Toast.makeText(context, context.getString(R.string.not_enabled_warning), Toast.LENGTH_SHORT).show();
+        else Toast.makeText(context, context.getString(R.string.not_installed_warning), Toast.LENGTH_SHORT).show();
+    }
+
+    private static boolean isAppInstalled(Context context, String packageName) {
+        PackageManager pm = context.getPackageManager();
+        try {
+            pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
+            return true;
+        } catch (PackageManager.NameNotFoundException ignored) {
+        }
+        return false;
+    }
+
+    private static boolean isAppEnabled(Context context, String packageName) {
+        Boolean appStatus = false;
+        try {
+            ApplicationInfo ai = context.getPackageManager().getApplicationInfo(packageName, 0);
+            if (ai != null) {
+                appStatus = ai.enabled;
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return appStatus;
     }
 
 }

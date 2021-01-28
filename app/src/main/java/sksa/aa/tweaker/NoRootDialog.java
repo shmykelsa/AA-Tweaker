@@ -12,7 +12,7 @@ public class NoRootDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(R.string.root_access_warning);
         builder.setCancelable(false);
-        builder.setPositiveButton(getString(R.string.positive_button), new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(android.R.string.ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             }

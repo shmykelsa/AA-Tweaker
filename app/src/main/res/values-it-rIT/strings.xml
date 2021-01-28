@@ -94,4 +94,10 @@ ATTENZIONE: Questo tweak non è stato testato estensivamente e potenzialmente pu
     <string name="tutorial_calendar_tweak">Questo tweak farà in modo che l\'applicazione calendario in Android Auto possa mostrare più giorni invece che uno solo. Nota bene: anche aumentando il numero di giorni, per come è stato disegnato Android Auto, non è ancora possibile distinguere il giorno del quale si stanno consultando gli eventi. Android Auto mostrerà solo quanti eventi sono impostati in un giorno e non mostrerà quale giorno è.</string>
     <string name="choose_apps_warning">Scegli le app da mettere in whitelist</string>
     <string name="log_first_line">REGISTRO:\n</string>
+    <string name="menu_aa_settings">Impostazioni di Android Auto</string>
+    <string name="not_enabled_warning">Android Auto non è abilitato</string>
+    <string name="not_installed_warning">Android Auto non è installato</string>
+    <string name="currently_set">"Attualmente impostato: "</string>
+    <string name="tutorial_messages_tweak">"Questa modifica farà apparire alcune applicazioni di messaggistica come un'icona su Android Auto. Una volta aperte, appariranno le notifiche di quell'app. Le notifiche dei messaggi ricevuti continueranno ad essere presenti anche nel centro delle notifiche."</string>
+    <string name="messages_tweak_string">App di messaggistica</string>
 </resources>

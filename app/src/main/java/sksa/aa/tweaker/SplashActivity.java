@@ -52,6 +52,7 @@ public class SplashActivity extends AppCompatActivity {
         editor.putBoolean("aa_night_mode_revert", false);
         editor.putBoolean("kill_telemetry", false);
         editor.putBoolean("calendar_aa_tweak", false);
+        editor.putBoolean("aa_messaging_apps", false);
         editor.commit();
         Log.v("sksa.aa.tweaker", "Preferences restored");
 

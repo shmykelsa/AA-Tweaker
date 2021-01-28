@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="main_string">Bienvenue sur AA AIO Tweaker\n
-Cette application vous permettra d\'appliquer quelques améliorations à Android Auto\n
+Cette application vous permettra d\'appliquer diverses améliorations à Android Auto\n
 Sélectionnez simplement la modification que vous souhaitez appliquer :)\n
 Si vous n\'êtes pas certain de la signification d\'une modification, maintenez son bouton enfoncé et un tutoriel s\'affichera.</string>
     <string name="select_apps">Sélectionner les applications</string>
     <string name="enable_assistant_shortcuts">Raccourcis de l\'assistant</string>
     <string name="patch_custom_apps">Applications personnalisées</string>
-    <string name="disable_speed_limitations">Limitations de touches</string>
-    <string name="unlimited_scrolling_when_driving">Restrictions de vitesse</string>
+    <string name="disable_speed_limitations">Limitation d\'appuis sur l\'écran</string>
+    <string name="unlimited_scrolling_when_driving">restrictions en roulant</string>
     <string name="enable_assistant_animation_in_navbar">Animation de l\'assistant dans la barre de navigation</string>
-    <string name="splash">Cette application peut modifier le comportement d\'Android Auto et contourner certaines fonctionnalités de sécurité implémentées par Google dans Android Auto.\n
-En utilisant ce logiciel, vous reconnaissez et acceptez être seul et unique responsable des modifications qui pourrait entraîner une altération des caractéristiques de sécurité et entrainer des blessures infligées à vous et/ou à d\'autres personnes, dommages matériels, perte de vie.\n
-En aucun cas l\'auteur de cette application n\'est responsable de son utilisation</string>
+    <string name="splash">Cette application peut modifier le comportement d\'Android Auto et contourner certaines fonctionnalités de sécurité que Google a implémentées dans Android Auto.\n
+En utilisant ce logiciel, vous acceptez que VOUS, et VOUS SEUL, êtes entièrement responsable de toute conséquence éventuelle pouvant entraîner la modification des fonctions de sécurité, comme des blessures à vous-même et/ou à d\'autres personnes, des dommages matériels, la perte de vies humaines.\n
+L\'auteur de cette application n\'est en aucun cas responsable de son utilisation</string>
     <string name="proceed">Je comprends</string>
     <string name="navigation_at_start">Navigation au démarrage</string>
     <string name="statb_opaque_string">Barre d\'état opaque</string>
@@ -26,13 +26,13 @@ ROUGE = Patch non appliqué\n</string>
     <string name="force_widescreen_text">Écran large forcé</string>
     <string name="media_notification_duration_to">Durée de notification multimédia à</string>
     <string name="bluetooth_auto_connect">Connexion automatique au Bluetooth</string>
-    <string name="tutorial_nospeed">Cette modification fera croire à Android Auto que la voiture est à l\'arrêt. Par conséquent, Android Auto affichera toujours l\'aperçu des messages. Cette modification ne s\'applique pas au clavier ni à la première configuration d\'Android Auto.</string>
-    <string name="tutorial_sixtap">Cette modification annule la limite des 6 tapes d\'Android Auto et permettra une navigation non restreinte.</string>
+    <string name="tutorial_nospeed">Cette modification fera croire à Android Auto que le véhicule est constamment à l\'arrêt. Par conséquent, Android Auto pourra afficher l\'aperçu des messages même en roulant. Cette modification ne s\'applique pas au clavier ni à la première configuration d\'Android Auto.</string>
+    <string name="tutorial_sixtap">Cette modification annulera la limite imposée par Android Auto des 6 appuis maximums sur l\'écran et permettra ainsi d\'avoir une navigation non restreinte.</string>
     <string name="tutorial_shortcuts">Cette modification permettra de débloquer la nouvelle fonction de raccourcis pour l\'assistant. Une fois activée, rendez-vous dans les paramètres d\'Android Auto puis dans la section \"Personnaliser le lanceur\". Vous aurez la possibilité d\'ajouter des raccourcis aux commandes de l\'assistant Google</string>
-    <string name="tutorial_startup">Cette modification remplacera le comportement par défaut d\'Android Auto, qui consiste à ouvrir l\'application de navigation au démarrage, pour lancer Android Auto sur l\'écran d\'accueil.\n
-Cette modification peut parfois échouer car il arrive qu\'Android Auto démarre automatiquement la navigation vers le domicile ou le lieu de travail. Ce comportement interrompt cette modification.\n
+    <string name="tutorial_startup">Cette modification lancera au démarrage Android Auto sur l\'écran d\'accueil à la place de l\'application de navigation (qui est son mode de fonctionnement par défaut).\n
+Cela peut parfois échouer car il arrive qu\'Android Auto démarre automatiquement la navigation vers le domicile ou le lieu de travail.\n
 Dans certains cas, cette modification désactivera le démarrage automatique de la musique. Une solution connue consiste à désactiver et réactiver l\'option dans les paramètres d\'Android Auto.\n
-IL N\'EST PAS POSSIBLE DE CONFIGURER UNE APPLICATION SPÉCIFIQUE POUR QU\'ELLE DÉMARRE EN PREMIER.</string>
+IL N\'EST PAS POSSIBLE DE DÉFINIR UNE APPLICATION SPÉCIFIQUE POUR QU\'ELLE DÉMARRE EN PREMIER.</string>
     <string name="tutorial_widescreen">Cette modification forcera Android Auto en mode écran large.</string>
     <string name="tutorial_no_widescreen">Cette modification empêchera Android Auto d\'activer le mode écran large.</string>
     <string name="tutorial_animation">Cette modification permet d\'activer une animation de l\'assistant Google dans la barre de navigation.</string>
@@ -40,30 +40,30 @@ IL N\'EST PAS POSSIBLE DE CONFIGURER UNE APPLICATION SPÉCIFIQUE POUR QU\'ELLE D
     <string name="tutorial_battery_outline">Cette modification empêchera l\'icône de la batterie d\'avoir un contour rouge lorsque l\'économiseur de batterie est activé.</string>
     <string name="tutorial_hun">Cette modification vous permet de définir une durée personnalisée pour les notifications flottantes</string>
     <string name="tutorial_media_hun">Cette modification vous permet de définir une durée personnalisée pour les notifications multimédia dans la barre de navigation jusqu\'à 15 minutes.</string>
-    <string name="tutorial_bluetooth">Cette modification empêchera le Bluetooth de s\'activer automatiquement et de s\'appairer à votre voiture lorsque Android Auto est connecté. Cette modification ne fonctionnera pas si le Bluetooth est déjà activé.</string>
+    <string name="tutorial_bluetooth">Cette modification empêchera le Bluetooth de s\'activer automatiquement et de s\'appairer à votre voiture lorsque Android Auto est connecté. Cela ne fonctionnera pas si le Bluetooth est déjà activé.</string>
     <string name="tutorial_patchapps">Cette modification permettra à des applications tierces conçues spécifiquement avec le SDK d\'Android Auto de fonctionner sous Android Auto.\n
 Si vous êtes familier avec AA Phenotype Patcher, ce module est à peu près identique à celui-ci.\n
 Vous ne pouvez pas ajouter d\'application à Android Auto mais il est possible de patcher des applications CONÇUES POUR ANDROID AUTO pour qu\'elles fonctionnent dans le véhicule.</string>
     <string name="multi_display_string">Multi-affichage</string>
     <string name="tutorial_multidisplay">Il s\'agit d\'une fonctionnalité cachée dans Android Auto qui transformera l\'espace latéral du mode écran large en un véritable second écran qui sera entièrement occupé par une application secondaire. Google Maps affichera une carte complète avec des indications de navigation, et la musique ou les applications téléphoniques occuperont tout l\'espace.\n
-De plus, ce mode active une autre fonction qui permettra d\'utiliser l\'écran du téléphone comme écran externe pour Android Auto.\n
+De plus, ce mode active une autre fonction qui permettra d\'utiliser l\'écran du téléphone comme écran secondaire pour Android Auto.\n
 Les paramètres permettant de définir cette dernière fonctionnalité seront disponibles sur l\'écran d\'accueil d\'Android Auto.\n
 Apparemment, seul Google Maps prend actuellement en charge ce mode.\n
 Cette fonctionnalité est probablement en cours de développement et pourrait ne pas fonctionner comme prévu.\n
 Android Auto 5.8 ou supérieur est requis.</string>
     <string name="battery_warning">Avertissement d\'économie de batterie</string>
-    <string name="tutorial_battery_saver_warning">Cette modification empêchera Android Auto d\'afficher des popups d\'avertissement lorsque le mode économie de batterie est activé</string>
+    <string name="tutorial_battery_saver_warning">Cette modification empêchera Android Auto d\'afficher des messages d\'avertissement lorsque le mode économie de batterie est activé</string>
     <string name="disable_tweak_string">Désactiver\u0020</string>
     <string name="enable_tweak_string">Activer\u0020</string>
     <string name="re_enable_tweak_string">Réactiver\u0020</string>
-    <string name="copy_log">Copier le journal</string>
+    <string name="copy_log">Copier les journaux</string>
     <string name="about">À propos</string>
     <string name="revert_everything">Tout réinitialiser</string>
     <string name="force_disable_tweak">Forcer la désactivation\u0020</string>
     <string name="reset_tweak">Réinitialiser\u0020</string>
     <string name="force_widescreen_warning">L\'écran large forcé a été automatiquement désactivé</string>
     <string name="force_disable_widescreen_warning">La désactivation de l\'écran large forcé a été automatiquement désactivée</string>
-    <string name="set_value">Configurer\u0020</string>
+    <string name="set_value">Définir\u0020</string>
     <string name="reboot_to_apply">REDÉMARRER POUR APPLIQUER</string>
     <string name="warning_title">AVERTISSEMENT</string>
     <string name="unpatch">Annuler patch\u0020</string>
@@ -94,4 +94,10 @@ ATTENTION : Cette modification n\'a pas été testée de manière approfondie et
     <string name="tutorial_calendar_tweak">Cette modification permettra à l\'application Calendrier dans Android Auto d\'afficher plusieurs jours plutôt qu\'un seul. Veuillez noter que même en augmentant le nombre de jours, il n\'est toujours pas possible de distinguer le jour dont vous consultez les événements. Android Auto se contentera d\'afficher le nombre d\'événements programmés dans une journée et n\'indiquera pas de quel jour il s\'agit.</string>
     <string name="choose_apps_warning">Choisir les applications à mettre sur liste blanche</string>
     <string name="log_first_line">JOURNAUX :\n</string>
+    <string name="menu_aa_settings">Ouvrir les paramètres d’Android Auto</string>
+    <string name="not_enabled_warning">Android Auto n\'est pas activé</string>
+    <string name="not_installed_warning">Android Auto n\'est pas installé</string>
+    <string name="currently_set">"Actuellement défini : "</string>
+    <string name="tutorial_messages_tweak">"Cette modification fera apparaître certaines applications de messagerie sous forme d'icône sur Android Auto. Une fois ouvertes, les notifications de cette application apparaîtront. Les notifications seront toujours reçues dans le centre des notifications. "</string>
+    <string name="messages_tweak_string">applications de messagerie</string>
 </resources>
