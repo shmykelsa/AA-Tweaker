@@ -37,11 +37,11 @@ Hopefully more to come :)
 
 # How is this different from AA Phenotype Patcher?
 
-It just contains more features, the project is actually a fork of AA Phenotype Patcher, and share a lot of core functionality under the hood.
+AA AIO TWEAKER is a fork of AA Phenotype Patcher and a lot of the original source has been re-used for coding this app. As of January 2021, with the new Android Auto 6.0, AA AIO TWEAKER provides a new method to patch Android Auto custom apps that is new and not available (yet) on AA Phenotype Patcher. If you are interested in patching custom apps, you might want to use AA AIO TWEAKER instead.
 
 # Can I use this app instead of AA Phenotype Patcher?
 
-Yes you can, but if you have already patched apps with AA Phenotype Patcher, you can leave it like that and simply apply the other tweaks. This app won't check if the apps are already patched via AA Phenotype Patcher, so you won't have a green check status at the start. 
+Yes you can. If you are on Android Auto 6.0 or superior, be sure to re-do the patch of custom apps. This is because AA Phenotype Patcher has not been updated with the new methods.
 
 # How is this different from Sensible Android Auto: Xposed?
 
@@ -50,6 +50,11 @@ This app doesn't need Xposed, which in some cases is one more pain to have. Also
 # Can I use this app instead of Sensible Android Auto: Xposed?
 
 Yes, you can. The functionaility is the same, the only "advantage" is not having to install Xposed to make it work. This app won't check if you have SAAX installed so you won't have a green check status at the start. If you are familiar with SAAX and you want to keep it, you may not want to disable speed limitation and six tap with this app.
+
+
+## NO REUPLOADS
+
+Please, if you want to share AA AIO TWEAKER, DO NOT reupload the APK elsewhere. Just redirect the users to the download page. Any unauthorized re-upload of the APK, in any way, will result in a DMCA takedown request. 
 
 ## NEW
 
