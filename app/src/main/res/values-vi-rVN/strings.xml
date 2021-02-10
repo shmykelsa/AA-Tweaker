@@ -82,7 +82,7 @@ Yêu cầu sử dụng Android Auto 5.8 hoặc cao hơn.</string>
     <string name="tutorial_telemetry">Nếu không nhầm thì Google ghi lại rất nhiều dữ liệu về chúng tôi. Tùy chỉnh này sẽ làm cho Google Play Services dừng thu thập nhật ký hoạt động.\n
 CẢNH BÁO: Tùy chỉnh này chưa được thử nghiệm rộng rãi và có khả năng phá hỏng Android Auto. Nếu bạn phát hiện ra tùy chỉnh này phá hỏng Android Auto, vui lòng mở gợi ý sự cố trên GitHub.</string>
     <string name="reboot_prompt">Khởi động lại điện thoại ngay bây giờ?</string>
-    <string name="rebooting_action">Đang khởi động lại…</string>
+    <string name="rebooting_action">Đang khởi động lại...</string>
     <string name="negative_button">hủy</string>
     <string name="added_app_action">Đã thêm: </string>
     <string name="removed_app_action">Đã gỡ bỏ: </string>

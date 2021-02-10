@@ -70,7 +70,7 @@
     <string name="unpatch">Отменить патч\u0020</string>
     <string name="patch_app">Патч\u0020</string>
     <string name="default_string">\u0020По умолчанию</string>
-    <string name="app_list_label">Выбор приложений</string>
+    <string name="app_list_label">Список приложений</string>
     <string name="positive_button">ok</string>
     <string name="translators_button">Авторы перевода</string>
     <string name="about_part_one"><![CDATA[AIO TWEAKER разработан и поддерживается Shmykelsa.<br><br>Исходный код доступен на сайте <a href=\"https://github.com/shmykelsa/AA-Tweaker\">GitHub</a><br><br>]]></string>
@@ -98,7 +98,7 @@
     <string name="menu_aa_settings">Открыть настройки Android Auto</string>
     <string name="not_enabled_warning">Android Auto не включен</string>
     <string name="not_installed_warning">Android Auto не установлен</string>
-    <string name="currently_set">"Currently set: "</string>
-    <string name="tutorial_messages_tweak">"This tweak will make some messaging apps appear as an icon on Android Auto. Once opened, the notifications of that app will appear. Notifications will still be received on notifications' center too. "</string>
-    <string name="messages_tweak_string">messaging apps</string>
+    <string name="currently_set">"Сейчас установлено: "</string>
+    <string name="tutorial_messages_tweak">"Активация этой функции приведет к тому, что иконки некоторых мессенджеров появятся в меню Android Auto на ГУ.  Приходящие сообщения  будут по-прежнему видны в центре уведомлений. "</string>
+    <string name="messages_tweak_string">мессенджеры</string>
 </resources>

@@ -4,7 +4,7 @@
 Este aplicativo permitirá que você aplique alguns ajustes no Android Auto\n
 Basta selecionar o ajustes que você deseja aplicar :)\n
 Se você não tem certeza do que faz um ajuste, toque longo nele e um tutorial será exibido.</string>
-    <string name="select_apps">Apps selecionados</string>
+    <string name="select_apps">Selecione apps</string>
     <string name="enable_assistant_shortcuts">Atalhos da assistente</string>
     <string name="patch_custom_apps">apps Personalizados</string>
     <string name="disable_speed_limitations">limite de toques</string>
@@ -35,7 +35,7 @@ VERMELHO= Patch não é aplicável\n</string>
 This tweak could occasionally fail because sometimes Android Auto starts with a navigation to home or work autonomously. This behaviour breaks the tweak.\n
 In some cases this tweak will disable auto start of music. A known workaround is to disable and re-enable the option within Android Auto settings.\n
 IT\'S NOT POSSIBLE TO SET A SPECIFIC APP TO START FIRST.</string>
-    <string name="tutorial_widescreen">This tweak will force Android Auto in widescreen mode.</string>
+    <string name="tutorial_widescreen">Este ajuste irá forçar o Android Auto em modo de tela widescreen.</string>
     <string name="tutorial_no_widescreen">This tweak will force Android Auto in no widescreen mode.</string>
     <string name="tutorial_animation">This tweak enable an animation of Google Assistant in the navigation bar.</string>
     <string name="tutorial_statusbar_opaque">This tweak will make the status bar always with an opaque background (default is transparent)</string>

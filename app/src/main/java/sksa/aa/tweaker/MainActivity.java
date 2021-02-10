@@ -441,7 +441,7 @@ public class MainActivity extends AppCompatActivity {
         final ImageView patchappstatus = findViewById(R.id.patchedappstatus);
 
 
-        if(load("aa_patched_apps") || load("after_delete")) {
+        if(load("aa_patched_apps") && load("after_delete") && load("aa_patched_apps_fix") ) {
             patchapps.setText(getString(R.string.unpatch) + getString(R.string.patch_custom_apps));
             patchappstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
             patchappstatus.setColorFilter(Color.argb(255,0,255,0));

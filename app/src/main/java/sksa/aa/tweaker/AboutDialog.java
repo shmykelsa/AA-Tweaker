@@ -33,19 +33,23 @@ public class AboutDialog extends DialogFragment {
             public void onClick(DialogInterface dialogInterface, int i) {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setMessage(Html.fromHtml("Russian: Diversant96<br>" +
-                        "Dutch: Coyenzo<br>" +
+                        "Dutch: Coyenzo, smit.sydney<br>" +
                         "Slovak: Jozo19<br>" +
                         "Spanish: Krilok<br>" +
-                        "Czech: Martin2412, LLZN<br>" +
+                        "Czech: Martin2412, LLZN, pesekpata<br>" +
                         "Slovenian: Brubblu<br>" +
                         "French: Nova.kin, Sperafico<br>" +
                         "Italian: Shmykelsa<br>" +
                         "Brazilian Portuguese: Gsproenca<br>" +
-                        "Vietnamese: Quang.chk1<br>" +
-                        "German: Lassmiranda<br>" +
+                        "Vietnamese: Quang.chk1, votruongvu.hcm<br>" +
+                        "German: Lassmiranda, cbrosius<br>" +
                         "Korean: Mabig<br>" +
                         "Catalan: rogerpi95<br>" +
-                        "Polish: Nor7ovich, MarcinzSowie<br>" +
+                        "Polish: Nor7ovich, MarcinzSowie, Geranium743<br>" +
+                        "Serbian: BojanJagodic91<br>" +
+                        "Chinese: Danchunlanse<br>" +
+                        "Hebrew: yaari302<br>" +
+                        "Japanese: HHSAN<br>" +
                         "<br>Interested in translating AA AIO TWEAKER in your own language? Join translations on <a href=\"https://crowdin.com/project/aa-aio-tweaker\">Crowdin</a>!"));
                 builder.setCancelable(true);
                 builder.setPositiveButton(getString(android.R.string.ok), new DialogInterface.OnClickListener() {

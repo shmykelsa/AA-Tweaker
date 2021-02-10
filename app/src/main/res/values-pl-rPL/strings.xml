@@ -38,14 +38,14 @@ NIE MOŻNA USTAWIĆ KONKRETNEJ APLIKACJI, BY URUCHAMIAŁA SIĘ, JAKO PIERWSZA.</
     <string name="tutorial_no_widescreen">Ta modyfikacja wymusi działanie Android Auto w trybie bez szerokiego ekranu.</string>
     <string name="tutorial_animation">Ta modyfikacja włącza animację Asystenta Google na pasku nawigacyjnym.</string>
     <string name="tutorial_statusbar_opaque">Ta modyfikacja sprawi, że pasek stanu będzie zawsze czarny.</string>
-    <string name="tutorial_battery_outline">Ta modyfikacja uniemożliwi ikonę baterii z czerwoną obwódką, gdy oszczędzanie baterii jest włączone.</string>
+    <string name="tutorial_battery_outline">Ta modyfikacja pokaże ikonę baterii z czerwoną obwódką, gdy oszczędzanie baterii jest włączone.</string>
     <string name="tutorial_hun">Ta modyfikacja pozwoli Ci ustawić niestandardowy czas trwania powiadomień heads-up.</string>
     <string name="tutorial_media_hun">Ta modyfikacja pozwala ustawić niestandardowy czas trwania powiadomień mediów na pasku nawigacyjnym do 15 minut.</string>
     <string name="tutorial_bluetooth">Ta modyfikacja powinna uniemożliwić włączanie się Bluetooth po podłączeniu Android Auto. Ta poprawka nie będzie działać, jeśli Bluetooth jest już włączony.</string>
     <string name="tutorial_patchapps">Ta modyfikacja umożliwi aplikacjom innych firm, utworzonym specjalnie za pomocą niestandardowego pakietu SDK Android Auto, działanie w Android Auto.\n
 Jeśli znasz AA Phenotype Patcher, to ta modyfikacja jest prawie identyczna.\n
 Nie jest możliwe dodanie dowolnej aplikacji do Android Auto, ale istnieje możliwość spatchowania ręcznie wgranych aplikacji STWORZONYCH DLA ANDROID AUTO do pracy w samochodach.</string>
-    <string name="multi_display_string">Multi Display</string>
+    <string name="multi_display_string">Podzielony ekran</string>
     <string name="tutorial_multidisplay">Jest to ukryta funkcja w Android Auto, która zamieni drugą przestrzeń w trybie szerokiego ekranu w prawdziwy drugi wyświetlacz, całkowicie zajęty przez inną czynność. Mapy Google wyświetlą pełną mapę ze stanem nawigacji, muzyką, a telefony zajmą całą przestrzeń.\n
 Dodatkowo, ten tryb aktywuje kolejną funkcję, która zmieni ekran telefonu w drugi wyświetlacz do nawigacji w Android Auto.\n
 Ustawienia umożliwiające modyfikowanie tej funkcji będą dostępne na ekranie głównym Androida Auto.\n
@@ -67,8 +67,8 @@ Wymagany jest Android Auto 5.8 lub nowszy.</string>
     <string name="set_value">Ustaw\u0020</string>
     <string name="reboot_to_apply">URUCHOM PONOWNIE, ABY ZASTOSOWAĆ</string>
     <string name="warning_title">OSTRZEŻENIE</string>
-    <string name="unpatch">Odpatchuj\u0020</string>
-    <string name="patch_app">Patchuj\u0020</string>
+    <string name="unpatch">Przywróć oryginał\u0020</string>
+    <string name="patch_app">Łatka\u0020</string>
     <string name="default_string">\u0020Domyślne</string>
     <string name="app_list_label">Lista Aplikacji</string>
     <string name="positive_button">Ok</string>
@@ -81,25 +81,25 @@ Wymagany jest Android Auto 5.8 lub nowszy.</string>
     <string name="tutorial_dark_mode">Począwszy od grudnia 2020 r., Google przywrócił zachowanie, które miało miejsce od czasu Androida 10. Wcześniej tryb jasny/ciemny w Android Auto był zgodny z trybem jasnym / ciemnym w telefonie i odwrotnie. Oznaczało to, że przełączenie telefonu w tryb ciemny wpływało na samochód lub jeśli telefon był w trybie ciemnym, a samochód miał wyłączone światła, włączał jasny motyw w telefonie.\n Jednak, ponieważ została wprowadzona funkcja „niezależny” tryb ciemny,
 użytkownicy z radioodtwarzaczami z rynku wtórnego nie mają już możliwości przełączenia się w tryb ciemny bez podłączenia zestawu stereo do świateł samochodu.\n Dzięki tej modyfikacji tryb nocny jest ponownie zależny od telefonu i przełączenie trybu jasny/ciemny na telefonie będzie miało wpływ również na samochody.</string>
     <string name="dark_mode_tweak">niezależny tryb ciemny</string>
-    <string name="telemetry_string">telemetria</string>
+    <string name="telemetry_string">śledzenie</string>
     <string name="tutorial_telemetry">Nie jest tajemnicą, że Google rejestruje wiele informacji o nas. Ta modyfikacja sprawi, że usługi Google Play zatrzymają wiele aktywności związanych ze śledzeniem i rejestrowaniem.\n
-OSTRZEŻENIE: ta modyfikacja nie została dokładnie przetestowana i może potencjalnie uszkodzić Android Auto. Jeśli zauważysz, że ta modyfikacja psuje Android Auto, otwórz problem na GitHub.</string>
-    <string name="reboot_prompt">Reboot phone now?</string>
-    <string name="rebooting_action">Rebooting…</string>
-    <string name="negative_button">cancel</string>
-    <string name="added_app_action">Added: </string>
-    <string name="removed_app_action">Removed: </string>
-    <string name="root_access_warning">Root access denied. Please allow root access.</string>
-    <string name="revert_everything_dialog">Do you want to revert everything? Please manually restart the app after doing so</string>
-    <string name="calendar_tweak">Set %1$s visible days in calendar</string>
-    <string name="calendar_tweak_single">Set %1$s visible day in calendar</string>
-    <string name="tutorial_calendar_tweak">This tweak will make so that calendar app into Android Auto can show more days than just one. Please note that even increasing the number of days, it\'s still not obviously possible to distinguish which day you are viewing the events of. Android Auto will just show how many events are set in one day and it won\'t show which day it is.</string>
-    <string name="choose_apps_warning">Choose apps to whitelist</string>
+OSTRZEŻENIE: ta modyfikacja nie została dokładnie przetestowana i może potencjalnie uszkodzić Android Auto. Jeśli zauważysz, że ta modyfikacja psuje Android Auto, zgłoś problem na GitHub.</string>
+    <string name="reboot_prompt">Uruchomić telefon ponownie ?</string>
+    <string name="rebooting_action">Restartowanie…</string>
+    <string name="negative_button">Anuluj</string>
+    <string name="added_app_action">Dodano:</string>
+    <string name="removed_app_action">Usunięto: </string>
+    <string name="root_access_warning">Odmowa dostępu do roota. Zezwól na dostęp do roota.</string>
+    <string name="revert_everything_dialog">Czy chcesz wszystko przywrócić? Po tej czynności proszę ręcznie zrestartować aplikację</string>
+    <string name="calendar_tweak">Ustaw %1$s widocznych dni w kalendarzu.</string>
+    <string name="calendar_tweak_single">Ustaw %1$s widocznych dni w kalendarzu.</string>
+    <string name="tutorial_calendar_tweak">Ta funkcja sprawi, że aplikacja kalendarza w Android Auto może pokazać więcej dni niż jeden. Pamiętaj, że nawet zwiększenie liczby dni, wciąż nie jest możliwe rozróżnienie dnia oglądania wydarzeń. Android Auto pokaże ile zdarzeń jest ustawionych w ciągu jednego dnia i nie będzie pokazywać, którego dnia jest.</string>
+    <string name="choose_apps_warning">Wybierz aplikację do białej listy</string>
     <string name="log_first_line">LOG:\n</string>
-    <string name="menu_aa_settings">Open Android Auto settings</string>
-    <string name="not_enabled_warning">Android Auto is not enabled</string>
-    <string name="not_installed_warning">Android Auto is not installed</string>
-    <string name="currently_set">"Currently set: "</string>
-    <string name="tutorial_messages_tweak">"This tweak will make some messaging apps appear as an icon on Android Auto. Once opened, the notifications of that app will appear. Notifications will still be received on notifications' center too. "</string>
-    <string name="messages_tweak_string">messaging apps</string>
+    <string name="menu_aa_settings">Otwórz ustawienia Android Auto</string>
+    <string name="not_enabled_warning">Android Auto nie jest włączony</string>
+    <string name="not_installed_warning">Android Auto nie jest zainstalowany</string>
+    <string name="currently_set">"Obecnie ustawiony: "</string>
+    <string name="tutorial_messages_tweak">"Ta modyfikacja sprawi, że niektóre aplikacje będą wyświetlane jako ikona w Android Auto. Po otwarciu, powiadomienia o tej aplikacji pojawią się. Powiadomienia będą nadal odebrane również w centrum powiadomień. "</string>
+    <string name="messages_tweak_string">aplikacje do przesyłania wiadomości</string>
 </resources>
