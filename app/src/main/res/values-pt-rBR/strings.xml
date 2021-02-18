@@ -36,7 +36,7 @@ This tweak could occasionally fail because sometimes Android Auto starts with a 
 In some cases this tweak will disable auto start of music. A known workaround is to disable and re-enable the option within Android Auto settings.\n
 IT\'S NOT POSSIBLE TO SET A SPECIFIC APP TO START FIRST.</string>
     <string name="tutorial_widescreen">Este ajuste irá forçar o Android Auto em modo de tela widescreen.</string>
-    <string name="tutorial_no_widescreen">This tweak will force Android Auto in no widescreen mode.</string>
+    <string name="tutorial_no_widescreen">Este ajuste irá forçar o Android Auto em modo de tela sem widescreen.</string>
     <string name="tutorial_animation">This tweak enable an animation of Google Assistant in the navigation bar.</string>
     <string name="tutorial_statusbar_opaque">This tweak will make the status bar always with an opaque background (default is transparent)</string>
     <string name="tutorial_battery_outline">This tweak will prevent the battery icon with the red outline when battery saver is on.</string>
@@ -102,4 +102,5 @@ WARNING: This tweak has not been extensively tested and could potentially break 
     <string name="currently_set">"Currently set: "</string>
     <string name="tutorial_messages_tweak">"This tweak will make some messaging apps appear as an icon on Android Auto. Once opened, the notifications of that app will appear. Notifications will still be received on notifications' center too. "</string>
     <string name="messages_tweak_string">messaging apps</string>
+    <string name="no_accounts_warning">AA AIO TWEAKER could not find any account in Google Play Services database. This can be caused by several different things such as:\n • Device that is mostly not connected to internet\n • Fresh install of the phone\n • Corrupted Google Play Services database\n • Removal of Google account(s) from the phone\n • Cleared datas of Google Play Services\n\nIn this scenario, AA AIO TWEAKER will FAIL to work properly. If you recently removed a Google account or cleared Google Play Services datas, please keep the phone connected to internet and let it build the Google Play Services database fully. This might take several hours, in some cases also days.\n\nIf you are not in one of the above conditions, please open a issue on GitHub.</string>
 </resources>

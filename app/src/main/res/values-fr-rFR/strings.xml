@@ -94,10 +94,11 @@ ATTENTION : Cette modification n\'a pas été testée de manière approfondie et
     <string name="tutorial_calendar_tweak">Cette modification permettra à l\'application Calendrier dans Android Auto d\'afficher plusieurs jours plutôt qu\'un seul. Veuillez noter que même en augmentant le nombre de jours, il n\'est toujours pas possible de distinguer le jour dont vous consultez les événements. Android Auto se contentera d\'afficher le nombre d\'événements programmés dans une journée et n\'indiquera pas de quel jour il s\'agit.</string>
     <string name="choose_apps_warning">Choisir les applications à mettre sur liste blanche</string>
     <string name="log_first_line">JOURNAUX :\n</string>
-    <string name="menu_aa_settings">Paramètres d\'Android Auto</string>
+    <string name="menu_aa_settings">Paramètres Android Auto</string>
     <string name="not_enabled_warning">Android Auto n\'est pas activé</string>
     <string name="not_installed_warning">Android Auto n\'est pas installé</string>
     <string name="currently_set">"Actuellement défini : "</string>
     <string name="tutorial_messages_tweak">"Cette modification fera apparaître certaines applications de messagerie sous forme d'icône sur Android Auto. Une fois ouverte, les notifications de cette application apparaîtront. Les notifications seront toujours reçues dans le centre des notifications. "</string>
     <string name="messages_tweak_string">applications de messagerie</string>
+    <string name="no_accounts_warning">AA AIO TWEAKER n\'a pu trouver aucun compte dans la base de données des services Google Play. Cela peut être dû à différentes raisons :\n • Appareil qui n\'est généralement pas connecté à internet\n • Nouvelle installation du téléphone\n • Base de données des services Google Play corrompue\n • Suppression du ou des comptes Google du téléphone\n • Données effacées des services Google Play\n\nSi vous êtes dans l\'un de ce ces cas de figure, AA AIO TWEAKER ne fonctionnera pas correctement. Si vous avez récemment supprimé un compte Google ou effacé les données des services Google Play, veuillez garder le téléphone connecté à Internet et le laisser reconstruire entièrement la base de données des services Google Play. Cela peut prendre plusieurs heures, voire des jours dans certains cas.\n\nSi vous n\'êtes pas dans l\'une des conditions ci-dessus, merci d\'ouvrir un ticket sur GitHub.</string>
 </resources>

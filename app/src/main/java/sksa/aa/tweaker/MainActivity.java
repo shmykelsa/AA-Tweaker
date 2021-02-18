@@ -1,14 +1,18 @@
 package sksa.aa.tweaker;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.view.ViewPager;
@@ -45,6 +49,49 @@ public class MainActivity extends AppCompatActivity {
     public static String appDirectory = new String();
 
     private static Context mContext;
+    private ImageView noSpeedRestrictionsStatus;
+    private ImageView assistantShortcutsStatus;
+    private ImageView taplimitstatus;
+    private ImageView navstatus;
+    private ImageView patchappstatus;
+    private ImageView assistanimstatus;
+    private ImageView batteryOutlineStatus;
+    private ImageView opaqueStatus;
+    private ImageView forceWideScreenStatus;
+    private ImageView messagesHunStatus;
+    private ImageView mediaHunStatus;
+    private ImageView calendarTweakStatus;
+    private ImageView btstatus;
+    private ImageView messagesTweakStatus;
+    private ImageView mdstatus;
+    private ImageView batteryWarningStatus;
+    private ImageView activateWallpapersStatus;
+    private ImageView oldDarkModeStatus;
+    private ImageView telemetryStatus;
+    private ImageView mediaTabsStatus;
+    private ImageView forceNoWideScreenStatus;
+    private Button rebootButton;
+    private Button nospeed;
+    private Button assistshort;
+    private Button taplimitat;
+    private Button startupnav;
+    private Button patchapps;
+    private Button assistanim;
+    private Button batteryoutline;
+    private Button forceNoWideScreen;
+    private Button statusbaropaque;
+    private Button forceWideScreenButton;
+    private Button messagesHunThrottling;
+    private Button mediathrottlingbutton;
+    private Button moreCalendarButton;
+    private Button bluetoothoff;
+    private Button messagesButton;
+    private Button mdbutton;
+    private Button batteryWarning;
+    private Button activateWallpapersButton;
+    private Button oldDarkMode;
+    private Button disableTelemetryButton;
+    private Button activateMediaTabs;
 
     public static Context getContext() {
         return mContext;
@@ -59,9 +106,30 @@ public class MainActivity extends AppCompatActivity {
         loadStatus(path);
         String CountUsers = runSuWithCmd(
                 path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                        "'SELECT COUNT(DISTINCT user) FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\";'").getInputStreamLog();
+                        "'SELECT COUNT(DISTINCT USER) FROM Flags WHERE user !=\"\";'").getInputStreamLog();
         final int UserCount = Integer.parseInt(CountUsers);
+
         setContentView(R.layout.activity_main);
+
+        if (UserCount == 0) {
+            final AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+            alertDialog.setTitle(getString(R.string.warning_title));
+            alertDialog.setMessage(getString(R.string.no_accounts_warning));
+
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(android.R.string.ok), new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    alertDialog.dismiss();
+                }
+            });
+
+            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "GITHUB", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/shmykelsa/AA-Tweaker/issues/new")));
+                }
+            });
+
+            alertDialog.show();
+        }
 
         ViewPager viewPager = findViewById(R.id.viewpager);
         CommonPageAdapter adapter = new CommonPageAdapter();
@@ -97,11 +165,9 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
 
-        final Button rebootButton = findViewById(R.id.reboot_button);
+        rebootButton = findViewById(R.id.reboot_button);
         final Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.reboot_button_anim);
-        final RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        rotate.setDuration(400);
-        rotate.setInterpolator(new LinearInterpolator());
+
 
         final Boolean[] animationRun = {false};
         final TextView upperTextView = findViewById(R.id.legend);
@@ -129,9 +195,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Timer _timer = new Timer();
+        Timer timer = new Timer();
 
-        _timer.schedule(new TimerTask() {
+        timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 // use runOnUiThread(Runnable action)
@@ -144,16 +210,14 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 12000, 12000);
 
-        final Button nospeed = findViewById(R.id.nospeed);
-        final ImageView nospeedimg = findViewById(R.id.speedhackstatus);
+        nospeed = findViewById(R.id.nospeed);
+        noSpeedRestrictionsStatus = findViewById(R.id.speedhackstatus);
         if(load("aa_speed_hack")) {
             nospeed.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.unlimited_scrolling_when_driving));
-            nospeedimg.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-            nospeedimg.setColorFilter(Color.argb(255,0,255,0));
+            changeStatus(noSpeedRestrictionsStatus, true, false);
         } else {
             nospeed.setText(getString(R.string.disable_tweak_string) + getString(R.string.unlimited_scrolling_when_driving));
-            nospeedimg.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-            nospeedimg.setColorFilter(Color.argb(255,255,0,0));
+            changeStatus(noSpeedRestrictionsStatus, false, false);
         }
 
         nospeed.setOnClickListener(
@@ -163,27 +227,18 @@ public class MainActivity extends AppCompatActivity {
                         if (load("aa_speed_hack")){
                             revert("aa_speed_hack");
                             nospeed.setText(getString(R.string.disable_tweak_string) + getString(R.string.unlimited_scrolling_when_driving));
-                            nospeedimg.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-                            nospeedimg.setColorFilter(Color.argb(255,255,0,0));
-                            nospeedimg.startAnimation(rotate);
+                            changeStatus(noSpeedRestrictionsStatus, false, true);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
-
                                 animationRun[0] = true;
                             }
                         }
                         else {
                             patchforspeed(view, UserCount);
-                            nospeed.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.unlimited_scrolling_when_driving));
-                            nospeedimg.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-                            nospeedimg.setColorFilter(Color.argb(255,255,255,0));
-                            nospeedimg.startAnimation(rotate);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
-
-
                                 animationRun[0] = true;
                             }
                         }
@@ -216,16 +271,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final Button assistshort = findViewById(R.id.assistshort);
-        final ImageView assisthackimg = findViewById(R.id.shortcutstatus);
+        assistshort = findViewById(R.id.assistshort);
+        assistantShortcutsStatus = findViewById(R.id.shortcutstatus);
         if(load("assist_short")) {
             assistshort.setText(getString(R.string.disable_tweak_string) + getString(R.string.enable_assistant_shortcuts));
-            assisthackimg.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-            assisthackimg.setColorFilter(Color.argb(255,0,255,0));
+            changeStatus(assistantShortcutsStatus, true, false);
         } else {
             assistshort.setText(getString(R.string.enable_tweak_string) + getString(R.string.enable_assistant_shortcuts));
-            assisthackimg.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-            assisthackimg.setColorFilter(Color.argb(255,255,0,0));
+            changeStatus(assistantShortcutsStatus, false, false);
+
         }
 
         assistshort.setOnLongClickListener(new View.OnLongClickListener() {
@@ -266,44 +320,34 @@ public class MainActivity extends AppCompatActivity {
                         if (load("assist_short")){
                             revert("assist_short");
                             assistshort.setText(getString(R.string.enable_tweak_string) + getString(R.string.enable_assistant_shortcuts));
-                            assisthackimg.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-                            assisthackimg.setColorFilter(Color.argb(255,255,0,0));
-                            assisthackimg.startAnimation(rotate);
+                            changeStatus(assistantShortcutsStatus, false, true);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
-
-
                                 animationRun[0] = true;
                             }
                         }
                         else {
                             patchforassistshort(view, UserCount);
-                            assistshort.setText(getString(R.string.disable_tweak_string) + getString(R.string.enable_assistant_shortcuts));
-                            assisthackimg.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-                            assisthackimg.setColorFilter(Color.argb(255,255,255,0));
-                            assisthackimg.startAnimation(rotate);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
-
-
                                 animationRun[0] = true;
                             }
                         }
                     }
                 });
 
-        final Button taplimitat = findViewById(R.id.taplimit);
-        final ImageView taplimitstatus = findViewById(R.id.sixtapstatus);
+        taplimitat = findViewById(R.id.taplimit);
+        taplimitstatus = findViewById(R.id.sixtapstatus);
         if(load("aa_six_tap")) {
             taplimitat.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.disable_speed_limitations));
-            taplimitstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-            taplimitstatus.setColorFilter(Color.argb(255,0,255,0));
+            changeStatus(taplimitstatus, true, false);
+
         } else {
             taplimitat.setText(getString(R.string.disable_tweak_string) + getString(R.string.disable_speed_limitations));
-            taplimitstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-            taplimitstatus.setColorFilter(Color.argb(255,255,0,0));
+            changeStatus(taplimitstatus, false, false);
+
         }
 
         taplimitat.setOnLongClickListener(new View.OnLongClickListener() {
@@ -339,44 +383,32 @@ public class MainActivity extends AppCompatActivity {
                         if (load("aa_six_tap")){
                             revert("aa_six_tap");
                             taplimitat.setText(getString(R.string.disable_tweak_string) + getString(R.string.disable_speed_limitations));
-                            taplimitstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-                            taplimitstatus.setColorFilter(Color.argb(255,255,0,0));
-                            taplimitstatus.startAnimation(rotate);
+                            changeStatus(taplimitstatus, false, true);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
-
-
                                 animationRun[0] = true;
                             }
                         }
                         else {
                             patchfortouchlimit(view, UserCount);
-                            taplimitat.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.disable_speed_limitations));
-                            taplimitstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-                            taplimitstatus.setColorFilter(Color.argb(255,255,255,0));
-                            taplimitstatus.startAnimation(rotate);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
-
-
                                 animationRun[0] = true;
                             }
                         }
                     }
                 });
 
-        final Button startupnav = findViewById(R.id.startup);
-        final ImageView navstatus = findViewById(R.id.navstatus);
+        startupnav = findViewById(R.id.startup);
+        navstatus = findViewById(R.id.navstatus);
         if(load("aa_startup_policy")) {
             startupnav.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.navigation_at_start));
-            navstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-            navstatus.setColorFilter(Color.argb(255,0,255,0));
+            changeStatus(navstatus, true, false);
         } else {
             startupnav.setText(getString(R.string.disable_tweak_string) + getString(R.string.navigation_at_start));
-            navstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-            navstatus.setColorFilter(Color.argb(255,255,0,0));
+            changeStatus(navstatus, false, false);
         }
         startupnav.setOnClickListener(
                 new View.OnClickListener() {
@@ -386,28 +418,18 @@ public class MainActivity extends AppCompatActivity {
                             revert("aa_startup_policy");
                             revert("aa_startup_policy_cleanup");
                             startupnav.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.navigation_at_start));
-                            navstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-                            navstatus.setColorFilter(Color.argb(255,255,0,0));
-                            navstatus.startAnimation(rotate);
+                            changeStatus(navstatus, true, false);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
-
-
                                 animationRun[0] = true;
                             }
                         }
                         else {
                             navpatch(view, UserCount);
-                            startupnav.setText(getString(R.string.disable_tweak_string) + getString(R.string.navigation_at_start));
-                            navstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-                            navstatus.setColorFilter(Color.argb(255,255,255,0));
-                            navstatus.startAnimation(rotate);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
-
-
                                 animationRun[0] = true;
                             }
                         }
@@ -437,18 +459,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final Button patchapps = findViewById(R.id.patchapps);
-        final ImageView patchappstatus = findViewById(R.id.patchedappstatus);
+        patchapps = findViewById(R.id.patchapps);
+        patchappstatus = findViewById(R.id.patchedappstatus);
 
 
-        if(load("aa_patched_apps") && load("after_delete") && load("aa_patched_apps_fix") ) {
+        if(load("aa_patched_apps") && load("aa_patched_apps_fix") ) {
             patchapps.setText(getString(R.string.unpatch) + getString(R.string.patch_custom_apps));
-            patchappstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-            patchappstatus.setColorFilter(Color.argb(255,0,255,0));
+            changeStatus(patchappstatus, true, false);
         } else {
             patchapps.setText(getString(R.string.patch_app) + getString(R.string.patch_custom_apps));
-            patchappstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-            patchappstatus.setColorFilter(Color.argb(255,255,0,0));
+            changeStatus(patchappstatus, false, false);
         }
 
         patchapps.setOnClickListener(
@@ -460,9 +480,7 @@ public class MainActivity extends AppCompatActivity {
                             revert("aa_patched_apps");
                             revert("aa_patched_apps_fix");
                             patchapps.setText(getString(R.string.patch_app) + getString(R.string.patch_custom_apps));
-                            patchappstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-                            patchappstatus.setColorFilter(Color.argb(255,255,0,0));
-                            patchappstatus.startAnimation(rotate);
+                            changeStatus(patchappstatus, false, true);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
@@ -480,15 +498,9 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), getString(R.string.choose_apps_warning), Toast.LENGTH_LONG).show();
                             } else {
                                 patchforapps(view, UserCount);
-                                patchapps.setText(getString(R.string.unpatch) + getString(R.string.patch_custom_apps));
-                                patchappstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-                                patchappstatus.setColorFilter(Color.argb(255, 0, 255, 0));
-                                patchappstatus.startAnimation(rotate);
                                 if (!animationRun[0]) {
                                     rebootButton.setVisibility(View.VISIBLE);
                                     rebootButton.startAnimation(anim);
-
-
                                     animationRun[0] = true;
                                 }
                             }
@@ -519,17 +531,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final Button assistanim = findViewById(R.id.assistanim);
-        final ImageView assistanimstatus = findViewById(R.id.assistanimstatus);
+        assistanim = findViewById(R.id.assistanim);
+        assistanimstatus = findViewById(R.id.assistanimstatus);
         if(load("aa_assistant_rail")) {
             assistanim.setText(getString(R.string.disable_tweak_string) + getString(R.string.enable_assistant_animation_in_navbar));
-            assistanimstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-            assistanimstatus.setColorFilter(Color.argb(255,0,255,0));
+            changeStatus(assistanimstatus, true, false);
 
         } else {
             assistanim.setText(getString(R.string.enable_tweak_string) + getString(R.string.enable_assistant_animation_in_navbar));
-            assistanimstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-            assistanimstatus.setColorFilter(Color.argb(255,255,0,0));
+            changeStatus(assistanimstatus, false, false);
         }
 
         assistanim.setOnClickListener(
@@ -539,28 +549,18 @@ public class MainActivity extends AppCompatActivity {
                         if (load("aa_assistant_rail")){
                             revert("aa_assistant_rail");
                             assistanim.setText(getString(R.string.enable_tweak_string) + getString(R.string.enable_assistant_animation_in_navbar));
-                            assistanimstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-                            assistanimstatus.setColorFilter(Color.argb(255,255,0,0));
-                            assistanimstatus.startAnimation(rotate);
+                            changeStatus(assistanimstatus, false, true);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
-
-
                                 animationRun[0] = true;
                             }
                         }
                         else {
                             patchrailassistant(view, UserCount);
-                            assistanim.setText(getString(R.string.disable_tweak_string) + getString(R.string.enable_assistant_animation_in_navbar));
-                            assistanimstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-                            assistanimstatus.setColorFilter(Color.argb(255,255,255,0));
-                            assistanimstatus.startAnimation(rotate);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
-
-
                                 animationRun[0] = true;
                             }
                         }
@@ -593,17 +593,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final Button batteryoutline = findViewById(R.id.battoutline);
-        final ImageView batterystatus = findViewById(R.id.batterystatus);
+        batteryoutline = findViewById(R.id.battoutline);
+        batteryOutlineStatus = findViewById(R.id.batterystatus);
         if(load("aa_battery_outline")) {
             batteryoutline.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.battery_outline_string));
-            batterystatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-            batterystatus.setColorFilter(Color.argb(255,0,255,0));
+            changeStatus(batteryOutlineStatus, true, false);
 
         } else {
             batteryoutline.setText(getString(R.string.disable_tweak_string) + getString(R.string.battery_outline_string));
-            batterystatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-            batterystatus.setColorFilter(Color.argb(255,255,0,0));
+            changeStatus(batteryOutlineStatus, false, false);
         }
 
         batteryoutline.setOnClickListener(
@@ -612,29 +610,19 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         if (load("aa_battery_outline")){
                             revert("aa_battery_outline");
-                            batteryoutline.setText(getString(R.string.disable_tweak_string) + getString(R.string.battery_outline_string));
-                            batterystatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-                            batterystatus.setColorFilter(Color.argb(255,255,0,0));
-                            batterystatus.startAnimation(rotate);
+                            batteryoutline.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.battery_outline_string));
+                            changeStatus(batteryOutlineStatus, false, true);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
-
-
                                 animationRun[0] = true;
                             }
                         }
                         else {
                             battOutline(view, UserCount);
-                            batteryoutline.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.battery_outline_string));
-                            batterystatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-                            batterystatus.setColorFilter(Color.argb(255,255,255,0));
-                            batterystatus.startAnimation(rotate);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
-
-
                                 animationRun[0] = true;
                             }
                         }
@@ -667,17 +655,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final Button statusbaropaque = findViewById(R.id.statusbar_opaque);
-        final ImageView opauqestatus = findViewById(R.id.statusbar_opaque_status);
+        statusbaropaque = findViewById(R.id.statusbar_opaque);
+        opaqueStatus = findViewById(R.id.statusbar_opaque_status);
         if(load("aa_sb_opaque")) {
             statusbaropaque.setText(getString(R.string.disable_tweak_string) + getString(R.string.statb_opaque_string));
-            opauqestatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-            opauqestatus.setColorFilter(Color.argb(255,0,255,0));
+            changeStatus(opaqueStatus, true, false);
 
         } else {
             statusbaropaque.setText(getString(R.string.enable_tweak_string) + getString(R.string.statb_opaque_string));
-            opauqestatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-            opauqestatus.setColorFilter(Color.argb(255,255,0,0));
+            changeStatus(opaqueStatus, false, false);
         }
 
         statusbaropaque.setOnClickListener(
@@ -687,28 +673,18 @@ public class MainActivity extends AppCompatActivity {
                         if (load("aa_sb_opaque")){
                             revert("aa_sb_opaque");
                             statusbaropaque.setText(getString(R.string.enable_tweak_string) + getString(R.string.statb_opaque_string));
-                            opauqestatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-                            opauqestatus.setColorFilter(Color.argb(255,255,0,0));
-                            opauqestatus.startAnimation(rotate);
+                            changeStatus(opaqueStatus, false, true);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
-
-
                                 animationRun[0] = true;
                             }
                         }
                         else {
                             opaqueStatusBar(view, UserCount);
-                            statusbaropaque.setText(getString(R.string.disable_tweak_string) + getString(R.string.statb_opaque_string));
-                            opauqestatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-                            opauqestatus.setColorFilter(Color.argb(255,255,255,0));
-                            opauqestatus.startAnimation(rotate);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
-
-
                                 animationRun[0] = true;
                             }
                         }
@@ -738,21 +714,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final Button forceNoWideScreen = findViewById(R.id.force__no_ws_button);
-        final ImageView forceNoWideScreenStatus = findViewById(R.id.force_no_ws_status);
+        forceNoWideScreen = findViewById(R.id.force__no_ws_button);
+        forceNoWideScreenStatus = findViewById(R.id.force_no_ws_status);
 
-        final Button forceWideScreenButton = findViewById(R.id.force_ws_button);
-        final ImageView forceWideScreenStatus = findViewById(R.id.force_ws_status);
+        forceWideScreenButton = findViewById(R.id.force_ws_button);
+        forceWideScreenStatus = findViewById(R.id.force_ws_status);
 
         if(load("force_ws")) {
             forceWideScreenButton.setText(getString(R.string.disable_tweak_string) + getString(R.string.force_widescreen_text));
-            forceWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-            forceWideScreenStatus.setColorFilter(Color.argb(255,0,255,0));
-
+            changeStatus(forceWideScreenStatus, true, false);
         } else {
             forceWideScreenButton.setText(getString(R.string.enable_tweak_string) + getString(R.string.force_widescreen_text));
-            forceWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-            forceWideScreenStatus.setColorFilter(Color.argb(255,255,0,0));
+            changeStatus(forceWideScreenStatus, false, false);
         }
 
         forceWideScreenButton.setOnClickListener(
@@ -762,9 +735,7 @@ public class MainActivity extends AppCompatActivity {
                         if (load("force_ws")){
                             revert("force_ws");
                             forceWideScreenButton.setText(getString(R.string.enable_tweak_string) + getString(R.string.force_widescreen_text));
-                            forceWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-                            forceWideScreenStatus.setColorFilter(Color.argb(255,255,0,0));
-                            forceWideScreenStatus.startAnimation(rotate);
+                            changeStatus(forceWideScreenStatus, false, true);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
@@ -776,23 +747,16 @@ public class MainActivity extends AppCompatActivity {
                         else {
                             forceWideScreen(view, 470, UserCount);
                             forceWideScreenButton.setText(getString(R.string.disable_tweak_string)+ getString(R.string.force_widescreen_text));
-                            forceWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-                            forceWideScreenStatus.setColorFilter(Color.argb(255,255,255,0));
-                            forceWideScreenStatus.startAnimation(rotate);
                             save(true, "force_ws");
                             if (load("force_no_ws")) {
                                 Toast.makeText(getApplicationContext(), getString(R.string.force_disable_widescreen_warning), Toast.LENGTH_LONG).show();
                                 save(false,"force_no_ws");
                                 forceNoWideScreen.setText(getString(R.string.force_disable_tweak) + getString(R.string.base_no_ws));
-                                forceNoWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-                                forceNoWideScreenStatus.setColorFilter(Color.argb(255, 255, 0, 0));
-                                forceNoWideScreenStatus.startAnimation(rotate);
+                                changeStatus(forceNoWideScreenStatus, false, true);
                             }
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
-
-
                                 animationRun[0] = true;
                             }
                         }
@@ -828,13 +792,11 @@ public class MainActivity extends AppCompatActivity {
 
         if(load("force_no_ws")) {
             forceNoWideScreen.setText(getString(R.string.reset_tweak) + getString(R.string.base_no_ws));
-            forceNoWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-            forceNoWideScreenStatus.setColorFilter(Color.argb(255,0,255,0));
+            changeStatus(forceNoWideScreenStatus, true, false);
 
         } else {
             forceNoWideScreen.setText(getString(R.string.force_disable_tweak) + getString(R.string.base_no_ws));
-            forceNoWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-            forceNoWideScreenStatus.setColorFilter(Color.argb(255,255,0,0));
+            changeStatus(forceNoWideScreenStatus, false, false);
         }
 
         forceNoWideScreen.setOnClickListener(
@@ -844,37 +806,27 @@ public class MainActivity extends AppCompatActivity {
                         if (load("force_no_ws")){
                             revert("force_no_ws");
                             forceNoWideScreen.setText(getString(R.string.force_disable_tweak) + getString(R.string.base_no_ws));
-                            forceNoWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-                            forceNoWideScreenStatus.setColorFilter(Color.argb(255,255,0,0));
-                            forceNoWideScreenStatus.startAnimation(rotate);
+                            changeStatus(forceNoWideScreenStatus, false, true);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
-
-
                                 animationRun[0] = true;
                             }
                         }
                         else {
                             forceWideScreen(view, 3000, UserCount);
                             forceNoWideScreen.setText(getString(R.string.reset_tweak) + getString(R.string.base_no_ws));
-                            forceNoWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-                            forceNoWideScreenStatus.setColorFilter(Color.argb(255,255,255,0));
-                            forceNoWideScreenStatus.startAnimation(rotate);
+                            changeStatus(forceNoWideScreenStatus, true, true);
                             save(true, "force_no_ws");
                             if (load ("force_ws")) {
                                 save(false, "force_ws");
                                 Toast.makeText(getApplicationContext(), R.string.force_widescreen_warning, Toast.LENGTH_LONG).show();
                                 forceWideScreenButton.setText(getString(R.string.enable_tweak_string) + getString(R.string.force_widescreen_text));
-                                forceWideScreenStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-                                forceWideScreenStatus.setColorFilter(Color.argb(255, 255, 0, 0));
-                                forceWideScreenStatus.startAnimation(rotate);
+                                changeStatus(forceWideScreenStatus, false, true);
                             }
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
-
-
                                 animationRun[0] = true;
                             }
                         }
@@ -908,7 +860,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        final Button messagesHunThrottling = findViewById(R.id.hunthrottlingbutton);
+        messagesHunThrottling = findViewById(R.id.hunthrottlingbutton);
         final int[] messagesHunScrollbarValue = {0};
         final TextView displayValue = findViewById(R.id.seekbar_text);
         final SeekBar hunSeekbar = findViewById(R.id.messages_hun_seekbar);
@@ -942,17 +894,15 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        final ImageView messagesHunStatus = findViewById(R.id.huntrottlingstatus);
+        messagesHunStatus = findViewById(R.id.huntrottlingstatus);
         final TextView currentlySetHun = findViewById(R.id.notification_currently_set);
         if(load("aa_hun_ms")) {
             messagesHunThrottling.setText(getString(R.string.reset_tweak) + getString(R.string.set_notification_duration_to) + getString(R.string.default_string));
-            messagesHunStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-            messagesHunStatus.setColorFilter(Color.argb(255,0,255,0));
+            changeStatus(messagesHunStatus, true, false);
             currentlySetHun.setText(getString(R.string.currently_set) + loadValue("messages_hun_value"));
         } else {
             messagesHunThrottling.setText(getString(R.string.set_value) + getString(R.string.set_notification_duration_to));
-            messagesHunStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-            messagesHunStatus.setColorFilter(Color.argb(255,255,0,0));
+            changeStatus(messagesHunStatus, false, false);
         }
 
         messagesHunThrottling.setOnClickListener(
@@ -962,15 +912,10 @@ public class MainActivity extends AppCompatActivity {
                         if (load("aa_hun_ms")){
                             if (hunSeekbar.getProgress() == 8000) {
                                 revert("aa_hun_ms");
-                                messagesHunStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-                                messagesHunStatus.setColorFilter(Color.argb(255, 255, 0, 0));
-                                messagesHunStatus.startAnimation(rotate);
+                                changeStatus(messagesHunStatus, false, true);
                                 currentlySetHun.setText("");
                             } else {
                                 setHunDuration(view, hunSeekbar.getProgress(), UserCount);
-                                messagesHunStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-                                messagesHunStatus.setColorFilter(Color.argb(255,255,255,0));
-                                messagesHunStatus.startAnimation(rotate);
                                 currentlySetHun.setText(getString(R.string.currently_set) + hunSeekbar.getProgress());
                             }
                             if(!animationRun[0]) {
@@ -981,9 +926,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else {
                             setHunDuration(view, hunSeekbar.getProgress(), UserCount);
-                            messagesHunStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-                            messagesHunStatus.setColorFilter(Color.argb(255,255,255,0));
-                            messagesHunStatus.startAnimation(rotate);
                             currentlySetHun.setText(getString(R.string.currently_set) + hunSeekbar.getProgress());
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
@@ -1002,7 +944,6 @@ public class MainActivity extends AppCompatActivity {
                 dialog.setCancelable(true);
                 View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
 
-
                 TextView tutorial = view.findViewById(R.id.dialog_content);
                 tutorial.setText(getString(R.string.tutorial_hun));
 
@@ -1020,7 +961,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final Button mediathrottlingbutton = findViewById(R.id.media_throttling_button);
+        mediathrottlingbutton = findViewById(R.id.media_throttling_button);
         final int[] secondScrollBarStatus = {0};
         final TextView secondDisplayValue = findViewById(R.id.second_seekbar_text);
         final SeekBar mediaSeekbar = findViewById(R.id.media_hun_value);
@@ -1054,16 +995,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         final TextView currentlySetMediaHun = findViewById(R.id.media_notification_currently_set);
-        final ImageView mediaHunStatus = findViewById(R.id.media_trhrottling_status);
+        mediaHunStatus = findViewById(R.id.media_trhrottling_status);
         if(load("aa_media_hun")) {
             mediathrottlingbutton.setText(getString(R.string.reset_tweak) + getString(R.string.media_notification_duration_to) + getString(R.string.default_string));
-            mediaHunStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-            mediaHunStatus.setColorFilter(Color.argb(255,0,255,0));
+            changeStatus(mediaHunStatus, true, false);
             currentlySetMediaHun.setText(getString(R.string.currently_set) + loadValue("media_hun_value"));
         } else {
             mediathrottlingbutton.setText(getString(R.string.set_value) + getString(R.string.media_notification_duration_to));
-            mediaHunStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-            mediaHunStatus.setColorFilter(Color.argb(255,255,0,0));
+            changeStatus(mediaHunStatus, false, false);
         }
 
         mediathrottlingbutton.setOnClickListener(
@@ -1073,15 +1012,10 @@ public class MainActivity extends AppCompatActivity {
                         if (load("aa_media_hun")){
                             if (mediaSeekbar.getProgress()==8000) {
                                 revert("aa_media_hun");
-                                mediaHunStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-                                mediaHunStatus.setColorFilter(Color.argb(255, 255, 0, 0));
-                                mediaHunStatus.startAnimation(rotate);
+                                changeStatus(mediaHunStatus, false, true);
                                 currentlySetMediaHun.setText("");
                             } else {
                                 setMediaHunDuration(view, mediaSeekbar.getProgress(), UserCount);
-                                mediaHunStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-                                mediaHunStatus.setColorFilter(Color.argb(255,255,255,0));
-                                mediaHunStatus.startAnimation(rotate);
                                 currentlySetMediaHun.setText(getString(R.string.currently_set) + mediaSeekbar.getProgress());
                             }
                             if(!animationRun[0]) {
@@ -1092,9 +1026,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else {
                             setMediaHunDuration(view, mediaSeekbar.getProgress(), UserCount);
-                            mediaHunStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-                            mediaHunStatus.setColorFilter(Color.argb(255,255,255,0));
-                            mediaHunStatus.startAnimation(rotate);
                             currentlySetMediaHun.setText(getString(R.string.currently_set) + mediaSeekbar.getProgress());
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
@@ -1132,7 +1063,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        final Button moreCalendarButton = findViewById(R.id.calendar_more_events_button);
+        moreCalendarButton = findViewById(R.id.calendar_more_events_button);
         final int[] calendarSeekbarStatus = {0};
         final TextView calendarSeekbarTextView = findViewById(R.id.calendar_days_seekbar_text);
         final SeekBar calendarSeekbar = findViewById(R.id.calendar_days_seekbar);
@@ -1164,16 +1095,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         final TextView currentlySetAgendaDays = findViewById(R.id.calendar_days_currently_set);
-        final ImageView calendarTweakStatus = findViewById(R.id.calendar_more_events_status);
+        calendarTweakStatus = findViewById(R.id.calendar_more_events_status);
         if(load("calendar_aa_tweak")) {
             moreCalendarButton.setText(getString(R.string.calendar_tweak_single, calendarSeekbar.getProgress()));
-            calendarTweakStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-            calendarTweakStatus.setColorFilter(Color.argb(255,0,255,0));
+            changeStatus(calendarTweakStatus, true, false);
             currentlySetAgendaDays.setText(getString(R.string.currently_set) + loadValue("agenda_value"));
         } else {
             moreCalendarButton.setText(getString(R.string.calendar_tweak_single, calendarSeekbar.getProgress()));
-            calendarTweakStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-            calendarTweakStatus.setColorFilter(Color.argb(255,255,0,0));
+            changeStatus(calendarTweakStatus, false, false);
         }
 
         moreCalendarButton.setOnClickListener(
@@ -1183,15 +1112,10 @@ public class MainActivity extends AppCompatActivity {
                         if (load("calendar_aa_tweak")){
                             if (calendarSeekbar.getProgress() == 1) {
                                 revert("calendar_aa_tweak");
-                                calendarTweakStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-                                calendarTweakStatus.setColorFilter(Color.argb(255, 255, 0, 0));
-                                calendarTweakStatus.startAnimation(rotate);
+                                changeStatus(calendarTweakStatus, false, true);
                                 currentlySetAgendaDays.setText("");
                             } else {
                                 setCalendarEvents(view, calendarSeekbar.getProgress(), UserCount);
-                                calendarTweakStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-                                calendarTweakStatus.setColorFilter(Color.argb(255,255,255,0));
-                                calendarTweakStatus.startAnimation(rotate);
                                 currentlySetAgendaDays.setText(getString(R.string.currently_set) + calendarSeekbar.getProgress());
                             }
                             if(!animationRun[0]) {
@@ -1202,9 +1126,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else {
                             setCalendarEvents(view, calendarSeekbar.getProgress(), UserCount);
-                            calendarTweakStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-                            calendarTweakStatus.setColorFilter(Color.argb(255,255,255,0));
-                            calendarTweakStatus.startAnimation(rotate);
                             currentlySetAgendaDays.setText(getString(R.string.currently_set) + calendarSeekbar.getProgress());
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
@@ -1243,18 +1164,15 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-
-        final Button bluetoothoff = findViewById(R.id.bluetooth_disable_button);
-        final ImageView btstatus = findViewById(R.id.bt_disable_status);
+        bluetoothoff = findViewById(R.id.bluetooth_disable_button);
+        btstatus = findViewById(R.id.bt_disable_status);
         if(load("bluetooth_pairing_off")) {
             bluetoothoff.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.bluetooth_auto_connect));
-            btstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-            btstatus.setColorFilter(Color.argb(255,0,255,0));
+            changeStatus(btstatus, true, false);
         } else {
             bluetoothoff.setText(getString(R.string.disable_tweak_string) + getString(R.string.bluetooth_auto_connect));
-            btstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-            btstatus.setColorFilter(Color.argb(255,255,0,0));
+            changeStatus(btstatus, false, false);
+
         }
 
         bluetoothoff.setOnClickListener(
@@ -1263,32 +1181,19 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         if (load("bluetooth_pairing_off")){
                             revert("bluetooth_pairing_off");
-                            bluetoothoff.setText(getString(R.string.disable_tweak_string) + getString(R.string.bluetooth_auto_connect));
-                            btstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-                            btstatus.setColorFilter(Color.argb(255,255,0,0));
-                            btstatus.startAnimation(rotate);
-
-                            //save(false, "bluetooth_pairing_off");
+                            bluetoothoff.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.bluetooth_auto_connect));
+                            changeStatus(btstatus, false, true);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
-
-
                                 animationRun[0] = true;
                             }
                         }
                         else {
                             forceNoBt(view, UserCount);
-                            bluetoothoff.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.bluetooth_auto_connect));
-                            btstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-                            btstatus.setColorFilter(Color.argb(255,255,255,0));
-                            btstatus.startAnimation(rotate);
-                            //save(true, "bluetooth_pairing_off");
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
-
-
                                 animationRun[0] = true;
                             }
                         }
@@ -1318,16 +1223,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final Button messagesButton = findViewById(R.id.messaging_app_unlock_button);
-        final ImageView messagesTweakStatus = findViewById(R.id.messaging_tweak_status);
+        messagesButton = findViewById(R.id.messaging_app_unlock_button);
+        messagesTweakStatus = findViewById(R.id.messaging_tweak_status);
         if(load("aa_messaging_apps")) {
             messagesButton.setText(getString(R.string.disable_tweak_string) + getString(R.string.messages_tweak_string));
-            messagesTweakStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-            messagesTweakStatus.setColorFilter(Color.argb(255,0,255,0));
+            changeStatus(messagesTweakStatus, true, false);
         } else {
             messagesButton.setText(getString(R.string.enable_tweak_string) + getString(R.string.messages_tweak_string));
-            messagesTweakStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-            messagesTweakStatus.setColorFilter(Color.argb(255,255,0,0));
+            changeStatus(messagesTweakStatus, false, false);
         }
 
         messagesButton.setOnClickListener(
@@ -1337,10 +1240,7 @@ public class MainActivity extends AppCompatActivity {
                         if (load("aa_messaging_apps")){
                             revert("aa_messaging_apps");
                             messagesButton.setText(getString(R.string.enable_tweak_string) + getString(R.string.messages_tweak_string));
-                            messagesTweakStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-                            messagesTweakStatus.setColorFilter(Color.argb(255,255,0,0));
-                            messagesTweakStatus.startAnimation(rotate);
-
+                            changeStatus(messagesTweakStatus, false, true);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
@@ -1349,10 +1249,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else {
                             messagesTweak(view, UserCount);
-                            messagesButton.setText(getString(R.string.disable_tweak_string) + getString(R.string.messages_tweak_string));
-                            messagesTweakStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-                            messagesTweakStatus.setColorFilter(Color.argb(255,255,255,0));
-                            messagesTweakStatus.startAnimation(rotate);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
@@ -1394,16 +1290,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final Button mdbutton = findViewById(R.id.multi_display_button);
-        final ImageView mdstatus = findViewById(R.id.multi_display_status);
+        mdbutton = findViewById(R.id.multi_display_button);
+        mdstatus = findViewById(R.id.multi_display_status);
         if(load("multi_display")) {
             mdbutton.setText(getString(R.string.disable_tweak_string) + getString(R.string.multi_display_string));
-            mdstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-            mdstatus.setColorFilter(Color.argb(255,0,255,0));
+            changeStatus(mdstatus, true, false);
         } else {
             mdbutton.setText(getString(R.string.enable_tweak_string) + getString(R.string.multi_display_string));
-            mdstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-            mdstatus.setColorFilter(Color.argb(255,255,0,0));
+            changeStatus(mdstatus, false, false);
         }
 
         mdbutton.setOnClickListener(
@@ -1413,30 +1307,18 @@ public class MainActivity extends AppCompatActivity {
                         if (load("multi_display")){
                             revert("multi_display");
                             mdbutton.setText(getString(R.string.enable_tweak_string) + getString(R.string.multi_display_string));
-                            mdstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-                            mdstatus.setColorFilter(Color.argb(255,255,0,0));
-                            mdstatus.startAnimation(rotate);
-
+                            changeStatus(mdstatus, false, true);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
-
-
                                 animationRun[0] = true;
                             }
                         }
                         else {
                             multiDisplay(view, UserCount);
-                            mdbutton.setText(getString(R.string.disable_tweak_string) + getString(R.string.multi_display_string));
-                            mdstatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-                            mdstatus.setColorFilter(Color.argb(255,255,255,0));
-                            mdstatus.startAnimation(rotate);
-
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
-
-
                                 animationRun[0] = true;
                             }
                         }
@@ -1474,16 +1356,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final Button batteryWarning = findViewById(R.id.battery_warning_button);
-        final ImageView batteryWarningStatus = findViewById(R.id.battery_warning_status);
+        batteryWarning = findViewById(R.id.battery_warning_button);
+        batteryWarningStatus = findViewById(R.id.battery_warning_status);
         if(load("battery_saver_warning")) {
             batteryWarning.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.battery_warning));
-            batteryWarningStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-            batteryWarningStatus.setColorFilter(Color.argb(255,0,255,0));
+            changeStatus(batteryWarningStatus, true, false);
         } else {
             batteryWarning.setText(getString(R.string.disable_tweak_string) + getString(R.string.battery_warning));
-            batteryWarningStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-            batteryWarningStatus.setColorFilter(Color.argb(255,255,0,0));
+            changeStatus(batteryWarningStatus, false, false);
         }
 
         batteryWarning.setOnClickListener(
@@ -1493,30 +1373,18 @@ public class MainActivity extends AppCompatActivity {
                         if (load("battery_saver_warning")){
                             revert("battery_saver_warning");
                             batteryWarning.setText(getString(R.string.disable_tweak_string) + getString(R.string.battery_warning));
-                            batteryWarningStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-                            batteryWarningStatus.setColorFilter(Color.argb(255,255,0,0));
-                            batteryWarningStatus.startAnimation(rotate);
-
+                            changeStatus(batteryWarningStatus, false, true);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
-
-
                                 animationRun[0] = true;
                             }
                         }
                         else {
                             disableBatteryWarning(view, UserCount);
-                            batteryWarning.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.battery_warning));
-                            batteryWarningStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-                            batteryWarningStatus.setColorFilter(Color.argb(255,255,255,0));
-                            batteryWarningStatus.startAnimation(rotate);
-
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
-
-
                                 animationRun[0] = true;
                             }
                         }
@@ -1548,16 +1416,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final Button activateWallpapersButton = findViewById(R.id.custom_wallpapers_button);
-        final ImageView activateWallpapersStatus = findViewById(R.id.custom_wallpapers_status);
+        activateWallpapersButton = findViewById(R.id.custom_wallpapers_button);
+        activateWallpapersStatus = findViewById(R.id.custom_wallpapers_status);
         if(load("aa_wallpapers")) {
             activateWallpapersButton.setText(getString(R.string.disable_tweak_string) + getString(R.string.custom_wallpapers));
-            activateWallpapersStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-            activateWallpapersStatus.setColorFilter(Color.argb(255,0,255,0));
+            changeStatus(activateWallpapersStatus, true, false);
         } else {
             activateWallpapersButton.setText(getString(R.string.enable_tweak_string) + getString(R.string.custom_wallpapers));
-            activateWallpapersStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-            activateWallpapersStatus.setColorFilter(Color.argb(255,255,0,0));
+            changeStatus(activateWallpapersStatus, false, false);
         }
 
         activateWallpapersButton.setOnClickListener(
@@ -1567,30 +1433,18 @@ public class MainActivity extends AppCompatActivity {
                         if (load("aa_wallpapers")){
                             revert("aa_wallpapers");
                             activateWallpapersButton.setText(getString(R.string.enable_tweak_string) + getString(R.string.custom_wallpapers));
-                            activateWallpapersStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-                            activateWallpapersStatus.setColorFilter(Color.argb(255,255,0,0));
-                            activateWallpapersStatus.startAnimation(rotate);
-
+                            changeStatus(activateWallpapersStatus, false, true);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
-
-
                                 animationRun[0] = true;
                             }
                         }
                         else {
                             activateWallpapers(view, UserCount);
-                            activateWallpapersButton.setText(getString(R.string.disable_tweak_string) + getString(R.string.custom_wallpapers));
-                            activateWallpapersStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-                            activateWallpapersStatus.setColorFilter(Color.argb(255,255,255,0));
-                            activateWallpapersStatus.startAnimation(rotate);
-
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
-
-
                                 animationRun[0] = true;
                             }
                         }
@@ -1628,16 +1482,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final Button oldDarkMode = findViewById(R.id.dark_mode_tweak_button);
-        final ImageView oldDarkModeStatus = findViewById(R.id.dark_mode_status);
+        oldDarkMode = findViewById(R.id.dark_mode_tweak_button);
+        oldDarkModeStatus = findViewById(R.id.dark_mode_status);
         if(load("aa_night_mode_revert")) {
             oldDarkMode.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.dark_mode_tweak));
-            oldDarkModeStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-            oldDarkModeStatus.setColorFilter(Color.argb(255,0,255,0));
+            changeStatus(oldDarkModeStatus, true, false);
         } else {
             oldDarkMode.setText(getString(R.string.disable_tweak_string) + getString(R.string.dark_mode_tweak));
-            oldDarkModeStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-            oldDarkModeStatus.setColorFilter(Color.argb(255,255,0,0));
+            changeStatus(oldDarkModeStatus, false, false);
         }
 
         oldDarkMode.setOnClickListener(
@@ -1647,30 +1499,18 @@ public class MainActivity extends AppCompatActivity {
                         if (load("aa_night_mode_revert")){
                             revert("aa_night_mode_revert");
                             oldDarkMode.setText(getString(R.string.disable_tweak_string) + getString(R.string.dark_mode_tweak));
-                            oldDarkModeStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-                            oldDarkModeStatus.setColorFilter(Color.argb(255,255,0,0));
-                            oldDarkModeStatus.startAnimation(rotate);
-
+                            changeStatus(oldDarkModeStatus, false, true);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
-
-
                                 animationRun[0] = true;
                             }
                         }
                         else {
                             oldDarkMode(view, UserCount);
-                            oldDarkMode.setText(getString(R.string.disable_tweak_string) + getString(R.string.dark_mode_tweak));
-                            oldDarkModeStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-                            oldDarkModeStatus.setColorFilter(Color.argb(255,255,255,0));
-                            oldDarkModeStatus.startAnimation(rotate);
-
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
-
-
                                 animationRun[0] = true;
                             }
                         }
@@ -1700,16 +1540,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        final Button disableTelemetryButton = findViewById(R.id.telemetry_disable_tweak);
-        final ImageView telemetryStatus = findViewById(R.id.telemetry_disable_status);
+        disableTelemetryButton = findViewById(R.id.telemetry_disable_tweak);
+        telemetryStatus = findViewById(R.id.telemetry_disable_status);
         if(load("kill_telemetry")) {
             disableTelemetryButton.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.telemetry_string));
-            telemetryStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-            telemetryStatus.setColorFilter(Color.argb(255,0,255,0));
+            changeStatus(telemetryStatus, true, false);
         } else {
             disableTelemetryButton.setText(getString(R.string.disable_tweak_string) + getString(R.string.telemetry_string));
-            telemetryStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-            telemetryStatus.setColorFilter(Color.argb(255,255,0,0));
+            changeStatus(telemetryStatus, false, false);
         }
 
         disableTelemetryButton.setOnClickListener(
@@ -1719,30 +1557,18 @@ public class MainActivity extends AppCompatActivity {
                         if (load("kill_telemetry")){
                             revert("kill_telemetry");
                             disableTelemetryButton.setText(getString(R.string.disable_tweak_string) + getString(R.string.telemetry_string));
-                            telemetryStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-                            telemetryStatus.setColorFilter(Color.argb(255,255,0,0));
-                            telemetryStatus.startAnimation(rotate);
-
+                            changeStatus(telemetryStatus, false, true);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
-
-
                                 animationRun[0] = true;
                             }
                         }
                         else {
                             disableTelemetry(view, UserCount);
-                            disableTelemetryButton.setText(getString(R.string.disable_tweak_string) + getString(R.string.telemetry_string));
-                            telemetryStatus.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-                            telemetryStatus.setColorFilter(Color.argb(255,255,255,0));
-                            telemetryStatus.startAnimation(rotate);
-
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
-
-
                                 animationRun[0] = true;
                             }
                         }
@@ -1760,6 +1586,66 @@ public class MainActivity extends AppCompatActivity {
 
                 TextView tutorial = view.findViewById(R.id.dialog_content);
                 tutorial.setText(getString(R.string.tutorial_telemetry));
+
+                dialog.setContentView(view);
+
+                dialog.show();
+
+                Window window = dialog.getWindow();
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 800);
+                return true;
+            }
+        });
+
+        activateMediaTabs = findViewById(R.id.media_tabs_tweak);
+        mediaTabsStatus = findViewById(R.id.media_tabs_status);
+        if(load("aa_media_tabs")) {
+            activateMediaTabs.setText(getString(R.string.disable_tweak_string) + getString(R.string.media_tabs_string));
+            changeStatus(mediaTabsStatus, true, false);
+        } else {
+            activateMediaTabs.setText(getString(R.string.enable_tweak_string) + getString(R.string.media_tabs_string));
+            changeStatus(mediaTabsStatus, false, false);
+        }
+
+        activateMediaTabs.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (load("aa_media_tabs")){
+                            revert("aa_media_tabs");
+                            activateMediaTabs.setText(getString(R.string.enable_tweak_string) + getString(R.string.media_tabs_string));
+                            changeStatus(mediaTabsStatus, false, true);
+                            if(!animationRun[0]) {
+                                rebootButton.setVisibility(View.VISIBLE);
+                                rebootButton.startAnimation(anim);
+                                animationRun[0] = true;
+                            }
+                        }
+                        else {
+                            patchMediaTabs(view, UserCount);
+                            if(!animationRun[0]) {
+                                rebootButton.setVisibility(View.VISIBLE);
+                                rebootButton.startAnimation(anim);
+                                animationRun[0] = true;
+                            }
+                        }
+                    }
+                });
+
+        activateMediaTabs.setOnLongClickListener(new View.OnLongClickListener() {
+            public boolean onLongClick(View arg0) {
+                final Dialog dialog = new Dialog(MainActivity.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.setCancelable(true);
+                View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
+
+
+                TextView tutorial = view.findViewById(R.id.dialog_content);
+                tutorial.setText(getString(R.string.tutorial_media_tabs));
+
+                ImageView tutorialimg = view.findViewById(R.id.tutorialimage1);
+                tutorialimg.setImageResource(R.drawable.tutorial_tabs_media);
 
                 dialog.setContentView(view);
 
@@ -1832,10 +1718,22 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.revert_everything:
-                final DialogFragment revertDialog = new RevertDialog();
-                revertDialog.show(getSupportFragmentManager(), "RevertDialog");
+                final android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(MainActivity.this);
+                builder.setMessage(getString(R.string.revert_everything_dialog))
+                        .setPositiveButton(getString(android.R.string.ok), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                getAndRemoveOptionsSelected();
+                            }
+                        })
+                        .setNegativeButton(getString(android.R.string.cancel), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                builder.setCancelable(true);
+                android.support.v7.app.AlertDialog Alert1 = builder.create();
+                Alert1.show();
                 break;
-
             case R.id.aa_settings:
                 String packageName = "com.google.android.projection.gearhead";
                 openApp(getApplicationContext(), packageName);
@@ -1885,6 +1783,9 @@ public class MainActivity extends AppCompatActivity {
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
 
+        final ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
+                getString(R.string.tweak_loading), true);
+
 
         SharedPreferences appsListPref = getApplicationContext().getSharedPreferences("appsListPref", 0);
         Map<String, ?> allEntries = appsListPref.getAll();
@@ -1900,7 +1801,7 @@ public class MainActivity extends AppCompatActivity {
             final StringBuilder finalCommand = new StringBuilder();
 
             for (int i = 0; i<=(usercount-1) ; i ++) {
-                finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"should_bypass_validation\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+                finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"should_bypass_validation\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
                 finalCommand.append(i);
                 finalCommand.append(",1) ,1,1);");
             }
@@ -2114,8 +2015,9 @@ public class MainActivity extends AppCompatActivity {
 
                         if (checkStep1.getInputStreamLog().length() == checkStep3.getInputStreamLog().length()) {
                             appendText(logs, "\n\n--  Check seems OK :)  --");
+                            patchapps.setText(getString(R.string.unpatch) + getString(R.string.patch_custom_apps));
                             save(true, "aa_patched_apps");
-
+                            changeStatus(patchappstatus, true, true);
                         } else {
                             appendText(logs, "\n\n--  Check NOT OK.  --");
                             appendText(logs, "\n     Length before delete and after was not equal.");
@@ -2123,7 +2025,7 @@ public class MainActivity extends AppCompatActivity {
                             appendText(logs, "\n        After:  " + checkStep3.getInputStreamLog().length());
                         }
 
-
+                        dialog.dismiss();
                     }
                     // Check End
                 }
@@ -2135,16 +2037,18 @@ public class MainActivity extends AppCompatActivity {
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
-        
+
+        final ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
+                getString(R.string.tweak_loading), true);
 
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"LauncherShortcuts__enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"LauncherShortcuts__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"LauncherShortcuts__assistant_shortcut_enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"LauncherShortcuts__assistant_shortcut_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -2182,10 +2086,14 @@ public class MainActivity extends AppCompatActivity {
                         ).getStreamLogsWithLabels());
                         appendText(logs, "\n--  end SQL method   --");
                         save(true, "assist_short");
+                        changeStatus(assistantShortcutsStatus, true, true);
+                        assistshort.setText(getString(R.string.disable_tweak_string) + getString(R.string.enable_assistant_shortcuts));
                     } else {
                         suitableMethodFound = false;
                         appendText(logs, "\n\n--  Suitable method NOT found!  --");
                     }
+
+                    dialog.dismiss();
 
                 }
             }.start();
@@ -2200,7 +2108,7 @@ public class MainActivity extends AppCompatActivity {
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__rail_assistant_enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__rail_assistant_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -2238,7 +2146,7 @@ public class MainActivity extends AppCompatActivity {
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method   --");
                     save(true, "aa_assistant_rail");
-
+                    assistanim.setText(getString(R.string.disable_tweak_string) + getString(R.string.enable_assistant_animation_in_navbar));
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
@@ -2254,40 +2162,42 @@ public class MainActivity extends AppCompatActivity {
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
-        
+
+        final ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
+                getString(R.string.tweak_loading), true);
 
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"CarSensorParameters__max_parked_speed_gps_sensor\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"CarSensorParameters__max_parked_speed_gps_sensor\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,999,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"CarSensorParameters__max_parked_speed_wheel_sensor\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"CarSensorParameters__max_parked_speed_wheel_sensor\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,999,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__enable\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__enable\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__flake_filter_delay_ms\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__flake_filter_delay_ms\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,99999999,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__telemetry_enabled_without_smoothing\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__telemetry_enabled_without_smoothing\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreview__unchained\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreview__unchained\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreview__chained\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreview__chained\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreviewVisibilityControl__require_high_accuracy_speed_sensor\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreviewVisibilityControl__require_high_accuracy_speed_sensor\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -2325,13 +2235,13 @@ public class MainActivity extends AppCompatActivity {
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "aa_speed_hack");
+                    changeStatus(noSpeedRestrictionsStatus, true, true);
+                    nospeed.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.unlimited_scrolling_when_driving));
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
                 }
-
-
-
+                dialog.dismiss();
             }
         }.start();
     }
@@ -2340,40 +2250,42 @@ public class MainActivity extends AppCompatActivity {
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
-        
+
+        final ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
+                getString(R.string.tweak_loading), true);
 
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__multi_region_new_widescreen_activities_enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__multi_region_new_widescreen_activities_enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__require_bfr\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__require_bfr\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"EnhancedNavigationMetadata__enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"EnhancedNavigationMetadata__enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"EnhancedNavigationMetadata__verify_turn_side_when_disabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"EnhancedNavigationMetadata__verify_turn_side_when_disabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__clustersim_enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__clustersim_enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__gal_munger_enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__gal_munger_enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__multi_region_enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__multi_region_enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -2411,13 +2323,14 @@ public class MainActivity extends AppCompatActivity {
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "multi_display");
+                    changeStatus(mdstatus, true, true);
+                    mdbutton.setText(getString(R.string.disable_tweak_string) + getString(R.string.multi_display_string));
+
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
                 }
-
-
-
+                dialog.dismiss();
             }
         }.start();
     }
@@ -2426,44 +2339,47 @@ public class MainActivity extends AppCompatActivity {
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
-        
+
+        final ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
+                getString(R.string.tweak_loading), true);
+
 
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__drawer_default_allowed_taps_touchpad\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__drawer_default_allowed_taps_touchpad\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,999,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__max_permits\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__max_permits\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,999,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__enable_speed_bump_projected\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__enable_speed_bump_projected\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__lockout_ms\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__lockout_ms\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__permits_per_sec\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__permits_per_sec\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,999,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__speedbump_unrestricted_consecutive_scroll_up_actions\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__speedbump_unrestricted_consecutive_scroll_up_actions\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,999,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentForwardBrowse__invisalign_default_allowed_items_rotary\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentForwardBrowse__invisalign_default_allowed_items_rotary\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,999,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentForwardBrowse__invisalign_default_allowed_items_touch\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentForwardBrowse__invisalign_default_allowed_items_touch\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,999,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Dialer__speedbump_enabled\",(SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Dialer__speedbump_enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -2500,10 +2416,13 @@ public class MainActivity extends AppCompatActivity {
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "aa_six_tap");
+                    changeStatus(taplimitstatus, true, true);
+                    taplimitat.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.disable_speed_limitations));
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
                 }
+                dialog.dismiss();
 
             }
         }.start();
@@ -2513,16 +2432,18 @@ public class MainActivity extends AppCompatActivity {
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
-        
+
+        final ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
+                getString(R.string.tweak_loading), true);
 
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUI__startup_app_policy\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUI__startup_app_policy\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUI__start_in_launcher_if_no_user_selected_nav_app\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUI__start_in_launcher_if_no_user_selected_nav_app\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -2564,11 +2485,13 @@ public class MainActivity extends AppCompatActivity {
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "aa_startup_policy");
+                    changeStatus(navstatus, true, true);
+                    startupnav.setText(getString(R.string.disable_tweak_string) + getString(R.string.navigation_at_start));
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
                 }
-
+                dialog.dismiss();
             }
         }.start();
 
@@ -2580,19 +2503,21 @@ public class MainActivity extends AppCompatActivity {
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
 
+        final ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
+                getString(R.string.tweak_loading), true);
 
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BatterySaver__warning_enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BatterySaver__warning_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BatterySaver__on_at_start_warning_delay_ms\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BatterySaver__on_at_start_warning_delay_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BatterySaver__switched_on_warning_delay_ms\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BatterySaver__switched_on_warning_delay_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -2631,11 +2556,13 @@ public class MainActivity extends AppCompatActivity {
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "battery_saver_warning");
+                    changeStatus(batteryWarningStatus, true, true);
+                    batteryWarning.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.battery_warning));
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
                 }
-
+                dialog.dismiss();
             }
         }.start();
 
@@ -2647,11 +2574,13 @@ public class MainActivity extends AppCompatActivity {
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
 
+        final ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
+                getString(R.string.tweak_loading), true);
 
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BatterySaver__icon_outline_enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BatterySaver__icon_outline_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -2662,8 +2591,6 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 String path = getApplicationInfo().dataDir;
                 boolean suitableMethodFound = true;
-                
-
                 appendText(logs, "\n\n-- Drop Triggers  --");
                 appendText(logs, runSuWithCmd(
                         path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
@@ -2688,11 +2615,13 @@ public class MainActivity extends AppCompatActivity {
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "aa_battery_outline");
+                    changeStatus(batteryOutlineStatus, true, true);
+                    batteryoutline.setText(getString(R.string.disable_tweak_string) + getString(R.string.battery_outline_string));
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
                 }
-
+                dialog.dismiss();
             }
         }.start();
 
@@ -2703,12 +2632,14 @@ public class MainActivity extends AppCompatActivity {
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
-        
+
+        final ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
+                getString(R.string.tweak_loading), true);
 
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Boardwalk__status_bar_force_opaque\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Boardwalk__status_bar_force_opaque\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -2744,11 +2675,13 @@ public class MainActivity extends AppCompatActivity {
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "aa_sb_opaque");
+                    changeStatus(opaqueStatus, true, true);
+                    statusbaropaque.setText(getString(R.string.disable_tweak_string) + getString(R.string.statb_opaque_string));
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
                 }
-
+                dialog.dismiss();
             }
         }.start();
 
@@ -2758,16 +2691,18 @@ public class MainActivity extends AppCompatActivity {
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
-        
+
+        final ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
+                getString(R.string.tweak_loading), true);
 
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_disable\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_disable\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_skip_pairing\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_skip_pairing\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -2806,11 +2741,12 @@ public class MainActivity extends AppCompatActivity {
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "bluetooth_pairing_off");
+                    bluetoothoff.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.bluetooth_auto_connect));
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
                 }
-
+                dialog.dismiss();
             }
         }.start();
 
@@ -2821,11 +2757,13 @@ public class MainActivity extends AppCompatActivity {
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
 
+        final ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
+                getString(R.string.tweak_loading), true);
 
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"IndependentNightModeFeature__enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"IndependentNightModeFeature__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -2863,11 +2801,13 @@ public class MainActivity extends AppCompatActivity {
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "aa_night_mode_revert");
+                    changeStatus(oldDarkModeStatus, true, true);
+                    oldDarkMode.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.dark_mode_tweak));
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
                 }
-
+                dialog.dismiss();
             }
         }.start();
 
@@ -2878,133 +2818,151 @@ public class MainActivity extends AppCompatActivity {
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
 
+        final ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
+                getString(R.string.tweak_loading), true);
 
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"CarEventLoggerRefactorFeature__convert_car_setup_analytics_telemetry\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"CarEventLoggerRefactorFeature__convert_car_setup_analytics_telemetry\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"CarServiceTelemetry__enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"CarServiceTelemetry__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"CarServiceTelemetry__is_wifi_kbps_logging_enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"CarServiceTelemetry__is_wifi_kbps_logging_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"CarServiceTelemetry__log_battery_temperature\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"CarServiceTelemetry__log_battery_temperature\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.gms.car\",0,\"CarServiceTelemetry__wifi_latency_log_frequency_ms\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.gms.car\",0,\"CarServiceTelemetry__wifi_latency_log_frequency_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,99999999,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.gms.car\",0,\"ConnectivityLogging__heartbeat_interval_ms\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.gms.car\",0,\"ConnectivityLogging__heartbeat_interval_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,99999999,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"TelemetryDriveIdFeature__enable_log_event_validation\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"TelemetryDriveIdFeature__enable_log_event_validation\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"TelemetryDriveIdFeature__enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"TelemetryDriveIdFeature__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"UsbStatusLoggingFeature__monitor_usb_ping_telemetry_enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"UsbStatusLoggingFeature__monitor_usb_ping_telemetry_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"TelemetryDriveIdForGearheadFeature__enable_frx_setup_logging_via_gearhead\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"TelemetryDriveIdForGearheadFeature__enable_frx_setup_logging_via_gearhead\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.gms.car\",0,\"AudioStatsLoggingFeature__audio_stats_logging_period_milliseconds\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.gms.car\",0,\"AudioStatsLoggingFeature__audio_stats_logging_period_milliseconds\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,99999999,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"FrameworkMediaStatsLoggingFeature__is_media_stats_queue_time_logging_enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"FrameworkMediaStatsLoggingFeature__is_media_stats_queue_time_logging_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__num_background_threads\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__num_background_threads\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__include_extra_events\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__include_extra_events\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__enable_heartbeat\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__enable_heartbeat\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"WifiChannelLogging__enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"WifiChannelLogging__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__session_info_dump_size\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__session_info_dump_size\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BluetoothMetadataLogger__enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BluetoothMetadataLogger__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"CarEventLoggerRefactorFeature__convert_car_analytics_telemetry\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"CarEventLoggerRefactorFeature__convert_car_analytics_telemetry\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Bugfix__sensitive_permissions_extra_logging\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Bugfix__sensitive_permissions_extra_logging\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__log_bluetooth_rssi\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__log_bluetooth_rssi\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__save_log_when_usb_starts\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__save_log_when_usb_starts\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__skip_retroactive_usb_logging\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__skip_retroactive_usb_logging\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"InternetConnectivityLogging__enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"InternetConnectivityLogging__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Telemetry__local_logging\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Telemetry__local_logging\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"WirelessProjectionInGearhead__wireless_wifi_additional_start_logging\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"WirelessProjectionInGearhead__wireless_wifi_additional_start_logging\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Dialer__r_telemetry_enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Dialer__r_telemetry_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"AssistantSilenceDiagnostics__enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"AssistantSilenceDiagnostics__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"TelemetryDriveIdForGearheadFeature__enable_continuous_telemetry_binding\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"TelemetryDriveIdForGearheadFeature__enable_continuous_telemetry_binding\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"TelemetryDriveIdForGearheadFeature__enable_frx_setup_logging_via_gearhead\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"TelemetryDriveIdForGearheadFeature__enable_frx_setup_logging_via_gearhead\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"TelemetryDriveIdForGearheadFeature__enable_telemetry_impl_conversion\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"TelemetryDriveIdForGearheadFeature__enable_telemetry_impl_conversion\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__long_session_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__short_session_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__session_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__use_realtime_if_invalid\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
         }
 
@@ -3041,11 +2999,13 @@ public class MainActivity extends AppCompatActivity {
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "kill_telemetry");
+                    changeStatus(telemetryStatus, true, true);
+                    disableTelemetryButton.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.telemetry_string));
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
                 }
-
+                dialog.dismiss();
             }
         }.start();
 
@@ -3055,12 +3015,14 @@ public class MainActivity extends AppCompatActivity {
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
-        
+
+        final ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
+                getString(R.string.tweak_loading), true);
 
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__hun_default_heads_up_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__hun_default_heads_up_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1)," + value + ",1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -3097,11 +3059,12 @@ public class MainActivity extends AppCompatActivity {
                                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "aa_hun_ms");
+                    changeStatus(messagesHunStatus, true, true);
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
                 }
-
+                dialog.dismiss();
             }
         }.start();
 
@@ -3111,12 +3074,14 @@ public class MainActivity extends AppCompatActivity {
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
-        
+
+        final ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
+                getString(R.string.tweak_loading), true);
 
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__media_hun_in_rail_widget_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__media_hun_in_rail_widget_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1)," + value + ",1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -3153,11 +3118,12 @@ public class MainActivity extends AppCompatActivity {
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "aa_media_hun");
+                    changeStatus(mediaHunStatus, true, true);
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
                 }
-
+                dialog.dismiss();
             }
         }.start();
 
@@ -3168,11 +3134,13 @@ public class MainActivity extends AppCompatActivity {
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
 
+        final ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
+                getString(R.string.tweak_loading), true);
 
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"McFly__num_days_in_agenda_view\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"McFly__num_days_in_agenda_view\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1)," + value + ",1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -3209,11 +3177,12 @@ public class MainActivity extends AppCompatActivity {
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "calendar_aa_tweak");
+                    changeStatus(calendarTweakStatus, true, false);
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
                 }
-
+                dialog.dismiss();
             }
         }.start();
 
@@ -3223,12 +3192,12 @@ public class MainActivity extends AppCompatActivity {
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
-        
-
+        final ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
+                getString(R.string.tweak_loading), true);
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__widescreen_breakpoint_dp\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__widescreen_breakpoint_dp\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1)," + value + ",1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -3274,7 +3243,211 @@ public class MainActivity extends AppCompatActivity {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
                 }
+                dialog.dismiss();
+            }
+        }.start();
 
+    }
+
+    public void activateWallpapers (View view, int usercount) {
+        final TextView logs = findViewById(R.id.logs);
+        logs.setHorizontallyScrolling(true);
+        logs.setMovementMethod(new ScrollingMovementMethod());
+
+
+        final StringBuilder finalCommand = new StringBuilder();
+
+        for (int i = 0; i<=(usercount-1) ; i ++) {
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"CustomWallpaper__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+        }
+
+        new Thread() {
+            @Override
+            public void run() {
+                String path = getApplicationInfo().dataDir;
+                boolean suitableMethodFound = true;
+
+                final ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
+                        getString(R.string.tweak_loading), true);
+
+                appendText(logs, "\n\n-- Drop Triggers  --");
+                appendText(logs, runSuWithCmd(
+                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'DROP TRIGGER IF EXISTS aa_wallpapers;'"
+                ).getStreamLogsWithLabels());
+
+                if (runSuWithCmd(
+                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'SELECT 1 FROM ApplicationStates WHERE packageName=\"com.google.android.projection.gearhead\"'").getInputStreamLog().equals("1")) {
+
+                    appendText(logs, "\n\n--  run SQL method   --");
+                    appendText(logs, runSuWithCmd(
+                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'" +
+                                    finalCommand + "'\n"
+                    ).getStreamLogsWithLabels());
+
+                    appendText(logs, runSuWithCmd(
+                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                    "'CREATE TRIGGER aa_wallpapers AFTER DELETE\n" +
+                                    "ON FlagOverrides\n" +
+                                    "BEGIN\n" + finalCommand + "END;'\n"
+                    ).getStreamLogsWithLabels());
+                    appendText(logs, "\n--  end SQL method  --");
+                    save(true, "aa_wallpapers");
+                    changeStatus(activateWallpapersStatus, true, true);
+                    activateWallpapersButton.setText(getString(R.string.disable_tweak_string) + getString(R.string.custom_wallpapers));
+                } else {
+                    suitableMethodFound = false;
+                    appendText(logs, "\n\n--  Suitable method NOT found!  --");
+                }
+                dialog.dismiss();
+            }
+        }.start();
+
+    }
+
+    public void messagesTweak (View view, int usercount) {
+        final TextView logs = findViewById(R.id.logs);
+        logs.setHorizontallyScrolling(true);
+        logs.setMovementMethod(new ScrollingMovementMethod());
+
+        final ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
+                getString(R.string.tweak_loading), true);
+
+        final StringBuilder finalCommand = new StringBuilder();
+
+        for (int i = 0; i<=(usercount-1) ; i ++) {
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MesquiteFull__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MesquiteLite__notification_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MesquiteLite__sms_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"NotificationClientAbstraction__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__launcher_notification_badge_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+        }
+
+        new Thread() {
+            @Override
+            public void run() {
+                String path = getApplicationInfo().dataDir;
+                boolean suitableMethodFound = true;
+
+
+                appendText(logs, "\n\n-- Drop Triggers  --");
+                appendText(logs, runSuWithCmd(
+                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'DROP TRIGGER IF EXISTS aa_messaging_apps;'"
+                ).getStreamLogsWithLabels());
+
+                if (runSuWithCmd(
+                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'SELECT 1 FROM ApplicationStates WHERE packageName=\"com.google.android.projection.gearhead\"'").getInputStreamLog().equals("1")) {
+
+                    appendText(logs, "\n\n--  run SQL method   --");
+                    appendText(logs, runSuWithCmd(
+                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'" +
+                                    finalCommand + "'\n"
+                    ).getStreamLogsWithLabels());
+
+                    appendText(logs, runSuWithCmd(
+                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                    "'CREATE TRIGGER aa_messaging_apps AFTER DELETE\n" +
+                                    "ON FlagOverrides\n" +
+                                    "BEGIN\n" + finalCommand + "END;'\n"
+                    ).getStreamLogsWithLabels());
+                    appendText(logs, "\n--  end SQL method  --");
+                    save(true, "aa_messaging_apps");
+                    changeStatus(messagesTweakStatus, true, true);
+                    messagesButton.setText(getString(R.string.disable_tweak_string) + getString(R.string.messages_tweak_string));
+                } else {
+                    suitableMethodFound = false;
+                    appendText(logs, "\n\n--  Suitable method NOT found!  --");
+                }
+                dialog.dismiss();
+            }
+        }.start();
+
+    }
+
+    public void patchMediaTabs (View view, int usercount) {
+        final TextView logs = findViewById(R.id.logs);
+        logs.setHorizontallyScrolling(true);
+        logs.setMovementMethod(new ScrollingMovementMethod());
+
+        final ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
+                getString(R.string.tweak_loading), true);
+        final StringBuilder finalCommand = new StringBuilder();
+
+        for (int i = 0; i<=(usercount-1) ; i ++) {
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Tabbouleh__tabs_media_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Tabbouleh__media_browse_back_to_top_level_button_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Tabbouleh__tabs_media_sticky_tab_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+        }
+
+        new Thread() {
+            @Override
+            public void run() {
+                String path = getApplicationInfo().dataDir;
+                boolean suitableMethodFound = true;
+
+
+                appendText(logs, "\n\n-- Drop Triggers  --");
+                appendText(logs, runSuWithCmd(
+                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'DROP TRIGGER IF EXISTS aa_media_tabs;'"
+                ).getStreamLogsWithLabels());
+
+                if (runSuWithCmd(
+                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'SELECT 1 FROM ApplicationStates WHERE packageName=\"com.google.android.projection.gearhead\"'").getInputStreamLog().equals("1")) {
+
+                    appendText(logs, "\n\n--  run SQL method   --");
+                    appendText(logs, runSuWithCmd(
+                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'" +
+                                    finalCommand + "'\n"
+                    ).getStreamLogsWithLabels());
+
+                    appendText(logs, runSuWithCmd(
+                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                    "'CREATE TRIGGER aa_messaging_apps AFTER DELETE\n" +
+                                    "ON FlagOverrides\n" +
+                                    "BEGIN\n" + finalCommand + "END;'\n"
+                    ).getStreamLogsWithLabels());
+                    appendText(logs, "\n--  end SQL method  --");
+                    save(true, "aa_media_tabs");
+                    changeStatus(mediaTabsStatus, true, true);
+                    activateMediaTabs.setText(getString(R.string.disable_tweak_string) + getString(R.string.media_tabs_string));
+
+                } else {
+                    suitableMethodFound = false;
+                    appendText(logs, "\n\n--  Suitable method NOT found!  --");
+                }
+                dialog.dismiss();
             }
         }.start();
 
@@ -3313,129 +3486,7 @@ public class MainActivity extends AppCompatActivity {
         return streamLogs;
     }
 
-    public void activateWallpapers (View view, int usercount) {
-        final TextView logs = findViewById(R.id.logs);
-        logs.setHorizontallyScrolling(true);
-        logs.setMovementMethod(new ScrollingMovementMethod());
 
-
-        final StringBuilder finalCommand = new StringBuilder();
-
-        for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"CustomWallpaper__enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
-            finalCommand.append(i);
-            finalCommand.append(",1) ,1,1);");
-            finalCommand.append(System.getProperty("line.separator"));
-        }
-
-        new Thread() {
-            @Override
-            public void run() {
-                String path = getApplicationInfo().dataDir;
-                boolean suitableMethodFound = true;
-
-
-                appendText(logs, "\n\n-- Drop Triggers  --");
-                appendText(logs, runSuWithCmd(
-                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                "'DROP TRIGGER IF EXISTS aa_wallpapers;'"
-                ).getStreamLogsWithLabels());
-
-                if (runSuWithCmd(
-                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                "'SELECT 1 FROM ApplicationStates WHERE packageName=\"com.google.android.projection.gearhead\"'").getInputStreamLog().equals("1")) {
-
-                    appendText(logs, "\n\n--  run SQL method   --");
-                    appendText(logs, runSuWithCmd(
-                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'" +
-                                    finalCommand + "'\n"
-                    ).getStreamLogsWithLabels());
-
-                    appendText(logs, runSuWithCmd(
-                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                    "'CREATE TRIGGER aa_wallpapers AFTER DELETE\n" +
-                                    "ON FlagOverrides\n" +
-                                    "BEGIN\n" + finalCommand + "END;'\n"
-                    ).getStreamLogsWithLabels());
-                    appendText(logs, "\n--  end SQL method  --");
-                    save(true, "aa_wallpapers");
-                } else {
-                    suitableMethodFound = false;
-                    appendText(logs, "\n\n--  Suitable method NOT found!  --");
-                }
-
-            }
-        }.start();
-
-    }
-
-    public void messagesTweak (View view, int usercount) {
-        final TextView logs = findViewById(R.id.logs);
-        logs.setHorizontallyScrolling(true);
-        logs.setMovementMethod(new ScrollingMovementMethod());
-
-
-        final StringBuilder finalCommand = new StringBuilder();
-
-        for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MesquiteFull__enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
-            finalCommand.append(i);
-            finalCommand.append(",1) ,1,1);");
-            finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MesquiteLite__notification_enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
-            finalCommand.append(i);
-            finalCommand.append(",1) ,1,1);");
-            finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MesquiteLite__sms_enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
-            finalCommand.append(i);
-            finalCommand.append(",1) ,1,1);");
-            finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"NotificationClientAbstraction__enabled\", (SELECT DISTINCT user FROM Flags WHERE packageName=\"com.google.android.projection.gearhead\" AND user LIKE \"%@%\" LIMIT ");
-            finalCommand.append(i);
-            finalCommand.append(",1) ,1,1);");
-            finalCommand.append(System.getProperty("line.separator"));
-        }
-
-        new Thread() {
-            @Override
-            public void run() {
-                String path = getApplicationInfo().dataDir;
-                boolean suitableMethodFound = true;
-
-
-                appendText(logs, "\n\n-- Drop Triggers  --");
-                appendText(logs, runSuWithCmd(
-                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                "'DROP TRIGGER IF EXISTS aa_messaging_apps;'"
-                ).getStreamLogsWithLabels());
-
-                if (runSuWithCmd(
-                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                "'SELECT 1 FROM ApplicationStates WHERE packageName=\"com.google.android.projection.gearhead\"'").getInputStreamLog().equals("1")) {
-
-                    appendText(logs, "\n\n--  run SQL method   --");
-                    appendText(logs, runSuWithCmd(
-                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'" +
-                                    finalCommand + "'\n"
-                    ).getStreamLogsWithLabels());
-
-                    appendText(logs, runSuWithCmd(
-                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                    "'CREATE TRIGGER aa_messaging_apps AFTER DELETE\n" +
-                                    "ON FlagOverrides\n" +
-                                    "BEGIN\n" + finalCommand + "END;'\n"
-                    ).getStreamLogsWithLabels());
-                    appendText(logs, "\n--  end SQL method  --");
-                    save(true, "aa_messaging_apps");
-                } else {
-                    suitableMethodFound = false;
-                    appendText(logs, "\n\n--  Suitable method NOT found!  --");
-                }
-
-            }
-        }.start();
-
-    }
 
 
 
@@ -3460,6 +3511,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void loadStatus(final String path) {
+
+        final ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
+                getString(R.string.loading), true);
 
         runOnUiThread(new Runnable() {
             @Override
@@ -3488,17 +3542,20 @@ public class MainActivity extends AppCompatActivity {
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
                                     "'SELECT DISTINCT intVal FROM FlagOverrides WHERE name=\"McFly__num_days_in_agenda_view\";'").getInputStreamLog()), "agenda_value");
                 }
+                dialog.dismiss();
             }
         });
 
     }
 
-    public static void getAndRemoveOptionsSelected() {
-        final String[] allTriggerString = {new String()};
+    public void getAndRemoveOptionsSelected() {
 
+        final String[] allTriggerString = {new String()};
+        final ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "", getString(R.string.loading), true);
         new Thread() {
             @Override
             public void run() {
+
                 String path = appDirectory;
                 allTriggerString[0] = path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'";
                 String get_names = runSuWithCmd(
@@ -3512,6 +3569,7 @@ public class MainActivity extends AppCompatActivity {
                     runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'DROP TRIGGER IF EXISTS \"" + lines[i] + "\";'");
                 }
                 runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'DELETE FROM FlagOverrides;'");
+                dialog.dismiss();
             }
 
         }.start();
@@ -3552,6 +3610,22 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return appStatus;
+    }
+
+    private void changeStatus (ImageView resource, boolean status, boolean doAnimation) {
+        final RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        rotate.setDuration(400);
+        rotate.setInterpolator(new LinearInterpolator());
+        if (status) {
+            resource.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
+            resource.setColorFilter(Color.argb(255, 0, 255, 0));
+        } else  {
+            resource.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
+            resource.setColorFilter(Color.argb(255, 255, 0, 0));
+        }
+        if (doAnimation) {
+            resource.startAnimation(rotate);
+        }
     }
 
 }

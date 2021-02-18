@@ -600,8 +600,33 @@
             app:layout_constraintTop_toTopOf="@id/messaging_app_unlock_button"
             app:layout_constraintBottom_toBottomOf="@id/messaging_app_unlock_button" />
 
+                <Button
+                    android:id="@+id/media_tabs_tweak"
+                    android:paddingTop="9dp"
+                    android:layout_width="0dp"
+                    style="@style/ButtonStyle"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:drawablePadding="9dp"
+                    app:layout_constraintEnd_toStartOf="@id/assistanimstatus"
+                    app:layout_constraintTop_toBottomOf="@id/messaging_app_unlock_button"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <ImageView
+                    android:id="@+id/media_tabs_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_check_circle_24"
+                    android:layout_marginEnd="3dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/media_tabs_tweak"
+                    app:layout_constraintBottom_toBottomOf="@id/media_tabs_tweak" />
 
         </android.support.constraint.ConstraintLayout>
+
+
+
 
         <Space
             android:id="@+id/extra_space"

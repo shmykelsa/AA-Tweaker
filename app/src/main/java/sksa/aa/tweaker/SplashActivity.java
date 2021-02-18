@@ -22,15 +22,15 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.v("sksa.aa.tweaker", "Activity created");
+
         setContentView(R.layout.activity_splash);
-        Log.v("sksa.aa.tweaker", "Content created");
+
         final Intent intent = new Intent(this, MainActivity.class);
         final NoRootDialog noRootDialog = new NoRootDialog();
         final StreamLogs isDeviceRooted =  runSuWithCmd("echo 1");
 
         copyAssets();
-        Log.v("sksa.aa.tweaker", "Assets copied");
+
         SharedPreferences sharedPreferences = getSharedPreferences("MainActivity", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("aa_speed_hack", false);
@@ -53,6 +53,7 @@ public class SplashActivity extends AppCompatActivity {
         editor.putBoolean("kill_telemetry", false);
         editor.putBoolean("calendar_aa_tweak", false);
         editor.putBoolean("aa_messaging_apps", false);
+        editor.putBoolean("aa_media_tabs", false);
         editor.commit();
         Log.v("sksa.aa.tweaker", "Preferences restored");
 

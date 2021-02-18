@@ -84,11 +84,11 @@ Preprosto: izberite želeno spremembo :)\n
     <string name="telemetry_string">telemetrija</string>
     <string name="tutorial_telemetry">Ni skrivnost, da Google pobira veliko informacij o nas. S tem popravkom bodo storitve Google Play Services prenehale beležiti veliko aktivnosti.\n
 OPOZORILO: Popravka ni še bilo mogoče obširno testirati, zato lahko pride do problemov v delovanju Android Auto programa. Če opazite, da se s tem popravkom delovanje Android Auto poslabša, prosimo da odprete prošnjo za pomoč na GitHub platformi.</string>
-    <string name="reboot_prompt">Reboot phone now?</string>
-    <string name="rebooting_action">Rebooting…</string>
-    <string name="negative_button">cancel</string>
-    <string name="added_app_action">Added: </string>
-    <string name="removed_app_action">Removed: </string>
+    <string name="reboot_prompt">Ponovno zaženite napravo sedaj?</string>
+    <string name="rebooting_action">Ponovni zagon…</string>
+    <string name="negative_button">prekliči</string>
+    <string name="added_app_action">Dodano: </string>
+    <string name="removed_app_action">Odstranjeno: </string>
     <string name="root_access_warning">Root access denied. Please allow root access.</string>
     <string name="revert_everything_dialog">Do you want to revert everything? Please manually restart the app after doing so</string>
     <string name="calendar_tweak">Set %1$s visible days in calendar</string>
@@ -102,4 +102,5 @@ OPOZORILO: Popravka ni še bilo mogoče obširno testirati, zato lahko pride do 
     <string name="currently_set">"Currently set: "</string>
     <string name="tutorial_messages_tweak">"This tweak will make some messaging apps appear as an icon on Android Auto. Once opened, the notifications of that app will appear. Notifications will still be received on notifications' center too. "</string>
     <string name="messages_tweak_string">messaging apps</string>
+    <string name="no_accounts_warning">AA AIO TWEAKER ni dobil nobenega uporabniškega računa v podatkovni bazi Google Play Storitev. Razlogi za to so lahko sledeči:\n • Internetna povezava ni vzpostavljena\n • Na novo nastavljen telefon\n • Pokvarjena podatkovna baza Google Play Storitev.\n • Izbrisan(i) Google uporabniški račun(i)\n • Izbrisani podatki Google Play Storitev\n\nV tem primeru, AA AIO TWEAKER NE bo pravilno deloval. Če ste predčasno odstranili vaš Google uporabniški račun ali izbrisali podatke Google Play Storitev, povežite telefon z internetom in pustite, da znova zgradi podatkovno bazo Google Play Storitev. Za to lahko potrebuje več ur, v redkih primerih tudi več dni.\n\nČe vaš primer ni naveden, prosimo da odprete prošnjo za pomoč na GitHub platformi.</string>
 </resources>

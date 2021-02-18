@@ -11,7 +11,7 @@
     <string name="unlimited_scrolling_when_driving">速度制限</string>
     <string name="enable_assistant_animation_in_navbar">ナビゲーションバーのアシスタントのアニメーション</string>
     <string name="splash">本アプリは、Android Autoの動作を変更し、GoogleがAndroid Autoに実装した複数の安全機能を回避できます。\n
-本ソフトウェアを使用することにより、安全機能を変更した場合に発生する可能性のある結果、あなた自身および他人の負傷、物的損害、人命の損失などに対して、あなただけが単独で責任を負うことに同意するものとします。\n
+本アプリを使用することにより、安全機能を変更した場合に発生する可能性のある結果、あなた自身および他人の負傷、物的損害、人命の損失などに対して、あなただけが単独で責任を負うことに同意するものとします。\n
 いかなる状況においても、本アプリの作者はその使用に責任を負いません</string>
     <string name="proceed">同意</string>
     <string name="navigation_at_start">開始時のナビゲーション</string>
@@ -41,7 +41,7 @@
     <string name="tutorial_media_hun">この調整は、ナビゲーションバーのメディア通知の継続時間を最大15分まで設定します。</string>
     <string name="tutorial_bluetooth">この調整は、Android Autoが接続されているときにBluetoothがオンにならないようにします。この調整は、Bluetoothがすでにオンになっている場合には機能しません。</string>
     <string name="tutorial_patchapps">この調整は、Android Auto custom SDKで作られたサードパーティ製アプリがAndroid Auto上で動作するようにします。\n
-AA Phenotype Patcherを使い慣れている人は、それとほぼ同じです。\n
+もしAA Phenotype Patcherを使い慣れているなら、それとほぼ同じです。\n
 Android Autoに任意のアプリを追加することはできませんが、Android Auto用に作られたアプリにパッチを当てることで、車でも動作するようにすることができます。</string>
     <string name="multi_display_string">マルチディスプレイ</string>
     <string name="tutorial_multidisplay">これは、Android Autoの隠れた機能で、ワイドスクリーンモードのセカンドスペースを、セカンドアクティビティに完全に占有された本物のセカンドディスプレイに変えてくれます。Googleマップは、ナビゲーションの状態で完全なマップを表示し、音楽や電話は完全なスペースを占有するでしょう。\n
@@ -52,26 +52,26 @@ Android Autoに任意のアプリを追加することはできませんが、An
 Android Auto 5.8以上が必要です。</string>
     <string name="battery_warning">バッテリーセーバーの警告</string>
     <string name="tutorial_battery_saver_warning">この調整は、バッテリーセーバーがオンのときにAndroid Autoのポップアップ警告を表示しないようにします。</string>
-    <string name="disable_tweak_string">\u0020を無効化</string>
-    <string name="enable_tweak_string">\u0020を有効化</string>
-    <string name="re_enable_tweak_string">\u0020を再度有効化</string>
+    <string name="disable_tweak_string">無効化:\u0020</string>
+    <string name="enable_tweak_string">有効化:\u0020</string>
+    <string name="re_enable_tweak_string">再度有効化:\u0020</string>
     <string name="copy_log">ログをコピー</string>
     <string name="about">このアプリについて</string>
     <string name="revert_everything">全て元に戻す</string>
-    <string name="force_disable_tweak">\u0020を強制的に無効化</string>
-    <string name="reset_tweak">\u0020をリセット</string>
+    <string name="force_disable_tweak">強制的に無効化:\u0020</string>
+    <string name="reset_tweak">リセット:\u0020</string>
     <string name="force_widescreen_warning">ワイドスクリーンの強制は自動的に無効になりました</string>
     <string name="force_disable_widescreen_warning">ワイドスクリーンの強制的な無効は自動的に無効になりました</string>
-    <string name="set_value">\u0020をセット</string>
+    <string name="set_value">セット:\u0020</string>
     <string name="reboot_to_apply">再起動して適用</string>
     <string name="warning_title">警告</string>
-    <string name="unpatch">\u0020のパッチを解除</string>
-    <string name="patch_app">\u0020のパッチを当てる</string>
-    <string name="default_string">\u0020を規定値に戻す</string>
+    <string name="unpatch">パッチを解除:\u0020</string>
+    <string name="patch_app">パッチを当てる:\u0020</string>
+    <string name="default_string">規定値に戻す:\u0020</string>
     <string name="app_list_label">アプリの一覧</string>
     <string name="positive_button">はい</string>
     <string name="translators_button">翻訳者</string>
-    <string name="about_part_one"><![CDATA[AA AIO TWEAKERはShmykelsaによって開発及びメンテナンスされています。<br><br>ソースコードは<a href=\"https://github.com/shmykelsa/AA-Tweaker\">GitHub</a><br><br>で入手できます。]]></string>
+    <string name="about_part_one"><![CDATA[AA AIO TWEAKERはShmykelsaによって開発及びメンテナンスされています。<br><br>ソースコードは<a href=\"https://github.com/shmykelsa/AA-Tweaker\">GitHub</a>で入手できます。<br><br>]]></string>
     <string name="about_part_two"><![CDATA[このアプリが気に入ったら、寄付を検討してください。<br><a href=\"http://www.paypal.me/grizzo96\">Paypal</a>から寄付するか、下のボタンを押してビットコインアドレスをコピーしてください。<br><br>少額でも大歓迎です :)]]></string>
     <string name="copied_address_toast">ビットコインアドレスをクリップボードにコピーしました</string>
     <string name="custom_wallpapers">壁紙</string>
@@ -84,8 +84,8 @@ Android Auto 5.8以上が必要です。</string>
     <string name="reboot_prompt">端末を再起動しますか?</string>
     <string name="rebooting_action">再起動中…</string>
     <string name="negative_button">キャンセル</string>
-    <string name="added_app_action">追加済み: </string>
-    <string name="removed_app_action">削除済み: </string>
+    <string name="added_app_action">追加済: </string>
+    <string name="removed_app_action">削除済: </string>
     <string name="root_access_warning">Rootアクセスが拒否されました。Rootアクセスを許可してください。</string>
     <string name="revert_everything_dialog">全て元に戻しますか? 後でアプリを再起動してください</string>
     <string name="calendar_tweak">カレンダーに表示する日数: %1$s日</string>
@@ -98,5 +98,6 @@ Android Auto 5.8以上が必要です。</string>
     <string name="not_installed_warning">Android Autoがインストールされていません</string>
     <string name="currently_set">"現在の設定: "</string>
     <string name="tutorial_messages_tweak">"この調整は、一部のメッセージングアプリがAndroid Auto上でアイコンとして表示されるようにします。開くと、そのアプリの通知が表示されます。通知は通知センターでも受信できるようになります。 "</string>
-    <string name="messages_tweak_string">メッセンジングアプリ</string>
+    <string name="messages_tweak_string">メッセージングアプリ</string>
+    <string name="no_accounts_warning">AA AIO TWEAKER could not find any account in Google Play Services database. This can be caused by several different things such as:\n • Device that is mostly not connected to internet\n • Fresh install of the phone\n • Corrupted Google Play Services database\n • Removal of Google account(s) from the phone\n • Cleared datas of Google Play Services\n\nIn this scenario, AA AIO TWEAKER will FAIL to work properly. If you recently removed a Google account or cleared Google Play Services datas, please keep the phone connected to internet and let it build the Google Play Services database fully. This might take several hours, in some cases also days.\n\nIf you are not in one of the above conditions, please open a issue on GitHub.</string>
 </resources>
