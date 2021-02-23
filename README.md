@@ -1,3 +1,4 @@
+[![Crowdin](https://badges.crowdin.net/aa-aio-tweaker/localized.svg)](https://crowdin.com/project/aa-aio-tweaker)
 # AA-AIO-TWEAKER
 
 The ultimate All-In-One Utility to tweak Android Auto behaviour.
@@ -14,30 +15,24 @@ Google Play Services control a lot of features inside Android Auto. Some of them
 
 What this app does is making some SQLite queries in order to alter some features of Android Auto. It contains the trick inside [AA Phenotype Patcher](https://github.com/Eselter/AA-Phenotype-Patcher) to patch custom apps in order to work in AA (and the same script is contained) and with the same principle it unlocks some other things in Android Auto.
 
-# Available commands (version 1.6):
+# Example of available commands
 
 - Patch for custom Android Auto apps
 - Disable speed restrictions while driving (preview of messages will be shown always)
 - Disable six tap limit (the banner asking to pay attention to road will not be shown anymore)
-- Enable Assistant Shortcuts (you can learn more here: https://www.xda-developers.com/andr...llpaper-and-tests-google-assistant-shortcuts/)
-- Enable assistant animation in navbar
 - Disable launch of Navigator app at start
-- Disable red outline on battery icon when Battery Saver is active
+- Disable bluetooth auto connection
 - Enable force Widescreen (or force disable it)
-- Force statusbar to be black opaque
+- Disable unnecessary telemetry
 - Set notification duration from 0ms to 20 seconds
-- Set media notification duration (on the bar) to up to 15 minutes
-- (BETA) Disable Bluetooth auto connect
+- Set media notification duration on Navbar to up to 15 minutes
 - Enable MultiDisplay and clustersim feature
-- Disable Battery Saver warning
 
-Hopefully more to come :)
-
-
+And much more :)
 
 # How is this different from AA Phenotype Patcher?
 
-AA AIO TWEAKER is a fork of AA Phenotype Patcher and a lot of the original source has been re-used for coding this app. As of January 2021, with the new Android Auto 6.0, AA AIO TWEAKER provides a new method to patch Android Auto custom apps that is new and not available (yet) on AA Phenotype Patcher. If you are interested in patching custom apps, you might want to use AA AIO TWEAKER instead.
+AA AIO TWEAKER is a fork of AA Phenotype Patcher and a lot of the original source has been re-used for coding this app. As of January 2021, with the new Android Auto 6.0 update, AA AIO TWEAKER provides a new method to patch Android Auto custom apps that is new and not available (yet) on AA Phenotype Patcher. If you are interested in patching custom apps, you might want to use AA AIO TWEAKER instead.
 
 # Can I use this app instead of AA Phenotype Patcher?
 
