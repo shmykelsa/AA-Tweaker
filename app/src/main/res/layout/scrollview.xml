@@ -15,9 +15,10 @@
             android:layout_height="0dp">
 
         <Button
+            android:minLines="2"
             android:id="@+id/patchapps"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
             android:layout_marginStart="4dp"
             android:clickable="true"
             style="@style/ButtonStyle"
@@ -32,9 +33,10 @@
         <Button
             android:id="@+id/toapp_button"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
             style="@style/ButtonStyle"
             android:text="@string/select_apps"
+            app:layout_constraintBottom_toBottomOf="@id/patchapps"
             app:layout_constraintEnd_toStartOf="@id/patchapps"
             app:layout_constraintHorizontal_weight="0.6"
             app:layout_constraintStart_toStartOf="parent"

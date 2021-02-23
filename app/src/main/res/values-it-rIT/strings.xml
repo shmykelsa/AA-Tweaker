@@ -101,4 +101,8 @@ ATTENZIONE: Questo tweak non è stato testato estensivamente e potenzialmente pu
     <string name="tutorial_messages_tweak">"Questa modifica farà apparire alcune applicazioni di messaggistica come un'icona su Android Auto. Una volta aperte, appariranno le notifiche di quell'app. Le notifiche dei messaggi ricevuti continueranno ad essere presenti anche nel centro delle notifiche."</string>
     <string name="messages_tweak_string">App di messaggistica</string>
     <string name="no_accounts_warning">AA AIO TWEAKER non ha trovato nessun account nel database dei servizi Google. Questo può essere causato da vari fattori come:\n • Dispositivo principalmente non connesso ad internet\n • Nuova installazione del dispositivo\n • Database dei servizi Google corrotto\n • Rimozione degli account Google dal dispositivo\n • Rimozione dei dati dei Google Play Services\n\nIn questo scenario, AA AIO TWEAKER NON FUNZIONERÀ. Se hai recentemente rimosso un account Google o rimosso i dati dei Google Play Services, per favore mantieni il telefono connesso ad internet e lascialo ri-costruire il database dei servizi Google completamente. Questa operazione può durare diverse ore e in alcuni casi anche giorni.\n\nSe non sei in nessuna delle condizioni citate sopra, per favore apri un issue su GitHub.</string>
+    <string name="media_tabs_string">Vista a schede delle app multimediali</string>
+    <string name="tutorial_media_tabs">"Questo tweak forzerà l'attivazione di una nuova interfaccia utente per le applicazioni multimediali. Non tutte le app supportano questa interfaccia utente. Android Auto 5.8 o superiore è richiesto."</string>
+    <string name="tweak_loading">Applico il tweak...</string>
+    <string name="loading">Caricamento, attendere...</string>
 </resources>

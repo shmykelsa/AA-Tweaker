@@ -80,7 +80,7 @@ Android Auto 5.8以上が必要です。</string>
     <string name="dark_mode_tweak">独立したダークモード</string>
     <string name="telemetry_string">テレメトリー</string>
     <string name="tutorial_telemetry">Googleが私たちの多くのデータを記録しているのは、不思議なことではありません。この調整は、Google Play Servicesによる多くの追跡とログ収集を停止します。\n
-警告: この調整は広範囲にテストされておらず、Android Autoを壊す可能性があります。もし、この調整がAndroid Autoを壊すことが判明したら、GitHubで問題を公開してください。</string>
+警告: この調整は広範囲にテストされておらず、Android Autoを壊す可能性があります。もし、この調整がAndroid Autoを壊すことが判明したら、GitHubでissueを立ててください。</string>
     <string name="reboot_prompt">端末を再起動しますか?</string>
     <string name="rebooting_action">再起動中…</string>
     <string name="negative_button">キャンセル</string>
@@ -99,5 +99,9 @@ Android Auto 5.8以上が必要です。</string>
     <string name="currently_set">"現在の設定: "</string>
     <string name="tutorial_messages_tweak">"この調整は、一部のメッセージングアプリがAndroid Auto上でアイコンとして表示されるようにします。開くと、そのアプリの通知が表示されます。通知は通知センターでも受信できるようになります。 "</string>
     <string name="messages_tweak_string">メッセージングアプリ</string>
-    <string name="no_accounts_warning">AA AIO TWEAKER could not find any account in Google Play Services database. This can be caused by several different things such as:\n • Device that is mostly not connected to internet\n • Fresh install of the phone\n • Corrupted Google Play Services database\n • Removal of Google account(s) from the phone\n • Cleared datas of Google Play Services\n\nIn this scenario, AA AIO TWEAKER will FAIL to work properly. If you recently removed a Google account or cleared Google Play Services datas, please keep the phone connected to internet and let it build the Google Play Services database fully. This might take several hours, in some cases also days.\n\nIf you are not in one of the above conditions, please open a issue on GitHub.</string>
+    <string name="no_accounts_warning">AA AIO TWEAKERは、Google Play Servicesのデータベースでアカウントが見つけられませまんでした。これは、次のようなことが原因である可能性があります:\n • インターネットにほとんど接続されていないデバイス\n • スマホの新規インストール\n • 破損したGoogle Play Servicesのデータベース\n • スマホからのGoogleアカウントの削除\n • クリアされたGoogle Play Servicesのデータ\n\nこのシナリオでは、AA AIO TWEAKERは正常に動作しません。最近、GoogleアカウントやGoogle Play Servicesのデータを削除した場合は、電話をインターネットに接続したままにして、Google Play Servicesのデータベースを完全に構築させてください。これには数時間、場合によっては数日かかることもあります。\n\n上記の条件のいずれにも該当しない場合は、GitHubでissueを立ててください。</string>
+    <string name="media_tabs_string">メディアアプリのタブ表示</string>
+    <string name="tutorial_media_tabs">"この調整は、メディアプレーヤーアプリの新しいUIを強制的に有効にします。すべてのアプリがこのUIをサポートしているわけではありません。Android Auto 5.8以降が必要です。 "</string>
+    <string name="tweak_loading">調整を適用中...</string>
+    <string name="loading">ロード中、しばらくお待ちください...</string>
 </resources>

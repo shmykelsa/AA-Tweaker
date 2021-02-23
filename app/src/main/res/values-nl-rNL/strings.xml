@@ -101,4 +101,8 @@ WAARSCHUWING: Deze tweak is niet uitgebreid getest en kan Android Auto mogelijk 
     <string name="tutorial_messages_tweak">"Door deze tweak verschijnen sommige berichten apps als een pictogram op Android Auto. Eenmaal geopend, worden de meldingen van die app weergegeven. Meldingen worden ook nog steeds ontvangen in het meldingencentrum. "</string>
     <string name="messages_tweak_string">berichten apps</string>
     <string name="no_accounts_warning">AA AIO TWEAKER kon geen account vinden in de Google Play Services database. Dit kan door verschillende dingen veroorzaakt zijn, zoals:\n • Het apparaat is niet verbonden met internet\n • Een nieuwe installatie van de telefoon\n • Corrupte Google Play Services database\n • Verwijdering van een Google account(s) van de telefoon\n • Gewiste data van Google Play Services\n\nIn dit scenario zal AA AIO TWEAKER niet naar behoren werken. Als u onlangs een Google-account hebt verwijderd of Google Play Services gegevens heeft verwijderd, houd de telefoon verbonden met internet en laat het de Google Play Services database volledig bouwen. Dit kan enkele uren duren, in sommige gevallen ook dagen.\n\nAls de bovenstaande redenen bij jou niet van toepassing zijn, open dan een issue op GitHub.</string>
+    <string name="media_tabs_string">media apps tabbed view</string>
+    <string name="tutorial_media_tabs">"This tweak will force enable a new UI for media player applications. Not every app support this UI. Android Auto 5.8 or superior is required. "</string>
+    <string name="tweak_loading">Applying the tweak...</string>
+    <string name="loading">Loading, please wait...</string>
 </resources>

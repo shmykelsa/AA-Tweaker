@@ -214,10 +214,10 @@ public class MainActivity extends AppCompatActivity {
         noSpeedRestrictionsStatus = findViewById(R.id.speedhackstatus);
         if(load("aa_speed_hack")) {
             nospeed.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.unlimited_scrolling_when_driving));
-            changeStatus(noSpeedRestrictionsStatus, true, false);
+            changeStatus(noSpeedRestrictionsStatus, 2, false);
         } else {
             nospeed.setText(getString(R.string.disable_tweak_string) + getString(R.string.unlimited_scrolling_when_driving));
-            changeStatus(noSpeedRestrictionsStatus, false, false);
+            changeStatus(noSpeedRestrictionsStatus, 0, false);
         }
 
         nospeed.setOnClickListener(
@@ -227,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
                         if (load("aa_speed_hack")){
                             revert("aa_speed_hack");
                             nospeed.setText(getString(R.string.disable_tweak_string) + getString(R.string.unlimited_scrolling_when_driving));
-                            changeStatus(noSpeedRestrictionsStatus, false, true);
+                            changeStatus(noSpeedRestrictionsStatus, 0, true);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
@@ -275,10 +275,10 @@ public class MainActivity extends AppCompatActivity {
         assistantShortcutsStatus = findViewById(R.id.shortcutstatus);
         if(load("assist_short")) {
             assistshort.setText(getString(R.string.disable_tweak_string) + getString(R.string.enable_assistant_shortcuts));
-            changeStatus(assistantShortcutsStatus, true, false);
+            changeStatus(assistantShortcutsStatus, 2, false);
         } else {
             assistshort.setText(getString(R.string.enable_tweak_string) + getString(R.string.enable_assistant_shortcuts));
-            changeStatus(assistantShortcutsStatus, false, false);
+            changeStatus(assistantShortcutsStatus, 0, false);
 
         }
 
@@ -320,7 +320,7 @@ public class MainActivity extends AppCompatActivity {
                         if (load("assist_short")){
                             revert("assist_short");
                             assistshort.setText(getString(R.string.enable_tweak_string) + getString(R.string.enable_assistant_shortcuts));
-                            changeStatus(assistantShortcutsStatus, false, true);
+                            changeStatus(assistantShortcutsStatus, 0, true);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
@@ -342,11 +342,11 @@ public class MainActivity extends AppCompatActivity {
         taplimitstatus = findViewById(R.id.sixtapstatus);
         if(load("aa_six_tap")) {
             taplimitat.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.disable_speed_limitations));
-            changeStatus(taplimitstatus, true, false);
+            changeStatus(taplimitstatus, 2, false);
 
         } else {
             taplimitat.setText(getString(R.string.disable_tweak_string) + getString(R.string.disable_speed_limitations));
-            changeStatus(taplimitstatus, false, false);
+            changeStatus(taplimitstatus, 0, false);
 
         }
 
@@ -383,7 +383,7 @@ public class MainActivity extends AppCompatActivity {
                         if (load("aa_six_tap")){
                             revert("aa_six_tap");
                             taplimitat.setText(getString(R.string.disable_tweak_string) + getString(R.string.disable_speed_limitations));
-                            changeStatus(taplimitstatus, false, true);
+                            changeStatus(taplimitstatus, 0, true);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
@@ -405,10 +405,10 @@ public class MainActivity extends AppCompatActivity {
         navstatus = findViewById(R.id.navstatus);
         if(load("aa_startup_policy")) {
             startupnav.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.navigation_at_start));
-            changeStatus(navstatus, true, false);
+            changeStatus(navstatus, 2, false);
         } else {
             startupnav.setText(getString(R.string.disable_tweak_string) + getString(R.string.navigation_at_start));
-            changeStatus(navstatus, false, false);
+            changeStatus(navstatus, 0, false);
         }
         startupnav.setOnClickListener(
                 new View.OnClickListener() {
@@ -418,7 +418,6 @@ public class MainActivity extends AppCompatActivity {
                             revert("aa_startup_policy");
                             revert("aa_startup_policy_cleanup");
                             startupnav.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.navigation_at_start));
-                            changeStatus(navstatus, true, false);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
@@ -465,10 +464,10 @@ public class MainActivity extends AppCompatActivity {
 
         if(load("aa_patched_apps") && load("aa_patched_apps_fix") ) {
             patchapps.setText(getString(R.string.unpatch) + getString(R.string.patch_custom_apps));
-            changeStatus(patchappstatus, true, false);
+            changeStatus(patchappstatus, 2, false);
         } else {
             patchapps.setText(getString(R.string.patch_app) + getString(R.string.patch_custom_apps));
-            changeStatus(patchappstatus, false, false);
+            changeStatus(patchappstatus, 0, false);
         }
 
         patchapps.setOnClickListener(
@@ -480,7 +479,7 @@ public class MainActivity extends AppCompatActivity {
                             revert("aa_patched_apps");
                             revert("aa_patched_apps_fix");
                             patchapps.setText(getString(R.string.patch_app) + getString(R.string.patch_custom_apps));
-                            changeStatus(patchappstatus, false, true);
+                            changeStatus(patchappstatus, 0, true);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
@@ -535,11 +534,11 @@ public class MainActivity extends AppCompatActivity {
         assistanimstatus = findViewById(R.id.assistanimstatus);
         if(load("aa_assistant_rail")) {
             assistanim.setText(getString(R.string.disable_tweak_string) + getString(R.string.enable_assistant_animation_in_navbar));
-            changeStatus(assistanimstatus, true, false);
+            changeStatus(assistanimstatus, 2, false);
 
         } else {
             assistanim.setText(getString(R.string.enable_tweak_string) + getString(R.string.enable_assistant_animation_in_navbar));
-            changeStatus(assistanimstatus, false, false);
+            changeStatus(assistanimstatus, 0, false);
         }
 
         assistanim.setOnClickListener(
@@ -549,7 +548,7 @@ public class MainActivity extends AppCompatActivity {
                         if (load("aa_assistant_rail")){
                             revert("aa_assistant_rail");
                             assistanim.setText(getString(R.string.enable_tweak_string) + getString(R.string.enable_assistant_animation_in_navbar));
-                            changeStatus(assistanimstatus, false, true);
+                            changeStatus(assistanimstatus, 0, true);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
@@ -597,11 +596,11 @@ public class MainActivity extends AppCompatActivity {
         batteryOutlineStatus = findViewById(R.id.batterystatus);
         if(load("aa_battery_outline")) {
             batteryoutline.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.battery_outline_string));
-            changeStatus(batteryOutlineStatus, true, false);
+            changeStatus(batteryOutlineStatus, 2, false);
 
         } else {
             batteryoutline.setText(getString(R.string.disable_tweak_string) + getString(R.string.battery_outline_string));
-            changeStatus(batteryOutlineStatus, false, false);
+            changeStatus(batteryOutlineStatus, 0, false);
         }
 
         batteryoutline.setOnClickListener(
@@ -611,7 +610,7 @@ public class MainActivity extends AppCompatActivity {
                         if (load("aa_battery_outline")){
                             revert("aa_battery_outline");
                             batteryoutline.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.battery_outline_string));
-                            changeStatus(batteryOutlineStatus, false, true);
+                            changeStatus(batteryOutlineStatus, 0, true);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
@@ -659,11 +658,11 @@ public class MainActivity extends AppCompatActivity {
         opaqueStatus = findViewById(R.id.statusbar_opaque_status);
         if(load("aa_sb_opaque")) {
             statusbaropaque.setText(getString(R.string.disable_tweak_string) + getString(R.string.statb_opaque_string));
-            changeStatus(opaqueStatus, true, false);
+            changeStatus(opaqueStatus, 2, false);
 
         } else {
             statusbaropaque.setText(getString(R.string.enable_tweak_string) + getString(R.string.statb_opaque_string));
-            changeStatus(opaqueStatus, false, false);
+            changeStatus(opaqueStatus, 0, false);
         }
 
         statusbaropaque.setOnClickListener(
@@ -673,7 +672,7 @@ public class MainActivity extends AppCompatActivity {
                         if (load("aa_sb_opaque")){
                             revert("aa_sb_opaque");
                             statusbaropaque.setText(getString(R.string.enable_tweak_string) + getString(R.string.statb_opaque_string));
-                            changeStatus(opaqueStatus, false, true);
+                            changeStatus(opaqueStatus, 0, true);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
@@ -722,10 +721,10 @@ public class MainActivity extends AppCompatActivity {
 
         if(load("force_ws")) {
             forceWideScreenButton.setText(getString(R.string.disable_tweak_string) + getString(R.string.force_widescreen_text));
-            changeStatus(forceWideScreenStatus, true, false);
+            changeStatus(forceWideScreenStatus, 2, false);
         } else {
             forceWideScreenButton.setText(getString(R.string.enable_tweak_string) + getString(R.string.force_widescreen_text));
-            changeStatus(forceWideScreenStatus, false, false);
+            changeStatus(forceWideScreenStatus, 0, false);
         }
 
         forceWideScreenButton.setOnClickListener(
@@ -735,12 +734,10 @@ public class MainActivity extends AppCompatActivity {
                         if (load("force_ws")){
                             revert("force_ws");
                             forceWideScreenButton.setText(getString(R.string.enable_tweak_string) + getString(R.string.force_widescreen_text));
-                            changeStatus(forceWideScreenStatus, false, true);
+                            changeStatus(forceWideScreenStatus, 0, true);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
-
-
                                 animationRun[0] = true;
                             }
                         }
@@ -752,8 +749,9 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), getString(R.string.force_disable_widescreen_warning), Toast.LENGTH_LONG).show();
                                 save(false,"force_no_ws");
                                 forceNoWideScreen.setText(getString(R.string.force_disable_tweak) + getString(R.string.base_no_ws));
-                                changeStatus(forceNoWideScreenStatus, false, true);
+                                changeStatus(forceNoWideScreenStatus, 0, true);
                             }
+                            changeStatus(forceWideScreenStatus, 2, true);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
@@ -792,11 +790,11 @@ public class MainActivity extends AppCompatActivity {
 
         if(load("force_no_ws")) {
             forceNoWideScreen.setText(getString(R.string.reset_tweak) + getString(R.string.base_no_ws));
-            changeStatus(forceNoWideScreenStatus, true, false);
+            changeStatus(forceNoWideScreenStatus, 2, false);
 
         } else {
             forceNoWideScreen.setText(getString(R.string.force_disable_tweak) + getString(R.string.base_no_ws));
-            changeStatus(forceNoWideScreenStatus, false, false);
+            changeStatus(forceNoWideScreenStatus, 0, false);
         }
 
         forceNoWideScreen.setOnClickListener(
@@ -806,7 +804,7 @@ public class MainActivity extends AppCompatActivity {
                         if (load("force_no_ws")){
                             revert("force_no_ws");
                             forceNoWideScreen.setText(getString(R.string.force_disable_tweak) + getString(R.string.base_no_ws));
-                            changeStatus(forceNoWideScreenStatus, false, true);
+                            changeStatus(forceNoWideScreenStatus, 0, true);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
@@ -816,13 +814,13 @@ public class MainActivity extends AppCompatActivity {
                         else {
                             forceWideScreen(view, 3000, UserCount);
                             forceNoWideScreen.setText(getString(R.string.reset_tweak) + getString(R.string.base_no_ws));
-                            changeStatus(forceNoWideScreenStatus, true, true);
+                            changeStatus(forceNoWideScreenStatus, 0, true);
                             save(true, "force_no_ws");
                             if (load ("force_ws")) {
                                 save(false, "force_ws");
                                 Toast.makeText(getApplicationContext(), R.string.force_widescreen_warning, Toast.LENGTH_LONG).show();
                                 forceWideScreenButton.setText(getString(R.string.enable_tweak_string) + getString(R.string.force_widescreen_text));
-                                changeStatus(forceWideScreenStatus, false, true);
+                                changeStatus(forceWideScreenStatus, 1, true);
                             }
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
@@ -898,11 +896,11 @@ public class MainActivity extends AppCompatActivity {
         final TextView currentlySetHun = findViewById(R.id.notification_currently_set);
         if(load("aa_hun_ms")) {
             messagesHunThrottling.setText(getString(R.string.reset_tweak) + getString(R.string.set_notification_duration_to) + getString(R.string.default_string));
-            changeStatus(messagesHunStatus, true, false);
+            changeStatus(messagesHunStatus, 2, false);
             currentlySetHun.setText(getString(R.string.currently_set) + loadValue("messages_hun_value"));
         } else {
             messagesHunThrottling.setText(getString(R.string.set_value) + getString(R.string.set_notification_duration_to));
-            changeStatus(messagesHunStatus, false, false);
+            changeStatus(messagesHunStatus, 0, false);
         }
 
         messagesHunThrottling.setOnClickListener(
@@ -912,7 +910,7 @@ public class MainActivity extends AppCompatActivity {
                         if (load("aa_hun_ms")){
                             if (hunSeekbar.getProgress() == 8000) {
                                 revert("aa_hun_ms");
-                                changeStatus(messagesHunStatus, false, true);
+                                changeStatus(messagesHunStatus, 0, true);
                                 currentlySetHun.setText("");
                             } else {
                                 setHunDuration(view, hunSeekbar.getProgress(), UserCount);
@@ -998,11 +996,11 @@ public class MainActivity extends AppCompatActivity {
         mediaHunStatus = findViewById(R.id.media_trhrottling_status);
         if(load("aa_media_hun")) {
             mediathrottlingbutton.setText(getString(R.string.reset_tweak) + getString(R.string.media_notification_duration_to) + getString(R.string.default_string));
-            changeStatus(mediaHunStatus, true, false);
+            changeStatus(mediaHunStatus, 2, false);
             currentlySetMediaHun.setText(getString(R.string.currently_set) + loadValue("media_hun_value"));
         } else {
             mediathrottlingbutton.setText(getString(R.string.set_value) + getString(R.string.media_notification_duration_to));
-            changeStatus(mediaHunStatus, false, false);
+            changeStatus(mediaHunStatus, 0, false);
         }
 
         mediathrottlingbutton.setOnClickListener(
@@ -1012,7 +1010,7 @@ public class MainActivity extends AppCompatActivity {
                         if (load("aa_media_hun")){
                             if (mediaSeekbar.getProgress()==8000) {
                                 revert("aa_media_hun");
-                                changeStatus(mediaHunStatus, false, true);
+                                changeStatus(mediaHunStatus, 0, true);
                                 currentlySetMediaHun.setText("");
                             } else {
                                 setMediaHunDuration(view, mediaSeekbar.getProgress(), UserCount);
@@ -1098,11 +1096,11 @@ public class MainActivity extends AppCompatActivity {
         calendarTweakStatus = findViewById(R.id.calendar_more_events_status);
         if(load("calendar_aa_tweak")) {
             moreCalendarButton.setText(getString(R.string.calendar_tweak_single, calendarSeekbar.getProgress()));
-            changeStatus(calendarTweakStatus, true, false);
+            changeStatus(calendarTweakStatus, 2, false);
             currentlySetAgendaDays.setText(getString(R.string.currently_set) + loadValue("agenda_value"));
         } else {
             moreCalendarButton.setText(getString(R.string.calendar_tweak_single, calendarSeekbar.getProgress()));
-            changeStatus(calendarTweakStatus, false, false);
+            changeStatus(calendarTweakStatus, 0, false);
         }
 
         moreCalendarButton.setOnClickListener(
@@ -1112,7 +1110,7 @@ public class MainActivity extends AppCompatActivity {
                         if (load("calendar_aa_tweak")){
                             if (calendarSeekbar.getProgress() == 1) {
                                 revert("calendar_aa_tweak");
-                                changeStatus(calendarTweakStatus, false, true);
+                                changeStatus(calendarTweakStatus, 0, true);
                                 currentlySetAgendaDays.setText("");
                             } else {
                                 setCalendarEvents(view, calendarSeekbar.getProgress(), UserCount);
@@ -1168,10 +1166,10 @@ public class MainActivity extends AppCompatActivity {
         btstatus = findViewById(R.id.bt_disable_status);
         if(load("bluetooth_pairing_off")) {
             bluetoothoff.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.bluetooth_auto_connect));
-            changeStatus(btstatus, true, false);
+            changeStatus(btstatus, 2, false);
         } else {
             bluetoothoff.setText(getString(R.string.disable_tweak_string) + getString(R.string.bluetooth_auto_connect));
-            changeStatus(btstatus, false, false);
+            changeStatus(btstatus, 0, false);
 
         }
 
@@ -1182,7 +1180,7 @@ public class MainActivity extends AppCompatActivity {
                         if (load("bluetooth_pairing_off")){
                             revert("bluetooth_pairing_off");
                             bluetoothoff.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.bluetooth_auto_connect));
-                            changeStatus(btstatus, false, true);
+                            changeStatus(btstatus, 0, true);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
@@ -1227,10 +1225,10 @@ public class MainActivity extends AppCompatActivity {
         messagesTweakStatus = findViewById(R.id.messaging_tweak_status);
         if(load("aa_messaging_apps")) {
             messagesButton.setText(getString(R.string.disable_tweak_string) + getString(R.string.messages_tweak_string));
-            changeStatus(messagesTweakStatus, true, false);
+            changeStatus(messagesTweakStatus, 2, false);
         } else {
             messagesButton.setText(getString(R.string.enable_tweak_string) + getString(R.string.messages_tweak_string));
-            changeStatus(messagesTweakStatus, false, false);
+            changeStatus(messagesTweakStatus, 0, false);
         }
 
         messagesButton.setOnClickListener(
@@ -1240,7 +1238,7 @@ public class MainActivity extends AppCompatActivity {
                         if (load("aa_messaging_apps")){
                             revert("aa_messaging_apps");
                             messagesButton.setText(getString(R.string.enable_tweak_string) + getString(R.string.messages_tweak_string));
-                            changeStatus(messagesTweakStatus, false, true);
+                            changeStatus(messagesTweakStatus, 0, true);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
@@ -1294,10 +1292,10 @@ public class MainActivity extends AppCompatActivity {
         mdstatus = findViewById(R.id.multi_display_status);
         if(load("multi_display")) {
             mdbutton.setText(getString(R.string.disable_tweak_string) + getString(R.string.multi_display_string));
-            changeStatus(mdstatus, true, false);
+            changeStatus(mdstatus, 2, false);
         } else {
             mdbutton.setText(getString(R.string.enable_tweak_string) + getString(R.string.multi_display_string));
-            changeStatus(mdstatus, false, false);
+            changeStatus(mdstatus, 0, false);
         }
 
         mdbutton.setOnClickListener(
@@ -1307,7 +1305,7 @@ public class MainActivity extends AppCompatActivity {
                         if (load("multi_display")){
                             revert("multi_display");
                             mdbutton.setText(getString(R.string.enable_tweak_string) + getString(R.string.multi_display_string));
-                            changeStatus(mdstatus, false, true);
+                            changeStatus(mdstatus, 0, true);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
@@ -1360,10 +1358,10 @@ public class MainActivity extends AppCompatActivity {
         batteryWarningStatus = findViewById(R.id.battery_warning_status);
         if(load("battery_saver_warning")) {
             batteryWarning.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.battery_warning));
-            changeStatus(batteryWarningStatus, true, false);
+            changeStatus(batteryWarningStatus, 2, false);
         } else {
             batteryWarning.setText(getString(R.string.disable_tweak_string) + getString(R.string.battery_warning));
-            changeStatus(batteryWarningStatus, false, false);
+            changeStatus(batteryWarningStatus, 0, false);
         }
 
         batteryWarning.setOnClickListener(
@@ -1373,7 +1371,7 @@ public class MainActivity extends AppCompatActivity {
                         if (load("battery_saver_warning")){
                             revert("battery_saver_warning");
                             batteryWarning.setText(getString(R.string.disable_tweak_string) + getString(R.string.battery_warning));
-                            changeStatus(batteryWarningStatus, false, true);
+                            changeStatus(batteryWarningStatus, 0, true);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
@@ -1420,10 +1418,10 @@ public class MainActivity extends AppCompatActivity {
         activateWallpapersStatus = findViewById(R.id.custom_wallpapers_status);
         if(load("aa_wallpapers")) {
             activateWallpapersButton.setText(getString(R.string.disable_tweak_string) + getString(R.string.custom_wallpapers));
-            changeStatus(activateWallpapersStatus, true, false);
+            changeStatus(activateWallpapersStatus, 2, false);
         } else {
             activateWallpapersButton.setText(getString(R.string.enable_tweak_string) + getString(R.string.custom_wallpapers));
-            changeStatus(activateWallpapersStatus, false, false);
+            changeStatus(activateWallpapersStatus, 0, false);
         }
 
         activateWallpapersButton.setOnClickListener(
@@ -1433,7 +1431,7 @@ public class MainActivity extends AppCompatActivity {
                         if (load("aa_wallpapers")){
                             revert("aa_wallpapers");
                             activateWallpapersButton.setText(getString(R.string.enable_tweak_string) + getString(R.string.custom_wallpapers));
-                            changeStatus(activateWallpapersStatus, false, true);
+                            changeStatus(activateWallpapersStatus, 0, true);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
@@ -1486,10 +1484,10 @@ public class MainActivity extends AppCompatActivity {
         oldDarkModeStatus = findViewById(R.id.dark_mode_status);
         if(load("aa_night_mode_revert")) {
             oldDarkMode.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.dark_mode_tweak));
-            changeStatus(oldDarkModeStatus, true, false);
+            changeStatus(oldDarkModeStatus, 2, false);
         } else {
             oldDarkMode.setText(getString(R.string.disable_tweak_string) + getString(R.string.dark_mode_tweak));
-            changeStatus(oldDarkModeStatus, false, false);
+            changeStatus(oldDarkModeStatus, 0, false);
         }
 
         oldDarkMode.setOnClickListener(
@@ -1499,7 +1497,7 @@ public class MainActivity extends AppCompatActivity {
                         if (load("aa_night_mode_revert")){
                             revert("aa_night_mode_revert");
                             oldDarkMode.setText(getString(R.string.disable_tweak_string) + getString(R.string.dark_mode_tweak));
-                            changeStatus(oldDarkModeStatus, false, true);
+                            changeStatus(oldDarkModeStatus, 0, true);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
@@ -1544,10 +1542,10 @@ public class MainActivity extends AppCompatActivity {
         telemetryStatus = findViewById(R.id.telemetry_disable_status);
         if(load("kill_telemetry")) {
             disableTelemetryButton.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.telemetry_string));
-            changeStatus(telemetryStatus, true, false);
+            changeStatus(telemetryStatus, 2, false);
         } else {
             disableTelemetryButton.setText(getString(R.string.disable_tweak_string) + getString(R.string.telemetry_string));
-            changeStatus(telemetryStatus, false, false);
+            changeStatus(telemetryStatus, 0, false);
         }
 
         disableTelemetryButton.setOnClickListener(
@@ -1557,7 +1555,7 @@ public class MainActivity extends AppCompatActivity {
                         if (load("kill_telemetry")){
                             revert("kill_telemetry");
                             disableTelemetryButton.setText(getString(R.string.disable_tweak_string) + getString(R.string.telemetry_string));
-                            changeStatus(telemetryStatus, false, true);
+                            changeStatus(telemetryStatus, 0, true);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
@@ -1601,10 +1599,10 @@ public class MainActivity extends AppCompatActivity {
         mediaTabsStatus = findViewById(R.id.media_tabs_status);
         if(load("aa_media_tabs")) {
             activateMediaTabs.setText(getString(R.string.disable_tweak_string) + getString(R.string.media_tabs_string));
-            changeStatus(mediaTabsStatus, true, false);
+            changeStatus(mediaTabsStatus, 2, false);
         } else {
             activateMediaTabs.setText(getString(R.string.enable_tweak_string) + getString(R.string.media_tabs_string));
-            changeStatus(mediaTabsStatus, false, false);
+            changeStatus(mediaTabsStatus, 0, false);
         }
 
         activateMediaTabs.setOnClickListener(
@@ -1614,7 +1612,7 @@ public class MainActivity extends AppCompatActivity {
                         if (load("aa_media_tabs")){
                             revert("aa_media_tabs");
                             activateMediaTabs.setText(getString(R.string.enable_tweak_string) + getString(R.string.media_tabs_string));
-                            changeStatus(mediaTabsStatus, false, true);
+                            changeStatus(mediaTabsStatus, 0, true);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
@@ -1953,8 +1951,6 @@ public class MainActivity extends AppCompatActivity {
                         ).getStreamLogsWithLabels());
                         appendText(logs, "\n--  end SQL method #4  --");
 
-
-
                     } else {
                         suitableMethodFound = false;
                         appendText(logs, "\n\n--  Suitable method NOT found!  --");
@@ -2017,16 +2013,15 @@ public class MainActivity extends AppCompatActivity {
                             appendText(logs, "\n\n--  Check seems OK :)  --");
                             patchapps.setText(getString(R.string.unpatch) + getString(R.string.patch_custom_apps));
                             save(true, "aa_patched_apps");
-                            changeStatus(patchappstatus, true, true);
+                            changeStatus(patchappstatus, 1, false);
                         } else {
                             appendText(logs, "\n\n--  Check NOT OK.  --");
                             appendText(logs, "\n     Length before delete and after was not equal.");
                             appendText(logs, "\n        Before: " + checkStep1.getInputStreamLog().length());
                             appendText(logs, "\n        After:  " + checkStep3.getInputStreamLog().length());
                         }
-
-                        dialog.dismiss();
                     }
+                    dialog.dismiss();
                     // Check End
                 }
             }.start();
@@ -2086,7 +2081,7 @@ public class MainActivity extends AppCompatActivity {
                         ).getStreamLogsWithLabels());
                         appendText(logs, "\n--  end SQL method   --");
                         save(true, "assist_short");
-                        changeStatus(assistantShortcutsStatus, true, true);
+                        changeStatus(assistantShortcutsStatus, 1, false);
                         assistshort.setText(getString(R.string.disable_tweak_string) + getString(R.string.enable_assistant_shortcuts));
                     } else {
                         suitableMethodFound = false;
@@ -2235,7 +2230,7 @@ public class MainActivity extends AppCompatActivity {
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "aa_speed_hack");
-                    changeStatus(noSpeedRestrictionsStatus, true, true);
+                    changeStatus(noSpeedRestrictionsStatus, 1, false);
                     nospeed.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.unlimited_scrolling_when_driving));
                 } else {
                     suitableMethodFound = false;
@@ -2289,6 +2284,10 @@ public class MainActivity extends AppCompatActivity {
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__cluster_launcher_enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
         }
 
         new Thread() {
@@ -2323,7 +2322,7 @@ public class MainActivity extends AppCompatActivity {
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "multi_display");
-                    changeStatus(mdstatus, true, true);
+                    changeStatus(mdstatus, 1, false);
                     mdbutton.setText(getString(R.string.disable_tweak_string) + getString(R.string.multi_display_string));
 
                 } else {
@@ -2416,7 +2415,7 @@ public class MainActivity extends AppCompatActivity {
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "aa_six_tap");
-                    changeStatus(taplimitstatus, true, true);
+                    changeStatus(taplimitstatus, 1, false);
                     taplimitat.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.disable_speed_limitations));
                 } else {
                     suitableMethodFound = false;
@@ -2485,7 +2484,7 @@ public class MainActivity extends AppCompatActivity {
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "aa_startup_policy");
-                    changeStatus(navstatus, true, true);
+                    changeStatus(navstatus, 1, false);
                     startupnav.setText(getString(R.string.disable_tweak_string) + getString(R.string.navigation_at_start));
                 } else {
                     suitableMethodFound = false;
@@ -2556,7 +2555,7 @@ public class MainActivity extends AppCompatActivity {
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "battery_saver_warning");
-                    changeStatus(batteryWarningStatus, true, true);
+                    changeStatus(batteryWarningStatus, 1, false);
                     batteryWarning.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.battery_warning));
                 } else {
                     suitableMethodFound = false;
@@ -2615,7 +2614,7 @@ public class MainActivity extends AppCompatActivity {
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "aa_battery_outline");
-                    changeStatus(batteryOutlineStatus, true, true);
+                    changeStatus(batteryOutlineStatus, 1, false);
                     batteryoutline.setText(getString(R.string.disable_tweak_string) + getString(R.string.battery_outline_string));
                 } else {
                     suitableMethodFound = false;
@@ -2675,7 +2674,7 @@ public class MainActivity extends AppCompatActivity {
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "aa_sb_opaque");
-                    changeStatus(opaqueStatus, true, true);
+                    changeStatus(opaqueStatus, 1, false);
                     statusbaropaque.setText(getString(R.string.disable_tweak_string) + getString(R.string.statb_opaque_string));
                 } else {
                     suitableMethodFound = false;
@@ -2801,7 +2800,7 @@ public class MainActivity extends AppCompatActivity {
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "aa_night_mode_revert");
-                    changeStatus(oldDarkModeStatus, true, true);
+                    changeStatus(oldDarkModeStatus, 1, false);
                     oldDarkMode.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.dark_mode_tweak));
                 } else {
                     suitableMethodFound = false;
@@ -2999,7 +2998,7 @@ public class MainActivity extends AppCompatActivity {
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "kill_telemetry");
-                    changeStatus(telemetryStatus, true, true);
+                    changeStatus(telemetryStatus, 1, false);
                     disableTelemetryButton.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.telemetry_string));
                 } else {
                     suitableMethodFound = false;
@@ -3059,7 +3058,7 @@ public class MainActivity extends AppCompatActivity {
                                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "aa_hun_ms");
-                    changeStatus(messagesHunStatus, true, true);
+                    changeStatus(messagesHunStatus, 1, false);
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
@@ -3118,7 +3117,7 @@ public class MainActivity extends AppCompatActivity {
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "aa_media_hun");
-                    changeStatus(mediaHunStatus, true, true);
+                    changeStatus(mediaHunStatus, 1, false);
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
@@ -3177,7 +3176,7 @@ public class MainActivity extends AppCompatActivity {
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "calendar_aa_tweak");
-                    changeStatus(calendarTweakStatus, true, false);
+                    changeStatus(calendarTweakStatus, 1, false);
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
@@ -3254,6 +3253,8 @@ public class MainActivity extends AppCompatActivity {
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
 
+        final ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
+                getString(R.string.tweak_loading), true);
 
         final StringBuilder finalCommand = new StringBuilder();
 
@@ -3270,8 +3271,7 @@ public class MainActivity extends AppCompatActivity {
                 String path = getApplicationInfo().dataDir;
                 boolean suitableMethodFound = true;
 
-                final ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
-                        getString(R.string.tweak_loading), true);
+
 
                 appendText(logs, "\n\n-- Drop Triggers  --");
                 appendText(logs, runSuWithCmd(
@@ -3297,7 +3297,7 @@ public class MainActivity extends AppCompatActivity {
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "aa_wallpapers");
-                    changeStatus(activateWallpapersStatus, true, true);
+                    changeStatus(activateWallpapersStatus, 1, false);
                     activateWallpapersButton.setText(getString(R.string.disable_tweak_string) + getString(R.string.custom_wallpapers));
                 } else {
                     suitableMethodFound = false;
@@ -3373,7 +3373,7 @@ public class MainActivity extends AppCompatActivity {
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "aa_messaging_apps");
-                    changeStatus(messagesTweakStatus, true, true);
+                    changeStatus(messagesTweakStatus, 1, false);
                     messagesButton.setText(getString(R.string.disable_tweak_string) + getString(R.string.messages_tweak_string));
                 } else {
                     suitableMethodFound = false;
@@ -3434,13 +3434,13 @@ public class MainActivity extends AppCompatActivity {
 
                     appendText(logs, runSuWithCmd(
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                    "'CREATE TRIGGER aa_messaging_apps AFTER DELETE\n" +
+                                    "'CREATE TRIGGER aa_media_tabs AFTER DELETE\n" +
                                     "ON FlagOverrides\n" +
                                     "BEGIN\n" + finalCommand + "END;'\n"
                     ).getStreamLogsWithLabels());
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "aa_media_tabs");
-                    changeStatus(mediaTabsStatus, true, true);
+                    changeStatus(mediaTabsStatus, 1, false);
                     activateMediaTabs.setText(getString(R.string.disable_tweak_string) + getString(R.string.media_tabs_string));
 
                 } else {
@@ -3549,7 +3549,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getAndRemoveOptionsSelected() {
-
+        final TextView log = findViewById(R.id.logs);
         final String[] allTriggerString = {new String()};
         final ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "", getString(R.string.loading), true);
         new Thread() {
@@ -3562,11 +3562,12 @@ public class MainActivity extends AppCompatActivity {
                         path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
                                 "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND tbl_name=\"FlagOverrides\";" +
                                 "SELECT name FROM sqlite_master WHERE type=\"trigger\" AND tbl_name=\"Flags\" AND name=\"after_delete\";" +
+                                "SELECT name FROM sqlite_master WHERE type=\"trigger\" AND tbl_name=\"Flags\" AND name=\"aa_startup_policy_cleanup\";" +
                                 "SELECT name FROM sqlite_master WHERE type=\"trigger\" AND tbl_name=\"Flags\" AND name=\"aa_patched_apps\";'").getInputStreamLog();
-
+                appendText(log, get_names);
                 String[] lines = get_names.split(System.getProperty("line.separator"));
                 for (int i = 0; i < lines.length; i++) {
-                    runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'DROP TRIGGER IF EXISTS \"" + lines[i] + "\";'");
+                    appendText(log, runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'DROP TRIGGER IF EXISTS \"" + lines[i] + "\";'").getOutputStreamLog());
                 }
                 runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'DELETE FROM FlagOverrides;'");
                 dialog.dismiss();
@@ -3612,16 +3613,26 @@ public class MainActivity extends AppCompatActivity {
         return appStatus;
     }
 
-    private void changeStatus (ImageView resource, boolean status, boolean doAnimation) {
+    private void changeStatus (ImageView resource, int status, boolean doAnimation) {
         final RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         rotate.setDuration(400);
         rotate.setInterpolator(new LinearInterpolator());
-        if (status) {
-            resource.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
-            resource.setColorFilter(Color.argb(255, 0, 255, 0));
-        } else  {
-            resource.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
-            resource.setColorFilter(Color.argb(255, 255, 0, 0));
+        switch (status) {
+            case 2: {
+                resource.setImageDrawable(getDrawable(R.drawable.ic_baseline_check_circle_24));
+                resource.setColorFilter(Color.argb(255, 0, 255, 0));
+                break;
+            }
+            case 0: {
+                resource.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
+                resource.setColorFilter(Color.argb(255, 255, 0, 0));
+                break;
+            }
+            case 1: {
+                resource.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_circle_24));
+                resource.setColorFilter(Color.argb(255, 255, 255, 0));
+                break;
+            }
         }
         if (doAnimation) {
             resource.startAnimation(rotate);
