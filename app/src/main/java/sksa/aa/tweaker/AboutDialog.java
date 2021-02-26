@@ -47,7 +47,8 @@ public class AboutDialog extends DialogFragment {
                         "Catalan: rogerpi95<br>" +
                         "Polish: Nor7ovich, MarcinzSowie, Geranium743<br>" +
                         "Serbian: BojanJagodic91<br>" +
-                        "Chinese: Danchunlanse<br>" +
+                        "Chinese (simplified): Danchunlanse<br>" +
+                        "Chinese (traditional): chh2299<br>" +
                         "Hebrew: yaari302<br>" +
                         "Japanese: HHSAN<br>" +
                         "<br>Interested in translating AA AIO TWEAKER in your own language? Join translations on <a href=\"https://crowdin.com/project/aa-aio-tweaker\">Crowdin</a>!"));

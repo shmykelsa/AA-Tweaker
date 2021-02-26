@@ -26,24 +26,24 @@ ROT= Patch wird nicht angewendet\n</string>
     <string name="force_widescreen_text">Breitbild erzwingen</string>
     <string name="media_notification_duration_to">Medien-Benachrichtigungsdauer bis</string>
     <string name="bluetooth_auto_connect">Automatische Bluetooth-Verbindung</string>
-    <string name="tutorial_nospeed">Dieser Tweak sorgt dafür, dass Android Auto denkt, dass das Fahrzeug mit Geschwindigkeit 0 km/h fährt. Infolgedessen zeigt Android Auto immer die Vorschau von Nachrichten an. Dieser Tweak gilt nicht für die Tastatur oder die erste Konfiguration von Android Auto.</string>
-    <string name="tutorial_sixtap">Diese Einstellung wird das 6 Taps Limit von Android Auto überschreiben und das unbegrenzte Browsen von Inhalten immer möglich machen.</string>
-    <string name="tutorial_shortcuts">Diese Einstellung wird die neue Assistant Shortcuts Funktion freischalten. Nach der Aktivierung können Sie in die Android Auto-Einstellungen gehen, und im Abschnitt \"Launcher anpassen\" Verknüpfungen zu Google Assistant Befehlen hinzufügen</string>
-    <string name="tutorial_startup">Dieser Tweak setzt das Standardverhalten von Android Auto, das beim Start eine Navigations-App öffnet, außer Kraft und sorgt dafür, dass Android Auto auf dem Launcher gestartet wird.\n
-Dieser Tweak könnte gelegentlich fehlschlagen, da Android Auto manchmal selbstständig mit einer Navigation nach Hause oder zur Arbeit startet. Dieses Verhalten macht den Tweak kaputt.\n
-In einigen Fällen deaktiviert dieser Tweak den automatischen Start von Musik. Ein bekannter Workaround besteht darin, die Option in den Einstellungen von Android Auto zu deaktivieren und wieder zu aktivieren.\n
+    <string name="tutorial_nospeed">Diese Optimierung sorgt dafür, dass Android Auto denkt, dass das Fahrzeug mit Geschwindigkeit 0 km/h fährt. Infolgedessen zeigt Android Auto immer die Vorschau von Nachrichten an. Diese Optimierung gilt nicht für die Tastatur oder die erste Konfiguration von Android Auto.</string>
+    <string name="tutorial_sixtap">Diese Optimierung überschreibt das Limit von 6 Tabs von Android Auto und macht das unbegrenzte Browsen von Inhalten immer möglich.</string>
+    <string name="tutorial_shortcuts">Diese Optimierung schaltet die neue Assistant Shortcuts Funktion frei. Nach der Aktivierung können Sie in die Android Auto-Einstellungen gehen und im Abschnitt \"Launcher anpassen\" Verknüpfungen zu Google Assistant Befehlen hinzufügen.</string>
+    <string name="tutorial_startup">Diese Optimierung setzt das Standardverhalten von Android Auto, das beim Start eine Navigations-App öffnet, außer Kraft und sorgt dafür, dass Android Auto auf dem Launcher gestartet wird.\n
+Diese Optimierung könnte gelegentlich fehlschlagen, da Android Auto manchmal selbstständig mit einer Navigation nach Hause oder zur Arbeit startet. Dieses Verhalten macht die Optimierung kaputt.\n
+In einigen Fällen deaktiviert diese Optimierung den automatischen Start von Musik. Eine bekannte Problemumgehung besteht darin, die Option in den Einstellungen von Android Auto zu deaktivieren und wieder zu aktivieren.\n
 ES IST NICHT MÖGLICH, EINE BESTIMMTE APP SO EINZUSTELLEN, DASS SIE ZUERST GESTARTET WIRD.</string>
     <string name="tutorial_widescreen">Diese Einstellung erzwingt Android Auto im Breitbild-Modus.</string>
-    <string name="tutorial_no_widescreen">Diese Einstellung zwingt Android Auto in keinen Breitbild-Modus.</string>
-    <string name="tutorial_animation">Diese Einstellung aktiviert eine Animation von Google Assistant in der Navigationsleiste.</string>
-    <string name="tutorial_statusbar_opaque">Mit dieser Einstellung wird die Statusleiste immer mit einem undurchsichtigen Hintergrund angezeigt (Standard ist transparent)</string>
-    <string name="tutorial_battery_outline">Diese Einstellung verhindert das Batteriesymbol mit dem roten Umriss, wenn der Batterieschoner eingeschaltet ist.</string>
-    <string name="tutorial_hun">Mit dieser Einstellung können Sie eine benutzerdefinierte Dauer für Heads-Up-Benachrichtigungen festlegen</string>
-    <string name="tutorial_media_hun">Mit dieser Einstellung können Sie eine benutzerdefinierte Dauer für Medienbenachrichtigungen in der Navigationsleiste auf bis zu 15 Minuten festlegen.</string>
-    <string name="tutorial_bluetooth">Dieser Tweak sollte verhindern, dass Bluetooth eingeschaltet wird, wenn Android Auto verbunden wird. Dieser Tweak wird nicht funktionieren, wenn Bluetooth vorher bereits eingeschaltet ist.</string>
-    <string name="tutorial_patchapps">Dieser Tweak ermöglicht es Apps von Drittanbietern, die speziell mit dem benutzerdefinierten SDK von Android Auto erstellt wurden, unter Android Auto zu funktionieren.\n
-        Wenn Sie mit AA Phenotype Patcher vertraut sind, ist dieser Tweak so ziemlich identisch mit ihm.\n
-        Es ist nicht möglich, irgendeine App zu Android Auto hinzuzufügen, aber es ist möglich sideloaded Apps, WELCHE FÜR ANDROID AUTO GEMACHT SIND, zu patchen, damit sie in Autos funktionieren.</string>
+    <string name="tutorial_no_widescreen">Diese Optimierung zwingt Android Auto in keinen Breitbild-Modus.</string>
+    <string name="tutorial_animation">Diese Optimierung aktiviert eine Animation von Google Assistant in der Navigationsleiste.</string>
+    <string name="tutorial_statusbar_opaque">Mit dieser Optimierung wird die Statusleiste immer schwarz.</string>
+    <string name="tutorial_battery_outline">Diese Optimierung verhindert das Batteriesymbol mit dem roten Umriss, wenn der Batterieschoner eingeschaltet ist.</string>
+    <string name="tutorial_hun">Mit dieser Optimierung können Sie eine benutzerdefinierte Dauer für Heads-Up-Benachrichtigungen festlegen.</string>
+    <string name="tutorial_media_hun">Mit dieser Optimierung können Sie eine benutzerdefinierte Dauer für Medienbenachrichtigungen in der Navigationsleiste auf bis zu 15 Minuten festlegen.</string>
+    <string name="tutorial_bluetooth">Diese Optimierung soll verhindern, dass Bluetooth eingeschaltet wird, wenn Android Auto verbunden wird. Diese Optimierung wird nicht funktionieren, wenn Bluetooth vorher bereits eingeschaltet ist.</string>
+    <string name="tutorial_patchapps">Diese Optimierung ermöglicht es Apps von Drittanbietern, die speziell mit dem benutzerdefinierten SDK von Android Auto erstellt wurden, unter Android Auto zu funktionieren.\n
+Wenn Sie mit AA Phenotype Patcher vertraut sind, ist diese Optimierung so ziemlich identisch mit ihm.\n
+Es ist nicht möglich, irgendeine App zu Android Auto hinzuzufügen, aber es ist möglich sideloaded Apps, WELCHE FÜR ANDROID AUTO GEMACHT SIND, zu patchen, damit sie in Autos funktionieren.</string>
     <string name="multi_display_string">Multi Display</string>
     <string name="tutorial_multidisplay">Dies ist eine versteckte Funktion in Android Auto, die den zweiten Platz im Widescreen-Modus in ein echtes zweites Display verwandelt, das komplett von einer anderen Aktivität eingenommen wird. Google Maps zeigt eine vollständige Karte mit Navigationsstatus an, Musik und Telefone nehmen den gesamten Platz ein.\n
         Zusätzlich aktiviert dieser Modus eine weitere Funktion, die den Bildschirm des Telefons in ein zweites Display für die Navigation in Android Auto verwandelt.\n
@@ -52,11 +52,11 @@ ES IST NICHT MÖGLICH, EINE BESTIMMTE APP SO EINZUSTELLEN, DASS SIE ZUERST GESTA
         Diese Funktion befindet sich vermutlich noch in der Entwicklung und könnte möglicherweise nicht wie vorgesehen funktionieren.\n
     Android Auto 5.8 oder höher ist erforderlich.</string>
     <string name="battery_warning">Warnung für Energiesparmodus</string>
-    <string name="tutorial_battery_saver_warning">Diese Einstellung verhindert, dass Android Auto Popup-Warnungen ausgibt, wenn der Batteriesparmodus aktiviert ist</string>
+    <string name="tutorial_battery_saver_warning">Diese Optimierung verhindert, dass Android Auto Popup-Warnungen ausgibt, wenn der Batteriesparmodus aktiviert ist.</string>
     <string name="disable_tweak_string">Deaktiviere\u0020</string>
     <string name="enable_tweak_string">Aktiviere\u0020</string>
     <string name="re_enable_tweak_string">Reaktiviere\u0020</string>
-    <string name="copy_log">Log kopieren</string>
+    <string name="copy_log">Protokoll kopieren</string>
     <string name="about">Über</string>
     <string name="revert_everything">Alles zurücksetzen</string>
     <string name="force_disable_tweak">Erzwinge Deaktivierung\u0020</string>
@@ -91,18 +91,18 @@ WARNUNG: Dieser Tweak wurde nicht ausgiebig getestet und könnte möglicherweise
     <string name="revert_everything_dialog">Möchten Sie alles rückgängig machen? Bitte starten Sie die App danach manuell neu</string>
     <string name="calendar_tweak">%1$s sichtbare Tage im Kalender einstellen</string>
     <string name="calendar_tweak_single">%1$s sichtbare Tage im Kalender einstellen</string>
-    <string name="tutorial_calendar_tweak">This tweak will make so that calendar app into Android Auto can show more days than just one. Please note that even increasing the number of days, it\'s still not obviously possible to distinguish which day you are viewing the events of. Android Auto will just show how many events are set in one day and it won\'t show which day it is.</string>
-    <string name="choose_apps_warning">Choose apps to whitelist</string>
+    <string name="tutorial_calendar_tweak">Durch diese Optimierung kann die Kalender-App in Android Auto mehr als nur einen Tag anzeigen. Bitte beachten Sie, dass es trotz Erhöhung der Anzahl der Tage offensichtlich nicht möglich ist, zu unterscheiden, zu welchem ​​Tag die Ereignisse gehören. Android Auto zeigt nur an, wie viele Ereignisse an einem Tag festgelegt wurden, und es wird nicht angezeigt, um welchen Tag es sich handelt.</string>
+    <string name="choose_apps_warning">Wähle Apps für die Whitelist aus</string>
     <string name="log_first_line">LOG:\n</string>
-    <string name="menu_aa_settings">Open Android Auto settings</string>
-    <string name="not_enabled_warning">Android Auto is not enabled</string>
-    <string name="not_installed_warning">Android Auto is not installed</string>
-    <string name="currently_set">"Currently set: "</string>
-    <string name="tutorial_messages_tweak">"This tweak will make some messaging apps appear as an icon on Android Auto. Once opened, the notifications of that app will appear. Notifications will still be received on notifications' center too. "</string>
-    <string name="messages_tweak_string">messaging apps</string>
-    <string name="no_accounts_warning">AA AIO TWEAKER could not find any account in Google Play Services database. This can be caused by several different things such as:\n • Device that is mostly not connected to internet\n • Fresh install of the phone\n • Corrupted Google Play Services database\n • Removal of Google account(s) from the phone\n • Cleared datas of Google Play Services\n\nIn this scenario, AA AIO TWEAKER will FAIL to work properly. If you recently removed a Google account or cleared Google Play Services datas, please keep the phone connected to internet and let it build the Google Play Services database fully. This might take several hours, in some cases also days.\n\nIf you are not in one of the above conditions, please open a issue on GitHub.</string>
+    <string name="menu_aa_settings">Android Auto Einstellungen öffnen</string>
+    <string name="not_enabled_warning">Android Auto ist nicht aktiviert</string>
+    <string name="not_installed_warning">Android Auto ist nicht installiert</string>
+    <string name="currently_set">"Aktuell gesetzt:"</string>
+    <string name="tutorial_messages_tweak">"Mit dieser Optimierung werden einige Messaging-Apps in Android Auto als Symbol angezeigt. Nach dem Öffnen werden die Benachrichtigungen dieser App angezeigt. Benachrichtigungen werden auch weiterhin im Benachrichtigungscenter empfangen."</string>
+    <string name="messages_tweak_string">Nachrichten Apps</string>
+    <string name="no_accounts_warning">AA AIO TWEAKER konnte kein Konto in der Google Play Services-Datenbank finden. Dies kann verschiedene Ursachen haben: \n • Ihr Gerät ist größtenteils nicht mit dem Internet verbunden \n • Neuinstallation des Telefons \n • Beschädigte Google Play Services-Datenbank \n • Entfernung des Google-Kontos aus dem Telefon \n • Gelöschte Daten von Google Play Services \n\nIn diesem Fall funktioniert AA AIO TWEAKER nicht ordnungsgemäß. Wenn Sie kürzlich ein Google-Konto entfernt oder Google Play Services-Daten gelöscht haben, lassen Sie das Telefon mit dem Internet verbunden und lassen Sie es die Google Play Services-Datenbank vollständig erstellen. Dies kann mehrere Stunden dauern, in einigen Fällen auch Tage.\n\nWenn eine der oben genannten Bedingungen nicht zutrifft, öffnen Sie bitte ein Problem auf GitHub.</string>
     <string name="media_tabs_string">media apps tabbed view</string>
-    <string name="tutorial_media_tabs">"This tweak will force enable a new UI for media player applications. Not every app support this UI. Android Auto 5.8 or superior is required. "</string>
-    <string name="tweak_loading">Applying the tweak...</string>
-    <string name="loading">Loading, please wait...</string>
+    <string name="tutorial_media_tabs">"Diese Optimierung erzwingt die Aktivierung einer neuen Benutzeroberfläche für Media Player-Anwendungen. Nicht jede App unterstützt diese Benutzeroberfläche. Android Auto 5.8 oder höher ist erforderlich. "</string>
+    <string name="tweak_loading">Optimierung wird angewandt...</string>
+    <string name="loading">Lädt, bitte warten...</string>
 </resources>

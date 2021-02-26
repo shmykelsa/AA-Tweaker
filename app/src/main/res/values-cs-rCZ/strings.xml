@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="main_string">Vítejte v aplikaci AA AIO Tweaker!\n
-Tato aplikace Vám umožní změnit některá nastavení pro Android Auto.\n
-Jednoduše vyberte, jaká nastavení chcete použít.\n
-Pokud si nejste jisti, dlouhým stisknutím na text se zobrazí nápověda.</string>
+    <string name="main_string">Vítejte v aplikaci AA AIO Tweaker\n
+Tato aplikace Vám umožní změnit některá základní nastavení Android Auto.\n
+Jednoduše vyberte, jaká nastavení chcete změnit :)\n
+Pokud si nejste jisti, co které nastavení dělá, dlouhým podržením tlačítka se zobrazí nápověda.</string>
     <string name="select_apps">Vybrat aplikace</string>
     <string name="enable_assistant_shortcuts">Zkratky asistenta</string>
     <string name="patch_custom_apps">vlastní aplikace</string>
-    <string name="disable_speed_limitations">Omezení klikání</string>
+    <string name="disable_speed_limitations">omezení poklepání</string>
     <string name="unlimited_scrolling_when_driving">rychlostní omezení</string>
     <string name="enable_assistant_animation_in_navbar">Animace asistenta v navigačním panelu</string>
     <string name="splash">Tato aplikace může změnit chování systému Android Auto a obejít některé bezpečnostní funkce, které Google implementoval v systému Android Auto.\n
 Používáním této aplikace souhlasíte s tím, že na sebe přebíráte plnou zodpovědnost, za případné důsledky způsobené změnou ochranných prvků.\n
 Vystavujete se tedy riziku zranění sebe nebo jiných osob, poškození majetku, ztráty na životech.\n
-Autor této aplikace není za žádných okolností zodpovědný za její používání.</string>
+Autor této aplikace není za žádných okolností zodpovědný za její používání</string>
     <string name="proceed">Rozumím</string>
     <string name="navigation_at_start">Navigaci při spuštění</string>
     <string name="statb_opaque_string">Neprůhledný stavový panel</string>
     <string name="battery_outline_string">Obrys spořiče baterie</string>
-    <string name="legend">Stav:\n
-ZELENÁ= Oprava aplikována\n
-ŽLUTÁ= Oprava vyžaduje restart aplikace\n
-ČERVENÁ= Oprava není aplikována\n</string>
+    <string name="legend">Legenda Stavů:\n
+ZELENÁ= Patch aplikován\n
+ŽLUTÁ= Patch vyžaduje restart aplikace\n
+ČERVENÁ= Patch není aplikován\n</string>
     <string name="set_notification_duration_to">Délku trvání plovoucích oznámení</string>
     <string name="base_no_ws">Širokoúhlé obrazovky</string>
     <string name="force_widescreen_text">Vynucení širokoúhlé obrazovky</string>
@@ -32,7 +32,7 @@ Android Auto bude vždy zobrazovat náhledy zpráv.\n
 Toto nastavení neovlivní klávesnici nebo výchozí nastavení.</string>
     <string name="tutorial_sixtap">Toto nastavení zruší limit 6 kliknutí v aplikaci Android Auto a umožní neomezené prohlížení obsahu.</string>
     <string name="tutorial_shortcuts">Toto nastavení odemkne novou funkci zkratek asistenta.\n
-Po aktivaci můžete přejít do nastavení Android Auto a v sekci přizpůsobení spouštěče můžete začít přidávat zkratky pro příkazy Google Asistenta.</string>
+Po aktivaci můžete přejít do nastavení Android Auto a v sekci přizpůsobení spouštěče můžete začít přidávat zkratky pro příkazy Google Asistenta</string>
     <string name="tutorial_startup">Toto nastavení změní výchozí chování aplikace Android Auto, která při každém spuštění otevře aplikaci navigace.\n
 Toto nastavení může občas selhat, protože navigace se spouští automaticky a pracuje samostatně.\n
 V některých případech může toto nastavení vypnout automatické spouštění hudby.\n
@@ -43,7 +43,7 @@ NELZE SPECIFIKOVAT, KTERÁ APLIKACE SE BUDE PŘI SPUŠTĚNÍ ANDROID AUTO SPOUŠ
     <string name="tutorial_animation">Toto nastavení zapne animaci Google Asistenta v navigačním panelu.</string>
     <string name="tutorial_statusbar_opaque">Toto nastavení přizpůsobí stavovou lištu tak, aby byla vždy černá.</string>
     <string name="tutorial_battery_outline">Toto nastavení zakáže ikonu baterie s červeným obrysem při zapnutém režimu spořiče baterie.</string>
-    <string name="tutorial_hun">Toto nastavení umožňuje nastavit vlastní délku trvání plovoucích oznámení.</string>
+    <string name="tutorial_hun">Toto nastavení umožňuje nastavit vlastní délku trvání plovoucích oznámení</string>
     <string name="tutorial_media_hun">Toto nastavení umožňuje nastavit vlastní délku trvání oznámení médií v navigačním panelu až na 15 minut.</string>
     <string name="tutorial_bluetooth">Toto nastavení zabrání zapnutí Bluetooth při připojení k Android Auto.\n
 Toto nastavení nebude fungovat, pokud je funkce Bluetooth již zapnutá.</string>
@@ -60,7 +60,7 @@ Tento režim zatím podporuje pouze aplikace Google Mapy.\n
 Tato funkce je ve vývoji a nemusí spolehlivě fungovat.\n
 Je vyžadován Android Auto verze 5.8 a vyšší.</string>
     <string name="battery_warning">Upozornění spořiče baterie</string>
-    <string name="tutorial_battery_saver_warning">Toto nastavení zabrání systému Android Auto zobrazovat upozornění na vyskakovací okna při zapnutém režimu spořiče baterie.</string>
+    <string name="tutorial_battery_saver_warning">Toto nastavení zabrání systému Android Auto zobrazovat upozornění na vyskakovací okna při zapnutém režimu spořiče baterie</string>
     <string name="disable_tweak_string">Vypnout\u0020</string>
     <string name="enable_tweak_string">Zapnout\u0020</string>
     <string name="re_enable_tweak_string">Znovu zapnout\u0020</string>
@@ -90,8 +90,8 @@ UPOZORNĚNÍ: Pokud používáte aplikaci Wallpapers for Android Auto, budete j�
 To znamená, že přepnutí telefonu do tmavého režimu neovlivní vozidlo, nebo pokud je telefon v tmavém režimu a vozidlo má zhasnutá světla, dojde ke změně na světlý motiv v telefonu.\n
 Vzhledem k tomu, že byla zavedena tato funkce \"nezávislého\" tmavého režimu, nemají uživatelé s jednotkami \"Aftermarket\" žádnou možnost, jak se přepnout do tmavého režimu, aniž by zapnuli světla vozidla.\n
 Toto nastavení zajišťuje, že noční režim je opět závislý na telefonu a přepínání režimu motivu v telefonu ovlivní vozidlo.</string>
-    <string name="dark_mode_tweak">Nezávislý tmavý režim</string>
-    <string name="telemetry_string">Telemetrii</string>
+    <string name="dark_mode_tweak">nezávislý tmavý režim</string>
+    <string name="telemetry_string">telemetrii</string>
     <string name="tutorial_telemetry">Není žádným tajemstvím, že Google o nás zaznamenává spoustu dat. Toto nastavení umožní, aby služby Google Play zastavily spoustu aktivit sledování a protokolování.\n
 UPOZORNĚNÍ: Toto nastavení nebylo podrobeno rozsáhlému testování a mohlo by narušit chování Android Auto. Nahlaste problém v GitHub, pokud zjistíte, že s tímto nastavením Android Auto špatně funguje.</string>
     <string name="reboot_prompt">Chcete restartovat telefon nyní?</string>
@@ -111,10 +111,10 @@ UPOZORNĚNÍ: Toto nastavení nebylo podrobeno rozsáhlému testování a mohlo 
     <string name="not_installed_warning">Android Auto není nainstalováno</string>
     <string name="currently_set">"Aktuálně nastaveno: "</string>
     <string name="tutorial_messages_tweak">"Toto nastavení umožní zobrazení některých aplikací pro zasílání zpráv v Android Auto jako ikona. Po otevření se zobrazí oznámení dané aplikace. Oznámení budou stále přijímána také do centra oznámení. "</string>
-    <string name="messages_tweak_string">Aplikace pro zasílání zpráv</string>
-    <string name="no_accounts_warning">AA AIO TWEAKER could not find any account in Google Play Services database. This can be caused by several different things such as:\n • Device that is mostly not connected to internet\n • Fresh install of the phone\n • Corrupted Google Play Services database\n • Removal of Google account(s) from the phone\n • Cleared datas of Google Play Services\n\nIn this scenario, AA AIO TWEAKER will FAIL to work properly. If you recently removed a Google account or cleared Google Play Services datas, please keep the phone connected to internet and let it build the Google Play Services database fully. This might take several hours, in some cases also days.\n\nIf you are not in one of the above conditions, please open a issue on GitHub.</string>
-    <string name="media_tabs_string">media apps tabbed view</string>
-    <string name="tutorial_media_tabs">"This tweak will force enable a new UI for media player applications. Not every app support this UI. Android Auto 5.8 or superior is required. "</string>
-    <string name="tweak_loading">Applying the tweak...</string>
-    <string name="loading">Loading, please wait...</string>
+    <string name="messages_tweak_string">aplikace pro zasílání zpráv</string>
+    <string name="no_accounts_warning">AA AIO TWEAKER nemohl najít žádný účet v databázi služeb Google Play. To může být způsobeno několika různými věcmi jako:\n • Zařízení není připojeno k internetu\n • Čerstvá instalace telefonu\n • poškozená databáze služeb Google Play\n • Odstranění účtu(ů) Google z telefonu\n • Vymazaná data služeb Google Play\n\nKvůli teto chybe nebude AA AIO TWEAKER řádně fungovat. Pokud jste nedávno odstranili účet Google nebo vymazali data služeb Google Play, připojte prosím telefon k internetu a nechte jej plně sestavit databázi služeb Google Play. To může trvat několik hodin, v některých případech i několik dní.\n\nPokud se Vám tato chyba vyskytla, ale nedělali jste nic z výše uvedeného, založte prosím požadavek na GitHub.</string>
+    <string name="media_tabs_string">záložky v mediálních aplikacích</string>
+    <string name="tutorial_media_tabs">"Toto nastavení vynutí zapnutí nového UI pro multimediální aplikace. Ne každá aplikace podporuje toto UI. Je vyžadováno Android Auto verze 5.8 nebo vyšší. "</string>
+    <string name="tweak_loading">Používání nastavení...</string>
+    <string name="loading">Nahrávání, prosím čekejte...</string>
 </resources>

@@ -106,5 +106,5 @@ OSTRZEŻENIE: ta modyfikacja nie została dokładnie przetestowana i może poten
     <string name="media_tabs_string">Widok zakładek aplikacji multimedialnych</string>
     <string name="tutorial_media_tabs">"Ta funkcja wymusza włączenie nowego interfejsu użytkownika dla aplikacji multimedialnych. Nie każda aplikacja obsługuje ten interfejs użytkownika. Wymagany jest system Android Auto 5.8 lub nowszy"</string>
     <string name="tweak_loading">Applying the tweak...</string>
-    <string name="loading">Loading, please wait...</string>
+    <string name="loading">Ładuję, proszę czekać.</string>
 </resources>

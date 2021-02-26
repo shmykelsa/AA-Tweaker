@@ -99,7 +99,7 @@ Android Auto 5.8以上が必要です。</string>
     <string name="currently_set">"現在の設定: "</string>
     <string name="tutorial_messages_tweak">"この調整は、一部のメッセージングアプリがAndroid Auto上でアイコンとして表示されるようにします。開くと、そのアプリの通知が表示されます。通知は通知センターでも受信できるようになります。 "</string>
     <string name="messages_tweak_string">メッセージングアプリ</string>
-    <string name="no_accounts_warning">AA AIO TWEAKERは、Google Play Servicesのデータベースでアカウントが見つけられませまんでした。これは、次のようなことが原因である可能性があります:\n • インターネットにほとんど接続されていないデバイス\n • スマホの新規インストール\n • 破損したGoogle Play Servicesのデータベース\n • スマホからのGoogleアカウントの削除\n • クリアされたGoogle Play Servicesのデータ\n\nこのシナリオでは、AA AIO TWEAKERは正常に動作しません。最近、GoogleアカウントやGoogle Play Servicesのデータを削除した場合は、電話をインターネットに接続したままにして、Google Play Servicesのデータベースを完全に構築させてください。これには数時間、場合によっては数日かかることもあります。\n\n上記の条件のいずれにも該当しない場合は、GitHubでissueを立ててください。</string>
+    <string name="no_accounts_warning">AA AIO TWEAKERは、Google Play Servicesのデータベースでアカウントが見つけられませまんでした。これは、次のようなことが原因である可能性があります:\n • インターネットにほとんど接続されていないデバイス\n • スマホの新規インストール\n • 破損したGoogle Play Servicesのデータベース\n • スマホからのGoogleアカウントの削除\n • クリアされたGoogle Play Servicesのデータ\n\nこのシナリオでは、AA AIO TWEAKERは正常に動作しません。最近、GoogleアカウントやGoogle Play Servicesのデータを削除した場合は、スマホをインターネットに接続したままにして、Google Play Servicesのデータベースを完全に構築させてください。これには数時間、場合によっては数日かかることもあります。\n\n上記の条件のいずれにも該当しない場合は、GitHubでissueを立ててください。</string>
     <string name="media_tabs_string">メディアアプリのタブ表示</string>
     <string name="tutorial_media_tabs">"この調整は、メディアプレーヤーアプリの新しいUIを強制的に有効にします。すべてのアプリがこのUIをサポートしているわけではありません。Android Auto 5.8以降が必要です。 "</string>
     <string name="tweak_loading">調整を適用中...</string>
