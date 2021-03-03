@@ -13,7 +13,7 @@ This app uses SQLite commands to override some flags related to Android Auto int
 
 Google Play Services control a lot of features inside Android Auto. Some of them are core functionality of Android Auto, some of them are upcoming feature that are simply not yet released.
 
-What this app does is making some SQLite queries in order to alter some features of Android Auto. It contains the trick inside [AA Phenotype Patcher](https://github.com/Eselter/AA-Phenotype-Patcher) to patch custom apps in order to work in AA (and the same script is contained) and with the same principle it unlocks some other things in Android Auto.
+What this app does is making some SQLite queries in order to alter some features of Android Auto. 
 
 # Example of available commands
 
