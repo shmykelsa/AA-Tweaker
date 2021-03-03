@@ -113,7 +113,6 @@
             android:clickable="true"
             style="@style/ButtonStyle"
            android:focusable="true"
-
             android:text="@string/enable_assistant_shortcuts"
             app:layout_constraintEnd_toEndOf="@id/patchapps"
             app:layout_constraintStart_toStartOf="parent"

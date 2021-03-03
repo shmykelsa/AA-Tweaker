@@ -44,7 +44,7 @@
 もしAA Phenotype Patcherを使い慣れているなら、それとほぼ同じです。\n
 Android Autoに任意のアプリを追加することはできませんが、Android Auto用に作られたアプリにパッチを当てることで、車でも動作するようにすることができます。</string>
     <string name="multi_display_string">マルチディスプレイ</string>
-    <string name="tutorial_multidisplay">これは、Android Autoの隠れた機能で、ワイドスクリーンモードのセカンドスペースを、セカンドアクティビティに完全に占有された本物のセカンドディスプレイに変えてくれます。Googleマップは、ナビゲーションの状態で完全なマップを表示し、音楽や電話は完全なスペースを占有するでしょう。\n
+    <string name="tutorial_multidisplay">これは、Android Autoの隠れた機能で、ワイドスクリーンモードのセカンドスペースを、セカンドアクティビティに完全に占有された本物のセカンドディスプレイに変えてくれます。Googleマップは、ナビゲーションの状態で完全なマップを表示し、音楽や電話はスペースを完全に占有するでしょう。\n
 さらに、このモードでは、Android Autoのナビゲーションのためのセカンドディスプレイに電話機の画面を回す別の機能をアクティブにします。\n
 この機能の設定は、Android Autoのホーム画面で変更できるようになります。\n
 どうやら、現在のところ、Google Mapsしか対応していないようです。\n
@@ -72,25 +72,25 @@ Android Auto 5.8以上が必要です。</string>
     <string name="positive_button">はい</string>
     <string name="translators_button">翻訳者</string>
     <string name="about_part_one"><![CDATA[AA AIO TWEAKERはShmykelsaによって開発及びメンテナンスされています。<br><br>ソースコードは<a href=\"https://github.com/shmykelsa/AA-Tweaker\">GitHub</a>で入手できます。<br><br>]]></string>
-    <string name="about_part_two"><![CDATA[このアプリが気に入ったら、寄付を検討してください。<br><a href=\"http://www.paypal.me/grizzo96\">Paypal</a>から寄付するか、下のボタンを押してビットコインアドレスをコピーしてください。<br><br>少額でも大歓迎です :)]]></string>
+    <string name="about_part_two"><![CDATA[このアプリが気に入ったら、寄付を検討してください。<br><a href=\"http://www.paypal.me/grizzo96\">Paypal</a>で寄付するか、下のボタンを押してビットコインアドレスをコピーしてください。<br><br>少額でも大歓迎です :)]]></string>
     <string name="copied_address_toast">ビットコインアドレスをクリップボードにコピーしました</string>
     <string name="custom_wallpapers">壁紙</string>
-    <string name="tutorial_wallpapers">この調整は、Android Autoの壁紙チェンジャーに新しく組み込まれたものを有効にします。Android Auto 5.8以上が必要です。\n警告: あなたがWallpapers For Android Autoの利用者であれば、少なくともバージョン3.0にアップデートする必要があります。そうしないと、この調整はWallpapers For Android Autoの機能を壊します。</string>
-    <string name="tutorial_dark_mode">2020年12月から、GoogleはAndroid 10以降に起こった挙動を元に戻しました。以前は、Android Autoのライト/ダークモードがスマートフォンのライト/ダークモードに追従し、その逆もありました。つまり、スマートフォンをダークモードに切り替えると車にも影響を与え、また、電話がダークモードで車のライトがオフになっている場合は、スマートフォンのライトモードをオンに切り替えていました。\nしかし、この「独立した」ダークモードの機能が導入され、アフターマーケットヘッドユニットを使用しているユーザーは、ステレオを車のライトに実際に配線しない限り、ダークモードに切り替える方法がなくなりました。\nこの調整は、ナイトモードが再びスマートフォンに依存するようにし、スマートフォン上のライト/ダークモードを切り替えると、車にもその効果を与えるようにします。</string>
+    <string name="tutorial_wallpapers">この調整は、Android Autoに新しく組み込まれた壁紙チェンジャーを有効にします。Android Auto 5.8以降が必要です。\n警告: あなたがWallpapers For Android Autoの利用者であれば、少なくともバージョン3.0にアップデートする必要があります。そうしないと、この調整はWallpapers For Android Autoの機能を壊します。</string>
+    <string name="tutorial_dark_mode">2020年12月から、GoogleはAndroid 10以降に起こった挙動を元に戻しました。以前は、Android Autoのライト/ダークモードが電話のライト/ダークモードに追従し、その逆もありました。つまり、電話をダークモードに切り替えると車にも影響を与え、また、電話がダークモードで車のライトがオフになっている場合は、電話のライトモードをオンに切り替えていました。\nしかし、この「独立した」ダークモードの機能が導入され、アフターマーケットヘッドユニットを使用しているユーザーは、ステレオを車のライトに実際に配線しない限り、ダークモードに切り替える方法がなくなりました。\nこの調整は、ナイトモードが再び電話に依存するようにし、電話上のライト/ダークモードを切り替えると、車にもその効果を与えるようにします。</string>
     <string name="dark_mode_tweak">独立したダークモード</string>
     <string name="telemetry_string">テレメトリー</string>
-    <string name="tutorial_telemetry">Googleが私たちの多くのデータを記録しているのは、不思議なことではありません。この調整は、Google Play Servicesによる多くの追跡とログ収集を停止します。\n
+    <string name="tutorial_telemetry">Googleが私たちの多くのデータを記録しているのは、本当のようです。この調整は、Google Play Servicesによる多くの追跡とログ収集を停止します。\n
 警告: この調整は広範囲にテストされておらず、Android Autoを壊す可能性があります。もし、この調整がAndroid Autoを壊すことが判明したら、GitHubでissueを立ててください。</string>
     <string name="reboot_prompt">端末を再起動しますか?</string>
     <string name="rebooting_action">再起動中…</string>
     <string name="negative_button">キャンセル</string>
     <string name="added_app_action">追加済: </string>
     <string name="removed_app_action">削除済: </string>
-    <string name="root_access_warning">Rootアクセスが拒否されました。Rootアクセスを許可してください。</string>
+    <string name="root_access_warning">rootアクセスが拒否されました。rootアクセスを許可してください。</string>
     <string name="revert_everything_dialog">全て元に戻しますか? 後でアプリを再起動してください</string>
     <string name="calendar_tweak">カレンダーに表示する日数: %1$s日</string>
     <string name="calendar_tweak_single">カレンダーに表示する日数: %1$s日</string>
-    <string name="tutorial_calendar_tweak">この調整は、Android Autoのカレンダーアプリで1日よりも多くの日を表示できるようにします。日数を増やしても、どの日のイベントを見ているのか区別がつかないので注意してください。Android Autoは、1日に設定されているイベントの数だけを表示し、それがどの日であるかは表示しません。</string>
+    <string name="tutorial_calendar_tweak">この調整は、Android Autoのカレンダーアプリで複数の日を表示できるようにします。日数を増やしても、どの日のイベントを見ているのか区別がつかないので注意してください。Android Autoは、その日に設定されているイベントの数だけを表示し、それがどの日であるかは表示しません。</string>
     <string name="choose_apps_warning">ホワイトリストに登録するアプリを選択</string>
     <string name="log_first_line">ログ:\n</string>
     <string name="menu_aa_settings">Android Autoの設定を開く</string>
@@ -99,7 +99,7 @@ Android Auto 5.8以上が必要です。</string>
     <string name="currently_set">"現在の設定: "</string>
     <string name="tutorial_messages_tweak">"この調整は、一部のメッセージングアプリがAndroid Auto上でアイコンとして表示されるようにします。開くと、そのアプリの通知が表示されます。通知は通知センターでも受信できるようになります。 "</string>
     <string name="messages_tweak_string">メッセージングアプリ</string>
-    <string name="no_accounts_warning">AA AIO TWEAKERは、Google Play Servicesのデータベースでアカウントが見つけられませまんでした。これは、次のようなことが原因である可能性があります:\n • インターネットにほとんど接続されていないデバイス\n • スマホの新規インストール\n • 破損したGoogle Play Servicesのデータベース\n • スマホからのGoogleアカウントの削除\n • クリアされたGoogle Play Servicesのデータ\n\nこのシナリオでは、AA AIO TWEAKERは正常に動作しません。最近、GoogleアカウントやGoogle Play Servicesのデータを削除した場合は、スマホをインターネットに接続したままにして、Google Play Servicesのデータベースを完全に構築させてください。これには数時間、場合によっては数日かかることもあります。\n\n上記の条件のいずれにも該当しない場合は、GitHubでissueを立ててください。</string>
+    <string name="no_accounts_warning">AA AIO TWEAKERは、Google Play Servicesのデータベースでアカウントが見つけられませまんでした。これは、次のようなことが原因である可能性があります:\n • インターネットにほとんど接続されていないデバイス\n • 電話の新規インストール\n • Google Play Servicesのデータベースの破損\n • 電話からのGoogleアカウントの削除\n • Google Play Servicesのデータの削除\n\nこの場合、AA AIO TWEAKERは正常に動作しません。最近、GoogleアカウントやGoogle Play Servicesのデータを削除した場合は、スマホをインターネットに接続したままにして、Google Play Servicesのデータベースを完全に構築させてください。これには数時間、場合によっては数日かかることもあります。\n\n上記の条件のいずれにも該当しない場合は、GitHubでissueを立ててください。</string>
     <string name="media_tabs_string">メディアアプリのタブ表示</string>
     <string name="tutorial_media_tabs">"この調整は、メディアプレーヤーアプリの新しいUIを強制的に有効にします。すべてのアプリがこのUIをサポートしているわけではありません。Android Auto 5.8以降が必要です。 "</string>
     <string name="tweak_loading">調整を適用中...</string>

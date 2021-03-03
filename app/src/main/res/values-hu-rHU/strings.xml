@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="main_string">Welcome in AA AIO Tweaker\n
-This app will let you apply some tweaks to Android Auto\n
-Simply select what tweak you want to apply :)\n
-If you are unsure of what a tweak does, long press on it and a tutorial will show up.</string>
+    <string name="main_string">Hh</string>
     <string name="select_apps">Select apps</string>
     <string name="enable_assistant_shortcuts">Assistant shortcuts</string>
     <string name="patch_custom_apps">custom apps</string>

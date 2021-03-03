@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="main_string">Welcome in AA AIO Tweaker\n
-This app will let you apply some tweaks to Android Auto\n
-Simply select what tweak you want to apply :)\n
-If you are unsure of what a tweak does, long press on it and a tutorial will show up.</string>
-    <string name="select_apps">Select apps</string>
-    <string name="enable_assistant_shortcuts">Assistant shortcuts</string>
-    <string name="patch_custom_apps">custom apps</string>
-    <string name="disable_speed_limitations">tap limitations</string>
-    <string name="unlimited_scrolling_when_driving">speed restrictions</string>
+    <string name="main_string">Καλώς ήρθατε στο AA AIO Tweaker\n
+Αυτή η εφαρμογή θα σας επιτρέψει να εφαρμόσετε κάποια tweaks στο Android Auto\n
+Απλά επιλέξτε τι tweak θέλετε να εφαρμόσετε :)\n
+Αν δεν είστε σίγουροι για το τι κάνει ένα tweak, με παρατεταμένο πάτημα σε αυτό θα εμφανιστεί η επεξήγηση.</string>
+    <string name="select_apps">Επιλογή εφαρμογών</string>
+    <string name="enable_assistant_shortcuts">Βοηθητικές συντομεύσεις</string>
+    <string name="patch_custom_apps">προσαρμοσμένες εφαρμογές</string>
+    <string name="disable_speed_limitations">περιορισμοί αγγίγματος</string>
+    <string name="unlimited_scrolling_when_driving">περιορισμοί ταχύτητας</string>
     <string name="enable_assistant_animation_in_navbar">Assistant animation in navbar</string>
     <string name="splash">This app can alter Android Auto behaviour and bypass some safety features that Google has implemented in Android Auto.\n
 By using this software, you agree that YOU, and ONLY YOU, are solely responsible for any possible consequence that may result in altering safety features such as injury to yourself and/or others, property damage, loss of life.\n
 Under no circumnstances is the author of this app responsible for its use</string>
-    <string name="proceed">I understand</string>
-    <string name="navigation_at_start">Navigation at start</string>
-    <string name="statb_opaque_string">Force Opaque Statusbar</string>
+    <string name="proceed">Το κατάλαβα</string>
+    <string name="navigation_at_start">Πλοήγηση στην αρχή</string>
+    <string name="statb_opaque_string">Εξαναγκασμός Αδιαφανούς Γραμμής κατάστασης</string>
     <string name="battery_outline_string">battery saver outline</string>
     <string name="legend">Status Legend:\n
 GREEN= Patch applied\n
@@ -23,7 +23,7 @@ YELLOW= Reboot is needed to apply patch\n
 RED= Patch is not applied\n</string>
     <string name="set_notification_duration_to">Notification duration to</string>
     <string name="base_no_ws">Widescreen</string>
-    <string name="force_widescreen_text">Force Widescreen</string>
+    <string name="force_widescreen_text">Εξαναγκασμός Ευρείας Οθόνης</string>
     <string name="media_notification_duration_to">Media notification duration to</string>
     <string name="bluetooth_auto_connect">Bluetooth auto connect</string>
     <string name="tutorial_nospeed">This tweak will make Android Auto think that the car is at 0 speed. As a result, Android Auto will always show the preview of messages. This tweak does not apply to keyboard or first configuration of Android Auto.</string>
@@ -56,17 +56,17 @@ Android Auto 5.8 or superior is required.</string>
     <string name="enable_tweak_string">Enable\u0020</string>
     <string name="re_enable_tweak_string">Re-enable\u0020</string>
     <string name="copy_log">Copy log</string>
-    <string name="about">About</string>
-    <string name="revert_everything">Revert everything</string>
-    <string name="force_disable_tweak">Force Disable\u0020</string>
+    <string name="about">Σχετικά</string>
+    <string name="revert_everything">Αντιστροφή όλων</string>
+    <string name="force_disable_tweak">Αναγκαστική απενεργοποίηση\u0020</string>
     <string name="reset_tweak">Reset\u0020</string>
-    <string name="force_widescreen_warning">Force widescreen has been automatically disabled</string>
-    <string name="force_disable_widescreen_warning">Force disable widescreen has been automatically disabled</string>
-    <string name="set_value">Set\u0020</string>
-    <string name="reboot_to_apply">REBOOT TO APPLY</string>
-    <string name="warning_title">WARNING</string>
+    <string name="force_widescreen_warning">Εξαναγκασμός ευρείας οθόνης έχει απενεργοποιηθεί αυτόματα</string>
+    <string name="force_disable_widescreen_warning">Η αναγκαστική απενεργοποίηση της ευρείας οθόνης έχει απενεργοποιηθεί αυτόματα</string>
+    <string name="set_value">Ορισμός\u0020</string>
+    <string name="reboot_to_apply">ΕΠΑΝΕΚΚΙΝΗΣΗ ΓΙΑ ΕΦΑΡΜΟΓΗ</string>
+    <string name="warning_title">ΠΡΟΕΙΔΟΠΟΙΗΣΕΙΣ</string>
     <string name="unpatch">Unpatch\u0020</string>
-    <string name="patch_app">Patch\u0020</string>
+    <string name="patch_app">Ενημέρωση\u0020</string>
     <string name="default_string">\u0020Default</string>
     <string name="app_list_label">Apps List</string>
     <string name="positive_button">ok</string>
@@ -88,20 +88,20 @@ WARNING: This tweak has not been extensively tested and could potentially break 
     <string name="removed_app_action">Removed: </string>
     <string name="root_access_warning">Root access denied. Please allow root access.</string>
     <string name="revert_everything_dialog">Do you want to revert everything? Please manually restart the app after doing so</string>
-    <string name="calendar_tweak">Set %1$s visible days in calendar</string>
-    <string name="calendar_tweak_single">Set %1$s visible day in calendar</string>
-    <string name="tutorial_calendar_tweak">This tweak will make so that calendar app into Android Auto can show more days than just one. Please note that even increasing the number of days, it\'s still not obviously possible to distinguish which day you are viewing the events of. Android Auto will just show how many events are set in one day and it won\'t show which day it is.</string>
-    <string name="choose_apps_warning">Choose apps to whitelist</string>
+    <string name="calendar_tweak">Ορισμός %1$s ορατών ημερών στο ημερολόγιο</string>
+    <string name="calendar_tweak_single">Ορισμός %1$s ορατής ημέρας στο ημερολόγιο</string>
+    <string name="tutorial_calendar_tweak">Αυτό το tweak θα προσαρμόσει την εφαρμογή ημερολογίου στο Android Auto να μπορεί να δείξει περισσότερες απο μια ημέρες. Παρακαλείστε να σημειώσετε ότι ακόμη και η αύξηση του αριθμού των ημερών, εξακολουθεί να μην είναι δυνατόν να διακρίνει απο ποια μέρα βλέπετε τα γεγονότα. Το Android Auto θα δείξει ακριβώς πόσα γεγονότα είναι ρυθμισμένα σε μια μέρα και δεν θα δείξει ποια μέρα είναι.</string>
+    <string name="choose_apps_warning">Επιλογή εφαρμογών για whitelist</string>
     <string name="log_first_line">LOG:\n</string>
-    <string name="menu_aa_settings">Open Android Auto settings</string>
-    <string name="not_enabled_warning">Android Auto is not enabled</string>
-    <string name="not_installed_warning">Android Auto is not installed</string>
-    <string name="currently_set">"Currently set: "</string>
-    <string name="tutorial_messages_tweak">"This tweak will make some messaging apps appear as an icon on Android Auto. Once opened, the notifications of that app will appear. Notifications will still be received on notifications' center too. "</string>
-    <string name="messages_tweak_string">messaging apps</string>
-    <string name="no_accounts_warning">AA AIO TWEAKER could not find any account in Google Play Services database. This can be caused by several different things such as:\n • Device that is mostly not connected to internet\n • Fresh install of the phone\n • Corrupted Google Play Services database\n • Removal of Google account(s) from the phone\n • Cleared datas of Google Play Services\n\nIn this scenario, AA AIO TWEAKER will FAIL to work properly. If you recently removed a Google account or cleared Google Play Services datas, please keep the phone connected to internet and let it build the Google Play Services database fully. This might take several hours, in some cases also days.\n\nIf you are not in one of the above conditions, please open a issue on GitHub.</string>
-    <string name="media_tabs_string">media apps tabbed view</string>
-    <string name="tutorial_media_tabs">"This tweak will force enable a new UI for media player applications. Not every app support this UI. Android Auto 5.8 or superior is required. "</string>
-    <string name="tweak_loading">Applying the tweak...</string>
-    <string name="loading">Loading, please wait...</string>
+    <string name="menu_aa_settings">Άνοιγμα ρυθμίσεων Android Auto</string>
+    <string name="not_enabled_warning">Το Android Auto δεν είναι ενεργοποιημένο</string>
+    <string name="not_installed_warning">Το Android Auto δεν είναι εγκατεστημένο</string>
+    <string name="currently_set">"Τρέχων ορισμός: "</string>
+    <string name="tutorial_messages_tweak">"Αυτό το tweak θα κάνει μερικές εφαρμογές μηνυμάτων να εμφανίζονται ως εικονίδιο στο Android Auto. Μόλις ανοίξει, θα εμφανίζονται οι ειδοποιήσεις της εφαρμογής. Οι ειδοποιήσεις θα εξακολουθούν να λαμβάνονται και στο κέντρο ειδοποιήσεων. "</string>
+    <string name="messages_tweak_string">εφαρμογές μηνυμάτων</string>
+    <string name="no_accounts_warning">Το AA AIO TWEAKER δεν μπόρεσε να βρει κανένα λογαριασμό στη βάση δεδομένων Google Play Services. Αυτό μπορεί να προκληθεί γι απολλούς λόγους, όπως:\n • Συσκευή που συνήθως δεν είναι συνδεδεμένη στο διαδίκτυο\n • Νέα εγκατάσταση τηλεφώνου\n • Κατεστραμμένη βάση δεδομένων Google Play Services\n • Αφαίρεση λογαριασμού(ών) Google από το τηλέφωνο\n • Καθαρισμένα δεδομένα των Υπηρεσιών Google\n\nΣε αυτό το σενάριο, το AA AIO TWEAKER θα ΑΠΟΤΥΧΕΙ να λειτουργήσει σωστά. Εάν αφαιρέσατε πρόσφατα έναν λογαριασμό Google ή εκκαθαρίσατε δεδομένα Google Play Services, κρατήστε το τηλέφωνο συνδεδεμένο στο διαδίκτυο και αφήστε το να δημιουργήσει πλήρως τη βάση δεδομένων Google Play Services. Αυτό μπορεί να διαρκέσει αρκετές ώρες, σε ορισμένες περιπτώσεις και ημέρες.\n\nΕάν δεν είστε σε μία από τις παραπάνω προϋποθέσεις, παρακαλώ ανοίξτε ένα θέμα στο GitHub.</string>
+    <string name="media_tabs_string">προβολή καρτελών εφαρμογών μέσων</string>
+    <string name="tutorial_media_tabs">"Αυτό το tweak θα ενεργοποιήσει ένα νέο UI για εφαρμογές αναπαραγωγής πολυμέσων. Δεν υποστηρίζουν όλες οι εφαρμογές αυτό το UI. Απαιτείται Android Auto 5.8 ή ανώτερο. "</string>
+    <string name="tweak_loading">Εφαρμογή του tweak...</string>
+    <string name="loading">Γίνεται φόρτωση, παρακαλώ περιμένετε...</string>
 </resources>

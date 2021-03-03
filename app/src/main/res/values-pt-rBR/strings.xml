@@ -37,12 +37,12 @@ In some cases this tweak will disable auto start of music. A known workaround is
 IT\'S NOT POSSIBLE TO SET A SPECIFIC APP TO START FIRST.</string>
     <string name="tutorial_widescreen">Este ajuste irá forçar o Android Auto em modo de tela widescreen.</string>
     <string name="tutorial_no_widescreen">Este ajuste irá forçar o Android Auto em modo de tela sem widescreen.</string>
-    <string name="tutorial_animation">This tweak enable an animation of Google Assistant in the navigation bar.</string>
+    <string name="tutorial_animation">Este ajuste permite uma animação de Google Assistente na barra de navegação.</string>
     <string name="tutorial_statusbar_opaque">This tweak will make the status bar always with an opaque background (default is transparent)</string>
-    <string name="tutorial_battery_outline">This tweak will prevent the battery icon with the red outline when battery saver is on.</string>
-    <string name="tutorial_hun">This tweak let you set a custom duration for heads up notifications</string>
-    <string name="tutorial_media_hun">This tweak let you set a custom duration for media notifications in navigation bar to up to 15 minutes.</string>
-    <string name="tutorial_bluetooth">This tweak should prevent Bluetooth from turning on when Android Auto is connected. This tweak won\'t work if Bluetooth is already on.</string>
+    <string name="tutorial_battery_outline">Este ajuste impedirá o ícone da bateria com o contorno vermelho quando a economia de bateria estiver ativada.</string>
+    <string name="tutorial_hun">Este ajustes permite que você defina uma duração personalizada para notificações heads up</string>
+    <string name="tutorial_media_hun">Este ajuste permite que você defina um período personalizado para as notificações de mídia na barra de navegação até 15 minutos.</string>
+    <string name="tutorial_bluetooth">Este ajuste deve impedir que o Bluetooth seja ativado quando o Android Auto estiver conectado. Isto não funcionará se o Bluetooth já estiver ligado.</string>
     <string name="tutorial_patchapps">This tweak will enable third-party apps made specifically with Android Auto custom SDK to work on Android Auto.\n
 If you are familiar with AA Phenotype Patcher, this tweak is pretty much identical to it.\n
 It\'s not possible to add just any app to Android Auto, but it\'s possible to patch sideloaded apps MADE FOR ANDROID AUTO to work in cars.</string>
