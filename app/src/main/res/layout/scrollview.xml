@@ -624,6 +624,116 @@
                     app:layout_constraintTop_toTopOf="@id/media_tabs_tweak"
                     app:layout_constraintBottom_toBottomOf="@id/media_tabs_tweak" />
 
+                <Button
+                    android:id="@+id/tweak_bitrate_wifi"
+                    android:paddingTop="9dp"
+                    android:layout_width="0dp"
+                    style="@style/ButtonStyle"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:drawablePadding="9dp"
+                    app:layout_constraintEnd_toStartOf="@id/assistanimstatus"
+                    app:layout_constraintTop_toBottomOf="@id/media_tabs_tweak"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+
+                <ImageView
+                    android:id="@+id/tweak_bitrate_wifi_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_check_circle_24"
+                    android:layout_marginEnd="3dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tweak_bitrate_wifi"
+                    app:layout_constraintBottom_toBottomOf="@id/tweak_bitrate_wifi" />
+
+                <SeekBar
+                    android:id="@+id/wifi_bitrate_seekbar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tweak_bitrate_wifi"
+                    app:layout_constraintEnd_toStartOf="@id/wifi_bitrate_to_be_set"
+                    android:paddingVertical="15dp"
+                    android:progressTint="#FF0000"
+                    android:thumbTint="#660000"
+                    android:thumb="@drawable/thumb_bg"
+                    android:max="20" />
+
+                <TextView
+                    android:id="@+id/wifi_bitrate_to_be_set"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/wifi_bitrate_seekbar"
+                    android:layout_marginEnd="3dp" />
+
+                <TextView
+                    android:id="@+id/wifi_bitrate_currently_set"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/wifi_bitrate_seekbar"
+                    android:layout_marginEnd="3dp"
+                    android:layout_gravity="top" />
+
+                <Button
+                    android:id="@+id/tweak_bitrate_usb"
+                    android:paddingTop="9dp"
+                    android:layout_width="0dp"
+                    style="@style/ButtonStyle"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:drawablePadding="9dp"
+                    app:layout_constraintEnd_toStartOf="@id/assistanimstatus"
+                    app:layout_constraintTop_toBottomOf="@id/wifi_bitrate_seekbar"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+
+                <ImageView
+                    android:id="@+id/tweak_bitrate_usb_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_check_circle_24"
+                    android:layout_marginEnd="3dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tweak_bitrate_usb"
+                    app:layout_constraintBottom_toBottomOf="@id/tweak_bitrate_usb" />
+
+                <SeekBar
+                    android:id="@+id/usb_bitrate_seekbar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tweak_bitrate_usb"
+                    app:layout_constraintEnd_toStartOf="@id/usb_bitrate_to_be_set"
+                    android:paddingVertical="15dp"
+                    android:progressTint="#FF0000"
+                    android:thumbTint="#660000"
+                    android:thumb="@drawable/thumb_bg"
+                    android:max="20" />
+
+                <TextView
+                    android:id="@+id/usb_bitrate_to_be_set"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/usb_bitrate_seekbar"
+                    android:layout_marginEnd="3dp" />
+
+                <TextView
+                    android:id="@+id/usb_bitrate_currently_set"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/usb_bitrate_seekbar"
+                    android:layout_marginEnd="3dp"
+                    android:layout_gravity="top" />
+
         </android.support.constraint.ConstraintLayout>
 
 

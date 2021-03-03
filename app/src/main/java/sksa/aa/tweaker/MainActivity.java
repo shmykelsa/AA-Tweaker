@@ -69,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
     private ImageView telemetryStatus;
     private ImageView mediaTabsStatus;
     private ImageView forceNoWideScreenStatus;
+    private ImageView usbBitrateStatus;
+    private ImageView wifiBitrateStatus;
     private Button rebootButton;
     private Button nospeed;
     private Button assistshort;
@@ -91,6 +93,8 @@ public class MainActivity extends AppCompatActivity {
     private Button oldDarkMode;
     private Button disableTelemetryButton;
     private Button activateMediaTabs;
+    private Button tweakUSBBitrateButton;
+    private Button tweakWiFiBitrateButton;
 
     public static Context getContext() {
         return mContext;
@@ -897,7 +901,7 @@ public class MainActivity extends AppCompatActivity {
             changeStatus(messagesHunStatus, 2, false);
             currentlySetHun.setText(getString(R.string.currently_set) + loadValue("messages_hun_value"));
         } else {
-            messagesHunThrottling.setText(getString(R.string.set_value) + getString(R.string.set_notification_duration_to));
+            messagesHunThrottling.setText(getString(R.string.set_value) + getString(R.string.set_notification_duration_to) + "...");
             changeStatus(messagesHunStatus, 0, false);
         }
 
@@ -908,6 +912,7 @@ public class MainActivity extends AppCompatActivity {
                         if (load("aa_hun_ms")){
                             if (hunSeekbar.getProgress() == 8000) {
                                 revert("aa_hun_ms");
+                                saveValue(0, "messaging_hun_value");
                                 changeStatus(messagesHunStatus, 0, true);
                                 currentlySetHun.setText("");
                             } else {
@@ -997,7 +1002,7 @@ public class MainActivity extends AppCompatActivity {
             changeStatus(mediaHunStatus, 2, false);
             currentlySetMediaHun.setText(getString(R.string.currently_set) + loadValue("media_hun_value"));
         } else {
-            mediathrottlingbutton.setText(getString(R.string.set_value) + getString(R.string.media_notification_duration_to));
+            mediathrottlingbutton.setText(getString(R.string.set_value) + getString(R.string.media_notification_duration_to) + "...");
             changeStatus(mediaHunStatus, 0, false);
         }
 
@@ -1008,6 +1013,7 @@ public class MainActivity extends AppCompatActivity {
                         if (load("aa_media_hun")){
                             if (mediaSeekbar.getProgress()==8000) {
                                 revert("aa_media_hun");
+                                saveValue(0, "media_hun_value");
                                 changeStatus(mediaHunStatus, 0, true);
                                 currentlySetMediaHun.setText("");
                             } else {
@@ -1108,6 +1114,7 @@ public class MainActivity extends AppCompatActivity {
                         if (load("calendar_aa_tweak")){
                             if (calendarSeekbar.getProgress() == 1) {
                                 revert("calendar_aa_tweak");
+                                saveValue(0, "agenda_value");
                                 changeStatus(calendarTweakStatus, 0, true);
                                 currentlySetAgendaDays.setText("");
                             } else {
@@ -1654,6 +1661,201 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        tweakUSBBitrateButton = findViewById(R.id.tweak_bitrate_usb);
+        final int[] usbBitrateValue = {0};
+        final TextView currentSeekbarUSB = findViewById(R.id.usb_bitrate_currently_set);
+        final TextView toBeSetSeekbarUSB = findViewById(R.id.usb_bitrate_to_be_set);
+        final SeekBar usbBitrateSeekbar = findViewById(R.id.usb_bitrate_seekbar);
+        final Double[] valueUSB = new Double[1];
+        usbBitrateSeekbar.setProgress(10);
+        currentSeekbarUSB.setText("1.0" + "X");
+        usbBitrateSeekbar.setMin(1);
+        usbBitrateSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                valueUSB[0] = (Double.valueOf(progress)/10.0);
+                toBeSetSeekbarUSB.setText(valueUSB[0] + "X");
+                tweakUSBBitrateButton.setText(getString(R.string.set_value) + getString(R.string.set_usb_bitrate) + " " + valueUSB[0] + " X");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                if (usbBitrateSeekbar.getProgress() == 10) {
+                    tweakUSBBitrateButton.setText(getString(R.string.reset_tweak) + getString(R.string.set_usb_bitrate) + " " + getString(R.string.default_string));
+                    toBeSetSeekbarUSB.setText(valueUSB[0] + "X");
+                } else {
+                    tweakUSBBitrateButton.setText(getString(R.string.set_value) + getString(R.string.set_usb_bitrate) + " " + valueUSB[0] + " X");
+                    toBeSetSeekbarUSB.setText(valueUSB[0] + "X");
+                }
+            }
+        });
+
+
+        usbBitrateStatus = findViewById(R.id.tweak_bitrate_usb_status);
+        final TextView currentlySetUSBSeekbar = findViewById(R.id.usb_bitrate_currently_set);
+        if(load("aa_bitrate_usb")) {
+            tweakUSBBitrateButton.setText(getString(R.string.reset_tweak) + getString(R.string.set_usb_bitrate) + " " + getString(R.string.default_string));
+            changeStatus(usbBitrateStatus, 2, false);
+            currentlySetUSBSeekbar.setText(getString(R.string.currently_set) + loadFloat("usb_bitrate_value"));
+        } else {
+            tweakUSBBitrateButton.setText(getString(R.string.set_value) + getString(R.string.set_usb_bitrate) + "...");
+            changeStatus(usbBitrateStatus, 0, false);
+        }
+
+        tweakUSBBitrateButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (load("aa_bitrate_usb")){
+                            if (usbBitrateSeekbar.getProgress() == 10) {
+                                revert("aa_bitrate_usb");
+                                saveFloat(0, "usb_bitrate_value");
+                                changeStatus(usbBitrateStatus, 0, true);
+                                currentlySetUSBSeekbar.setText("");
+                            } else {
+                                setUSBbitrate(valueUSB[0], UserCount);
+                                currentlySetUSBSeekbar.setText(getString(R.string.currently_set) + valueUSB[0]);
+                            }
+                            if(!animationRun[0]) {
+                                rebootButton.setVisibility(View.VISIBLE);
+                                rebootButton.startAnimation(anim);
+                                animationRun[0] = true;
+                            }
+                        }
+                        else {
+                            setUSBbitrate(valueUSB[0], UserCount);
+                            currentlySetUSBSeekbar.setText(getString(R.string.currently_set) + valueUSB[0]);
+                            if(!animationRun[0]) {
+                                rebootButton.setVisibility(View.VISIBLE);
+                                rebootButton.startAnimation(anim);
+                                animationRun[0] = true;
+                            }
+                        }
+                    }
+                });
+
+        tweakUSBBitrateButton.setOnLongClickListener(new View.OnLongClickListener() {
+            public boolean onLongClick(View arg0) {
+                final Dialog dialog = new Dialog(MainActivity.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.setCancelable(true);
+                View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
+
+                TextView tutorial = view.findViewById(R.id.dialog_content);
+                tutorial.setText(getString(R.string.tutorial_bitrate));
+
+                dialog.setContentView(view);
+
+                dialog.show();
+
+                Window window = dialog.getWindow();
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 800);
+
+                return true;
+            }
+        });
+
+        tweakWiFiBitrateButton = findViewById(R.id.tweak_bitrate_wifi);
+        final int[] wifiBitrateValue = {0};
+        final TextView currentSeekbarWiFi = findViewById(R.id.wifi_bitrate_currently_set);
+        final TextView toBeSetSeekbarWiFi = findViewById(R.id.wifi_bitrate_to_be_set);
+        final SeekBar WiFiBitrateSeekbar = findViewById(R.id.wifi_bitrate_seekbar);
+        final Double[] valueWiFi = new Double[1];
+        WiFiBitrateSeekbar.setProgress(10);
+        currentSeekbarWiFi.setText("1.0" + "X");
+        WiFiBitrateSeekbar.setMin(1);
+        WiFiBitrateSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                valueWiFi[0] = (Double.valueOf(progress)/10.0);
+                toBeSetSeekbarWiFi.setText(valueWiFi[0] + "X");
+                tweakWiFiBitrateButton.setText(getString(R.string.set_value) + getString(R.string.set_wifi_tweak) + " " + valueWiFi[0] + " X");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                if (WiFiBitrateSeekbar.getProgress() == 10) {
+                    tweakWiFiBitrateButton.setText(getString(R.string.reset_tweak) + getString(R.string.set_wifi_tweak) + " " + getString(R.string.default_string));
+                } else {
+                    tweakWiFiBitrateButton.setText(getString(R.string.set_value) + getString(R.string.set_wifi_tweak) + " " + valueWiFi[0] + " X");
+                }
+            }
+        });
+
+
+        wifiBitrateStatus = findViewById(R.id.tweak_bitrate_wifi_status);
+        final TextView currentlySetWiFiSeekbar = findViewById(R.id.wifi_bitrate_currently_set);
+        if(load("aa_bitrate_wifi")) {
+            tweakWiFiBitrateButton.setText(getString(R.string.reset_tweak) + getString(R.string.set_wifi_tweak) + " " + getString(R.string.default_string));
+            changeStatus(wifiBitrateStatus, 2, false);
+            currentlySetWiFiSeekbar.setText(getString(R.string.currently_set) + loadFloat("wifi_bitrate_value"));
+        } else {
+            tweakWiFiBitrateButton.setText(getString(R.string.set_value) + getString(R.string.set_wifi_tweak) + "...");
+            changeStatus(wifiBitrateStatus, 0, false);
+        }
+
+        tweakWiFiBitrateButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (load("aa_bitrate_wifi")){
+                            if (WiFiBitrateSeekbar.getProgress() == 10) {
+                                revert("aa_bitrate_wifi");
+                                saveFloat(0, "wifi_bitrate_value");
+                                changeStatus(wifiBitrateStatus, 0, true);
+                                currentlySetWiFiSeekbar.setText("");
+                            } else {
+                                setWiFiBitrate(valueWiFi[0], UserCount);
+                                currentlySetWiFiSeekbar.setText(getString(R.string.currently_set) + valueWiFi[0]);
+                            }
+                            if(!animationRun[0]) {
+                                rebootButton.setVisibility(View.VISIBLE);
+                                rebootButton.startAnimation(anim);
+                                animationRun[0] = true;
+                            }
+                        }
+                        else {
+                            setWiFiBitrate(valueWiFi[0], UserCount);
+                            currentlySetWiFiSeekbar.setText(getString(R.string.currently_set) + valueWiFi[0]);
+                            if(!animationRun[0]) {
+                                rebootButton.setVisibility(View.VISIBLE);
+                                rebootButton.startAnimation(anim);
+                                animationRun[0] = true;
+                            }
+                        }
+                    }
+                });
+
+        tweakWiFiBitrateButton.setOnLongClickListener(new View.OnLongClickListener() {
+            public boolean onLongClick(View arg0) {
+                final Dialog dialog = new Dialog(MainActivity.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.setCancelable(true);
+                View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
+
+                TextView tutorial = view.findViewById(R.id.dialog_content);
+                tutorial.setText(getString(R.string.tutorial_bitrate));
+
+                dialog.setContentView(view);
+
+                dialog.show();
+
+                Window window = dialog.getWindow();
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 800);
+
+                return true;
+            }
+        });
 
     }
 
@@ -1755,6 +1957,13 @@ public class MainActivity extends AppCompatActivity {
         editor.apply();
     }
 
+    public void saveFloat(final float value, String key) {
+        SharedPreferences sharedPreferences = getPreferences(getContext().MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putFloat(key, value);
+        editor.apply();
+    }
+
      public boolean load(String key) {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         return sharedPreferences.getBoolean(key, false);
@@ -1763,6 +1972,11 @@ public class MainActivity extends AppCompatActivity {
     public int loadValue(String key) {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         return sharedPreferences.getInt(key, 0);
+    }
+
+    public float loadFloat(String key) {
+        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+        return sharedPreferences.getFloat(key, 0);
     }
 
     @Override
@@ -1849,7 +2063,7 @@ public class MainActivity extends AppCompatActivity {
                         ).getStreamLogsWithLabels());
                         appendText(logs, "\n--  end SQL method   --");
                         save(true, "aa_patched_apps");
-                        changeStatus(patchappstatus, 1, false);
+                        changeStatus(patchappstatus, 1, true);
                         assistshort.setText(getString(R.string.disable_tweak_string) + getString(R.string.enable_assistant_shortcuts));
                     } else {
                         suitableMethodFound = false;
@@ -2892,6 +3106,7 @@ public class MainActivity extends AppCompatActivity {
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "aa_hun_ms");
                     changeStatus(messagesHunStatus, 1, false);
+                    saveValue(value, "messaging_hun_value");
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
@@ -2951,6 +3166,7 @@ public class MainActivity extends AppCompatActivity {
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "aa_media_hun");
                     changeStatus(mediaHunStatus, 1, false);
+                    saveValue(0, "media_hun_value");
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
@@ -2961,7 +3177,165 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void setCalendarEvents(View view, int value, int usercount) {
+    public void setUSBbitrate (final double value, int usercount) {
+        final TextView logs = findViewById(R.id.logs);
+        logs.setHorizontallyScrolling(true);
+        logs.setMovementMethod(new ScrollingMovementMethod());
+
+        final ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
+                getString(R.string.tweak_loading), true);
+
+        final StringBuilder finalCommand = new StringBuilder();
+
+        for (int i = 0; i<=(usercount-1) ; i ++) {
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_1080p_usb\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1)," + String.format("%.0f", 16000000*value) + ",1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_1080p_usb_hevc\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1)," + String.format("%.0f", 3000000*value) + ",1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_480p_usb\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1)," + String.format("%.0f", 8000000*value) + ",1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_480p_usb_hevc\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1)," + String.format("%.0f", 1000000*value) + ",1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_720p_usb\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1)," + String.format("%.0f", 12000000*value) + ",1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_720p_usb_hevc\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1)," + String.format("%.0f", 2000000*value) + ",1);");
+            finalCommand.append(System.getProperty("line.separator"));
+        }
+
+        new Thread() {
+            @Override
+            public void run() {
+                String path = getApplicationInfo().dataDir;
+                boolean suitableMethodFound = true;
+
+
+                appendText(logs, "\n\n-- Drop Triggers  --");
+                appendText(logs, runSuWithCmd(
+                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'DROP TRIGGER IF EXISTS aa_bitrate_usb;'"
+                ).getStreamLogsWithLabels());
+
+                if (runSuWithCmd(
+                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'SELECT 1 FROM ApplicationStates WHERE packageName=\"com.google.android.projection.gearhead\"'").getInputStreamLog().equals("1")) {
+
+                    appendText(logs, "\n\n--  run SQL method   --");
+                    appendText(logs, runSuWithCmd(
+                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db '" + finalCommand + "'"
+                    ).getStreamLogsWithLabels());
+
+                    appendText(logs, runSuWithCmd(
+                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                    "'CREATE TRIGGER aa_bitrate_usb AFTER DELETE\n" +
+                                    "ON FlagOverrides\n" +
+                                    "BEGIN\n" + finalCommand + "END;'\n"
+                    ).getStreamLogsWithLabels());
+                    appendText(logs, "\n--  end SQL method  --");
+                    save(true, "aa_bitrate_usb");
+                    changeStatus(usbBitrateStatus, 1, false);
+                    saveFloat((float) value, "usb_bitrate_value");
+                } else {
+                    suitableMethodFound = false;
+                    appendText(logs, "\n\n--  Suitable method NOT found!  --");
+                }
+                dialog.dismiss();
+            }
+        }.start();
+
+    }
+
+    public void setWiFiBitrate (final double value, int usercount) {
+        final TextView logs = findViewById(R.id.logs);
+        logs.setHorizontallyScrolling(true);
+        logs.setMovementMethod(new ScrollingMovementMethod());
+
+        final ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
+                getString(R.string.tweak_loading), true);
+
+        final StringBuilder finalCommand = new StringBuilder();
+
+        for (int i = 0; i<=(usercount-1) ; i ++) {
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_1080p_wireless\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1)," + String.format("%.0f", 16000000*value) + ",1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_1080p_wireless_hevc\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1)," + String.format("%.0f", 3000000*value) + ",1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_480p_wireless\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1)," + String.format("%.0f", 8000000*value) + ",1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_480p_wireless_hevc\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1)," + String.format("%.0f", 1000000*value) + ",1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_720p_wireless\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1)," + String.format("%.0f", 12000000*value) + ",1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_720p_wireless_hevc\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1)," + String.format("%.0f", 2000000*value) + ",1);");
+            finalCommand.append(System.getProperty("line.separator"));
+        }
+
+        new Thread() {
+            @Override
+            public void run() {
+                String path = getApplicationInfo().dataDir;
+                boolean suitableMethodFound = true;
+
+
+                appendText(logs, "\n\n-- Drop Triggers  --");
+                appendText(logs, runSuWithCmd(
+                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'DROP TRIGGER IF EXISTS aa_bitrate_wireless;'"
+                ).getStreamLogsWithLabels());
+
+                if (runSuWithCmd(
+                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'SELECT 1 FROM ApplicationStates WHERE packageName=\"com.google.android.projection.gearhead\"'").getInputStreamLog().equals("1")) {
+
+                    appendText(logs, "\n\n--  run SQL method   --");
+                    appendText(logs, runSuWithCmd(
+                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db '" + finalCommand + "'"
+                    ).getStreamLogsWithLabels());
+
+                    appendText(logs, runSuWithCmd(
+                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                    "'CREATE TRIGGER aa_bitrate_wireless AFTER DELETE\n" +
+                                    "ON FlagOverrides\n" +
+                                    "BEGIN\n" + finalCommand + "END;'\n"
+                    ).getStreamLogsWithLabels());
+                    appendText(logs, "\n--  end SQL method  --");
+                    save(true, "aa_bitrate_wireless");
+                    changeStatus(wifiBitrateStatus, 1, false);
+                    saveFloat((float) value, "wifi_bitrate_value");
+                } else {
+                    suitableMethodFound = false;
+                    appendText(logs, "\n\n--  Suitable method NOT found!  --");
+                }
+                dialog.dismiss();
+            }
+        }.start();
+
+    }
+
+    private void setCalendarEvents(View view, final int value, int usercount) {
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
@@ -3010,6 +3384,7 @@ public class MainActivity extends AppCompatActivity {
                     appendText(logs, "\n--  end SQL method  --");
                     save(true, "calendar_aa_tweak");
                     changeStatus(calendarTweakStatus, 1, false);
+                    saveValue(value, "agenda_value");
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
@@ -3319,10 +3694,6 @@ public class MainActivity extends AppCompatActivity {
         return streamLogs;
     }
 
-
-
-
-
     public static String readFully(InputStream is) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];
@@ -3359,21 +3730,6 @@ public class MainActivity extends AppCompatActivity {
                 String[] lines = get_names.split(System.getProperty("line.separator"));
                 for (int i = 0; i < lines.length; i++) {
                     save(true, lines[i]);
-                }
-                if (load("aa_hun_ms")) {
-                    saveValue(Integer.parseInt(runSuWithCmd(
-                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                            "'SELECT DISTINCT intVal FROM FlagOverrides WHERE name=\"SystemUi__hun_default_heads_up_timeout_ms\";'").getInputStreamLog()), "messages_hun_value");
-                }
-                if (load("aa_media_hun")) {
-                    saveValue(Integer.parseInt(runSuWithCmd(
-                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                    "'SELECT DISTINCT intVal FROM FlagOverrides WHERE name=\"SystemUi__media_hun_in_rail_widget_timeout_ms\";'").getInputStreamLog()), "media_hun_value");
-                }
-                if (load("calendar_aa_tweak")) {
-                    saveValue(Integer.parseInt(runSuWithCmd(
-                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                    "'SELECT DISTINCT intVal FROM FlagOverrides WHERE name=\"McFly__num_days_in_agenda_view\";'").getInputStreamLog()), "agenda_value");
                 }
                 dialog.dismiss();
             }
