@@ -7,6 +7,13 @@
         <item name="colorPrimaryDark">#FFFFFF</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="titleTextColor">#000000</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="IssueTheme" parent="Theme.AppCompat.DayNight">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="TitleBarTextAppearance" parent="android:TextAppearance">

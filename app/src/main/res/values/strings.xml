@@ -105,7 +105,10 @@ WARNING: This tweak has not been extensively tested and could potentially break 
     <string name="tutorial_media_tabs">"This tweak will force enable a new UI for media player applications. Not every app support this UI. Android Auto 5.8 or superior is required. "</string>
     <string name="tweak_loading">Applying the tweak...</string>
     <string name="loading">Loading, please wait...</string>
-    <string name="tutorial_bitrate">This tweak will increase or decrease video bitrate according to the multiplier set (up to 2.0x). Increasing the bitrate will mean that more datas will be streamed to the car and quality of video streaming could be improved, however it might cause instability. Decreasing the bitrate will compress the datas streamed to the car and quality will be decreased, but it will result in a more reliable and fast connection.</string>
+    <string name="tutorial_bitrate">This tweak will increase or decrease video bitrate according to the multiplier set (up to 2.0x). Increasing the bitrate (more than 1.0x) will mean that more datas will be streamed to the car and quality of video streaming could be improved in visual quality, however it might cause instability. Decreasing the bitrate (less than 1.0x) will compress the stream to the car and quality will be decreased, but it will result in a more reliable and fast connection.</string>
     <string name="set_wifi_tweak">wifi bitrate to</string>
     <string name="set_usb_bitrate">USB bitrate to</string>
+    <string name="choose_value_first">Choose a value first</string>
+    <string name="open_issue_button">Open Issue</string>
+    <string name="error_generic">The command was not successful. Please wait one minute and try again. If problem is still ongoing, please open a issue on GitHub</string>
 </resources>

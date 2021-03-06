@@ -746,14 +746,12 @@ public class MainActivity extends AppCompatActivity {
                         else {
                             forceWideScreen(view, 470, UserCount);
                             forceWideScreenButton.setText(getString(R.string.disable_tweak_string)+ getString(R.string.force_widescreen_text));
-                            save(true, "force_ws");
                             if (load("force_no_ws")) {
                                 Toast.makeText(getApplicationContext(), getString(R.string.force_disable_widescreen_warning), Toast.LENGTH_LONG).show();
                                 save(false,"force_no_ws");
                                 forceNoWideScreen.setText(getString(R.string.force_disable_tweak) + getString(R.string.base_no_ws));
                                 changeStatus(forceNoWideScreenStatus, 0, true);
                             }
-                            changeStatus(forceWideScreenStatus, 2, true);
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
@@ -816,13 +814,11 @@ public class MainActivity extends AppCompatActivity {
                         else {
                             forceWideScreen(view, 3000, UserCount);
                             forceNoWideScreen.setText(getString(R.string.reset_tweak) + getString(R.string.base_no_ws));
-                            changeStatus(forceNoWideScreenStatus, 0, true);
-                            save(true, "force_no_ws");
                             if (load ("force_ws")) {
                                 save(false, "force_ws");
                                 Toast.makeText(getApplicationContext(), R.string.force_widescreen_warning, Toast.LENGTH_LONG).show();
                                 forceWideScreenButton.setText(getString(R.string.enable_tweak_string) + getString(R.string.force_widescreen_text));
-                                changeStatus(forceWideScreenStatus, 1, true);
+                                changeStatus(forceWideScreenStatus, 0, true);
                             }
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
@@ -909,23 +905,21 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (load("aa_hun_ms")){
                             if (hunSeekbar.getProgress() == 8000) {
+                                if (load("aa_hun_ms")){
                                 revert("aa_hun_ms");
                                 saveValue(0, "messaging_hun_value");
                                 changeStatus(messagesHunStatus, 0, true);
                                 currentlySetHun.setText("");
+                                    if(!animationRun[0]) {
+                                        rebootButton.setVisibility(View.VISIBLE);
+                                        rebootButton.startAnimation(anim);
+                                        animationRun[0] = true;
+                                    }
                             } else {
-                                setHunDuration(view, hunSeekbar.getProgress(), UserCount);
-                                currentlySetHun.setText(getString(R.string.currently_set) + hunSeekbar.getProgress());
-                            }
-                            if(!animationRun[0]) {
-                                rebootButton.setVisibility(View.VISIBLE);
-                                rebootButton.startAnimation(anim);
-                                animationRun[0] = true;
-                            }
-                        }
-                        else {
+                                    Toast.makeText(getApplicationContext(), getString(R.string.choose_value_first), Toast.LENGTH_SHORT).show();
+                                }
+                        } else {
                             setHunDuration(view, hunSeekbar.getProgress(), UserCount);
                             currentlySetHun.setText(getString(R.string.currently_set) + hunSeekbar.getProgress());
                             if(!animationRun[0]) {
@@ -1111,21 +1105,21 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (load("calendar_aa_tweak")){
+
                             if (calendarSeekbar.getProgress() == 1) {
+                                if (load("calendar_aa_tweak")){
                                 revert("calendar_aa_tweak");
                                 saveValue(0, "agenda_value");
                                 changeStatus(calendarTweakStatus, 0, true);
                                 currentlySetAgendaDays.setText("");
+                                    if(!animationRun[0]) {
+                                        rebootButton.setVisibility(View.VISIBLE);
+                                        rebootButton.startAnimation(anim);
+                                        animationRun[0] = true;
+                                    }
                             } else {
-                                setCalendarEvents(view, calendarSeekbar.getProgress(), UserCount);
-                                currentlySetAgendaDays.setText(getString(R.string.currently_set) + calendarSeekbar.getProgress());
-                            }
-                            if(!animationRun[0]) {
-                                rebootButton.setVisibility(View.VISIBLE);
-                                rebootButton.startAnimation(anim);
-                                animationRun[0] = true;
-                            }
+                                    Toast.makeText(getApplicationContext(), getString(R.string.choose_value_first), Toast.LENGTH_SHORT).show();
+                                }
                         }
                         else {
                             setCalendarEvents(view, calendarSeekbar.getProgress(), UserCount);
@@ -1710,31 +1704,29 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (load("aa_bitrate_usb")){
                             if (usbBitrateSeekbar.getProgress() == 10) {
-                                revert("aa_bitrate_usb");
-                                saveFloat(0, "usb_bitrate_value");
-                                changeStatus(usbBitrateStatus, 0, true);
-                                currentlySetUSBSeekbar.setText("");
+                                if (load("aa_bitrate_usb")) {
+                                    revert("aa_bitrate_usb");
+                                    saveFloat(0, "usb_bitrate_value");
+                                    changeStatus(usbBitrateStatus, 0, true);
+                                    currentlySetUSBSeekbar.setText("");
+                                    if(!animationRun[0]) {
+                                        rebootButton.setVisibility(View.VISIBLE);
+                                        rebootButton.startAnimation(anim);
+                                        animationRun[0] = true;
+                                    }
+                                } else {
+                                    Toast.makeText(getApplicationContext(), getString(R.string.choose_value_first), Toast.LENGTH_SHORT).show();
+                                }
                             } else {
                                 setUSBbitrate(valueUSB[0], UserCount);
                                 currentlySetUSBSeekbar.setText(getString(R.string.currently_set) + valueUSB[0]);
+                                if(!animationRun[0]) {
+                                    rebootButton.setVisibility(View.VISIBLE);
+                                    rebootButton.startAnimation(anim);
+                                    animationRun[0] = true;
+                                }
                             }
-                            if(!animationRun[0]) {
-                                rebootButton.setVisibility(View.VISIBLE);
-                                rebootButton.startAnimation(anim);
-                                animationRun[0] = true;
-                            }
-                        }
-                        else {
-                            setUSBbitrate(valueUSB[0], UserCount);
-                            currentlySetUSBSeekbar.setText(getString(R.string.currently_set) + valueUSB[0]);
-                            if(!animationRun[0]) {
-                                rebootButton.setVisibility(View.VISIBLE);
-                                rebootButton.startAnimation(anim);
-                                animationRun[0] = true;
-                            }
-                        }
                     }
                 });
 
@@ -1807,31 +1799,29 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (load("aa_bitrate_wifi")){
                             if (WiFiBitrateSeekbar.getProgress() == 10) {
-                                revert("aa_bitrate_wifi");
-                                saveFloat(0, "wifi_bitrate_value");
-                                changeStatus(wifiBitrateStatus, 0, true);
-                                currentlySetWiFiSeekbar.setText("");
+                                if (load("aa_bitrate_wifi")) {
+                                    revert("aa_bitrate_wifi");
+                                    saveFloat(0, "wifi_bitrate_value");
+                                    changeStatus(wifiBitrateStatus, 0, true);
+                                    currentlySetWiFiSeekbar.setText("");
+                                    if(!animationRun[0]) {
+                                        rebootButton.setVisibility(View.VISIBLE);
+                                        rebootButton.startAnimation(anim);
+                                        animationRun[0] = true;
+                                    }
+                                } else {
+                                    Toast.makeText(getApplicationContext(), getString(R.string.choose_value_first), Toast.LENGTH_SHORT).show();
+                                }
                             } else {
                                 setWiFiBitrate(valueWiFi[0], UserCount);
                                 currentlySetWiFiSeekbar.setText(getString(R.string.currently_set) + valueWiFi[0]);
+                                if(!animationRun[0]) {
+                                    rebootButton.setVisibility(View.VISIBLE);
+                                    rebootButton.startAnimation(anim);
+                                    animationRun[0] = true;
+                                }
                             }
-                            if(!animationRun[0]) {
-                                rebootButton.setVisibility(View.VISIBLE);
-                                rebootButton.startAnimation(anim);
-                                animationRun[0] = true;
-                            }
-                        }
-                        else {
-                            setWiFiBitrate(valueWiFi[0], UserCount);
-                            currentlySetWiFiSeekbar.setText(getString(R.string.currently_set) + valueWiFi[0]);
-                            if(!animationRun[0]) {
-                                rebootButton.setVisibility(View.VISIBLE);
-                                rebootButton.startAnimation(anim);
-                                animationRun[0] = true;
-                            }
-                        }
                     }
                 });
 
@@ -1872,7 +1862,8 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 String path = getApplicationInfo().dataDir;
                 boolean suitableMethodFound = true;
-                
+
+                save(false, toRevert);
 
                 appendText(logs, "\n\n-- Reverting the hack  --");
                 appendText(logs, runSuWithCmd(
@@ -1883,7 +1874,6 @@ public class MainActivity extends AppCompatActivity {
                         path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
                                 "'DELETE FROM FlagOverrides;'\n" //make sure a good clean is done after dropping the trigger
                 ).getStreamLogsWithLabels());
-                save(false, toRevert);
             }
 
 
@@ -2029,7 +2019,7 @@ public class MainActivity extends AppCompatActivity {
                 public void run() {
                     String path = getApplicationInfo().dataDir;
                     boolean suitableMethodFound = true;
-                    
+
 
                     appendText(logs, "\n\n-- Drop Triggers  --");
                     appendText(logs, runSuWithCmd(
@@ -2061,18 +2051,29 @@ public class MainActivity extends AppCompatActivity {
                                         finalCommand +
                                         "END;'\n"
                         ).getStreamLogsWithLabels());
-                        appendText(logs, "\n--  end SQL method   --");
-                        save(true, "aa_patched_apps");
-                        changeStatus(patchappstatus, 1, true);
-                        assistshort.setText(getString(R.string.disable_tweak_string) + getString(R.string.enable_assistant_shortcuts));
+                        if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_patched_apps\";'").getInputStreamLog().length() <= 4) {
+                            suitableMethodFound = false;
+                        } else {
+                            appendText(logs, "\n--  end SQL method   --");
+                            save(true, "aa_patched_apps");
+                            changeStatus(patchappstatus, 1, true);
+                            patchapps.setText(getString(R.string.unpatch) + getString(R.string.patch_custom_apps));
+                        }
                     } else {
                         suitableMethodFound = false;
                         appendText(logs, "\n\n--  Suitable method NOT found!  --");
                     }
                     dialog.dismiss();
+                    if (!suitableMethodFound) {
+                        final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("tweak", "aa_assistant_rail");
+                        bundle.putString("log", logs.getText().toString());
+                        notSuccessfulDialog.setArguments(bundle);
+                        notSuccessfulDialog.show(getSupportFragmentManager(), "NotSuccessfulDialog");
+                    }
                 }
             }.start();
-
     }
 
     public void patchforassistshort(final View view, int usercount) {
@@ -2126,16 +2127,27 @@ public class MainActivity extends AppCompatActivity {
                                         finalCommand +
                                         "END;'\n"
                         ).getStreamLogsWithLabels());
-                        appendText(logs, "\n--  end SQL method   --");
-                        save(true, "assist_short");
-                        changeStatus(assistantShortcutsStatus, 1, false);
-                        assistshort.setText(getString(R.string.disable_tweak_string) + getString(R.string.enable_assistant_shortcuts));
+                        if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"assist_short\";'").getInputStreamLog().length() <= 4) {
+                            suitableMethodFound = false;
+                        } else {
+                            appendText(logs, "\n--  end SQL method   --");
+                            save(true, "assist_short");
+                            changeStatus(assistantShortcutsStatus, 1, true);
+                            assistshort.setText(getString(R.string.disable_tweak_string) + getString(R.string.enable_assistant_shortcuts));
+                        }
                     } else {
                         suitableMethodFound = false;
                         appendText(logs, "\n\n--  Suitable method NOT found!  --");
                     }
-
                     dialog.dismiss();
+                    if (!suitableMethodFound) {
+                        final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("tweak", "assist_short");
+                        bundle.putString("log", logs.getText().toString());
+                        notSuccessfulDialog.setArguments(bundle);
+                        notSuccessfulDialog.show(getSupportFragmentManager(), "NotSuccessfulDialog");
+                    }
 
                 }
             }.start();
@@ -2186,16 +2198,26 @@ public class MainActivity extends AppCompatActivity {
                                     finalCommand+
                                     "END;'\n"
                     ).getStreamLogsWithLabels());
-                    appendText(logs, "\n--  end SQL method   --");
-                    save(true, "aa_assistant_rail");
-                    assistanim.setText(getString(R.string.disable_tweak_string) + getString(R.string.enable_assistant_animation_in_navbar));
+                    if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_assistant_rail\";'").getInputStreamLog().length() <= 4) {
+                        suitableMethodFound = false;
+                    } else {
+                        appendText(logs, "\n--  end SQL method   --");
+                        save(true, "aa_assistant_rail");
+                        changeStatus(assistanimstatus, 1, true);
+                        assistanim.setText(getString(R.string.disable_tweak_string) + getString(R.string.enable_assistant_animation_in_navbar));
+                    }
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
                 }
-
-
-
+                if (!suitableMethodFound) {
+                    final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("tweak", "aa_assistant_rail");
+                    bundle.putString("log", logs.getText().toString());
+                    notSuccessfulDialog.setArguments(bundle);
+                    notSuccessfulDialog.show(getSupportFragmentManager(), "NotSuccessfulDialog");
+                }
             }
         }.start();
     }
@@ -2275,15 +2297,27 @@ public class MainActivity extends AppCompatActivity {
                                     finalCommand +
                                     "END;'\n"
                     ).getStreamLogsWithLabels());
-                    appendText(logs, "\n--  end SQL method  --");
-                    save(true, "aa_speed_hack");
-                    changeStatus(noSpeedRestrictionsStatus, 1, false);
-                    nospeed.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.unlimited_scrolling_when_driving));
+                    if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_speed_hack\";'").getInputStreamLog().length() <= 4) {
+                        suitableMethodFound = false;
+                    } else {
+                        appendText(logs, "\n--  end SQL method   --");
+                        save(true, "aa_speed_hack");
+                        changeStatus(noSpeedRestrictionsStatus, 1, true);
+                        nospeed.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.unlimited_scrolling_when_driving));
+                    }
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
                 }
                 dialog.dismiss();
+                if (!suitableMethodFound) {
+                    final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("tweak", "aa_speed_hack");
+                    bundle.putString("log", logs.getText().toString());
+                    notSuccessfulDialog.setArguments(bundle);
+                    notSuccessfulDialog.show(getSupportFragmentManager(), "NotSuccessfulDialog");
+                }
             }
         }.start();
     }
@@ -2367,16 +2401,27 @@ public class MainActivity extends AppCompatActivity {
                                     finalCommand +
                                     "END;'\n"
                     ).getStreamLogsWithLabels());
-                    appendText(logs, "\n--  end SQL method  --");
-                    save(true, "multi_display");
-                    changeStatus(mdstatus, 1, false);
-                    mdbutton.setText(getString(R.string.disable_tweak_string) + getString(R.string.multi_display_string));
-
+                    if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"multi_display\";'").getInputStreamLog().length() <= 4) {
+                        suitableMethodFound = false;
+                    } else {
+                        appendText(logs, "\n--  end SQL method   --");
+                        save(true, "multi_display");
+                        changeStatus(mdstatus, 1, true);
+                        mdbutton.setText(getString(R.string.disable_tweak_string) + getString(R.string.multi_display_string));
+                    }
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
                 }
                 dialog.dismiss();
+                if (!suitableMethodFound) {
+                    final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("tweak", "multi_display");
+                    bundle.putString("log", logs.getText().toString());
+                    notSuccessfulDialog.setArguments(bundle);
+                    notSuccessfulDialog.show(getSupportFragmentManager(), "NotSuccessfulDialog");
+                }
             }
         }.start();
     }
@@ -2460,16 +2505,27 @@ public class MainActivity extends AppCompatActivity {
                                     "'CREATE TRIGGER aa_six_tap AFTER DELETE\n" +
                                     "ON FlagOverrides\n BEGIN\n" + finalCommand + "END;'\n"
                     ).getStreamLogsWithLabels());
-                    appendText(logs, "\n--  end SQL method  --");
-                    save(true, "aa_six_tap");
-                    changeStatus(taplimitstatus, 1, false);
-                    taplimitat.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.disable_speed_limitations));
+                    if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_six_tap\";'").getInputStreamLog().length() <= 4) {
+                        suitableMethodFound = false;
+                    } else {
+                        appendText(logs, "\n--  end SQL method   --");
+                        save(true, "aa_six_tap");
+                        changeStatus(taplimitstatus, 1, true);
+                        taplimitat.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.disable_speed_limitations));
+                    }
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
                 }
                 dialog.dismiss();
-
+                if (!suitableMethodFound) {
+                    final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("tweak", "aa_six_tap");
+                    bundle.putString("log", logs.getText().toString());
+                    notSuccessfulDialog.setArguments(bundle);
+                    notSuccessfulDialog.show(getSupportFragmentManager(), "NotSuccessfulDialog");
+                }
             }
         }.start();
     }
@@ -2529,15 +2585,27 @@ public class MainActivity extends AppCompatActivity {
                                             "BEGIN\n" + "DELETE FROM FLAGS WHERE packageName=\"com.google.android.projection.gearhead\" AND name LIKE \"SystemUi__start%\";\n" +
                                             "END;'\n"
                     ).getStreamLogsWithLabels());
-                    appendText(logs, "\n--  end SQL method  --");
-                    save(true, "aa_startup_policy");
-                    changeStatus(navstatus, 1, false);
-                    startupnav.setText(getString(R.string.disable_tweak_string) + getString(R.string.navigation_at_start));
+                    if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_startup_policy_cleanup\";'").getInputStreamLog().length() <= 4) {
+                        suitableMethodFound = false;
+                    } else {
+                        appendText(logs, "\n--  end SQL method   --");
+                        save(true, "aa_startup_policy");
+                        changeStatus(navstatus, 1, true);
+                        startupnav.setText(getString(R.string.disable_tweak_string) + getString(R.string.navigation_at_start));
+                    }
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
                 }
                 dialog.dismiss();
+                if (!suitableMethodFound) {
+                    final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("tweak", "aa_startup_policy");
+                    bundle.putString("log", logs.getText().toString());
+                    notSuccessfulDialog.setArguments(bundle);
+                    notSuccessfulDialog.show(getSupportFragmentManager(), "NotSuccessfulDialog");
+                }
             }
         }.start();
 
@@ -2600,15 +2668,27 @@ public class MainActivity extends AppCompatActivity {
                                     "ON FlagOverrides\n" +
                                     "BEGIN\n" + finalCommand + "END;'\n"
                     ).getStreamLogsWithLabels());
-                    appendText(logs, "\n--  end SQL method  --");
-                    save(true, "battery_saver_warning");
-                    changeStatus(batteryWarningStatus, 1, false);
-                    batteryWarning.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.battery_warning));
+                    if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"battery_saver_warning\";'").getInputStreamLog().length() <= 4) {
+                        suitableMethodFound = false;
+                    } else {
+                        appendText(logs, "\n--  end SQL method   --");
+                        save(true, "battery_saver_warning");
+                        changeStatus(batteryWarningStatus, 1, true);
+                        batteryWarning.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.battery_warning));
+                    }
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
                 }
                 dialog.dismiss();
+                if (!suitableMethodFound) {
+                    final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("tweak", "battery_saver_warning");
+                    bundle.putString("log", logs.getText().toString());
+                    notSuccessfulDialog.setArguments(bundle);
+                    notSuccessfulDialog.show(getSupportFragmentManager(), "NotSuccessfulDialog");
+                }
             }
         }.start();
 
@@ -2659,15 +2739,27 @@ public class MainActivity extends AppCompatActivity {
                                     "ON FlagOverrides\n" +
                                     "BEGIN\n" + finalCommand + "END;'\n"
                     ).getStreamLogsWithLabels());
-                    appendText(logs, "\n--  end SQL method  --");
-                    save(true, "aa_battery_outline");
-                    changeStatus(batteryOutlineStatus, 1, false);
-                    batteryoutline.setText(getString(R.string.disable_tweak_string) + getString(R.string.battery_outline_string));
+                    if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_battery_outline\";'").getInputStreamLog().length() <= 4) {
+                        suitableMethodFound = false;
+                    } else {
+                        appendText(logs, "\n--  end SQL method   --");
+                        save(true, "aa_battery_outline");
+                        changeStatus(batteryOutlineStatus, 1, true);
+                        batteryoutline.setText(getString(R.string.disable_tweak_string) + getString(R.string.battery_outline_string));
+                    }
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
                 }
                 dialog.dismiss();
+                if (!suitableMethodFound) {
+                    final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("tweak", "aa_battery_outline");
+                    bundle.putString("log", logs.getText().toString());
+                    notSuccessfulDialog.setArguments(bundle);
+                    notSuccessfulDialog.show(getSupportFragmentManager(), "NotSuccessfulDialog");
+                }
             }
         }.start();
 
@@ -2719,15 +2811,27 @@ public class MainActivity extends AppCompatActivity {
                                     "ON FlagOverrides\n" +
                                     "BEGIN\n" + finalCommand + "END;'\n"
                     ).getStreamLogsWithLabels());
-                    appendText(logs, "\n--  end SQL method  --");
-                    save(true, "aa_sb_opaque");
-                    changeStatus(opaqueStatus, 1, false);
-                    statusbaropaque.setText(getString(R.string.disable_tweak_string) + getString(R.string.statb_opaque_string));
+                    if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_sb_opaque\";'").getInputStreamLog().length() <= 4) {
+                        suitableMethodFound = false;
+                    } else {
+                        appendText(logs, "\n--  end SQL method   --");
+                        save(true, "aa_sb_opaque");
+                        changeStatus(opaqueStatus, 1, true);
+                        statusbaropaque.setText(getString(R.string.disable_tweak_string) + getString(R.string.statb_opaque_string));
+                    }
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
                 }
                 dialog.dismiss();
+                if (!suitableMethodFound) {
+                    final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("tweak", "aa_sb_opaque");
+                    bundle.putString("log", logs.getText().toString());
+                    notSuccessfulDialog.setArguments(bundle);
+                    notSuccessfulDialog.show(getSupportFragmentManager(), "NotSuccessfulDialog");
+                }
             }
         }.start();
 
@@ -2785,14 +2889,27 @@ public class MainActivity extends AppCompatActivity {
                                     "ON FlagOverrides\n" +
                                     "BEGIN\n" + finalCommand + "END;'\n"
                     ).getStreamLogsWithLabels());
-                    appendText(logs, "\n--  end SQL method  --");
-                    save(true, "bluetooth_pairing_off");
-                    bluetoothoff.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.bluetooth_auto_connect));
+                    if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"bluetooth_pairing_off\";'").getInputStreamLog().length() <= 4) {
+                        suitableMethodFound = false;
+                    } else {
+                        appendText(logs, "\n--  end SQL method   --");
+                        save(true, "bluetooth_pairing_off");
+                        changeStatus(btstatus, 1, true);
+                        bluetoothoff.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.bluetooth_auto_connect));
+                    }
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
                 }
                 dialog.dismiss();
+                if (!suitableMethodFound) {
+                    final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("tweak", "bluetooth_pairing_off");
+                    bundle.putString("log", logs.getText().toString());
+                    notSuccessfulDialog.setArguments(bundle);
+                    notSuccessfulDialog.show(getSupportFragmentManager(), "NotSuccessfulDialog");
+                }
             }
         }.start();
 
@@ -2845,15 +2962,27 @@ public class MainActivity extends AppCompatActivity {
                                     "ON FlagOverrides\n" +
                                     "BEGIN\n" + finalCommand + "END;'\n"
                     ).getStreamLogsWithLabels());
-                    appendText(logs, "\n--  end SQL method  --");
-                    save(true, "aa_night_mode_revert");
-                    changeStatus(oldDarkModeStatus, 1, false);
-                    oldDarkMode.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.dark_mode_tweak));
+                    if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_night_mode_revert\";'").getInputStreamLog().length() <= 4) {
+                        suitableMethodFound = false;
+                    } else {
+                        appendText(logs, "\n--  end SQL method   --");
+                        save(true, "aa_night_mode_revert");
+                        changeStatus(oldDarkModeStatus, 1, true);
+                        oldDarkMode.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.dark_mode_tweak));
+                    }
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
                 }
                 dialog.dismiss();
+                if (!suitableMethodFound) {
+                    final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("tweak", "aa_night_mode_revert");
+                    bundle.putString("log", logs.getText().toString());
+                    notSuccessfulDialog.setArguments(bundle);
+                    notSuccessfulDialog.show(getSupportFragmentManager(), "NotSuccessfulDialog");
+                }
             }
         }.start();
 
@@ -3043,15 +3172,27 @@ public class MainActivity extends AppCompatActivity {
                                     "ON FlagOverrides\n" +
                                     "BEGIN\n" + finalCommand + "END;'\n"
                     ).getStreamLogsWithLabels());
-                    appendText(logs, "\n--  end SQL method  --");
-                    save(true, "kill_telemetry");
-                    changeStatus(telemetryStatus, 1, false);
-                    disableTelemetryButton.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.telemetry_string));
+                    if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"kill_telemetry\";'").getInputStreamLog().length() <= 4) {
+                        suitableMethodFound = false;
+                    } else {
+                        appendText(logs, "\n--  end SQL method   --");
+                        save(true, "kill_telemetry");
+                        changeStatus(telemetryStatus, 1, true);
+                        disableTelemetryButton.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.telemetry_string));
+                    }
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
                 }
                 dialog.dismiss();
+                if (!suitableMethodFound) {
+                    final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("tweak", "kill_telemetry");
+                    bundle.putString("log", logs.getText().toString());
+                    notSuccessfulDialog.setArguments(bundle);
+                    notSuccessfulDialog.show(getSupportFragmentManager(), "NotSuccessfulDialog");
+                }
             }
         }.start();
 
@@ -3103,15 +3244,27 @@ public class MainActivity extends AppCompatActivity {
                                     "ON FlagOverrides\n" +
                                     "BEGIN\n" + finalCommand + "END;'\n"
                                     ).getStreamLogsWithLabels());
-                    appendText(logs, "\n--  end SQL method  --");
-                    save(true, "aa_hun_ms");
-                    changeStatus(messagesHunStatus, 1, false);
-                    saveValue(value, "messaging_hun_value");
+                    if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_hun_ms\";'").getInputStreamLog().length() <= 4) {
+                        suitableMethodFound = false;
+                    } else {
+                        appendText(logs, "\n--  end SQL method   --");
+                        save(true, "aa_hun_ms");
+                        changeStatus(messagesHunStatus, 1, true);
+                        saveValue(value, "messaging_hun_value");
+                    }
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
                 }
                 dialog.dismiss();
+                if (!suitableMethodFound) {
+                    final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("tweak", "aa_hun_ms");
+                    bundle.putString("log", logs.getText().toString());
+                    notSuccessfulDialog.setArguments(bundle);
+                    notSuccessfulDialog.show(getSupportFragmentManager(), "NotSuccessfulDialog");
+                }
             }
         }.start();
 
@@ -3163,15 +3316,27 @@ public class MainActivity extends AppCompatActivity {
                                     "ON FlagOverrides\n" +
                                     "BEGIN\n" + finalCommand + "END;'\n"
                     ).getStreamLogsWithLabels());
-                    appendText(logs, "\n--  end SQL method  --");
-                    save(true, "aa_media_hun");
-                    changeStatus(mediaHunStatus, 1, false);
-                    saveValue(0, "media_hun_value");
+                    if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_media_hun\";'").getInputStreamLog().length() <= 4) {
+                        suitableMethodFound = false;
+                    } else {
+                        appendText(logs, "\n--  end SQL method   --");
+                        save(true, "aa_media_hun");
+                        changeStatus(mediaHunStatus, 1, true);
+                        saveValue(value, "media_hun_value");
+                    }
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
                 }
                 dialog.dismiss();
+                if (!suitableMethodFound) {
+                    final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("tweak", "aa_media_hun");
+                    bundle.putString("log", logs.getText().toString());
+                    notSuccessfulDialog.setArguments(bundle);
+                    notSuccessfulDialog.show(getSupportFragmentManager(), "NotSuccessfulDialog");
+                }
             }
         }.start();
 
@@ -3224,7 +3389,7 @@ public class MainActivity extends AppCompatActivity {
                 appendText(logs, "\n\n-- Drop Triggers  --");
                 appendText(logs, runSuWithCmd(
                         path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                "'DROP TRIGGER IF EXISTS aa_bitrate_usb;'"
+                                "'DROP TRIGGER IF EXISTS aa_bitrate_usb;\n DELETE FROM Flags WHERE name LIKE \"VideoEncoderParamsFeature%\";'"
                 ).getStreamLogsWithLabels());
 
                 if (runSuWithCmd(
@@ -3242,15 +3407,27 @@ public class MainActivity extends AppCompatActivity {
                                     "ON FlagOverrides\n" +
                                     "BEGIN\n" + finalCommand + "END;'\n"
                     ).getStreamLogsWithLabels());
-                    appendText(logs, "\n--  end SQL method  --");
-                    save(true, "aa_bitrate_usb");
-                    changeStatus(usbBitrateStatus, 1, false);
-                    saveFloat((float) value, "usb_bitrate_value");
+                    if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_bitrate_usb\";'").getInputStreamLog().length() <= 4) {
+                        suitableMethodFound = false;
+                    } else {
+                        appendText(logs, "\n--  end SQL method   --");
+                        save(true, "aa_bitrate_usb");
+                        changeStatus(usbBitrateStatus, 1, true);
+                        saveFloat((float) value, "usb_bitrate_value");
+                    }
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
                 }
                 dialog.dismiss();
+                if (!suitableMethodFound) {
+                    final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("tweak", "aa_bitrate_usb");
+                    bundle.putString("log", logs.getText().toString());
+                    notSuccessfulDialog.setArguments(bundle);
+                    notSuccessfulDialog.show(getSupportFragmentManager(), "NotSuccessfulDialog");
+                }
             }
         }.start();
 
@@ -3303,7 +3480,7 @@ public class MainActivity extends AppCompatActivity {
                 appendText(logs, "\n\n-- Drop Triggers  --");
                 appendText(logs, runSuWithCmd(
                         path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                "'DROP TRIGGER IF EXISTS aa_bitrate_wireless;'"
+                                "'DROP TRIGGER IF EXISTS aa_bitrate_wireless;\n DELETE FROM Flags WHERE name LIKE \"VideoEncoderParamsFeature%\";'"
                 ).getStreamLogsWithLabels());
 
                 if (runSuWithCmd(
@@ -3321,15 +3498,27 @@ public class MainActivity extends AppCompatActivity {
                                     "ON FlagOverrides\n" +
                                     "BEGIN\n" + finalCommand + "END;'\n"
                     ).getStreamLogsWithLabels());
-                    appendText(logs, "\n--  end SQL method  --");
-                    save(true, "aa_bitrate_wireless");
-                    changeStatus(wifiBitrateStatus, 1, false);
-                    saveFloat((float) value, "wifi_bitrate_value");
+                    if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_bitrate_wireless\";'").getInputStreamLog().length() <= 4) {
+                        suitableMethodFound = false;
+                    } else {
+                        appendText(logs, "\n--  end SQL method   --");
+                        save(true, "aa_bitrate_wireless");
+                        changeStatus(wifiBitrateStatus, 1, true);
+                        saveFloat((float) value, "wifi_bitrate_value");
+                    }
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
                 }
                 dialog.dismiss();
+                if (!suitableMethodFound) {
+                    final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("tweak", "aa_bitrate_wireless");
+                    bundle.putString("log", logs.getText().toString());
+                    notSuccessfulDialog.setArguments(bundle);
+                    notSuccessfulDialog.show(getSupportFragmentManager(), "NotSuccessfulDialog");
+                }
             }
         }.start();
 
@@ -3381,15 +3570,27 @@ public class MainActivity extends AppCompatActivity {
                                     "ON FlagOverrides\n" +
                                     "BEGIN\n" + finalCommand + "END;'\n"
                     ).getStreamLogsWithLabels());
-                    appendText(logs, "\n--  end SQL method  --");
-                    save(true, "calendar_aa_tweak");
-                    changeStatus(calendarTweakStatus, 1, false);
-                    saveValue(value, "agenda_value");
+                    if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"calendar_aa_tweak\" AND name=\"aa_media_hun\";'").getInputStreamLog().length() <= 4) {
+                        suitableMethodFound = false;
+                    } else {
+                        appendText(logs, "\n--  end SQL method   --");
+                        save(true, "calendar_aa_tweak");
+                        changeStatus(calendarTweakStatus, 1, true);
+                        saveValue(value, "agenda_value");
+                    }
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
                 }
                 dialog.dismiss();
+                if (!suitableMethodFound) {
+                    final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("tweak", "calendar_aa_tweak");
+                    bundle.putString("log", logs.getText().toString());
+                    notSuccessfulDialog.setArguments(bundle);
+                    notSuccessfulDialog.show(getSupportFragmentManager(), "NotSuccessfulDialog");
+                }
             }
         }.start();
 
@@ -3408,6 +3609,12 @@ public class MainActivity extends AppCompatActivity {
             finalCommand.append(i);
             finalCommand.append(",1)," + value + ",1);");
             finalCommand.append(System.getProperty("line.separator"));
+            if (value == 3000) {
+                finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__regular_layout_max_width_dp\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+                finalCommand.append(i);
+                finalCommand.append(",1)," + value + ",1);");
+                finalCommand.append(System.getProperty("line.separator"));
+            }
         }
 
         new Thread() {
@@ -3415,7 +3622,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 String path = getApplicationInfo().dataDir;
                 boolean suitableMethodFound = true;
-                
+                String decideWhat = new String();
 
                 appendText(logs, "\n\n-- Drop Triggers  --");
                 appendText(logs, runSuWithCmd(
@@ -3431,27 +3638,40 @@ public class MainActivity extends AppCompatActivity {
                     appendText(logs, runSuWithCmd(
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'" + finalCommand + "'").getStreamLogsWithLabels());
 
-                    String decideWhat = new String();
-
                     switch (value) {
-                        case 470: { decideWhat = "force_ws"; break; }
-                        case 3000: { decideWhat = "force_no_ws"; break; }
+                        case 470: { decideWhat = "force_ws"; changeStatus(forceWideScreenStatus, 1, true); break; }
+                        case 3000: { decideWhat = "force_no_ws"; changeStatus(forceNoWideScreenStatus, 1, true); break; }
                     }
-
                     appendText(logs, runSuWithCmd(
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
                                     "'CREATE TRIGGER " + decideWhat + " AFTER DELETE\n" +
                                     "ON FlagOverrides\n" +
                                     "BEGIN\n" + finalCommand + "END;'\n"
                     ).getStreamLogsWithLabels());
-                    appendText(logs, "\n--  end SQL method  --");
-                    save(true, decideWhat);
+                    if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"" + decideWhat + "\";'").getInputStreamLog().length() <= 4) {
+                        suitableMethodFound = false;
+                    } else {
+                        appendText(logs, "\n--  end SQL method   --");
+                        switch (value) {
+                            case 470: { changeStatus(forceWideScreenStatus, 1, true); break; }
+                            case 3000: { changeStatus(forceNoWideScreenStatus, 1, true); break; }
+                        }
+                        save(true, decideWhat);
+                    }
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
                 }
                 dialog.dismiss();
-            }
+                if (!suitableMethodFound) {
+                    final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("tweak", decideWhat);
+                    bundle.putString("log", logs.getText().toString());
+                    notSuccessfulDialog.setArguments(bundle);
+                    notSuccessfulDialog.show(getSupportFragmentManager(), "NotSuccessfulDialog");
+                }
+                }
         }.start();
 
     }
@@ -3503,15 +3723,27 @@ public class MainActivity extends AppCompatActivity {
                                     "ON FlagOverrides\n" +
                                     "BEGIN\n" + finalCommand + "END;'\n"
                     ).getStreamLogsWithLabels());
-                    appendText(logs, "\n--  end SQL method  --");
-                    save(true, "aa_wallpapers");
-                    changeStatus(activateWallpapersStatus, 1, false);
-                    activateWallpapersButton.setText(getString(R.string.disable_tweak_string) + getString(R.string.custom_wallpapers));
+                    if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_wallpapers\";'").getInputStreamLog().length() <= 4) {
+                        suitableMethodFound = false;
+                    } else {
+                        appendText(logs, "\n--  end SQL method   --");
+                        save(true, "aa_wallpapers");
+                        changeStatus(activateWallpapersStatus, 1, true);
+                        activateWallpapersButton.setText(getString(R.string.disable_tweak_string) + getString(R.string.custom_wallpapers));
+                    }
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
                 }
                 dialog.dismiss();
+                if (!suitableMethodFound) {
+                    final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("tweak", "aa_wallpapers");
+                    bundle.putString("log", logs.getText().toString());
+                    notSuccessfulDialog.setArguments(bundle);
+                    notSuccessfulDialog.show(getSupportFragmentManager(), "NotSuccessfulDialog");
+                }
             }
         }.start();
 
@@ -3579,15 +3811,27 @@ public class MainActivity extends AppCompatActivity {
                                     "ON FlagOverrides\n" +
                                     "BEGIN\n" + finalCommand + "END;'\n"
                     ).getStreamLogsWithLabels());
-                    appendText(logs, "\n--  end SQL method  --");
-                    save(true, "aa_messaging_apps");
-                    changeStatus(messagesTweakStatus, 1, false);
-                    messagesButton.setText(getString(R.string.disable_tweak_string) + getString(R.string.messages_tweak_string));
+                    if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_messaging_apps\";'").getInputStreamLog().length() <= 4) {
+                        suitableMethodFound = false;
+                    } else {
+                        appendText(logs, "\n--  end SQL method   --");
+                        save(true, "aa_messaging_apps");
+                        changeStatus(messagesTweakStatus, 1, true);
+                        messagesButton.setText(getString(R.string.disable_tweak_string) + getString(R.string.messages_tweak_string));
+                    }
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
                 }
                 dialog.dismiss();
+                if (!suitableMethodFound) {
+                    final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("tweak", "aa_messaging_apps");
+                    bundle.putString("log", logs.getText().toString());
+                    notSuccessfulDialog.setArguments(bundle);
+                    notSuccessfulDialog.show(getSupportFragmentManager(), "NotSuccessfulDialog");
+                }
             }
         }.start();
 
@@ -3646,16 +3890,27 @@ public class MainActivity extends AppCompatActivity {
                                     "ON FlagOverrides\n" +
                                     "BEGIN\n" + finalCommand + "END;'\n"
                     ).getStreamLogsWithLabels());
-                    appendText(logs, "\n--  end SQL method  --");
-                    save(true, "aa_media_tabs");
-                    changeStatus(mediaTabsStatus, 1, false);
-                    activateMediaTabs.setText(getString(R.string.disable_tweak_string) + getString(R.string.media_tabs_string));
-
+                    if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_media_tabs\";'").getInputStreamLog().length() <= 4) {
+                        suitableMethodFound = false;
+                    } else {
+                        appendText(logs, "\n--  end SQL method   --");
+                        save(true, "aa_media_tabs");
+                        changeStatus(mediaTabsStatus, 1, true);
+                        activateMediaTabs.setText(getString(R.string.disable_tweak_string) + getString(R.string.media_tabs_string));
+                    }
                 } else {
                     suitableMethodFound = false;
                     appendText(logs, "\n\n--  Suitable method NOT found!  --");
                 }
                 dialog.dismiss();
+                if (!suitableMethodFound) {
+                    final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("tweak", "aa_media_tabs");
+                    bundle.putString("log", logs.getText().toString());
+                    notSuccessfulDialog.setArguments(bundle);
+                    notSuccessfulDialog.show(getSupportFragmentManager(), "NotSuccessfulDialog");
+                }
             }
         }.start();
 
@@ -3827,5 +4082,6 @@ public class MainActivity extends AppCompatActivity {
             resource.startAnimation(rotate);
         }
     }
+
 
 }

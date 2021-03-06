@@ -54,6 +54,8 @@ public class SplashActivity extends AppCompatActivity {
         editor.putBoolean("calendar_aa_tweak", false);
         editor.putBoolean("aa_messaging_apps", false);
         editor.putBoolean("aa_media_tabs", false);
+        editor.putBoolean("aa_bitrate_usb", false);
+        editor.putBoolean("aa_bitrate_wifi", false);
         editor.commit();
         Log.v("sksa.aa.tweaker", "Preferences restored");
 
