@@ -12,7 +12,7 @@ Ako nisi siguran šta podešavanje menja, pritisni dugo na podešavanje i prikaz
     <string name="enable_assistant_animation_in_navbar">Assistant animation in navbar</string>
     <string name="splash">This app can alter Android Auto behaviour and bypass some safety features that Google has implemented in Android Auto.\n
 By using this software, you agree that YOU, and ONLY YOU, are solely responsible for any possible consequence that may result in altering safety features such as injury to yourself and/or others, property damage, loss of life.\n
-Under no circumnstances is the author of this app responsible for its use</string>
+Under no circumstances is the author of this app responsible for its use</string>
     <string name="proceed">I understand</string>
     <string name="navigation_at_start">Navigation at start</string>
     <string name="statb_opaque_string">Force Opaque Statusbar</string>
