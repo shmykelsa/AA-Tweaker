@@ -34,10 +34,6 @@ public class NotSuccessfulDialog extends DialogFragment {
                                 // [Optional] Auth token to open issues if users don't have a GitHub account
                                 // You can register a bot account on GitHub and copy ist OAuth2 token here.
                                 // (See #how-to-create-a-bot-key for further information.)
-                                .guestToken("65f627f887c9a58674fbd0f43cc6930b04463f35")
-                                // [Optional] Force users to enter an email adress when the report is sent using
-                                // the guest token.
-                                .guestEmailRequired(true)
                                 // [Optional] Include other relevant info in the bug report (like custom variables)
                                 .putExtraInfo("Log", getArguments().getString("log"))
                                 .putExtraInfo("Tweak Applied", getArguments().getString("tweak"))

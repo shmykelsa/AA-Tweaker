@@ -105,4 +105,12 @@ ATTENTION : Cette modification n\'a pas été testée de manière approfondie et
     <string name="tutorial_media_tabs">"Cette modification activera une nouvelle interface utilisateur pour les applications multimédias. Toutes les applications ne prennent pas en charge cette interface utilisateur. Android Auto 5.8 ou supérieur est requis. "</string>
     <string name="tweak_loading">Application de la modification...</string>
     <string name="loading">Chargement, veuillez patienter...</string>
+    <string name="tutorial_bitrate">Cette modification augmentera ou diminuera le débit vidéo en fonction du multiplicateur défini (jusqu\'à 2.0x). Une augmentation du débit (plus de 1.0x) signifie que davantage de données seront transmises en continu à la voiture et que la qualité visuelle de la diffusion vidéo pourrait être améliorée, mais cela peut potentiellement générer une instabilité. Une diminution du débit (moins de 1.0x) compressera le flux et la qualité sera diminuée, mais elle permettra d\'obtenir une connexion plus fiable et plus rapide.</string>
+    <string name="set_wifi_tweak">Débit vidéo du Wi-Fi à</string>
+    <string name="set_usb_bitrate">Débit vidéo de l\'USB à</string>
+    <string name="choose_value_first">Choisissez d\'abord une valeur</string>
+    <string name="open_issue_button">Ouvrir un ticket</string>
+    <string name="error_generic">La commande a échoué. Veuillez patienter quelques minutes et réessayer. Si le problème est toujours en cours, veuillez ouvrir un ticket sur GitHub</string>
+    <string name="tutorial_alphajump">Cette modification activera une nouvelle (et cachée) refonte qui change la façon dont les listes peuvent être parcourues avec des lettres. Au lieu du bouton A-Z en haut, le bouton apparaîtra sur la barre de défilement lorsqu\'il n\'y aura pas de défilement et vous ne serez plus obligé d\'aller en haut pour naviguer avec des lettres.</string>
+    <string name="alpha_jump_tweak">nouveau saut alphabétique</string>
 </resources>

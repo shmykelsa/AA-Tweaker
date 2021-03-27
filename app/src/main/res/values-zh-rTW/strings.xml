@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_string">歡迎使用 AA AIO Tweaker
+ 本軟體可以調整Android Auto的隱藏選項
+ 只要簡單選擇您需要的選項即可 :) 
+ 如不確定選項內容，長按可檢視說明。</string>
+    <string name="select_apps">選擇應用程式</string>
+    <string name="enable_assistant_shortcuts">輔助捷徑</string>
+    <string name="patch_custom_apps">自訂APP清單</string>
+    <string name="disable_speed_limitations">觸控限制</string>
+    <string name="unlimited_scrolling_when_driving">車速限制</string>
+    <string name="enable_assistant_animation_in_navbar">導航列動畫</string>
+    <string name="splash">本軟體可以更改Android Auto的選項，繞過Google在Android Auto中多項安全限制。 使用此軟體更改安全限制/功能，而導致本人或他人的任何傷害、財產損失、生命... 等 本軟體作者不對其負責。</string>
+    <string name="proceed">同意</string>
+    <string name="navigation_at_start">啟動自動進入導航</string>
+    <string name="statb_opaque_string">強制不透明狀態列</string>
+    <string name="battery_outline_string">省電模式</string>
+    <string name="legend">狀態： 綠色=已破解 黃色=需要重新啟動以破解 紅色=尚未破解</string>
+    <string name="set_notification_duration_to">通知顯示時長</string>
+    <string name="base_no_ws">寬螢幕</string>
+    <string name="force_widescreen_text">強制寬螢幕</string>
+    <string name="media_notification_duration_to">多媒體通知顯示時長</string>
+    <string name="bluetooth_auto_connect">藍牙自動連線</string>
+    <string name="tutorial_nospeed">此設定可使Android Auto誤認為車速=0，就可以持續顯示系統通知。 此設定不適用於鍵盤或Android Auto初始設置。</string>
+    <string name="tutorial_sixtap">此設定可破解Android Auto的6下點擊限制，可以無限次數操作。</string>
+    <string name="tutorial_shortcuts">此設定將解鎖輔助捷徑的功能。解鎖後可以在Android Auto設定選單，自訂啟動APP，新增捷徑到Google assistant語音指令</string>
+    <string name="tutorial_startup">此設定可修改Android Auto預設啟動APP。 在某些情況下，可能導致暫停自動撥放音樂。解決方法是重新在Android Auto設定選單重新啟用。 無法將特定應用程序設置為先啟動。</string>
+    <string name="tutorial_widescreen">強制啟用Android Auto寬螢幕</string>
+    <string name="tutorial_no_widescreen">強制禁用Android Auto寬螢幕</string>
+    <string name="tutorial_animation">啟用Google Assistant 動畫</string>
+    <string name="tutorial_statusbar_opaque">狀態列保持黑色</string>
+    <string name="tutorial_battery_outline">隱藏省電模式下的電池圖案</string>
+    <string name="tutorial_hun">自訂通知顯示時長</string>
+    <string name="tutorial_media_hun">自訂多媒體通知顯示時長，最多15分鐘。</string>
+    <string name="tutorial_bluetooth">此調整應該可以防止藍牙打開時，Android Auto連接。如果藍牙已經打開，這個調整就不起作用。</string>
+    <string name="tutorial_patchapps">此調整，使用Android Auto自定義SDK製作的第三方應用可以在Android Auto上運行。 如果您熟悉AA Phenotype Patcher，這個調整非常相似。 您無法將任何應用添加到Android Auto，但是可以修補為Android Auto開發的應用，以使其可在汽車上應用。</string>
+    <string name="multi_display_string">多重顯示</string>
+    <string name="tutorial_multidisplay">這是Android Auto內部的一個隱藏功能，它將把寬螢幕模式下的第二個空間變成真正的第二個顯示空間，完全由第二個活動佔據。Google maps將顯示一個帶有導航狀態的完整地圖，音樂和手機將佔據全部空間。 此外，此模式還激活了另一項功能，可在第二個螢幕上打開手機螢幕，以便在Android Auto中進行導航。 調整此功能的設置將在Android Auto主螢幕中提供。 顯然，目前只有Google Maps支持此模式。 此功能可能正在開發中，可能無法按預期工作。 需要Android Auto 5.8或更高版本。</string>
+    <string name="battery_warning">省電提醒</string>
+    <string name="tutorial_battery_saver_warning">當開啟省電模式時，防止Android Auto彈出警告</string>
+    <string name="disable_tweak_string">禁用</string>
+    <string name="enable_tweak_string">啟用</string>
+    <string name="re_enable_tweak_string">恢復</string>
+    <string name="copy_log">複製日誌</string>
+    <string name="about">關於</string>
+    <string name="revert_everything">還原全部</string>
+    <string name="force_disable_tweak">強制禁用</string>
+    <string name="reset_tweak">復位</string>
+    <string name="force_widescreen_warning">寬螢幕強制被自動禁用</string>
+    <string name="force_disable_widescreen_warning">強制禁用寬螢幕，現已自動禁用</string>
+    <string name="set_value">設置</string>
+    <string name="reboot_to_apply">重啟應用</string>
+    <string name="warning_title">警告！</string>
+    <string name="unpatch">取消修補</string>
+    <string name="patch_app">應用修補</string>
+    <string name="default_string">默認設備</string>
+    <string name="app_list_label">應用列表</string>
+    <string name="positive_button">確定</string>
+    <string name="translators_button">翻譯者</string>
+    <string name="about_part_one"><![CDATA[AA AIO TWEAKER是由 Shmykelsa 開發和維護的。&amp;lt;br&amp;gt;&amp;lt;br&amp;gt;源代碼可在&amp;lt;a href=https://github.com/shmykelsa/AA-Tweaker&amp;gt;GitHub&amp;lt;/a&amp;gt;&amp;lt;br&amp;gt;&amp;lt;br&amp;gt;]]></string>
+    <string name="about_part_two"><![CDATA[如果你真的喜歡我的工作，請考慮捐贈。&amp;lt;br&amp;gt;您可以通過&amp;lt;a href=http://www.paypal.me/grizzo96&amp;gt;PayPal&amp;lt;/a&amp;gt; 捐贈我，或者您可以通過下面的按鈕複製我的比特幣地址。&amp;lt;br&amp;gt;&amp;lt;br&amp;gt;即使小額也會受到歡迎:)]]></string>
+    <string name="copied_address_toast">地址已複製到剪貼板</string>
+    <string name="custom_wallpapers">背景</string>
+    <string name="tutorial_wallpapers">此調整可啟用新的內置Android Auto牆紙更換器。 需要Android Auto 5.8或更高版本。 警告：如果您是Android Auto牆紙用戶，則需要至少更新到3.0版。 否則，此調整將破壞Android Auto牆紙的功能。</string>
+    <string name="tutorial_dark_mode">從2020年12月開始，Google取消了自Android 10以來發生的行為。以前，Android Auto的亮/暗模式遵循智能手機的亮/暗模式。換句話說，將智能手機切換為黑暗模式也會影響汽車，如果手機處於黑暗模式且汽車的燈光不亮，則智能手機的燈光模式也會打開。 但是，隨著這種“獨立”暗模式功能的引入，售後主機的用戶無法將模式切換到暗模式，除非他們實際將立體聲音響連接到了車燈上。 此調整使“夜間模式”再次取決於智能手機，並且在智能手機上的“亮/暗”模式之間切換，也會對汽車產生影響。</string>
+    <string name="dark_mode_tweak">獨立暗模式</string>
+    <string name="telemetry_string">Google數據</string>
+    <string name="tutorial_telemetry">Google記錄了很多關於我們的數據。此調整將使Google Play服務停止許多跟蹤和日誌記錄活動。警告：這個調整還沒有得到廣泛的測試，可能會破壞Android Auto。如果你發現這個調整破壞了Android Auto，請打開GitHub的問題。</string>
+    <string name="reboot_prompt">您要重啟設備嗎？</string>
+    <string name="rebooting_action">正在重新啟動...</string>
+    <string name="negative_button">取消</string>
+    <string name="added_app_action">已新增</string>
+    <string name="removed_app_action">已移除</string>
+    <string name="root_access_warning">Root訪問被拒絕。請允許 root 訪問。</string>
+    <string name="revert_everything_dialog">是否要還原所有內容？請在執行此操作後手動重新啟動應用程序</string>
+    <string name="calendar_tweak">在日曆中設置 %1$s 日活動事項</string>
+    <string name="calendar_tweak_single">在日曆中設置 %1$s 日活動事項</string>
+    <string name="tutorial_calendar_tweak">此調整將使Android Auto中的日曆應用程序，可以顯示更多的天數而不僅僅是一天。請注意，即使增加天數，仍然無法明顯區分您正在查看哪一天的事件。 Android Auto只會顯示一天內設置了多少個事件，而不會顯示是哪一天。</string>
+    <string name="choose_apps_warning">選擇要加入白名單的應用</string>
+    <string name="log_first_line">日誌:</string>
+    <string name="menu_aa_settings">打開Android Auto設置</string>
+    <string name="not_enabled_warning">未啟用Android Auto</string>
+    <string name="not_installed_warning">未安裝Android Auto</string>
+    <string name="currently_set">"當前設置："</string>
+    <string name="tutorial_messages_tweak">"此調整將使一些短信應用程序在Android Auto上顯示為圖標。當您打開時，該應用程序的通知就會顯示。"</string>
+    <string name="messages_tweak_string">短信應用</string>
+    <string name="no_accounts_warning">AA AIO TWEAKER在Google Play服務數據庫中找不到任何帳戶。這可能是由幾種不同的情況引起的，例如： • 大部分未連接到網際網路的設備 • 重新安裝電話 • 損壞的Google Play服務數據庫 • 從電話中刪除了Google帳戶 • 已清除的Google Play服務數據 在這種情況下，AA AIO TWEAKER將無法正常工作。如果您最近刪除了Google帳戶或清除了Google Play服務數據，請保持手機連接到互聯網並完全建立Google Play服務數據庫。這可能需要幾個小時，在某些情況下還需要幾天。 如果您不符合上述條件之一，請在GitHub上回饋問題。</string>
+    <string name="media_tabs_string">媒體應用標籤選項</string>
+    <string name="tutorial_media_tabs">"此調整將強制為媒體播放器應用程序啟用新的UI。並非每個應用程序都支持此UI。需要Android Auto 5.8或更高版本。 "</string>
+    <string name="tweak_loading">正在應用調整...</string>
+    <string name="loading">加載請稍候...</string>
+    <string name="tutorial_bitrate">此調整將根據設定數值（最多2.0倍）提高或降低視頻傳輸位元速率。 增加位元率(大於1.0倍)意指將有更多數據流向傳輸到車機上，並且視頻的質量上可能會得到改善，但可能會導致不穩定； 降低位元率(小於1.0倍)則會壓縮流向車機值(降低質量)，但效能上更可靠、更快速的連接。</string>
+    <string name="set_wifi_tweak">wifi 連接</string>
+    <string name="set_usb_bitrate">USB 連接</string>
+    <string name="choose_value_first">先選擇一個值</string>
+    <string name="open_issue_button">提報問題</string>
+    <string name="error_generic">此命令不成功。稍侯1分鐘，然後重試。如果問題仍然存在，請在GitHub上回饋問題</string>
+    <string name="tutorial_alphajump">此調整，將重新（包含隱藏）設計，更改使用字母瀏覽列表的方式。當沒有滾動發生時，按鈕將顯示在滾動條上，而不是頂部的A-Z按鈕，且不會被迫回到頂部再次瀏覽字母。</string>
+    <string name="alpha_jump_tweak">字母列位</string>
+</resources>

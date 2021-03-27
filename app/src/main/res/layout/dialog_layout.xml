@@ -23,6 +23,12 @@
                 android:textSize="17sp"
                 android:typeface="sans"/>
 
+        <VideoView
+            android:id="@+id/tutorialVideo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="4dp"/>
+
         <ImageView
             android:id="@+id/tutorialimage1"
             android:layout_marginBottom="4dp"

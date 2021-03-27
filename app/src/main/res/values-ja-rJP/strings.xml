@@ -40,12 +40,12 @@
     <string name="tutorial_hun">この調整は、ヘッドアップ通知に任意の継続時間を設定します。</string>
     <string name="tutorial_media_hun">この調整は、ナビゲーションバーのメディア通知の継続時間を最大15分まで設定します。</string>
     <string name="tutorial_bluetooth">この調整は、Android Autoが接続されているときにBluetoothがオンにならないようにします。この調整は、Bluetoothがすでにオンになっている場合には機能しません。</string>
-    <string name="tutorial_patchapps">この調整は、Android Auto custom SDKで作られたサードパーティ製アプリがAndroid Auto上で動作するようにします。\n
-もしAA Phenotype Patcherを使い慣れているなら、それとほぼ同じです。\n
+    <string name="tutorial_patchapps">この調整は、Android AutoのカスタムのSDKで作られたサードパーティ製アプリがAndroid Auto上で動作するようにします。\n
+もしAA Phenotype Patcherに精通しているなら、それとほぼ同じです。\n
 Android Autoに任意のアプリを追加することはできませんが、Android Auto用に作られたアプリにパッチを当てることで、車でも動作するようにすることができます。</string>
     <string name="multi_display_string">マルチディスプレイ</string>
-    <string name="tutorial_multidisplay">これは、Android Autoの隠れた機能で、ワイドスクリーンモードのセカンドスペースを、セカンドアクティビティに完全に占有された本物のセカンドディスプレイに変えてくれます。Googleマップは、ナビゲーションの状態で完全なマップを表示し、音楽や電話はスペースを完全に占有するでしょう。\n
-さらに、このモードでは、Android Autoのナビゲーションのためのセカンドディスプレイに電話機の画面を回す別の機能をアクティブにします。\n
+    <string name="tutorial_multidisplay">これは、Android Autoの隠れた機能で、ワイドスクリーンモードのセカンドスペースを、セカンドアクティビティに実際のセカンドディスプレイにします。Googleマップは、ナビゲーションの状態で完全なマップを表示し、音楽や電話はスペースを完全に占めるでしょう。\n
+さらに、このモードでは、Android Autoのナビゲーションのためのセカンドディスプレイにスマホの画面を回す別の機能を有効にします。\n
 この機能の設定は、Android Autoのホーム画面で変更できるようになります。\n
 どうやら、現在のところ、Google Mapsしか対応していないようです。\n
 この機能は開発中のようで、意図した通りには動作しない可能性があるようです。\n
@@ -79,7 +79,7 @@ Android Auto 5.8以上が必要です。</string>
     <string name="tutorial_dark_mode">2020年12月から、GoogleはAndroid 10以降に起こった挙動を元に戻しました。以前は、Android Autoのライト/ダークモードが電話のライト/ダークモードに追従し、その逆もありました。つまり、電話をダークモードに切り替えると車にも影響を与え、また、電話がダークモードで車のライトがオフになっている場合は、電話のライトモードをオンに切り替えていました。\nしかし、この「独立した」ダークモードの機能が導入され、アフターマーケットヘッドユニットを使用しているユーザーは、ステレオを車のライトに実際に配線しない限り、ダークモードに切り替える方法がなくなりました。\nこの調整は、ナイトモードが再び電話に依存するようにし、電話上のライト/ダークモードを切り替えると、車にもその効果を与えるようにします。</string>
     <string name="dark_mode_tweak">独立したダークモード</string>
     <string name="telemetry_string">テレメトリー</string>
-    <string name="tutorial_telemetry">Googleが私たちの多くのデータを記録しているのは、本当のようです。この調整は、Google Play Servicesによる多くの追跡とログ収集を停止します。\n
+    <string name="tutorial_telemetry">Googleが私たちの多くのデータを記録していても不思議ではありません。この調整は、Google Play Servicesによる多くの追跡とログ収集を停止します。\n
 警告: この調整は広範囲にテストされておらず、Android Autoを壊す可能性があります。もし、この調整がAndroid Autoを壊すことが判明したら、GitHubでissueを立ててください。</string>
     <string name="reboot_prompt">端末を再起動しますか?</string>
     <string name="rebooting_action">再起動中…</string>
@@ -99,9 +99,17 @@ Android Auto 5.8以上が必要です。</string>
     <string name="currently_set">"現在の設定: "</string>
     <string name="tutorial_messages_tweak">"この調整は、一部のメッセージングアプリがAndroid Auto上でアイコンとして表示されるようにします。開くと、そのアプリの通知が表示されます。通知は通知センターでも受信できるようになります。 "</string>
     <string name="messages_tweak_string">メッセージングアプリ</string>
-    <string name="no_accounts_warning">AA AIO TWEAKERは、Google Play Servicesのデータベースでアカウントが見つけられませまんでした。これは、次のようなことが原因である可能性があります:\n • インターネットにほとんど接続されていないデバイス\n • 電話の新規インストール\n • Google Play Servicesのデータベースの破損\n • 電話からのGoogleアカウントの削除\n • Google Play Servicesのデータの削除\n\nこの場合、AA AIO TWEAKERは正常に動作しません。最近、GoogleアカウントやGoogle Play Servicesのデータを削除した場合は、スマホをインターネットに接続したままにして、Google Play Servicesのデータベースを完全に構築させてください。これには数時間、場合によっては数日かかることもあります。\n\n上記の条件のいずれにも該当しない場合は、GitHubでissueを立ててください。</string>
+    <string name="no_accounts_warning">AA AIO TWEAKERは、Google Play Servicesのデータベースでアカウントが見つけられませまんでした。これは、次のようなことが原因である可能性があります:\n • インターネットにほとんど接続されていない端末\n • インストールしたばかりのスマホ\n • Google Play Servicesのデータベースの破損\n • スマホからのGoogleアカウントの削除\n • Google Play Servicesのデータの削除\n\nこれらの場合、AA AIO TWEAKERは正常に動作しません。最近、GoogleアカウントやGoogle Play Servicesのデータを削除した場合は、スマホをインターネットに接続したままにして、Google Play Servicesのデータベースを完全に構築させてください。これには数時間、場合によっては数日かかることもあります。\n\n上記の条件のいずれにも該当しない場合は、GitHubでissueを立ててください。</string>
     <string name="media_tabs_string">メディアアプリのタブ表示</string>
     <string name="tutorial_media_tabs">"この調整は、メディアプレーヤーアプリの新しいUIを強制的に有効にします。すべてのアプリがこのUIをサポートしているわけではありません。Android Auto 5.8以降が必要です。 "</string>
     <string name="tweak_loading">調整を適用中...</string>
     <string name="loading">ロード中、しばらくお待ちください...</string>
+    <string name="tutorial_bitrate">この調整は、設定された乗数に応じてビデオのビットレートを増減させます。 (最大 2.0x) ビットレートを上げる (1.0x 以上) と、より多くのデータが車にストリーミングされ、映像品質が向上する可能性がありますが、不安定さの原因となる可能性があります。ビットレートを下げる (1.0x未満) と、車へのストリームデータが圧縮され、品質は低下しますが、より信頼性の高い高速な接続になります。</string>
+    <string name="set_wifi_tweak">wifiのビットレート</string>
+    <string name="set_usb_bitrate">USBのビットレート</string>
+    <string name="choose_value_first">最初に値を選択してください</string>
+    <string name="open_issue_button">Issueを立てる</string>
+    <string name="error_generic">コマンドは成功しませんでした。しばらく待ってからもう一度やり直してください。それでも問題が解決しない場合は、GitHubでissueを立ててください。</string>
+    <string name="tutorial_alphajump">この調整は、文字でリストを閲覧する方法を変更する、新しい (そして隠された) デザインを有効にします。一番上にある A-Z ボタンの代わりに、スクロールしていないときにスクロールバーにボタンが表示され、文字で閲覧するために一番上に行く必要がなくなります。</string>
+    <string name="alpha_jump_tweak">A-Zボタンの新しいデザイン</string>
 </resources>

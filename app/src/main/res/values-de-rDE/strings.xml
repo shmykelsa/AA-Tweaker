@@ -101,8 +101,16 @@ WARNUNG: Dieser Tweak wurde nicht ausgiebig getestet und könnte möglicherweise
     <string name="tutorial_messages_tweak">"Mit dieser Optimierung werden einige Messaging-Apps in Android Auto als Symbol angezeigt. Nach dem Öffnen werden die Benachrichtigungen dieser App angezeigt. Benachrichtigungen werden auch weiterhin im Benachrichtigungscenter empfangen."</string>
     <string name="messages_tweak_string">Nachrichten Apps</string>
     <string name="no_accounts_warning">AA AIO TWEAKER konnte kein Konto in der Google Play Services-Datenbank finden. Dies kann verschiedene Ursachen haben: \n • Ihr Gerät ist größtenteils nicht mit dem Internet verbunden \n • Neuinstallation des Telefons \n • Beschädigte Google Play Services-Datenbank \n • Entfernung des Google-Kontos aus dem Telefon \n • Gelöschte Daten von Google Play Services \n\nIn diesem Fall funktioniert AA AIO TWEAKER nicht ordnungsgemäß. Wenn Sie kürzlich ein Google-Konto entfernt oder Google Play Services-Daten gelöscht haben, lassen Sie das Telefon mit dem Internet verbunden und lassen Sie es die Google Play Services-Datenbank vollständig erstellen. Dies kann mehrere Stunden dauern, in einigen Fällen auch Tage.\n\nWenn eine der oben genannten Bedingungen nicht zutrifft, öffnen Sie bitte ein Problem auf GitHub.</string>
-    <string name="media_tabs_string">media apps tabbed view</string>
+    <string name="media_tabs_string">media-Apps tabbed Ansicht</string>
     <string name="tutorial_media_tabs">"Diese Optimierung erzwingt die Aktivierung einer neuen Benutzeroberfläche für Media Player-Anwendungen. Nicht jede App unterstützt diese Benutzeroberfläche. Android Auto 5.8 oder höher ist erforderlich. "</string>
     <string name="tweak_loading">Optimierung wird angewandt...</string>
     <string name="loading">Lädt, bitte warten...</string>
+    <string name="tutorial_bitrate">Dieser Tweak erhöht oder verringert die Video-Bitrate entsprechend dem eingestellten Multiplikator (bis zu 2,0x). Die Erhöhung der Bitrate (mehr als 1,0x) bedeutet, dass mehr Daten zum Fahrzeug gestreamt werden und die Qualität des Videostreamings in der visuellen Qualität verbessert werden kann, allerdings kann dies zu Instabilität führen. Wenn Sie die Bitrate verringern (weniger als 1,0x), wird der Datenstrom zum Fahrzeug komprimiert und die Qualität verringert sich, aber die Verbindung wird zuverlässiger und schneller.</string>
+    <string name="set_wifi_tweak">wifi-Bitrate auf</string>
+    <string name="set_usb_bitrate">USB-Bitrate auf</string>
+    <string name="choose_value_first">Wählen Sie einen Wert</string>
+    <string name="open_issue_button">Open Issue</string>
+    <string name="error_generic">The command was not successful. Please wait some minutes and try again. If problem is still ongoing, please open a issue on GitHub</string>
+    <string name="tutorial_alphajump">Diese Einstellung wird ein neues (und verstecktes) Redesign aktivieren, das die Art und Weise ändert, wie Listen mit Buchstaben durchsucht werden können. Anstelle der A-Z-Taste oben, wird die Taste direkt in der Scrollleiste angezeigt. Wird gerade nicht gescrollt, dann werden Sie nicht gezwungen zurück nach oben zu gehen, um wieder mit Buchstaben zu suchen.</string>
+    <string name="alpha_jump_tweak">neuer Alphabet-Sprung</string>
 </resources>

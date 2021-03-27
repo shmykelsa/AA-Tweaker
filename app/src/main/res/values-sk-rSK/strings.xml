@@ -107,4 +107,12 @@ UPOZORNENIE: Toto vylepšenie nebolo podrobne testované a mohlo by potenciálne
     <string name="tutorial_media_tabs">"Toto vylepšenie vynúti povolenie nového používateľského rozhrania pre aplikácie prehrávača médií. Nie všetky aplikácie toto používateľské rozhranie podporujú. Vyžaduje sa Android Auto 5.8 alebo vyšší. "</string>
     <string name="tweak_loading">Uplatňujú sa vylepšenia...</string>
     <string name="loading">Načítavam, počkajte prosím...</string>
+    <string name="tutorial_bitrate">Toto vylepšenie zvýši alebo zníži dátový tok videa podľa nastaveného násobiteľa (až 2,0x). Zvýšenie dátového toku (viac ako 1,0-násobne) bude znamenať, že do jednotky auta bude streamovaných viac dát a mohla by sa zlepšiť kvalita video toku vo viditeľnej kvalite, čo by však mohlo spôsobiť nestabilitu. Zníženie dátového toku (menej ako 1,0-násobok) spôsobí kompresiu toku do auta a zníži sa kvalita a výsledkom bude spoľahlivejšie a rýchlejšie pripojenie.</string>
+    <string name="set_wifi_tweak">wifi dátový tok na</string>
+    <string name="set_usb_bitrate">USB dátový tok na</string>
+    <string name="choose_value_first">Najskôr vyberte hodnotu</string>
+    <string name="open_issue_button">Otvoriť problém</string>
+    <string name="error_generic">Príkaz nebol úspešný. Počkajte jednu minútu a skúste to znova. Ak problém stále pretrváva, otvorte ho na GitHub</string>
+    <string name="tutorial_alphajump">Toto vylepšenie aktivuje nový (a skrytý) redizajn, ktorý zmení spôsob prehľadávania zoznamov písmenami. Namiesto tlačidla A-Z v hornej časti sa toto tlačidlo zobrazí na posuvnom paneli keď sa žiadne posúvanie nedeje, takže už nebudete nútení prechádzať na začiatok, aby ste znova mali možnosť prechádzať cez písmená.</string>
+    <string name="alpha_jump_tweak">nový abecedný skok</string>
 </resources>

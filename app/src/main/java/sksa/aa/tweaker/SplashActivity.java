@@ -102,7 +102,7 @@ public class SplashActivity extends AppCompatActivity {
     private void copyAssets() {
         String path = getApplicationInfo().dataDir;
         File file = new File(path, "sqlite3");
-        if (!file.exists()) {
+
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -126,9 +126,10 @@ public class SplashActivity extends AppCompatActivity {
             } catch(IOException e) {
                 Log.e("sksa.aa.tweaker", "Failed to copy asset file: sqlite3", e);
             }
-        }
         Log.v("sksa.aa.tweaker", runSuWithCmd("chmod 775 " + path + "/sqlite3").getStreamLogsWithLabels());
-    }
+        }
+
+
 
 
 }

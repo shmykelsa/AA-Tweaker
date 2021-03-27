@@ -35,7 +35,7 @@ public class AboutDialog extends DialogFragment {
                 builder.setMessage(Html.fromHtml("Russian: Diversant96<br>" +
                         "Dutch: Coyenzo, smit.sydney<br>" +
                         "Slovak: Jozo19<br>" +
-                        "Spanish: Krilok<br>" +
+                        "Spanish: Krilok, jdavidcs4<br>" +
                         "Czech: Martin2412, LLZN, pesekpata<br>" +
                         "Slovenian: Brubblu<br>" +
                         "French: Nova.kin, Sperafico<br>" +
@@ -51,6 +51,8 @@ public class AboutDialog extends DialogFragment {
                         "Chinese (traditional): chh2299<br>" +
                         "Hebrew: yaari302<br>" +
                         "Japanese: HHSAN<br>" +
+                        "Greek: panbimis<br>" +
+                        "Turkish: un4saken<br>" +
                         "<br>Interested in translating AA AIO TWEAKER in your own language? Join translations on <a href=\"https://crowdin.com/project/aa-aio-tweaker\">Crowdin</a>!"));
                 builder.setCancelable(true);
                 builder.setPositiveButton(getString(android.R.string.ok), new DialogInterface.OnClickListener() {

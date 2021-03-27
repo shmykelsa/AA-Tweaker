@@ -117,4 +117,12 @@ UPOZORNĚNÍ: Toto nastavení nebylo podrobeno rozsáhlému testování a mohlo 
     <string name="tutorial_media_tabs">"Toto nastavení vynutí zapnutí nového UI pro multimediální aplikace. Ne každá aplikace podporuje toto UI. Je vyžadováno Android Auto verze 5.8 nebo vyšší. "</string>
     <string name="tweak_loading">Používání nastavení...</string>
     <string name="loading">Nahrávání, prosím čekejte...</string>
+    <string name="tutorial_bitrate">Toto nastavení zvýší nebo sníží přenosovou rychlost obrazu podle nastavení nasobiče (až do 2.0x). Zvýšení přenosové rychlosti (více než 1.0x) znamená, že do auta bude přenášeno více dat a tím se zlepší kvalita přenášeného obrazu, nicméně to může způsobit nestabilitu. Snížením přenosové rychlosti (méně než 1.0x) se přenášený obraz do auta zkomprimuje a tím se kvalita přenášeného obrazu zhorší, nicméně výsledkem bude spolehlivější a rychlejší připojení.</string>
+    <string name="set_wifi_tweak">přenosovou rychlost wifi na</string>
+    <string name="set_usb_bitrate">přenosovou rychlost USB na</string>
+    <string name="choose_value_first">Nejdříve vyberte hodnotu</string>
+    <string name="open_issue_button">Nahlásit problém</string>
+    <string name="error_generic">Příkaz nebyl úspěšný. Počkejte prosím několik minut a zkuste to znovu. Pokud problém stále přetrvává nahlašte prosím problém na GitHub</string>
+    <string name="tutorial_alphajump">Toto nastavení aktivuje nový (a skrytý) vzhled, který změní, jak se budou zobrazovat veškeré seznamy podle začátečních písmen. Místo pevně umístěného tlačítka A-Z na vrchu seznamu, se tlačítko bude přesouvat společně se scrollbarem a vy tak nebudete muset pokaždé najíždět až na vrchol seznamu.</string>
+    <string name="alpha_jump_tweak">new alphabet jump</string>
 </resources>

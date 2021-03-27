@@ -105,4 +105,12 @@ WAARSCHUWING: Deze tweak is niet uitgebreid getest en kan Android Auto mogelijk 
     <string name="tutorial_media_tabs">"Met deze tweak wordt een nieuwe UI voor mediaspelerapplicaties geforceerd. Niet elke app ondersteunt deze UI. Android Auto 5.8 of hoger is vereist. "</string>
     <string name="tweak_loading">De tweak aan het toepassen...</string>
     <string name="loading">Laden, even geduld a.u.b....</string>
+    <string name="tutorial_bitrate">Deze tweak zal de video bitrate verhogen of verlagen volgens de instelling van de vermenigvuldigingsfactor(tot 2.0x). Verhogen van de bitrate (meer dan 1.0x) betekent dat er meer data naar de auto zal worden verstuurd en dat de kwaliteit van video streaming kan worden verbeterd in visuele kwaliteit. Het kan echter wel instabiliteit veroorzaken. Vermindering van de bitrate (minder dan 1.0x) zal de stream naar de auto comprimeren en de kwaliteit zal dalen, maar het zal resulteren in een betrouwbaardere en snelle verbinding.</string>
+    <string name="set_wifi_tweak">wifi bitrate naar</string>
+    <string name="set_usb_bitrate">USB bitrate naar</string>
+    <string name="choose_value_first">Kies een waarde</string>
+    <string name="open_issue_button">Rapporteer een probleem</string>
+    <string name="error_generic">De opdracht was niet succesvol. Wacht een minuut en probeer het opnieuw. Als het probleem zich dan nog steeds voordoet, rapporteer dan een probleem op GitHub</string>
+    <string name="tutorial_alphajump">Deze tweak activeert een nieuw (en verborgen) herontwerp dat verandert hoe lijsten kunnen worden doorzocht met letters. In plaats van de A-Z-knop bovenaan, verschijnt de knop op de scrollbar, wanneer er geen scrollfunctie plaatsvindt en je niet gedwongen wordt om naar boven te gaan om met letters te bladeren.</string>
+    <string name="alpha_jump_tweak">nieuw alfabet sprong</string>
 </resources>

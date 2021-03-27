@@ -102,9 +102,17 @@ OSTRZEŻENIE: ta modyfikacja nie została dokładnie przetestowana i może poten
     <string name="currently_set">"Obecnie ustawiony: "</string>
     <string name="tutorial_messages_tweak">"Ta modyfikacja sprawi, że niektóre aplikacje będą wyświetlane jako ikona w Android Auto. Po otwarciu, powiadomienia o tej aplikacji pojawią się. Powiadomienia będą nadal odebrane również w centrum powiadomień. "</string>
     <string name="messages_tweak_string">aplikacje do przesyłania wiadomości</string>
-    <string name="no_accounts_warning">AA AIO TWEAKER could not find any account in Google Play Services database. This can be caused by several different things such as:\n • Device that is mostly not connected to internet\n • Fresh install of the phone\n • Corrupted Google Play Services database\n • Removal of Google account(s) from the phone\n • Cleared datas of Google Play Services\n\nIn this scenario, AA AIO TWEAKER will FAIL to work properly. If you recently removed a Google account or cleared Google Play Services datas, please keep the phone connected to internet and let it build the Google Play Services database fully. This might take several hours, in some cases also days.\n\nIf you are not in one of the above conditions, please open a issue on GitHub.</string>
+    <string name="no_accounts_warning">AA AIO TWEAKER nie może znaleźć żadnego konta w bazie danych usług Google Play. Może to być spowodowane kilkoma różnymi przyczynami, takimi jak: \ n • Urządzenie, nie jest połączone z internetem \ n • Nowa instalacja telefonu \ n • Uszkodzona baza danych usług Google Play \ n • Usunięcie konta Google z telefon \ n • Wyczyszczone dane usług Google Play \ n \ nW tym przypadku AA AIO TWEAKER NIE DZIAŁA poprawnie. Jeśli niedawno usunąłeś konto Google lub wyczyściłeś zestaw danych usług Google Play, nie odłączaj telefonu od internetu i pozwól mu w pełni zbudować bazę danych usług Google Play. Może to zająć kilka godzin, w niektórych przypadkach także dni. \ N \ nJeśli spełniasz powyższe warunki a program nie działa, zgłoś to w serwisie GitHub. </string>
     <string name="media_tabs_string">Widok zakładek aplikacji multimedialnych</string>
     <string name="tutorial_media_tabs">"Ta funkcja wymusza włączenie nowego interfejsu użytkownika dla aplikacji multimedialnych. Nie każda aplikacja obsługuje ten interfejs użytkownika. Wymagany jest system Android Auto 5.8 lub nowszy"</string>
-    <string name="tweak_loading">Applying the tweak...</string>
+    <string name="tweak_loading">Stosowanie łatki ...</string>
     <string name="loading">Ładuję, proszę czekać.</string>
+    <string name="tutorial_bitrate">Ta łatka zwiększy lub zmniejszy szybkość transmisji wideo zgodnie z ustawionym mnożnikiem (do 2,0x). Zwiększenie szybkości transmisji bitów (ponad 1,0x) oznacza, że ​​do samochodu zostanie przesłanych więcej danych, a jakość strumienia wideo może ulec poprawie w jakości wizualnej, jednak może to spowodować niestabilność. Zmniejszenie szybkości transmisji (poniżej 1,0x) spowoduje kompresję strumienia do samochodu i pogorszenie jakości, ale zapewni bardziej niezawodne i szybkie połączenie. </string>
+    <string name="set_wifi_tweak">Prędkość transmisji WiFi</string>
+    <string name="set_usb_bitrate">Prędkość transmisji USB</string>
+    <string name="choose_value_first">Najpierw wybierz wartość</string>
+    <string name="open_issue_button">Problem do rozwiązania</string>
+    <string name="error_generic">Polecenie nie powiodło się. Poczekaj minutę i spróbuj ponownie. Jeśli nie rozwiązało to problemu proszę zgłosić problem na GitHub</string>
+    <string name="tutorial_alphajump">Ta funkcja aktywuje nowy (ukryta) sposób przeglądania list za pomocą liter. Zamiast przycisku A-Z u góry, litery pojawią się na pasku przewijania, i nie będziesz zmuszony przechodzić do góry, aby ponownie przeglądać litery.</string>
+    <string name="alpha_jump_tweak">nowy skok w alfabecie</string>
 </resources>

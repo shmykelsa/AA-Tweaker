@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="main_string">Benvenuto in AA AIO Tweaker\n
-Questa app ti permetterà di applicare alcune modifiche ad Android Auto\n
-Basta selezionare quale modifica vuoi applicare :)\n
-Se non sei sicuro del significato di una modifica, tieni premuto sul proprio pulsante e verrà visualizzato un tutorial.</string>
+Questa app ti permetterà di applicare alcuni tweaks su Android Auto\n
+Basta selezionare quale tweak vuoi applicare :)\n
+Se non sei sicuro di ciò che un tweak fa, premi a lungo su di esso e un tutorial verrà visualizzato.</string>
     <string name="select_apps">Seleziona app</string>
     <string name="enable_assistant_shortcuts">Scorciatoie dell\'assistente</string>
     <string name="patch_custom_apps">app personalizzate</string>
@@ -105,4 +105,12 @@ ATTENZIONE: Questo tweak non è stato testato estensivamente e potenzialmente pu
     <string name="tutorial_media_tabs">"Questo tweak forzerà l'attivazione di una nuova interfaccia utente per le applicazioni multimediali. Non tutte le app supportano questa interfaccia utente. Android Auto 5.8 o superiore è richiesto."</string>
     <string name="tweak_loading">Applico il tweak...</string>
     <string name="loading">Caricamento, attendere...</string>
+    <string name="tutorial_bitrate">Questa modificherà aumenterà o diminuirà il bitrate video in base al moltiplicatore impostato (fino a 2.0x). Aumentando il bitrate (più di 1.0x) significherà che più dati saranno trasmessi in streaming verso l\'auto e la qualità dello streaming video potrebbe avere una migliore qualità visiva, tuttavia potrebbe causare instabilità. Diminuendo il bitrate (meno di 1.0) il flusso di dati verso l\'auto sarà ridotto e la qualità sarà minore, ma si tradurrà in un collegamento più affidabile e veloce.</string>
+    <string name="set_wifi_tweak">Bitrate del WiFi a</string>
+    <string name="set_usb_bitrate">bitrate dell\'USB a</string>
+    <string name="choose_value_first">Scegli un valore prima</string>
+    <string name="open_issue_button">Segnala</string>
+    <string name="error_generic">Comando non riuscito. Si prega di attendere qualche minuto e riprovare. Se il problema persiste, apri una segnalazione su GitHub.</string>
+    <string name="tutorial_alphajump">Questa modifica attiverà una nuovo (e nascosto) design del pulsante per scorrere velocemente le liste tramite lettera. Invece del pulsante A-Z in alto, il pulsante apparirà sulla barra di scorrimento quando la lista non è in movimento e non si sarà costretti ad andare in cima per sfogliare di nuovo con le lettere.</string>
+    <string name="alpha_jump_tweak">nuovo design pulsante alfabeto</string>
 </resources>

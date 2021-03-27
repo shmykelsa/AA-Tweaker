@@ -734,6 +734,30 @@
                     android:layout_marginEnd="3dp"
                     android:layout_gravity="top" />
 
+                <Button
+                    android:id="@+id/alpha_jump_tweak"
+                    android:paddingTop="9dp"
+                    android:layout_width="0dp"
+                    style="@style/ButtonStyle"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:drawablePadding="9dp"
+                    app:layout_constraintEnd_toStartOf="@id/assistanimstatus"
+                    app:layout_constraintTop_toBottomOf="@id/usb_bitrate_to_be_set"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+
+                <ImageView
+                    android:id="@+id/alpha_jump_tweak_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_check_circle_24"
+                    android:layout_marginEnd="3dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/alpha_jump_tweak"
+                    app:layout_constraintBottom_toBottomOf="@id/alpha_jump_tweak" />
+
         </android.support.constraint.ConstraintLayout>
 
 

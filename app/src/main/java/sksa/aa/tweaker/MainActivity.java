@@ -12,8 +12,11 @@ import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +25,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -33,6 +37,7 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -46,6 +51,8 @@ import java.util.TimerTask;
 public class MainActivity extends AppCompatActivity {
 
     public static String appDirectory = new String();
+    
+    boolean suitableMethodFound;
 
     private static Context mContext;
     private ImageView noSpeedRestrictionsStatus;
@@ -71,6 +78,12 @@ public class MainActivity extends AppCompatActivity {
     private ImageView forceNoWideScreenStatus;
     private ImageView usbBitrateStatus;
     private ImageView wifiBitrateStatus;
+    private ImageView alphaJumpStatus;
+    private TextView currentlySetHun;
+    private TextView currentlySetMediaHun;
+    private TextView currentlySetAgendaDays;
+    private TextView currentlySetUSBSeekbar;
+    private TextView currentlySetWiFiSeekbar;
     private Button rebootButton;
     private Button nospeed;
     private Button assistshort;
@@ -95,6 +108,9 @@ public class MainActivity extends AppCompatActivity {
     private Button activateMediaTabs;
     private Button tweakUSBBitrateButton;
     private Button tweakWiFiBitrateButton;
+    private Button alphaJumpTweakButton;
+
+    ProgressDialog progress;
 
     public static Context getContext() {
         return mContext;
@@ -109,29 +125,12 @@ public class MainActivity extends AppCompatActivity {
         loadStatus(path);
         String CountUsers = runSuWithCmd(
                 path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                        "'SELECT COUNT(DISTINCT USER) FROM Flags WHERE user !=\"\";'").getInputStreamLog();
+                            "'SELECT COUNT(DISTINCT USER) FROM Flags WHERE user !=\"\";'").getInputStreamLog();
         final int UserCount = Integer.parseInt(CountUsers);
 
         setContentView(R.layout.activity_main);
 
-        if (UserCount == 0) {
-            final AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
-            alertDialog.setTitle(getString(R.string.warning_title));
-            alertDialog.setMessage(getString(R.string.no_accounts_warning));
 
-            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(android.R.string.ok), new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    alertDialog.dismiss();
-                }
-            });
-
-            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "GITHUB", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/shmykelsa/AA-Tweaker/issues/new")));
-                }
-            });
-            alertDialog.show();
-        }
 
         ViewPager viewPager = findViewById(R.id.viewpager);
         CommonPageAdapter adapter = new CommonPageAdapter();
@@ -197,12 +196,30 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        if (UserCount == 0) {
+            final AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+            alertDialog.setTitle(getString(R.string.warning_title));
+            alertDialog.setMessage(getString(R.string.no_accounts_warning));
+
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(android.R.string.ok), new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    alertDialog.dismiss();
+                }
+            });
+
+            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "GITHUB", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/shmykelsa/AA-Tweaker/issues/new")));
+                }
+            });
+            alertDialog.show();
+        }
+
         Timer timer = new Timer();
 
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                // use runOnUiThread(Runnable action)
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -266,7 +283,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 800);
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , ViewPager.LayoutParams.WRAP_CONTENT);
                 dialog.show();
 
                 return true;
@@ -372,7 +389,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show();
 
                 Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 800);
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , ViewPager.LayoutParams.WRAP_CONTENT);
 
                 return true;
             }
@@ -454,7 +471,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show();
 
                 Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 800);
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , ViewPager.LayoutParams.WRAP_CONTENT);
 
                 return true;
             }
@@ -476,10 +493,8 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (load("aa_patched_apps") || load("after_delete")){
-                            revert ("after_delete");
+                        if (load("aa_patched_apps")){
                             revert("aa_patched_apps");
-                            revert("aa_patched_apps_fix");
                             patchapps.setText(getString(R.string.patch_app) + getString(R.string.patch_custom_apps));
                             changeStatus(patchappstatus, 0, true);
                             if(!animationRun[0]) {
@@ -526,7 +541,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show();
 
                 Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 800);
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , ViewPager.LayoutParams.WRAP_CONTENT);
 
                 return true;
             }
@@ -650,7 +665,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show();
 
                 Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 800);
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , ViewPager.LayoutParams.WRAP_CONTENT);
 
                 return true;
             }
@@ -709,7 +724,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show();
 
                 Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 800);
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , ViewPager.LayoutParams.WRAP_CONTENT);
 
                 return true;
             }
@@ -781,7 +796,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show();
 
                 Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 800);
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , ViewPager.LayoutParams.WRAP_CONTENT);
 
                 return true;
             }
@@ -849,7 +864,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show();
 
                 Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 800);
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , ViewPager.LayoutParams.WRAP_CONTENT);
 
                 return true;
             }
@@ -891,10 +906,17 @@ public class MainActivity extends AppCompatActivity {
 
 
         messagesHunStatus = findViewById(R.id.huntrottlingstatus);
-        final TextView currentlySetHun = findViewById(R.id.notification_currently_set);
+
+        currentlySetHun = findViewById(R.id.notification_currently_set);
         if(load("aa_hun_ms")) {
             messagesHunThrottling.setText(getString(R.string.reset_tweak) + getString(R.string.set_notification_duration_to) + getString(R.string.default_string));
             changeStatus(messagesHunStatus, 2, false);
+            if (loadValue("messages_hun_value") == 0)
+            {
+                saveValue(Integer.parseInt(runSuWithCmd(
+                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'SELECT DISTINCT intVal FROM FlagOverrides WHERE name=\"SystemUi__hun_default_heads_up_timeout_ms\";'").getInputStreamLog()), "messages_hun_value");
+            }
             currentlySetHun.setText(getString(R.string.currently_set) + loadValue("messages_hun_value"));
         } else {
             messagesHunThrottling.setText(getString(R.string.set_value) + getString(R.string.set_notification_duration_to) + "...");
@@ -921,7 +943,6 @@ public class MainActivity extends AppCompatActivity {
                                 }
                         } else {
                             setHunDuration(view, hunSeekbar.getProgress(), UserCount);
-                            currentlySetHun.setText(getString(R.string.currently_set) + hunSeekbar.getProgress());
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
@@ -950,7 +971,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show();
 
                 Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 800);
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , ViewPager.LayoutParams.WRAP_CONTENT);
 
                 return true;
             }
@@ -981,7 +1002,7 @@ public class MainActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
                 secondScrollBarStatus[0] = mediaSeekbar.getProgress();
                 secondDisplayValue.setText(mediaSeekbar.getProgress() + "ms");
-                if (hunSeekbar.getProgress() == 8000) {
+                if (mediaSeekbar.getProgress() == 8000) {
                     mediathrottlingbutton.setText(getString(R.string.reset_tweak) + getString(R.string.media_notification_duration_to) + getString(R.string.default_string));
                 } else {
                     mediathrottlingbutton.setText(getString(R.string.set_value) + getString(R.string.media_notification_duration_to) + " " + mediaSeekbar.getProgress()+ " ms");
@@ -989,11 +1010,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final TextView currentlySetMediaHun = findViewById(R.id.media_notification_currently_set);
+        currentlySetMediaHun = findViewById(R.id.media_notification_currently_set);
         mediaHunStatus = findViewById(R.id.media_trhrottling_status);
         if(load("aa_media_hun")) {
             mediathrottlingbutton.setText(getString(R.string.reset_tweak) + getString(R.string.media_notification_duration_to) + getString(R.string.default_string));
             changeStatus(mediaHunStatus, 2, false);
+            if (loadValue("media_hun_value") == 0)
+            {
+                saveValue(Integer.parseInt(runSuWithCmd(
+                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'SELECT DISTINCT intVal FROM FlagOverrides WHERE name=\"SystemUi__media_hun_in_rail_widget_timeout_ms\";'").getInputStreamLog()), "media_hun_value");
+            }
             currentlySetMediaHun.setText(getString(R.string.currently_set) + loadValue("media_hun_value"));
         } else {
             mediathrottlingbutton.setText(getString(R.string.set_value) + getString(R.string.media_notification_duration_to) + "...");
@@ -1012,7 +1039,6 @@ public class MainActivity extends AppCompatActivity {
                                 currentlySetMediaHun.setText("");
                             } else {
                                 setMediaHunDuration(view, mediaSeekbar.getProgress(), UserCount);
-                                currentlySetMediaHun.setText(getString(R.string.currently_set) + mediaSeekbar.getProgress());
                             }
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
@@ -1022,7 +1048,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else {
                             setMediaHunDuration(view, mediaSeekbar.getProgress(), UserCount);
-                            currentlySetMediaHun.setText(getString(R.string.currently_set) + mediaSeekbar.getProgress());
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
@@ -1052,7 +1077,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show();
 
                 Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 800);
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , ViewPager.LayoutParams.WRAP_CONTENT);
 
                 return true;
             }
@@ -1090,11 +1115,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final TextView currentlySetAgendaDays = findViewById(R.id.calendar_days_currently_set);
+
+        currentlySetAgendaDays = findViewById(R.id.calendar_days_currently_set);
         calendarTweakStatus = findViewById(R.id.calendar_more_events_status);
+        
         if(load("calendar_aa_tweak")) {
             moreCalendarButton.setText(getString(R.string.calendar_tweak_single, calendarSeekbar.getProgress()));
             changeStatus(calendarTweakStatus, 2, false);
+            if (loadValue("agenda_value") == 0)
+            {
+                saveValue(Integer.parseInt(runSuWithCmd(
+                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'SELECT DISTINCT intVal FROM FlagOverrides WHERE name=\"McFly__num_days_in_agenda_view\";'").getInputStreamLog()), "messages_hun_value");
+            } 
             currentlySetAgendaDays.setText(getString(R.string.currently_set) + loadValue("agenda_value"));
         } else {
             moreCalendarButton.setText(getString(R.string.calendar_tweak_single, calendarSeekbar.getProgress()));
@@ -1109,7 +1142,7 @@ public class MainActivity extends AppCompatActivity {
                             if (calendarSeekbar.getProgress() == 1) {
                                 if (load("calendar_aa_tweak")){
                                 revert("calendar_aa_tweak");
-                                saveValue(0, "agenda_value");
+                                saveValue(1, "agenda_value");
                                 changeStatus(calendarTweakStatus, 0, true);
                                 currentlySetAgendaDays.setText("");
                                     if(!animationRun[0]) {
@@ -1123,7 +1156,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else {
                             setCalendarEvents(view, calendarSeekbar.getProgress(), UserCount);
-                            currentlySetAgendaDays.setText(getString(R.string.currently_set) + calendarSeekbar.getProgress());
                             if(!animationRun[0]) {
                                 rebootButton.setVisibility(View.VISIBLE);
                                 rebootButton.startAnimation(anim);
@@ -1154,7 +1186,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show();
 
                 Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 800);
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , ViewPager.LayoutParams.WRAP_CONTENT);
 
                 return true;
             }
@@ -1214,7 +1246,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show();
 
                 Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 800);
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , ViewPager.LayoutParams.WRAP_CONTENT);
 
                 return true;
             }
@@ -1281,7 +1313,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show();
 
                 Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 800);
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , ViewPager.LayoutParams.WRAP_CONTENT);
 
                 return true;
             }
@@ -1348,7 +1380,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show();
 
                 Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 800);
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , ViewPager.LayoutParams.WRAP_CONTENT);
                 return true;
             }
         });
@@ -1408,7 +1440,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show();
 
                 Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 800);
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , ViewPager.LayoutParams.WRAP_CONTENT);
                 return true;
             }
         });
@@ -1474,7 +1506,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show();
 
                 Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 800);
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , ViewPager.LayoutParams.WRAP_CONTENT);
                 return true;
             }
         });
@@ -1531,7 +1563,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show();
 
                 Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 800);
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , ViewPager.LayoutParams.WRAP_CONTENT);
                 return true;
             }
         });
@@ -1589,7 +1621,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show();
 
                 Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 800);
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , ViewPager.LayoutParams.WRAP_CONTENT);
                 return true;
             }
         });
@@ -1649,7 +1681,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show();
 
                 Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 800);
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , ViewPager.LayoutParams.WRAP_CONTENT);
                 return true;
             }
         });
@@ -1662,8 +1694,7 @@ public class MainActivity extends AppCompatActivity {
         final SeekBar usbBitrateSeekbar = findViewById(R.id.usb_bitrate_seekbar);
         final Double[] valueUSB = new Double[1];
         usbBitrateSeekbar.setProgress(10);
-        currentSeekbarUSB.setText("1.0" + "X");
-        usbBitrateSeekbar.setMin(1);
+        toBeSetSeekbarUSB.setText("1.0" + "X");
         usbBitrateSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -1690,7 +1721,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         usbBitrateStatus = findViewById(R.id.tweak_bitrate_usb_status);
-        final TextView currentlySetUSBSeekbar = findViewById(R.id.usb_bitrate_currently_set);
+
+        currentlySetUSBSeekbar = findViewById(R.id.usb_bitrate_currently_set);
         if(load("aa_bitrate_usb")) {
             tweakUSBBitrateButton.setText(getString(R.string.reset_tweak) + getString(R.string.set_usb_bitrate) + " " + getString(R.string.default_string));
             changeStatus(usbBitrateStatus, 2, false);
@@ -1720,7 +1752,6 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             } else {
                                 setUSBbitrate(valueUSB[0], UserCount);
-                                currentlySetUSBSeekbar.setText(getString(R.string.currently_set) + valueUSB[0]);
                                 if(!animationRun[0]) {
                                     rebootButton.setVisibility(View.VISIBLE);
                                     rebootButton.startAnimation(anim);
@@ -1746,7 +1777,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show();
 
                 Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 800);
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , ViewPager.LayoutParams.WRAP_CONTENT);
 
                 return true;
             }
@@ -1759,8 +1790,7 @@ public class MainActivity extends AppCompatActivity {
         final SeekBar WiFiBitrateSeekbar = findViewById(R.id.wifi_bitrate_seekbar);
         final Double[] valueWiFi = new Double[1];
         WiFiBitrateSeekbar.setProgress(10);
-        currentSeekbarWiFi.setText("1.0" + "X");
-        WiFiBitrateSeekbar.setMin(1);
+        toBeSetSeekbarWiFi.setText("1.0" + "X");
         WiFiBitrateSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -1785,7 +1815,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         wifiBitrateStatus = findViewById(R.id.tweak_bitrate_wifi_status);
-        final TextView currentlySetWiFiSeekbar = findViewById(R.id.wifi_bitrate_currently_set);
+        currentlySetWiFiSeekbar = findViewById(R.id.wifi_bitrate_currently_set);
         if(load("aa_bitrate_wifi")) {
             tweakWiFiBitrateButton.setText(getString(R.string.reset_tweak) + getString(R.string.set_wifi_tweak) + " " + getString(R.string.default_string));
             changeStatus(wifiBitrateStatus, 2, false);
@@ -1815,7 +1845,6 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             } else {
                                 setWiFiBitrate(valueWiFi[0], UserCount);
-                                currentlySetWiFiSeekbar.setText(getString(R.string.currently_set) + valueWiFi[0]);
                                 if(!animationRun[0]) {
                                     rebootButton.setVisibility(View.VISIBLE);
                                     rebootButton.startAnimation(anim);
@@ -1841,7 +1870,85 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show();
 
                 Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , 800);
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , ViewPager.LayoutParams.WRAP_CONTENT);
+
+                return true;
+            }
+        });
+
+        alphaJumpTweakButton = findViewById(R.id.alpha_jump_tweak);
+        alphaJumpStatus = findViewById(R.id.alpha_jump_tweak_status);
+
+
+        if(load("aa_new_alphajump")) {
+            alphaJumpTweakButton.setText(getString(R.string.disable_tweak_string) + getString(R.string.alpha_jump_tweak));
+            changeStatus(alphaJumpStatus, 2, false);
+        } else {
+            alphaJumpTweakButton.setText(getString(R.string.enable_tweak_string) + getString(R.string.alpha_jump_tweak));
+            changeStatus(alphaJumpStatus, 0, false);
+        }
+
+        alphaJumpTweakButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (load("aa_new_alphajump")){
+                            revert ("aa_new_alphajump");
+                            alphaJumpTweakButton.setText(getString(R.string.enable_tweak_string) + getString(R.string.alpha_jump_tweak));
+                            changeStatus(alphaJumpStatus, 0, true);
+                            if(!animationRun[0]) {
+                                rebootButton.setVisibility(View.VISIBLE);
+                                rebootButton.startAnimation(anim);
+                                animationRun[0] = true;
+                            }
+                        }
+                        else {
+                                patchAlphaJump(UserCount);
+                                if (!animationRun[0]) {
+                                    rebootButton.setVisibility(View.VISIBLE);
+                                    rebootButton.startAnimation(anim);
+                                    animationRun[0] = true;
+                                }
+                            }
+                    }
+                });
+
+        alphaJumpTweakButton.setOnLongClickListener(new View.OnLongClickListener() {
+            public boolean onLongClick(View arg0) {
+                final Dialog dialog = new Dialog(MainActivity.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.setCancelable(true);
+                View view = getLayoutInflater().inflate( R.layout.dialog_layout, null);
+
+                TextView tutorial = view.findViewById(R.id.dialog_content);
+                tutorial.setText(getString(R.string.tutorial_alphajump));
+
+                VideoView videoTutorial = view.findViewById(R.id.tutorialVideo);
+                String path = "android.resource://" + getPackageName() + "/" + R.raw.alpha_jump_demo;
+                videoTutorial.setVideoURI(Uri.parse(path));
+                ViewGroup.LayoutParams params= videoTutorial.getLayoutParams();
+
+                float videoHeightDp = 800 * getResources().getDisplayMetrics().density;
+                float videoWidthDp = 480 * getResources().getDisplayMetrics().density;
+
+                params.width= (int) videoWidthDp - 45;
+                params.height= (int) videoHeightDp;
+                videoTutorial.setLayoutParams(params);
+                videoTutorial.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                    @Override
+                    public void onPrepared(MediaPlayer mp) {
+                        mp.setLooping(true);
+                    }
+                });
+                videoTutorial.start();
+
+                dialog.setContentView(view);
+
+                dialog.show();
+
+                Window window = dialog.getWindow();
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT , ViewPager.LayoutParams.WRAP_CONTENT);
 
                 return true;
             }
@@ -1861,7 +1968,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 String path = getApplicationInfo().dataDir;
-                boolean suitableMethodFound = true;
+                suitableMethodFound = true;
 
                 save(false, toRevert);
 
@@ -2001,47 +2108,39 @@ public class MainActivity extends AppCompatActivity {
             final StringBuilder finalCommand = new StringBuilder();
 
             for (int i = 0; i<=(usercount-1) ; i ++) {
-                finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"app_black_list\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
-                finalCommand.append(i);
-                finalCommand.append(",1) ,\"\",1);");
-                finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"app_white_list\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+                finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, stringVal, committed) VALUES (\"com.google.android.gms.car\",0,\"app_white_list\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
                 finalCommand.append(i);
                 finalCommand.append(",1),\"");
                 finalCommand.append(whiteListStringFinal);
                 finalCommand.append("\",1);");
-                finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"should_bypass_validation\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+                finalCommand.append(System.getProperty("line.separator"));
+                finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"should_bypass_validation\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
                 finalCommand.append(i);
                 finalCommand.append(",1) ,1,1);");
-            }
+                finalCommand.append(System.getProperty("line.separator"));
+}
 
             new Thread() {
                 @Override
                 public void run() {
                     String path = getApplicationInfo().dataDir;
-                    boolean suitableMethodFound = true;
+                    suitableMethodFound = true;
 
 
-                    appendText(logs, "\n\n-- Drop Triggers  --");
+                    appendText(logs, "\n\n-- Drop Triggers  and delete flags --");
                     appendText(logs, runSuWithCmd(
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
                                     "'DROP TRIGGER IF EXISTS aa_patched_apps; DROP TRIGGER IF EXISTS after_delete;" +
-                                    "DROP TRIGGER IF EXISTS aa_patched_apps_fix;'"
+                                    "DROP TRIGGER IF EXISTS aa_patched_apps_fix;'\n"
                     ).getStreamLogsWithLabels());
 
-                    appendText(logs, "\n\n--  DELETE old Flags  --");
-                    appendText(logs, runSuWithCmd(
-                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                    "'DELETE FROM Flags WHERE name=\"app_white_list\";'\n"
-                    ).getStreamLogsWithLabels());
-
-                    if (runSuWithCmd(
-                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                    "'SELECT 1 FROM ApplicationStates WHERE packageName=\"com.google.android.projection.gearhead\"'\n").getInputStreamLog().equals("1")) {
+                    if (suitableMethodFound) {
 
                         appendText(logs, "\n\n--  run SQL method   --");
                         appendText(logs, runSuWithCmd(
                                 path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                        "'" + finalCommand + "'").getStreamLogsWithLabels());
+                                        "'DELETE FROM Flags WHERE packageName=\"com.google.android.gms.car\" AND name=\"app_white_list\";" +
+                                        finalCommand + "'").getStreamLogsWithLabels());
 
                         appendText(logs, runSuWithCmd(
                                 path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
@@ -2056,18 +2155,20 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             appendText(logs, "\n--  end SQL method   --");
                             save(true, "aa_patched_apps");
+                            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                @Override
+                                public void run() {
                             changeStatus(patchappstatus, 1, true);
                             patchapps.setText(getString(R.string.unpatch) + getString(R.string.patch_custom_apps));
                         }
-                    } else {
-                        suitableMethodFound = false;
-                        appendText(logs, "\n\n--  Suitable method NOT found!  --");
-                    }
+                    });
+                        }
+                    } 
                     dialog.dismiss();
                     if (!suitableMethodFound) {
                         final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
                         Bundle bundle = new Bundle();
-                        bundle.putString("tweak", "aa_assistant_rail");
+                        bundle.putString("tweak", "custom_apps");
                         bundle.putString("log", logs.getText().toString());
                         notSuccessfulDialog.setArguments(bundle);
                         notSuccessfulDialog.show(getSupportFragmentManager(), "NotSuccessfulDialog");
@@ -2087,32 +2188,30 @@ public class MainActivity extends AppCompatActivity {
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"LauncherShortcuts__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"LauncherShortcuts__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"LauncherShortcuts__assistant_shortcut_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"LauncherShortcuts__assistant_shortcut_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-        }
+}
 
             new Thread() {
                 @Override
                 public void run() {
                     String path = getApplicationInfo().dataDir;
-                    boolean suitableMethodFound = true;
+                    suitableMethodFound = true;
                     
 
                     appendText(logs, "\n\n-- Drop Triggers  --");
                     appendText(logs, runSuWithCmd(
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                    "'DROP TRIGGER IF EXISTS ASSIST_SHORT;'"
+                                    "'DROP TRIGGER IF EXISTS \"assist_short\";'"
                     ).getStreamLogsWithLabels());
 
-                    if (runSuWithCmd(
-                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                    "'SELECT 1 FROM ApplicationStates WHERE packageName=\"com.google.android.projection.gearhead\"'\n").getInputStreamLog().equals("1")) {
+                    if (suitableMethodFound) {
 
                         appendText(logs, "\n\n--  run SQL method   --");
                         appendText(logs, runSuWithCmd(
@@ -2132,13 +2231,16 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             appendText(logs, "\n--  end SQL method   --");
                             save(true, "assist_short");
-                            changeStatus(assistantShortcutsStatus, 1, true);
-                            assistshort.setText(getString(R.string.disable_tweak_string) + getString(R.string.enable_assistant_shortcuts));
+
+                            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    changeStatus(assistantShortcutsStatus, 1, true);
+                                    assistshort.setText(getString(R.string.disable_tweak_string) + getString(R.string.enable_assistant_shortcuts));
+                                }
+                            });
                         }
-                    } else {
-                        suitableMethodFound = false;
-                        appendText(logs, "\n\n--  Suitable method NOT found!  --");
-                    }
+                    } 
                     dialog.dismiss();
                     if (!suitableMethodFound) {
                         final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
@@ -2153,6 +2255,83 @@ public class MainActivity extends AppCompatActivity {
             }.start();
         }
 
+    public void patchAlphaJump(int usercount) {
+        final TextView logs = findViewById(R.id.logs);
+        logs.setHorizontallyScrolling(true);
+        logs.setMovementMethod(new ScrollingMovementMethod());
+
+        final ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
+                getString(R.string.tweak_loading), true);
+
+        final StringBuilder finalCommand = new StringBuilder();
+
+        for (int i = 0; i<=(usercount-1) ; i ++) {
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"AlphaJump__button_in_scroll_bar_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"AlphaJump__exclude_from_alpha_jump_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+}
+
+        new Thread() {
+            @Override
+            public void run() {
+                String path = getApplicationInfo().dataDir;
+                suitableMethodFound = true;
+
+
+                appendText(logs, "\n\n-- Drop Triggers  --");
+                appendText(logs, runSuWithCmd(
+                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'DROP TRIGGER IF EXISTS \"aa_new_alphajump\";'"
+                ).getStreamLogsWithLabels());
+
+                if (suitableMethodFound) {
+
+                    appendText(logs, "\n\n--  run SQL method   --");
+                    appendText(logs, runSuWithCmd(
+                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                    "'" + finalCommand + "'").getStreamLogsWithLabels());
+
+                    appendText(logs, runSuWithCmd(
+                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                                    "'CREATE TRIGGER aa_new_alphajump AFTER DELETE\n" +
+                                    "ON FlagOverrides\n" +
+                                    "BEGIN\n" +
+                                    finalCommand +
+                                    "END;'\n"
+                    ).getStreamLogsWithLabels());
+                    if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_new_alphajump\";'").getInputStreamLog().length() <= 4) {
+                        suitableMethodFound = false;
+                    } else {
+                        appendText(logs, "\n--  end SQL method   --");
+                        save(true, "aa_new_alphajump");
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                            @Override
+                            public void run() {
+                                changeStatus(alphaJumpStatus, 1, true);
+                                alphaJumpTweakButton.setText(getString(R.string.disable_tweak_string) + getString(R.string.alpha_jump_tweak));
+                            }
+                        });
+                    }
+                } 
+                dialog.dismiss();
+                if (!suitableMethodFound) {
+                    final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("tweak", "aa_new_alphajump");
+                    bundle.putString("log", logs.getText().toString());
+                    notSuccessfulDialog.setArguments(bundle);
+                    notSuccessfulDialog.show(getSupportFragmentManager(), "NotSuccessfulDialog");
+                }
+
+            }
+        }.start();
+    }
+
     public void patchrailassistant(final View view, int usercount) {
         final TextView logs = findViewById(R.id.logs);
         logs.setHorizontallyScrolling(true);
@@ -2162,17 +2341,17 @@ public class MainActivity extends AppCompatActivity {
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__rail_assistant_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__rail_assistant_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-        }
+}
 
         new Thread() {
             @Override
             public void run() {
                 String path = getApplicationInfo().dataDir;
-                boolean suitableMethodFound = true;
+                suitableMethodFound = true;
                 
 
                 appendText(logs, "\n\n-- Drop Triggers  --");
@@ -2203,13 +2382,15 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         appendText(logs, "\n--  end SQL method   --");
                         save(true, "aa_assistant_rail");
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                            @Override
+                            public void run() {
                         changeStatus(assistanimstatus, 1, true);
                         assistanim.setText(getString(R.string.disable_tweak_string) + getString(R.string.enable_assistant_animation_in_navbar));
+                            }
+                        });
                     }
-                } else {
-                    suitableMethodFound = false;
-                    appendText(logs, "\n\n--  Suitable method NOT found!  --");
-                }
+                } 
                 if (!suitableMethodFound) {
                     final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
                     Bundle bundle = new Bundle();
@@ -2233,45 +2414,45 @@ public class MainActivity extends AppCompatActivity {
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"CarSensorParameters__max_parked_speed_gps_sensor\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"CarSensorParameters__max_parked_speed_gps_sensor\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,999,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"CarSensorParameters__max_parked_speed_wheel_sensor\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"CarSensorParameters__max_parked_speed_wheel_sensor\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,999,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__enable\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__enable\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__flake_filter_delay_ms\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__flake_filter_delay_ms\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
-            finalCommand.append(",1) ,99999999,1);");
+            finalCommand.append(",1) ,9999999,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__telemetry_enabled_without_smoothing\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__telemetry_enabled_without_smoothing\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreview__unchained\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreview__unchained\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreview__chained\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreview__chained\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreviewVisibilityControl__require_high_accuracy_speed_sensor\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreviewVisibilityControl__require_high_accuracy_speed_sensor\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-        }
+}
 
         new Thread() {
             @Override
             public void run() {
                 String path = getApplicationInfo().dataDir;
-                boolean suitableMethodFound = true;
+                suitableMethodFound = true;
                 
 
                 appendText(logs, "\n\n-- Drop Triggers  --");
@@ -2280,9 +2461,7 @@ public class MainActivity extends AppCompatActivity {
                                 "'DROP TRIGGER IF EXISTS aa_speed_hack;'"
                 ).getStreamLogsWithLabels());
 
-                if (runSuWithCmd(
-                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                "'SELECT 1 FROM ApplicationStates WHERE packageName=\"com.google.android.projection.gearhead\"'\n").getInputStreamLog().equals("1")) {
+                if (suitableMethodFound) {
 
                     appendText(logs, "\n\n--  run SQL method   --");
                     appendText(logs, runSuWithCmd(
@@ -2302,13 +2481,15 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         appendText(logs, "\n--  end SQL method   --");
                         save(true, "aa_speed_hack");
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                                                     @Override
+                                                                     public void run() {
                         changeStatus(noSpeedRestrictionsStatus, 1, true);
                         nospeed.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.unlimited_scrolling_when_driving));
+                                                                     }
+                        });
                     }
-                } else {
-                    suitableMethodFound = false;
-                    appendText(logs, "\n\n--  Suitable method NOT found!  --");
-                }
+                } 
                 dialog.dismiss();
                 if (!suitableMethodFound) {
                     final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
@@ -2333,65 +2514,63 @@ public class MainActivity extends AppCompatActivity {
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__multi_region_new_widescreen_activities_enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__multi_region_new_widescreen_activities_enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__require_bfr\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__require_bfr\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"EnhancedNavigationMetadata__enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"EnhancedNavigationMetadata__enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"EnhancedNavigationMetadata__verify_turn_side_when_disabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"EnhancedNavigationMetadata__verify_turn_side_when_disabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__clustersim_enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__clustersim_enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__gal_munger_enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__gal_munger_enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__multi_region_enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__multi_region_enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__cluster_launcher_enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__cluster_launcher_enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-        }
+}
 
         new Thread() {
             @Override
             public void run() {
                 String path = getApplicationInfo().dataDir;
-                boolean suitableMethodFound = true;
+                suitableMethodFound = true;
                 
 
                 appendText(logs, "\n\n-- Drop Triggers  --");
                 appendText(logs, runSuWithCmd(
                         path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                "'DROP TRIGGER IF EXISTS multi_display;'"
+                                "'DROP TRIGGER IF EXISTS multi_display;" + finalCommand + "'"
                 ).getStreamLogsWithLabels());
 
-                if (runSuWithCmd(
-                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                "'SELECT 1 FROM ApplicationStates WHERE packageName=\"com.google.android.projection.gearhead\"'\n").getInputStreamLog().equals("1")) {
+                if (suitableMethodFound) {
 
                     appendText(logs, "\n\n--  run SQL method   --");
                     appendText(logs, runSuWithCmd(
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                                    "'" + finalCommand + "'").getStreamLogsWithLabels());
+                                    "''").getStreamLogsWithLabels());
 
                     appendText(logs, runSuWithCmd(
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
@@ -2406,13 +2585,15 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         appendText(logs, "\n--  end SQL method   --");
                         save(true, "multi_display");
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                                                     @Override
+                                                                     public void run() {
                         changeStatus(mdstatus, 1, true);
                         mdbutton.setText(getString(R.string.disable_tweak_string) + getString(R.string.multi_display_string));
+                                                                     }
+                        });
                     }
-                } else {
-                    suitableMethodFound = false;
-                    appendText(logs, "\n\n--  Suitable method NOT found!  --");
-                }
+                } 
                 dialog.dismiss();
                 if (!suitableMethodFound) {
                     final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
@@ -2438,49 +2619,53 @@ public class MainActivity extends AppCompatActivity {
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__drawer_default_allowed_taps_touchpad\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__drawer_default_allowed_taps_touchpad\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,999,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__max_permits\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__max_permits\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
-            finalCommand.append(",1) ,999,1);");
+            finalCommand.append(",1) ,999.0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__enable_speed_bump_projected\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__enable_speed_bump_projected\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__lockout_ms\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__lockout_ms\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__permits_per_sec\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__permits_per_sec\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,999.0,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__speedbump_unrestricted_consecutive_scroll_up_actions\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,999,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__speedbump_unrestricted_consecutive_scroll_up_actions\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentForwardBrowse__invisalign_default_allowed_items_rotary\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,999,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentForwardBrowse__invisalign_default_allowed_items_rotary\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentForwardBrowse__invisalign_default_allowed_items_touch\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,999,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentForwardBrowse__invisalign_default_allowed_items_touch\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentForwardBrowse__invisalign_default_allowed_items_touchpad\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,999,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Dialer__speedbump_enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Dialer__speedbump_enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-        }
+}
 
         new Thread() {
             @Override
             public void run() {
                 String path = getApplicationInfo().dataDir;
-                boolean suitableMethodFound = true;
+                suitableMethodFound = true;
                 
 
 
@@ -2510,13 +2695,15 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         appendText(logs, "\n--  end SQL method   --");
                         save(true, "aa_six_tap");
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                                                     @Override
+                                                                     public void run() {
                         changeStatus(taplimitstatus, 1, true);
                         taplimitat.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.disable_speed_limitations));
+                                                                     }
+                        });
                     }
-                } else {
-                    suitableMethodFound = false;
-                    appendText(logs, "\n\n--  Suitable method NOT found!  --");
-                }
+                } 
                 dialog.dismiss();
                 if (!suitableMethodFound) {
                     final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
@@ -2541,21 +2728,21 @@ public class MainActivity extends AppCompatActivity {
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUI__startup_app_policy\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUI__startup_app_policy\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUI__start_in_launcher_if_no_user_selected_nav_app\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUI__start_in_launcher_if_no_user_selected_nav_app\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-        }
+}
 
         new Thread() {
             @Override
             public void run() {
                 String path = getApplicationInfo().dataDir;
-                boolean suitableMethodFound = true;
+                suitableMethodFound = true;
                 
 
                 appendText(logs, "\n\n-- Drop Triggers  --");
@@ -2590,13 +2777,15 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         appendText(logs, "\n--  end SQL method   --");
                         save(true, "aa_startup_policy");
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                                                     @Override
+                                                                     public void run() {
                         changeStatus(navstatus, 1, true);
                         startupnav.setText(getString(R.string.disable_tweak_string) + getString(R.string.navigation_at_start));
+                                                                     }
+                        });
                     }
-                } else {
-                    suitableMethodFound = false;
-                    appendText(logs, "\n\n--  Suitable method NOT found!  --");
-                }
+                } 
                 dialog.dismiss();
                 if (!suitableMethodFound) {
                     final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
@@ -2623,25 +2812,17 @@ public class MainActivity extends AppCompatActivity {
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BatterySaver__warning_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BatterySaver__warning_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BatterySaver__on_at_start_warning_delay_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
-            finalCommand.append(i);
-            finalCommand.append(",1) ,1,1);");
-            finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BatterySaver__switched_on_warning_delay_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
-            finalCommand.append(i);
-            finalCommand.append(",1) ,1,1);");
-            finalCommand.append(System.getProperty("line.separator"));
-        }
+}
 
         new Thread() {
             @Override
             public void run() {
                 String path = getApplicationInfo().dataDir;
-                boolean suitableMethodFound = true;
+                suitableMethodFound = true;
                 
 
                 appendText(logs, "\n\n-- Drop Triggers  --");
@@ -2673,13 +2854,15 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         appendText(logs, "\n--  end SQL method   --");
                         save(true, "battery_saver_warning");
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                                                     @Override
+                                                                     public void run() {
                         changeStatus(batteryWarningStatus, 1, true);
                         batteryWarning.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.battery_warning));
+                                                                     }
+                        });
                     }
-                } else {
-                    suitableMethodFound = false;
-                    appendText(logs, "\n\n--  Suitable method NOT found!  --");
-                }
+                } 
                 dialog.dismiss();
                 if (!suitableMethodFound) {
                     final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
@@ -2706,17 +2889,17 @@ public class MainActivity extends AppCompatActivity {
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BatterySaver__icon_outline_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BatterySaver__icon_outline_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-        }
+}
 
         new Thread() {
             @Override
             public void run() {
                 String path = getApplicationInfo().dataDir;
-                boolean suitableMethodFound = true;
+                suitableMethodFound = true;
                 appendText(logs, "\n\n-- Drop Triggers  --");
                 appendText(logs, runSuWithCmd(
                         path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
@@ -2744,13 +2927,15 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         appendText(logs, "\n--  end SQL method   --");
                         save(true, "aa_battery_outline");
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                                                     @Override
+                                                                     public void run() {
                         changeStatus(batteryOutlineStatus, 1, true);
                         batteryoutline.setText(getString(R.string.disable_tweak_string) + getString(R.string.battery_outline_string));
+                                                                     }
+                        });
                     }
-                } else {
-                    suitableMethodFound = false;
-                    appendText(logs, "\n\n--  Suitable method NOT found!  --");
-                }
+                } 
                 dialog.dismiss();
                 if (!suitableMethodFound) {
                     final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
@@ -2777,17 +2962,17 @@ public class MainActivity extends AppCompatActivity {
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Boardwalk__status_bar_force_opaque\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Boardwalk__status_bar_force_opaque\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-        }
+}
 
         new Thread() {
             @Override
             public void run() {
                 String path = getApplicationInfo().dataDir;
-                boolean suitableMethodFound = true;
+                suitableMethodFound = true;
                 
 
                 appendText(logs, "\n\n-- Drop Triggers  --");
@@ -2816,13 +3001,15 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         appendText(logs, "\n--  end SQL method   --");
                         save(true, "aa_sb_opaque");
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                                                     @Override
+                                                                     public void run() {
                         changeStatus(opaqueStatus, 1, true);
                         statusbaropaque.setText(getString(R.string.disable_tweak_string) + getString(R.string.statb_opaque_string));
+                                                                     }
+                        });
                     }
-                } else {
-                    suitableMethodFound = false;
-                    appendText(logs, "\n\n--  Suitable method NOT found!  --");
-                }
+                } 
                 dialog.dismiss();
                 if (!suitableMethodFound) {
                     final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
@@ -2848,21 +3035,21 @@ public class MainActivity extends AppCompatActivity {
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_disable\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_disable\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_skip_pairing\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_skip_pairing\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-        }
+}
 
         new Thread() {
             @Override
             public void run() {
                 String path = getApplicationInfo().dataDir;
-                boolean suitableMethodFound = true;
+                suitableMethodFound = true;
                 
 
                 appendText(logs, "\n\n-- Drop Triggers  --");
@@ -2894,13 +3081,15 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         appendText(logs, "\n--  end SQL method   --");
                         save(true, "bluetooth_pairing_off");
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                                                     @Override
+                                                                     public void run() {
                         changeStatus(btstatus, 1, true);
                         bluetoothoff.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.bluetooth_auto_connect));
+                                                                     }
+                        });
                     }
-                } else {
-                    suitableMethodFound = false;
-                    appendText(logs, "\n\n--  Suitable method NOT found!  --");
-                }
+                } 
                 dialog.dismiss();
                 if (!suitableMethodFound) {
                     final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
@@ -2926,17 +3115,17 @@ public class MainActivity extends AppCompatActivity {
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"IndependentNightModeFeature__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"IndependentNightModeFeature__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-        }
+}
 
         new Thread() {
             @Override
             public void run() {
                 String path = getApplicationInfo().dataDir;
-                boolean suitableMethodFound = true;
+                suitableMethodFound = true;
 
 
                 appendText(logs, "\n\n-- Drop Triggers  --");
@@ -2967,13 +3156,15 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         appendText(logs, "\n--  end SQL method   --");
                         save(true, "aa_night_mode_revert");
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                                                     @Override
+                                                                     public void run() {
                         changeStatus(oldDarkModeStatus, 1, true);
                         oldDarkMode.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.dark_mode_tweak));
+                                                                     }
+                        });
                     }
-                } else {
-                    suitableMethodFound = false;
-                    appendText(logs, "\n\n--  Suitable method NOT found!  --");
-                }
+                } 
                 dialog.dismiss();
                 if (!suitableMethodFound) {
                     final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
@@ -2999,153 +3190,153 @@ public class MainActivity extends AppCompatActivity {
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"CarEventLoggerRefactorFeature__convert_car_setup_analytics_telemetry\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"CarEventLoggerRefactorFeature__convert_car_setup_analytics_telemetry\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"CarServiceTelemetry__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"CarServiceTelemetry__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"CarServiceTelemetry__is_wifi_kbps_logging_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"CarServiceTelemetry__is_wifi_kbps_logging_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"CarServiceTelemetry__log_battery_temperature\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"CarServiceTelemetry__log_battery_temperature\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.gms.car\",0,\"CarServiceTelemetry__wifi_latency_log_frequency_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.gms.car\",0,\"CarServiceTelemetry__wifi_latency_log_frequency_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,99999999,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.gms.car\",0,\"ConnectivityLogging__heartbeat_interval_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.gms.car\",0,\"ConnectivityLogging__heartbeat_interval_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,99999999,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"TelemetryDriveIdFeature__enable_log_event_validation\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"TelemetryDriveIdFeature__enable_log_event_validation\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"TelemetryDriveIdFeature__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"TelemetryDriveIdFeature__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"UsbStatusLoggingFeature__monitor_usb_ping_telemetry_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"UsbStatusLoggingFeature__monitor_usb_ping_telemetry_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"TelemetryDriveIdForGearheadFeature__enable_frx_setup_logging_via_gearhead\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"TelemetryDriveIdForGearheadFeature__enable_frx_setup_logging_via_gearhead\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.gms.car\",0,\"AudioStatsLoggingFeature__audio_stats_logging_period_milliseconds\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.gms.car\",0,\"AudioStatsLoggingFeature__audio_stats_logging_period_milliseconds\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,99999999,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"FrameworkMediaStatsLoggingFeature__is_media_stats_queue_time_logging_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"FrameworkMediaStatsLoggingFeature__is_media_stats_queue_time_logging_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__num_background_threads\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__num_background_threads\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__include_extra_events\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__include_extra_events\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__enable_heartbeat\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__enable_heartbeat\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"WifiChannelLogging__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"WifiChannelLogging__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__session_info_dump_size\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__session_info_dump_size\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BluetoothMetadataLogger__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BluetoothMetadataLogger__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"CarEventLoggerRefactorFeature__convert_car_analytics_telemetry\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"CarEventLoggerRefactorFeature__convert_car_analytics_telemetry\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Bugfix__sensitive_permissions_extra_logging\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Bugfix__sensitive_permissions_extra_logging\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__log_bluetooth_rssi\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__log_bluetooth_rssi\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__save_log_when_usb_starts\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__save_log_when_usb_starts\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__skip_retroactive_usb_logging\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__skip_retroactive_usb_logging\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"InternetConnectivityLogging__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"InternetConnectivityLogging__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Telemetry__local_logging\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Telemetry__local_logging\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"WirelessProjectionInGearhead__wireless_wifi_additional_start_logging\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"WirelessProjectionInGearhead__wireless_wifi_additional_start_logging\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Dialer__r_telemetry_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Dialer__r_telemetry_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"AssistantSilenceDiagnostics__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"AssistantSilenceDiagnostics__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"TelemetryDriveIdForGearheadFeature__enable_continuous_telemetry_binding\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"TelemetryDriveIdForGearheadFeature__enable_continuous_telemetry_binding\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"TelemetryDriveIdForGearheadFeature__enable_frx_setup_logging_via_gearhead\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"TelemetryDriveIdForGearheadFeature__enable_frx_setup_logging_via_gearhead\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"TelemetryDriveIdForGearheadFeature__enable_telemetry_impl_conversion\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"TelemetryDriveIdForGearheadFeature__enable_telemetry_impl_conversion\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__long_session_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__long_session_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__short_session_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__short_session_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__session_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__session_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__use_realtime_if_invalid\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__use_realtime_if_invalid\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-        }
+}
 
         new Thread() {
             @Override
             public void run() {
                 String path = getApplicationInfo().dataDir;
-                boolean suitableMethodFound = true;
+                suitableMethodFound = true;
 
 
                 appendText(logs, "\n\n-- Drop Triggers  --");
@@ -3177,13 +3368,15 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         appendText(logs, "\n--  end SQL method   --");
                         save(true, "kill_telemetry");
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                                                     @Override
+                                                                     public void run() {
                         changeStatus(telemetryStatus, 1, true);
                         disableTelemetryButton.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.telemetry_string));
+                                                                     }
+                        });
                     }
-                } else {
-                    suitableMethodFound = false;
-                    appendText(logs, "\n\n--  Suitable method NOT found!  --");
-                }
+                } 
                 dialog.dismiss();
                 if (!suitableMethodFound) {
                     final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
@@ -3203,23 +3396,23 @@ public class MainActivity extends AppCompatActivity {
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
 
-        final ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
-                getString(R.string.tweak_loading), true);
+
 
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__hun_default_heads_up_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__hun_default_heads_up_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1)," + value + ",1);");
             finalCommand.append(System.getProperty("line.separator"));
-        }
+}
 
-        new Thread() {
+        runOnUiThread( new Thread() {
             @Override
             public void run() {
+
                 String path = getApplicationInfo().dataDir;
-                boolean suitableMethodFound = true;
+                suitableMethodFound = true;
                 
 
                 appendText(logs, "\n\n-- Drop Triggers  --");
@@ -3249,14 +3442,16 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         appendText(logs, "\n--  end SQL method   --");
                         save(true, "aa_hun_ms");
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                            @Override
+                            public void run() {
                         changeStatus(messagesHunStatus, 1, true);
                         saveValue(value, "messaging_hun_value");
+                        currentlySetHun.setText(getString(R.string.currently_set) + value);
+                            }
+                        });
                     }
-                } else {
-                    suitableMethodFound = false;
-                    appendText(logs, "\n\n--  Suitable method NOT found!  --");
-                }
-                dialog.dismiss();
+                } 
                 if (!suitableMethodFound) {
                     final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
                     Bundle bundle = new Bundle();
@@ -3266,7 +3461,7 @@ public class MainActivity extends AppCompatActivity {
                     notSuccessfulDialog.show(getSupportFragmentManager(), "NotSuccessfulDialog");
                 }
             }
-        }.start();
+        });
 
     }
 
@@ -3281,17 +3476,19 @@ public class MainActivity extends AppCompatActivity {
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__media_hun_in_rail_widget_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__media_hun_in_rail_widget_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1)," + value + ",1);");
             finalCommand.append(System.getProperty("line.separator"));
         }
 
-        new Thread() {
+
+
+        runOnUiThread(new Thread() {
             @Override
             public void run() {
                 String path = getApplicationInfo().dataDir;
-                boolean suitableMethodFound = true;
+                suitableMethodFound = true;
                 
 
                 appendText(logs, "\n\n-- Drop Triggers  --");
@@ -3321,14 +3518,18 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         appendText(logs, "\n--  end SQL method   --");
                         save(true, "aa_media_hun");
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                            @Override
+                            public void run() {
                         changeStatus(mediaHunStatus, 1, true);
                         saveValue(value, "media_hun_value");
+                        currentlySetMediaHun.setText(getString(R.string.currently_set) + value);
+                            }
+                        });
+
                     }
-                } else {
-                    suitableMethodFound = false;
-                    appendText(logs, "\n\n--  Suitable method NOT found!  --");
-                }
-                dialog.dismiss();
+                } 
+
                 if (!suitableMethodFound) {
                     final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
                     Bundle bundle = new Bundle();
@@ -3338,8 +3539,8 @@ public class MainActivity extends AppCompatActivity {
                     notSuccessfulDialog.show(getSupportFragmentManager(), "NotSuccessfulDialog");
                 }
             }
-        }.start();
-
+        });
+        dialog.dismiss();
     }
 
     public void setUSBbitrate (final double value, int usercount) {
@@ -3347,43 +3548,44 @@ public class MainActivity extends AppCompatActivity {
         logs.setHorizontallyScrolling(true);
         logs.setMovementMethod(new ScrollingMovementMethod());
 
+
         final ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
                 getString(R.string.tweak_loading), true);
 
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_1080p_usb\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_1080p_usb\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1)," + String.format("%.0f", 16000000*value) + ",1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_1080p_usb_hevc\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_1080p_usb_hevc\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1)," + String.format("%.0f", 3000000*value) + ",1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_480p_usb\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_480p_usb\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1)," + String.format("%.0f", 8000000*value) + ",1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_480p_usb_hevc\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_480p_usb_hevc\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1)," + String.format("%.0f", 1000000*value) + ",1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_720p_usb\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_720p_usb\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1)," + String.format("%.0f", 12000000*value) + ",1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_720p_usb_hevc\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_720p_usb_hevc\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1)," + String.format("%.0f", 2000000*value) + ",1);");
             finalCommand.append(System.getProperty("line.separator"));
-        }
+}
 
-        new Thread() {
+        runOnUiThread(new Thread() {
             @Override
             public void run() {
                 String path = getApplicationInfo().dataDir;
-                boolean suitableMethodFound = true;
+                suitableMethodFound = true;
 
 
                 appendText(logs, "\n\n-- Drop Triggers  --");
@@ -3412,13 +3614,16 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         appendText(logs, "\n--  end SQL method   --");
                         save(true, "aa_bitrate_usb");
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                                                     @Override
+                                                                     public void run() {
                         changeStatus(usbBitrateStatus, 1, true);
                         saveFloat((float) value, "usb_bitrate_value");
+                        currentlySetUSBSeekbar.setText(getString(R.string.currently_set) + value);
+                                                                     }
+                        });
                     }
-                } else {
-                    suitableMethodFound = false;
-                    appendText(logs, "\n\n--  Suitable method NOT found!  --");
-                }
+                } 
                 dialog.dismiss();
                 if (!suitableMethodFound) {
                     final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
@@ -3429,7 +3634,7 @@ public class MainActivity extends AppCompatActivity {
                     notSuccessfulDialog.show(getSupportFragmentManager(), "NotSuccessfulDialog");
                 }
             }
-        }.start();
+        });
 
     }
 
@@ -3444,37 +3649,37 @@ public class MainActivity extends AppCompatActivity {
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_1080p_wireless\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_1080p_wireless\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1)," + String.format("%.0f", 16000000*value) + ",1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_1080p_wireless_hevc\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_1080p_wireless_hevc\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1)," + String.format("%.0f", 3000000*value) + ",1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_480p_wireless\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_480p_wireless\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1)," + String.format("%.0f", 8000000*value) + ",1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_480p_wireless_hevc\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_480p_wireless_hevc\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1)," + String.format("%.0f", 1000000*value) + ",1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_720p_wireless\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_720p_wireless\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1)," + String.format("%.0f", 12000000*value) + ",1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_720p_wireless_hevc\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_720p_wireless_hevc\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1)," + String.format("%.0f", 2000000*value) + ",1);");
             finalCommand.append(System.getProperty("line.separator"));
-        }
+}
 
-        new Thread() {
+        runOnUiThread(new Thread() {
             @Override
             public void run() {
                 String path = getApplicationInfo().dataDir;
-                boolean suitableMethodFound = true;
+                suitableMethodFound = true;
 
 
                 appendText(logs, "\n\n-- Drop Triggers  --");
@@ -3503,13 +3708,17 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         appendText(logs, "\n--  end SQL method   --");
                         save(true, "aa_bitrate_wireless");
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                                                     @Override
+                                                                     public void run() {
                         changeStatus(wifiBitrateStatus, 1, true);
                         saveFloat((float) value, "wifi_bitrate_value");
+                        currentlySetWiFiSeekbar.setText(getString(R.string.currently_set) + value);
+                                                                     }
+                        });
+
                     }
-                } else {
-                    suitableMethodFound = false;
-                    appendText(logs, "\n\n--  Suitable method NOT found!  --");
-                }
+                } 
                 dialog.dismiss();
                 if (!suitableMethodFound) {
                     final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
@@ -3520,7 +3729,7 @@ public class MainActivity extends AppCompatActivity {
                     notSuccessfulDialog.show(getSupportFragmentManager(), "NotSuccessfulDialog");
                 }
             }
-        }.start();
+        });
 
     }
 
@@ -3535,19 +3744,17 @@ public class MainActivity extends AppCompatActivity {
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"McFly__num_days_in_agenda_view\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"McFly__num_days_in_agenda_view\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1)," + value + ",1);");
             finalCommand.append(System.getProperty("line.separator"));
-        }
+}
 
-        new Thread() {
+        runOnUiThread(new Thread() {
             @Override
             public void run() {
                 String path = getApplicationInfo().dataDir;
-                boolean suitableMethodFound = true;
-
-
+                suitableMethodFound = true;
                 appendText(logs, "\n\n-- Drop Triggers  --");
                 appendText(logs, runSuWithCmd(
                         path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
@@ -3558,30 +3765,36 @@ public class MainActivity extends AppCompatActivity {
                         path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
                                 "'SELECT 1 FROM ApplicationStates WHERE packageName=\"com.google.android.projection.gearhead\"'").getInputStreamLog().equals("1")) {
 
-                    appendText(logs, "\n\n--  run SQL method   --");
                     appendText(logs, runSuWithCmd(
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
                                     "'DELETE FROM Flags WHERE name=\"McFly__num_days_in_agenda_view\";\n"+ finalCommand + "'"
                     ).getStreamLogsWithLabels());
 
+
+                    appendText(logs, "\n\n--  run SQL method   --");
                     appendText(logs, runSuWithCmd(
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
                                     "'CREATE TRIGGER calendar_aa_tweak AFTER DELETE\n" +
                                     "ON FlagOverrides\n" +
                                     "BEGIN\n" + finalCommand + "END;'\n"
                     ).getStreamLogsWithLabels());
-                    if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"calendar_aa_tweak\" AND name=\"aa_media_hun\";'").getInputStreamLog().length() <= 4) {
+
+
+                    if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"calendar_aa_tweak\";'").getInputStreamLog().length() <= 4) {
                         suitableMethodFound = false;
                     } else {
                         appendText(logs, "\n--  end SQL method   --");
                         save(true, "calendar_aa_tweak");
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                                                     @Override
+                                                                     public void run() {
                         changeStatus(calendarTweakStatus, 1, true);
                         saveValue(value, "agenda_value");
+                        currentlySetAgendaDays.setText(getString(R.string.currently_set) + value);
+                                                                     }
+                        });
                     }
-                } else {
-                    suitableMethodFound = false;
-                    appendText(logs, "\n\n--  Suitable method NOT found!  --");
-                }
+                } 
                 dialog.dismiss();
                 if (!suitableMethodFound) {
                     final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
@@ -3592,7 +3805,7 @@ public class MainActivity extends AppCompatActivity {
                     notSuccessfulDialog.show(getSupportFragmentManager(), "NotSuccessfulDialog");
                 }
             }
-        }.start();
+        });
 
     }
 
@@ -3605,23 +3818,23 @@ public class MainActivity extends AppCompatActivity {
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__widescreen_breakpoint_dp\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__widescreen_breakpoint_dp\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1)," + value + ",1);");
             finalCommand.append(System.getProperty("line.separator"));
             if (value == 3000) {
-                finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__regular_layout_max_width_dp\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+                finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__regular_layout_max_width_dp\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
                 finalCommand.append(i);
                 finalCommand.append(",1)," + value + ",1);");
-                finalCommand.append(System.getProperty("line.separator"));
-            }
+            finalCommand.append(System.getProperty("line.separator"));
+}
         }
 
-        new Thread() {
+        runOnUiThread(new Thread() {
             @Override
             public void run() {
                 String path = getApplicationInfo().dataDir;
-                boolean suitableMethodFound = true;
+                suitableMethodFound = true;
                 String decideWhat = new String();
 
                 appendText(logs, "\n\n-- Drop Triggers  --");
@@ -3639,8 +3852,11 @@ public class MainActivity extends AppCompatActivity {
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'" + finalCommand + "'").getStreamLogsWithLabels());
 
                     switch (value) {
-                        case 470: { decideWhat = "force_ws"; changeStatus(forceWideScreenStatus, 1, true); break; }
-                        case 3000: { decideWhat = "force_no_ws"; changeStatus(forceNoWideScreenStatus, 1, true); break; }
+                        case 470: { decideWhat = "force_ws";
+                        break; }
+                        case 3000: { decideWhat = "force_no_ws";
+                            break;
+                        }
                     }
                     appendText(logs, runSuWithCmd(
                             path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
@@ -3658,10 +3874,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         save(true, decideWhat);
                     }
-                } else {
-                    suitableMethodFound = false;
-                    appendText(logs, "\n\n--  Suitable method NOT found!  --");
-                }
+                } 
                 dialog.dismiss();
                 if (!suitableMethodFound) {
                     final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
@@ -3672,7 +3885,7 @@ public class MainActivity extends AppCompatActivity {
                     notSuccessfulDialog.show(getSupportFragmentManager(), "NotSuccessfulDialog");
                 }
                 }
-        }.start();
+        });
 
     }
 
@@ -3687,17 +3900,17 @@ public class MainActivity extends AppCompatActivity {
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"CustomWallpaper__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"CustomWallpaper__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-        }
+}
 
         new Thread() {
             @Override
             public void run() {
                 String path = getApplicationInfo().dataDir;
-                boolean suitableMethodFound = true;
+                suitableMethodFound = true;
 
 
 
@@ -3731,10 +3944,7 @@ public class MainActivity extends AppCompatActivity {
                         changeStatus(activateWallpapersStatus, 1, true);
                         activateWallpapersButton.setText(getString(R.string.disable_tweak_string) + getString(R.string.custom_wallpapers));
                     }
-                } else {
-                    suitableMethodFound = false;
-                    appendText(logs, "\n\n--  Suitable method NOT found!  --");
-                }
+                } 
                 dialog.dismiss();
                 if (!suitableMethodFound) {
                     final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
@@ -3760,33 +3970,33 @@ public class MainActivity extends AppCompatActivity {
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MesquiteFull__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MesquiteFull__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MesquiteLite__notification_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MesquiteLite__notification_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MesquiteLite__sms_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MesquiteLite__sms_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"NotificationClientAbstraction__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"NotificationClientAbstraction__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__launcher_notification_badge_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__launcher_notification_badge_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-        }
+}
 
         new Thread() {
             @Override
             public void run() {
                 String path = getApplicationInfo().dataDir;
-                boolean suitableMethodFound = true;
+                suitableMethodFound = true;
 
 
                 appendText(logs, "\n\n-- Drop Triggers  --");
@@ -3819,10 +4029,7 @@ public class MainActivity extends AppCompatActivity {
                         changeStatus(messagesTweakStatus, 1, true);
                         messagesButton.setText(getString(R.string.disable_tweak_string) + getString(R.string.messages_tweak_string));
                     }
-                } else {
-                    suitableMethodFound = false;
-                    appendText(logs, "\n\n--  Suitable method NOT found!  --");
-                }
+                } 
                 dialog.dismiss();
                 if (!suitableMethodFound) {
                     final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
@@ -3847,25 +4054,25 @@ public class MainActivity extends AppCompatActivity {
         final StringBuilder finalCommand = new StringBuilder();
 
         for (int i = 0; i<=(usercount-1) ; i ++) {
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Tabbouleh__tabs_media_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Tabbouleh__tabs_media_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Tabbouleh__media_browse_back_to_top_level_button_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Tabbouleh__media_browse_back_to_top_level_button_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Tabbouleh__tabs_media_sticky_tab_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\"LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Tabbouleh__tabs_media_sticky_tab_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-        }
+}
 
         new Thread() {
             @Override
             public void run() {
                 String path = getApplicationInfo().dataDir;
-                boolean suitableMethodFound = true;
+                suitableMethodFound = true;
 
 
                 appendText(logs, "\n\n-- Drop Triggers  --");
@@ -3898,10 +4105,7 @@ public class MainActivity extends AppCompatActivity {
                         changeStatus(mediaTabsStatus, 1, true);
                         activateMediaTabs.setText(getString(R.string.disable_tweak_string) + getString(R.string.media_tabs_string));
                     }
-                } else {
-                    suitableMethodFound = false;
-                    appendText(logs, "\n\n--  Suitable method NOT found!  --");
-                }
+                } 
                 dialog.dismiss();
                 if (!suitableMethodFound) {
                     final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
@@ -4010,8 +4214,13 @@ public class MainActivity extends AppCompatActivity {
                                 "SELECT name FROM sqlite_master WHERE type=\"trigger\" AND tbl_name=\"Flags\" AND name=\"aa_patched_apps\";'").getInputStreamLog();
                 appendText(log, get_names);
                 String[] lines = get_names.split(System.getProperty("line.separator"));
+                final StringBuilder finalCommand = new StringBuilder();
                 for (int i = 0; i < lines.length; i++) {
-                    appendText(log, runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'DROP TRIGGER IF EXISTS \"" + lines[i] + "\";'").getOutputStreamLog());
+                    finalCommand.append("DROP TRIGGER IF EXISTS " + lines[i] + ";");
+                    finalCommand.append("\n");
+                }
+                for (int i = 0; i < lines.length; i++) {
+                    appendText(log, runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'" + finalCommand + "'").getOutputStreamLog());
                 }
                 runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'DELETE FROM FlagOverrides;'");
                 dialog.dismiss();

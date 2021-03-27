@@ -12,7 +12,7 @@
     <string name="enable_assistant_animation_in_navbar">Assistant animation in navbar</string>
     <string name="splash">This app can alter Android Auto behaviour and bypass some safety features that Google has implemented in Android Auto.\n
 By using this software, you agree that YOU, and ONLY YOU, are solely responsible for any possible consequence that may result in altering safety features such as injury to yourself and/or others, property damage, loss of life.\n
-Under no circumnstances is the author of this app responsible for its use</string>
+Under no circumstances is the author of this app responsible for its use</string>
     <string name="proceed">Το κατάλαβα</string>
     <string name="navigation_at_start">Πλοήγηση στην αρχή</string>
     <string name="statb_opaque_string">Εξαναγκασμός Αδιαφανούς Γραμμής κατάστασης</string>
@@ -104,4 +104,12 @@ WARNING: This tweak has not been extensively tested and could potentially break 
     <string name="tutorial_media_tabs">"Αυτό το tweak θα ενεργοποιήσει ένα νέο UI για εφαρμογές αναπαραγωγής πολυμέσων. Δεν υποστηρίζουν όλες οι εφαρμογές αυτό το UI. Απαιτείται Android Auto 5.8 ή ανώτερο. "</string>
     <string name="tweak_loading">Εφαρμογή του tweak...</string>
     <string name="loading">Γίνεται φόρτωση, παρακαλώ περιμένετε...</string>
+    <string name="tutorial_bitrate">This tweak will increase or decrease video bitrate according to the multiplier set (up to 2.0x). Increasing the bitrate (more than 1.0x) will mean that more datas will be streamed to the car and quality of video streaming could be improved in visual quality, however it might cause instability. Decreasing the bitrate (less than 1.0x) will compress the stream to the car and quality will be decreased, but it will result in a more reliable and fast connection.</string>
+    <string name="set_wifi_tweak">wifi bitrate to</string>
+    <string name="set_usb_bitrate">USB bitrate to</string>
+    <string name="choose_value_first">Choose a value first</string>
+    <string name="open_issue_button">Open Issue</string>
+    <string name="error_generic">The command was not successful. Please wait some minutes and try again. If problem is still ongoing, please open a issue on GitHub</string>
+    <string name="tutorial_alphajump">This tweak will activate a new (and hidden) redesign that changes how lists can be browsed with letters. Instead of the A-Z button at the top, the button will appear on the scrollbar when there\'s no scroll happening and you won\'t be forced to go to top to browse with letters again.</string>
+    <string name="alpha_jump_tweak">new alphabet jump</string>
 </resources>
