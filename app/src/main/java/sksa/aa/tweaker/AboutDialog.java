@@ -53,6 +53,7 @@ public class AboutDialog extends DialogFragment {
                         "Japanese: HHSAN<br>" +
                         "Greek: panbimis<br>" +
                         "Turkish: un4saken<br>" +
+                        "Arabic: almaqhor<br>" +
                         "<br>Interested in translating AA AIO TWEAKER in your own language? Join translations on <a href=\"https://crowdin.com/project/aa-aio-tweaker\">Crowdin</a>!"));
                 builder.setCancelable(true);
                 builder.setPositiveButton(getString(android.R.string.ok), new DialogInterface.OnClickListener() {
