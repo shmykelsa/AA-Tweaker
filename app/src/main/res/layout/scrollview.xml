@@ -348,8 +348,9 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
+            app:layout_constraintHorizontal_weight="12"
             android:text="@string/set_notification_duration_to"
-            app:layout_constraintEnd_toStartOf="@id/assistanimstatus"
+            app:layout_constraintEnd_toStartOf="@id/revert_hun_throttling"
             app:layout_constraintTop_toBottomOf="@id/battoutline"
             app:layout_constraintStart_toStartOf="parent"/>
 
@@ -362,6 +363,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/hunthrottlingbutton"
             app:layout_constraintBottom_toBottomOf="@id/hunthrottlingbutton" />
+
+
+                <ImageView
+                    android:id="@+id/revert_hun_throttling"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:src="@drawable/ic_arrow_undo_circle"
+                    android:layout_marginEnd="3dp"
+                    app:layout_constraintHorizontal_weight="1"
+                    android:tint="@color/common_blue_revert"
+                    app:layout_constraintStart_toEndOf="@id/hunthrottlingbutton"
+                    app:layout_constraintEnd_toStartOf="@id/huntrottlingstatus"
+                    app:layout_constraintTop_toTopOf="@id/hunthrottlingbutton"
+                    app:layout_constraintBottom_toBottomOf="@id/hunthrottlingbutton" />
+
 
         <SeekBar
             android:id="@+id/messages_hun_seekbar"
@@ -403,9 +419,21 @@
             android:clickable="true"
             android:focusable="true"
             android:text="@string/media_notification_duration_to"
-            app:layout_constraintEnd_toEndOf="@id/hunthrottlingbutton"
+            app:layout_constraintEnd_toStartOf="@id/revert_media_hun"
             app:layout_constraintTop_toBottomOf="@id/messages_hun_seekbar"
             app:layout_constraintStart_toStartOf="parent" />
+
+                <ImageView
+                    android:id="@+id/revert_media_hun"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:src="@drawable/ic_arrow_undo_circle"
+                    android:tint="@color/common_blue_revert"
+                    app:layout_constraintBottom_toBottomOf="@id/media_throttling_button"
+                    app:layout_constraintEnd_toEndOf="@+id/revert_hun_throttling"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toStartOf="@+id/revert_hun_throttling"
+                    app:layout_constraintTop_toTopOf="@id/media_throttling_button" />
 
         <ImageView
             android:id="@+id/media_trhrottling_status"
@@ -418,7 +446,7 @@
             app:layout_constraintBottom_toBottomOf="@id/media_throttling_button" />
 
         <SeekBar
-            android:id="@+id/media_hun_value"
+            android:id="@+id/media_hun_seekbar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
@@ -435,7 +463,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/media_hun_value"
+            app:layout_constraintBottom_toBottomOf="@id/media_hun_seekbar"
             android:layout_marginEnd="3dp"
             android:gravity="center" />
 
@@ -444,7 +472,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/media_hun_value"
+                    app:layout_constraintTop_toTopOf="@id/media_hun_seekbar"
                     android:layout_marginEnd="3dp"
                     android:gravity="center" />
 
@@ -459,7 +487,7 @@
             android:drawablePadding="2dp"
             android:text="@string/bluetooth_auto_connect"
             app:layout_constraintEnd_toStartOf="@id/assistanimstatus"
-            app:layout_constraintTop_toBottomOf="@id/media_hun_value"
+            app:layout_constraintTop_toBottomOf="@id/media_hun_seekbar"
             app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
@@ -532,7 +560,7 @@
             android:focusable="true"
             android:drawablePadding="9dp"
             android:text="@string/calendar_tweak"
-            app:layout_constraintEnd_toStartOf="@id/assistanimstatus"
+            app:layout_constraintEnd_toStartOf="@id/revert_calendar_days"
             app:layout_constraintTop_toBottomOf="@id/telemetry_disable_tweak"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -558,6 +586,19 @@
             android:thumbTint="#660000"
             android:thumb="@drawable/thumb_bg"
             android:max="14" />
+
+                <ImageView
+                    android:id="@+id/revert_calendar_days"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:src="@drawable/ic_arrow_undo_circle"
+
+                    android:tint="@color/common_blue_revert"
+                    app:layout_constraintBottom_toBottomOf="@id/calendar_more_events_button"
+                    app:layout_constraintEnd_toEndOf="@id/revert_hun_throttling"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toStartOf="@+id/revert_media_hun"
+                    app:layout_constraintTop_toTopOf="@id/calendar_more_events_button" />
 
         <TextView
             android:id="@+id/calendar_days_seekbar_text"
@@ -633,9 +674,22 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:drawablePadding="9dp"
-                    app:layout_constraintEnd_toStartOf="@id/assistanimstatus"
+                    app:layout_constraintEnd_toStartOf="@id/revert_bitrate_wifi"
                     app:layout_constraintTop_toBottomOf="@id/media_tabs_tweak"
                     app:layout_constraintStart_toStartOf="parent" />
+
+                <ImageView
+                    android:id="@+id/revert_bitrate_wifi"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:src="@drawable/ic_arrow_undo_circle"
+
+                    android:tint="@color/common_blue_revert"
+                    app:layout_constraintBottom_toBottomOf="@id/tweak_bitrate_wifi"
+                    app:layout_constraintEnd_toEndOf="@id/revert_hun_throttling"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toStartOf="@+id/revert_media_hun"
+                    app:layout_constraintTop_toTopOf="@id/tweak_bitrate_wifi" />
 
 
                 <ImageView
@@ -688,9 +742,22 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:drawablePadding="9dp"
-                    app:layout_constraintEnd_toStartOf="@id/assistanimstatus"
+                    app:layout_constraintEnd_toStartOf="@id/revert_bitrate_wifi"
                     app:layout_constraintTop_toBottomOf="@id/wifi_bitrate_seekbar"
                     app:layout_constraintStart_toStartOf="parent" />
+
+                <ImageView
+                    android:id="@+id/revert_bitrate_usb"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:src="@drawable/ic_arrow_undo_circle"
+
+                    android:tint="@color/common_blue_revert"
+                    app:layout_constraintBottom_toBottomOf="@id/tweak_bitrate_usb"
+                    app:layout_constraintEnd_toEndOf="@id/revert_hun_throttling"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toStartOf="@+id/revert_media_hun"
+                    app:layout_constraintTop_toTopOf="@id/tweak_bitrate_usb" />
 
 
                 <ImageView
@@ -748,6 +815,8 @@
                     app:layout_constraintStart_toStartOf="parent" />
 
 
+
+
                 <ImageView
                     android:id="@+id/alpha_jump_tweak_status"
                     android:layout_width="wrap_content"
@@ -757,6 +826,46 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/alpha_jump_tweak"
                     app:layout_constraintBottom_toBottomOf="@id/alpha_jump_tweak" />
+
+                <Button
+                    android:id="@+id/dark_mode_toggle_tweak"
+                    android:paddingTop="9dp"
+                    android:layout_width="0dp"
+                    style="@style/ButtonStyle"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:drawablePadding="9dp"
+                    app:layout_constraintEnd_toStartOf="@id/assistanimstatus"
+                    app:layout_constraintTop_toBottomOf="@id/alpha_jump_tweak"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+
+
+
+                <ImageView
+                    android:id="@+id/dark_mode_toggle_tweak_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_check_circle_24"
+                    android:layout_marginEnd="3dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/dark_mode_toggle_tweak"
+                    app:layout_constraintBottom_toBottomOf="@id/dark_mode_toggle_tweak" />
+
+                <Button
+                    android:id="@+id/car_remover"
+                    android:paddingTop="9dp"
+                    android:layout_width="0dp"
+                    style="@style/ButtonStyle"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:drawablePadding="9dp"
+                    android:text="@string/remove_paired_car"
+                    app:layout_constraintEnd_toEndOf="@id/assistanimstatus"
+                    app:layout_constraintTop_toBottomOf="@id/dark_mode_toggle_tweak"
+                    app:layout_constraintStart_toStartOf="parent" />
 
         </android.support.constraint.ConstraintLayout>
 
