@@ -55,7 +55,6 @@
     <string name="patch_app">應用修補</string>
     <string name="default_string">默認設備</string>
     <string name="app_list_label">應用列表</string>
-    <string name="positive_button">確定</string>
     <string name="translators_button">翻譯者</string>
     <string name="about_part_one"><![CDATA[AA AIO TWEAKER是由 Shmykelsa 開發和維護的。&amp;lt;br&amp;gt;&amp;lt;br&amp;gt;源代碼可在&amp;lt;a href=https://github.com/shmykelsa/AA-Tweaker&amp;gt;GitHub&amp;lt;/a&amp;gt;&amp;lt;br&amp;gt;&amp;lt;br&amp;gt;]]></string>
     <string name="about_part_two"><![CDATA[如果你真的喜歡我的工作，請考慮捐贈。&amp;lt;br&amp;gt;您可以通過&amp;lt;a href=http://www.paypal.me/grizzo96&amp;gt;PayPal&amp;lt;/a&amp;gt; 捐贈我，或者您可以通過下面的按鈕複製我的比特幣地址。&amp;lt;br&amp;gt;&amp;lt;br&amp;gt;即使小額也會受到歡迎:)]]></string>
@@ -70,7 +69,7 @@
     <string name="rebooting_action">正在重新啟動...</string>
     <string name="negative_button">取消</string>
     <string name="added_app_action">已新增</string>
-    <string name="removed_app_action">已移除</string>
+    <string name="removed_app_action">已移除 </string>
     <string name="root_access_warning">Root訪問被拒絕。請允許 root 訪問。</string>
     <string name="revert_everything_dialog">是否要還原所有內容？請在執行此操作後手動重新啟動應用程序</string>
     <string name="calendar_tweak">在日曆中設置 %1$s 日活動事項</string>
@@ -97,4 +96,18 @@
     <string name="error_generic">此命令不成功。稍侯1分鐘，然後重試。如果問題仍然存在，請在GitHub上回饋問題</string>
     <string name="tutorial_alphajump">此調整，將重新（包含隱藏）設計，更改使用字母瀏覽列表的方式。當沒有滾動發生時，按鈕將顯示在滾動條上，而不是頂部的A-Z按鈕，且不會被迫回到頂部再次瀏覽字母。</string>
     <string name="alpha_jump_tweak">字母列位</string>
+    <string name="choose_accounts">選擇帳號</string>
+    <string name="use_all">全部使用(實驗性)</string>
+    <string name="copied_pastebin">日誌鏈接已建立，並複製到剪貼板</string>
+    <string name="log_copied">日誌已複製</string>
+    <string name="new_version_available">新版本可用</string>
+    <string name="go_to_new_version">GitHub上提供了新版本的AA AIO TWEAKER (版本 %1$s) 您現在要下載嗎？</string>
+    <string name="go_to_download">前往下載</string>
+    <string name="ignore_for_now">現在忽略</string>
+    <string name="many_accounts_warning">AA AIO TWEAKER檢測到您的設備上存儲了大量 (%1$s)Google帳戶。\n這可能會對修補過程產生不利影響，並且AA AIO TWEAKER容易出現故障。\n為您的Google Play服務選擇主帳戶(建議兩個或更少)，然後修補或啟用實驗性模式以修補所有帳戶。\n請注意在實驗模式下，應用修補程序時，手機可能會崩潰。</string>
+    <string name="dark_switch_tweak">白天/夜間 選項</string>
+    <string name="tutorial_darkmodeswitch">此調整可激活Android Auto常規設置(汽車和手機)中的專用切換鍵，以控制Android Auto的白天/夜間模式。 此選項與開發人員設置中的項目不同，因為它不需要您重新啟動Android Auto，並且在Google啟用了獨立的黑暗模式時會受到影響。需要Android Auto 6.3或更高版本。</string>
+    <string name="remove_paired_car">刪除配對的車子</string>
+    <string name="choose_cars">選擇車子</string>
+    <string name="tutorial_carremover">您知道嗎，所有配對的車子只能一次從Android Auto中刪除，而不僅僅是一次？ 如果您要從Android Auto中刪除車子，則此選項很有用。 只需選擇需要的車子，它將被刪除。</string>
 </resources>

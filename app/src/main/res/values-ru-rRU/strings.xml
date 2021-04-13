@@ -71,7 +71,6 @@
     <string name="patch_app">Патч\u0020</string>
     <string name="default_string">\u0020По умолчанию</string>
     <string name="app_list_label">Список приложений</string>
-    <string name="positive_button">ok</string>
     <string name="translators_button">Авторы перевода</string>
     <string name="about_part_one"><![CDATA[AIO TWEAKER разработан и поддерживается Shmykelsa.<br><br>Исходный код доступен на сайте <a href=\"https://github.com/shmykelsa/AA-Tweaker\">GitHub</a><br><br>]]></string>
     <string name="about_part_two"><![CDATA[Если вам нравится моя работа, пожалуйста, подумайте о том, чтобы угостить меня кофе.<br> Вы можете это  сделать через <a href=\"http://www.paypal.me/grizzo96\">PayPal</a> или через Bitcoin.Скопировать мой Bitcoin можно кнопкой ниже .<br><br>Даже небольшое пожертвование будет оценено. :)]]></string>
@@ -87,7 +86,7 @@
     <string name="rebooting_action">Перезагрузка…</string>
     <string name="negative_button">отмена</string>
     <string name="added_app_action">Добавлено: </string>
-    <string name="removed_app_action">Удалено: </string>
+    <string name="removed_app_action">Удалено\u0020</string>
     <string name="root_access_warning">Рут доступ запрещен. Пожалуйста, разрешите рут-доступ.</string>
     <string name="revert_everything_dialog">Вы хотите отменить все действия? Пожалуйста, перезапустите после этого приложение вручную </string>
     <string name="calendar_tweak">Отображать %1$s дней в календаре</string>
@@ -114,4 +113,18 @@
     <string name="error_generic">Команда не выполнена. Пожалуйста, подождите пару минут и повторите попытку. Если проблема не решена, пожалуйста, откройте вопрос на GitHub</string>
     <string name="tutorial_alphajump">Эта настройка активирует новый (и скрытый) редизайн, который изменяет способ просмотра списков с помощью букв. Вместо кнопки A-Z вверху, кнопка появится на полосе прокрутки, когда не будет происходить прокрутка, и вам не придётся пролистывать вверх для повторного просмотра букв.</string>
     <string name="alpha_jump_tweak">новый переход по алфавиту</string>
+    <string name="choose_accounts">Выбрать аккаунт</string>
+    <string name="use_all">Выбрать все (ЭКСПЕРИМЕНТ)</string>
+    <string name="copied_pastebin">Ссылка на лог была создана и скопирована в буфер обмена</string>
+    <string name="log_copied">Лог скопирован</string>
+    <string name="new_version_available">Доступна новая версия</string>
+    <string name="go_to_new_version">Новая версия AA AIO TWEAKER (версия %1$s) доступна на GitHub. Вы хотите скачать ее сейчас?</string>
+    <string name="go_to_download">Скачать</string>
+    <string name="ignore_for_now">Пока что игнорировать</string>
+    <string name="many_accounts_warning">AIO TWEAKER обнаружил большое число (%1$s) аккаунтов Google, сохраненных на телефоне.\nЭто может негативно повлиять на работу AA AIO TWEAKER и патч может не удаться.\nВы можете либо выбрать учетную(ые) запись(и), используемую в основном с сервисами Google Play, чтобы применить патч только к ним (рекомендуется 2 или менее), либо активировать экспериментальный режим, который должен исправить все учетные записи.\nОбратите ВНИМАНИЕ, что экспериментальный режим может вызвать некоторые сбои в работе телефона во время работы патча.</string>
+    <string name="dark_switch_tweak">выбрать день/ночь</string>
+    <string name="tutorial_darkmodeswitch">Эта настройка активирует отдельный переключатель в основных настройках Android Auto (как автомобиля, так и телефона), который может контролировать состояние дневного/ночного режима на Android Auto. Эта опция отличается от настроек разработчика, потому что она не нуждается в перезапуске Android Auto и на самом деле будет влиять на использование после включения Google независимого темного режима. Требуется Android Auto 6.3 или выше.</string>
+    <string name="remove_paired_car">Удалить подключенный автомобиль</string>
+    <string name="choose_cars">Выбрать автомобиль(и)</string>
+    <string name="tutorial_carremover">Знаете ли вы, что можно удалить только все подключенные автомобили из Android Auto, а удалить только один из них невозможно? Эта опция поможет вам удалить один автомобиль из Android Auto,  а не все сразу.</string>
 </resources>

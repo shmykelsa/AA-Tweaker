@@ -11,4 +11,5 @@
     <color name="dialog_text_color">#ff000000</color>
     <color name="menu_background">@android:color/background_light</color>
     <color name="menu_text_color">@android:color/background_dark</color>
+    <color name="common_blue_revert">#7F7FFF</color>
 </resources>

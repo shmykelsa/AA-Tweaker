@@ -70,7 +70,6 @@ Android Auto 5.8 ou supérieur est requis.</string>
     <string name="patch_app">Patcher\u0020</string>
     <string name="default_string">\u0020Par défaut</string>
     <string name="app_list_label">Liste des applications</string>
-    <string name="positive_button">ok</string>
     <string name="translators_button">Traducteurs</string>
     <string name="about_part_one"><![CDATA[AA AIO TWEAKER est développé et maintenu par Shmykelsa.<br><br>Le code source est disponible sur <a href=\"https://github.com/shmykelsa/AA-Tweaker\">GitHub</a><br><br>]]></string>
     <string name="about_part_two"><![CDATA[Si vous aimez vraiment mon travail, s\'il vous plaît envisagez un don.<br> Vous pouvez me faire un don via <a href=\"http://www.paypal.me/grizzo96\">PayPal</a> ou vous pouvez copier mon adresse Bitcoin en cliquant sur le bouton ci-dessous.<br><br>Même un petit montant sera apprécié :)]]></string>
@@ -86,7 +85,7 @@ ATTENTION : Cette modification n\'a pas été testée de manière approfondie et
     <string name="rebooting_action">Redémarrage en cours…</string>
     <string name="negative_button">annuler</string>
     <string name="added_app_action">Ajouté : </string>
-    <string name="removed_app_action">Supprimé : </string>
+    <string name="removed_app_action">Supprimé\u0020</string>
     <string name="root_access_warning">Accès Root refusé. Veuillez autoriser l\'accès root.</string>
     <string name="revert_everything_dialog">Voulez-vous réinitialiser toutes les modifications ? L\'application devra être redémarrée manuellement pour que les changements prennent effet</string>
     <string name="calendar_tweak">Définir %1$s jours visibles dans le calendrier</string>
@@ -113,4 +112,18 @@ ATTENTION : Cette modification n\'a pas été testée de manière approfondie et
     <string name="error_generic">La commande a échoué. Veuillez patienter quelques minutes et réessayer. Si le problème est toujours en cours, veuillez ouvrir un ticket sur GitHub</string>
     <string name="tutorial_alphajump">Cette modification activera une nouvelle (et cachée) refonte qui change la façon dont les listes peuvent être parcourues avec des lettres. Au lieu du bouton A-Z en haut, le bouton apparaîtra sur la barre de défilement lorsqu\'il n\'y aura pas de défilement et vous ne serez plus obligé d\'aller en haut pour naviguer avec des lettres.</string>
     <string name="alpha_jump_tweak">nouveau saut alphabétique</string>
+    <string name="choose_accounts">Choisissez un compte</string>
+    <string name="use_all">Tout utiliser (EXPÉRIMENTAL)</string>
+    <string name="copied_pastebin">Un lien vers le journal a été créé et copié dans le presse-papier</string>
+    <string name="log_copied">Le journal a été copié</string>
+    <string name="new_version_available">Une nouvelle version est disponible</string>
+    <string name="go_to_new_version">Une nouvelle version de AA AIO TWEAKER (version %1$s) est disponible sur GitHub. Voulez-vous la télécharger maintenant ?</string>
+    <string name="go_to_download">Aller au téléchargement</string>
+    <string name="ignore_for_now">Ignorer pour l\'instant</string>
+    <string name="many_accounts_warning">AA AIO TWEAKER a détecté un grand nombre (%1$s) de comptes Google enregistrés sur l\'appareil.\nCela peut avoir un impact négatif sur la réussite de l\'exécution du patch et AA AIO TWEAKER pourrait être amené à échouer.\nVous pouvez soit choisir le(s) compte(s) que vous utilisez principalement avec les services Google Play pour n\'appliquer le patch qu\'à eux (2 ou moins est recommandé), soit activer un mode expérimental qui corrigera tous les comptes.\nVEUILLEZ NOTER que le mode expérimental peut provoquer des plantages du téléphone pendant l\'exécution du patch.</string>
+    <string name="dark_switch_tweak">Mode jour/nuit</string>
+    <string name="tutorial_darkmodeswitch">Cette modification activera un bouton dédié dans les paramètres génériques d\'Android Auto (à la fois pour la voiture et le téléphone) qui peut contrôler l\'état du mode jour/nuit sur Android Auto. Cette option est différente de celle des paramètres du développeur car elle ne nécessite pas un redémarrage d\'Android Auto et elle aura un effet sur l\'utilisation après l\'activation par Google du mode sombre indépendant. Android Auto 6.3 ou supérieur est requis.</string>
+    <string name="remove_paired_car">Retirer une voiture appariée</string>
+    <string name="choose_cars">Sélectionner le(s) voiture(s)</string>
+    <string name="tutorial_carremover">Saviez-vous que sous Android Auto, il est uniquement possible de supprimer d\'un coup l\'intégralité des voitures appairées et non une à la fois ? Cette option sera très utile si vous voulez faire des suppressions spécifiques. Pour cela, il suffit de sélectionner la ou les voitures que vous voulez et elles seront supprimées.</string>
 </resources>

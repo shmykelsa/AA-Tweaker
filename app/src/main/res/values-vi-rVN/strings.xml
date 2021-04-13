@@ -69,7 +69,6 @@ Yêu cầu sử dụng Android Auto 5.8 hoặc cao hơn.</string>
     <string name="patch_app">Thay đổi\u0020</string>
     <string name="default_string">\u0020Mặc định</string>
     <string name="app_list_label">Danh sách ứng dụng</string>
-    <string name="positive_button">đồng ý</string>
     <string name="translators_button">Dịch bởi</string>
     <string name="about_part_one"><![CDATA[AA AIO TWEAKER is developed and maintained by Shmykelsa.<br><br>Source code is available on <a href=\"https://github.com/shmykelsa/AA-Tweaker\">GitHub</a><br><br>]]></string>
     <string name="about_part_two"><![CDATA[Nếu bạn thực sự thích công việc của tôi, hãy cân nhắc đến việc ủng hộ tiền.<br> Bạn có thêt ủng hộ tiền cho tôi qua <a href=\"http://www.paypal.me/grizzo96\">PayPal</a> hoặc vạn có thêt sao chép địa chỉ ví Bitcoin của tôi ở bên dưới.<br><br>Sự đóng góp của bạn dù nhỏ cũng rất được trân trọng :)]]></string>
@@ -85,7 +84,7 @@ CẢNH BÁO: Tùy chỉnh này chưa được thử nghiệm rộng rãi và có
     <string name="rebooting_action">Đang khởi động lại...</string>
     <string name="negative_button">hủy</string>
     <string name="added_app_action">Đã thêm: </string>
-    <string name="removed_app_action">Đã gỡ bỏ: </string>
+    <string name="removed_app_action">Đã gỡ bỏ\u0020</string>
     <string name="root_access_warning">Quyền root bị từ chối. Vui lòng cho phép truy cập quyền root.</string>
     <string name="revert_everything_dialog">Bạn có chắc là muốn trở lại nguyên thể mọi thứ? Vui lòng khởi động app bằng tay sau khi thực hiện</string>
     <string name="calendar_tweak">Cài đặt %1$s nhiều ngày khả dụng trong lịch</string>
@@ -112,4 +111,18 @@ CẢNH BÁO: Tùy chỉnh này chưa được thử nghiệm rộng rãi và có
     <string name="error_generic">The command was not successful. Please wait some minutes and try again. If problem is still ongoing, please open a issue on GitHub</string>
     <string name="tutorial_alphajump">This tweak will activate a new (and hidden) redesign that changes how lists can be browsed with letters. Instead of the A-Z button at the top, the button will appear on the scrollbar when there\'s no scroll happening and you won\'t be forced to go to top to browse with letters again.</string>
     <string name="alpha_jump_tweak">new alphabet jump</string>
+    <string name="choose_accounts">Choose accounts</string>
+    <string name="use_all">Use all (EXPERIMENTAL)</string>
+    <string name="copied_pastebin">A link to the log has been created and copied to clipboard</string>
+    <string name="log_copied">Log has been copied</string>
+    <string name="new_version_available">New Version available</string>
+    <string name="go_to_new_version">A new version of AA AIO TWEAKER (version %1$s) is available on GitHub. Do you want to download it now?</string>
+    <string name="go_to_download">Go to download</string>
+    <string name="ignore_for_now">Ignore for now</string>
+    <string name="many_accounts_warning">AA AIO TWEAKER found a large number (%1$s) of Google accounts saved in the device.\nThis can negatively impact on the success of the patching process and AA AIO TWEAKER might fail.\nYou can either choose the account(s) that you mostly use with Google Play Services to apply the patch to just them (2 or less is recommended) or activate an experimental mode that should patch all accounts.\nPLEASE NOTE that the experimental mode might cause some crashes to the phone while the patch is running.</string>
+    <string name="dark_switch_tweak">day/night option</string>
+    <string name="tutorial_darkmodeswitch">This tweak will activate a dedicated toggle in Android Auto generic settings (both car and phone) that can control the status of day/night mode on Android Auto. This option is different from the one in developer settings because it doesn\'t need a restart of Android Auto and it will actually have effect on the usage after Google enabling the independent dark mode. Android Auto 6.3 or superior is required.</string>
+    <string name="remove_paired_car">Remove a paired car</string>
+    <string name="choose_cars">Choose car(s)</string>
+    <string name="tutorial_carremover">Did you know that you can only remove all the paired cars from Android Auto and you cannot remove just one at a time? This option will rescue you if you want to delete a car from Android Auto, just select which car(s) you want and it/they will be removed.</string>
 </resources>

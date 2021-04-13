@@ -70,7 +70,6 @@ HET IS NIET MOGELIJK OM ANDROID AUTO MET EEN ANDERE, SPECIFIEKE APP TE STARTEN.<
     <string name="patch_app">Patch\u0020</string>
     <string name="default_string">\u0020Standaard</string>
     <string name="app_list_label">Lijst met apps</string>
-    <string name="positive_button">OK</string>
     <string name="translators_button">Vertaald door</string>
     <string name="about_part_one"><![CDATA[AA AIO TWEAKER is ontwikkeld en onderhouden door Shmykelsa.<br><br>Broncode is beschikbaar op <a href=\"https://github.com/shmykelsa/AA-Tweaker\">GitHub</a><br><br>]]></string>
     <string name="about_part_two"><![CDATA[Als mijn werk je echt bevalt, overweeg dan een donatie.<br> U kunt aan mij doneren via <a href=\"http://www.paypal.me/grizzo96\">PayPal</a> of u kunt mijn Bitcoin adres kopiëren met de knop hieronder.<br><br>Ook een klein bedrag wordt zeer gewaardeerd :)]]></string>
@@ -86,7 +85,7 @@ WAARSCHUWING: Deze tweak is niet uitgebreid getest en kan Android Auto mogelijk 
     <string name="rebooting_action">Herstarten…</string>
     <string name="negative_button">annuleer</string>
     <string name="added_app_action">Toegevoegd: </string>
-    <string name="removed_app_action">Verwijderd: </string>
+    <string name="removed_app_action">Verwijderd\u0020</string>
     <string name="root_access_warning">Root toegang geweigerd. A.u.b. root toegang verlenen.</string>
     <string name="revert_everything_dialog">Wil je alles terugzetten? A.u.b. de app hierna handmatig herstarten</string>
     <string name="calendar_tweak">Stel %1$s zichtbare dagen in voor de agenda</string>
@@ -113,4 +112,18 @@ WAARSCHUWING: Deze tweak is niet uitgebreid getest en kan Android Auto mogelijk 
     <string name="error_generic">De opdracht was niet succesvol. Wacht een minuut en probeer het opnieuw. Als het probleem zich dan nog steeds voordoet, rapporteer dan een probleem op GitHub</string>
     <string name="tutorial_alphajump">Deze tweak activeert een nieuw (en verborgen) herontwerp dat verandert hoe lijsten kunnen worden doorzocht met letters. In plaats van de A-Z-knop bovenaan, verschijnt de knop op de scrollbar, wanneer er geen scrollfunctie plaatsvindt en je niet gedwongen wordt om naar boven te gaan om met letters te bladeren.</string>
     <string name="alpha_jump_tweak">nieuw alfabet sprong</string>
+    <string name="choose_accounts">Kies account</string>
+    <string name="use_all">Alles gebruiken (EXPERIMENTAL)</string>
+    <string name="copied_pastebin">Een link naar het logboek is aangemaakt en gekopieerd naar het klembord</string>
+    <string name="log_copied">Het logboek is opgeslagen</string>
+    <string name="new_version_available">Nieuwe versie beschikbaar</string>
+    <string name="go_to_new_version">Er is een nieuwe versie van AA AIO TWEAKER (versie %1$s) beschikbaar op GitHub. Wilt u het nu downloaden?</string>
+    <string name="go_to_download">Ga naar download</string>
+    <string name="ignore_for_now">Voor nu negeren</string>
+    <string name="many_accounts_warning">AA AIO TWEAKER vond een groot aantal (%1$s) Google-accounts op dit apparaat.\nDit kan een negatieve invloed hebben op het succes van het patch-proces en AA AIO TWEAKER kan daardoor misschien niet werken.\nJe kunt de account(s) kiezen die je meestal met Google Play Services gebruikt om de patch toe te passen op alleen die (2 of minder is aanbevolen) of een experimentele modus activeren die alle accounts moet patchen.\nLET OP: de experimentele modus kan leiden tot crashes op de telefoon terwijl de patch actief is.</string>
+    <string name="dark_switch_tweak">dag/nacht optie</string>
+    <string name="tutorial_darkmodeswitch">Deze tweak activeert een speciale schakelaar in Android Auto algemene instellingen (zowel auto als telefoon) die de status van dag/nacht kan bepalen in Android Auto. Deze optie is anders dan in de instellingen voor ontwikkelaars omdat het geen herstart van Android Auto nodig heeft en het effect op het gebruik zal hebben nadat Google de onafhankelijke donkere modus heeft ingeschakeld. Android Auto 6.3 of hoger is vereist.</string>
+    <string name="remove_paired_car">Verwijder een gekoppelde auto</string>
+    <string name="choose_cars">Kies auto(s)</string>
+    <string name="tutorial_carremover">Wist je dat je alleen alle gekoppelde auto\'s van Android Auto kunt verwijderen en dat je ze niet één voor één kunt verwijderen? Deze optie zal je helpen indien je een auto van Android Auto wilt verwijderen, selecteer gewoon welke auto(s) je wilt en zij/zij zullen worden verwijderd.</string>
 </resources>

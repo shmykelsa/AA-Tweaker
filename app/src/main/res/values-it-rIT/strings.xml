@@ -70,7 +70,6 @@ Questa funzione è probabilmente in fase di sviluppo e potrebbe non funzionare c
     <string name="patch_app">Esegui patch\u0020</string>
     <string name="default_string">\u0020normale</string>
     <string name="app_list_label">Elenco app</string>
-    <string name="positive_button">ok</string>
     <string name="translators_button">Tradotto da</string>
     <string name="about_part_one"><![CDATA[AA AIO TWEAKER è sviluppato e mantenuto da Shmykelsa.<br><br>Il codice sorgente è disponibile su <a href=\"https://github.com/shmykelsa/AA-Tweaker\">GitHub</a><br><br>]]></string>
     <string name="about_part_two"><![CDATA[Se apprezzi il mio lavoro, per favore, considera una donazione.<br> Puoi donarmi tramite <a href=\"http://www.paypal.me/grizzo96\">PayPal</a> o puoi copiare il mio indirizzo Bitcoin con il pulsante qui sotto.<br><br>Anche una piccola donazione sarà molto apprezzata :)]]></string>
@@ -86,7 +85,7 @@ ATTENZIONE: Questo tweak non è stato testato estensivamente e potenzialmente pu
     <string name="rebooting_action">Riavvio in corso…</string>
     <string name="negative_button">annulla</string>
     <string name="added_app_action">Aggiunta: </string>
-    <string name="removed_app_action">Rimossa: </string>
+    <string name="removed_app_action">Rimossa\u0020</string>
     <string name="root_access_warning">Accesso root negato. Consenti l\'accesso root.</string>
     <string name="revert_everything_dialog">Vuoi ripristinare tutto? Dovrai riavviare l\'app manualmente dopo aver fatto questa operazione.</string>
     <string name="calendar_tweak">Imposta %1$s giorni visibili nel calendario</string>
@@ -113,4 +112,18 @@ ATTENZIONE: Questo tweak non è stato testato estensivamente e potenzialmente pu
     <string name="error_generic">Comando non riuscito. Si prega di attendere qualche minuto e riprovare. Se il problema persiste, apri una segnalazione su GitHub.</string>
     <string name="tutorial_alphajump">Questa modifica attiverà una nuovo (e nascosto) design del pulsante per scorrere velocemente le liste tramite lettera. Invece del pulsante A-Z in alto, il pulsante apparirà sulla barra di scorrimento quando la lista non è in movimento e non si sarà costretti ad andare in cima per sfogliare di nuovo con le lettere.</string>
     <string name="alpha_jump_tweak">nuovo design pulsante alfabeto</string>
+    <string name="choose_accounts">Scegli account</string>
+    <string name="use_all">Usa tutti (SPERIMENTALE)</string>
+    <string name="copied_pastebin">Un collegamento al registro è stato creato e copiato negli appunti</string>
+    <string name="log_copied">Il log è stato copiato</string>
+    <string name="new_version_available">Nuova versione disponibile</string>
+    <string name="go_to_new_version">Una nuova versione di AA AIO TWEAKER (versione %1$s) è disponibile su GitHub. Vuoi scaricare ora?</string>
+    <string name="go_to_download">Vai al download</string>
+    <string name="ignore_for_now">Ignora per ora</string>
+    <string name="many_accounts_warning">AA AIO TWEAKER ha trovato un gran numero (%1$s) di account Google salvati nel dispositivo.\nQuesto può avere un impatto negativo sul successo del processo di patch e AA AIO TWEAKER potrebbe fallire.\nPuoi decidere di scegliere gli account più utilizzati con i Servizi Google e attivare la patch su di essi oppure attivare una modalità sperimentale che applica la patch per tutti gli account.\nNOTA BENE che la modalità sperimentale potrebbe causare alcuni crash al sistema mentre la patch è in esecuzione.</string>
+    <string name="dark_switch_tweak">opzione giorno/notte</string>
+    <string name="tutorial_darkmodeswitch">Questo tweak attiverà un\'opzione dedicata nelle impostazioni generiche di Android Auto (sia auto che telefono) in grado di controllare lo stato della modalità giorno/notte su Android Auto. Questa opzione è diversa da quella nelle impostazioni sviluppatore perché non ha bisogno di un riavvio di Android Auto e avrà effettivamente effetto sull\'utilizzo dopo che Google ha abilitato la modalità scura indipendente. Android Auto 6.3 o superiore è richiesto.</string>
+    <string name="remove_paired_car">Rimuovere un\'auto accoppiata</string>
+    <string name="choose_cars">Scegliere auto</string>
+    <string name="tutorial_carremover">Sapevi che su Android Auto non è possibile eliminare una singola auto accoppiata ma è solamente possibile eliminarle tutte in un colpo solo? Quest\'opzione ti verrà in aiuto nel caso si ha la necessità di rimuovere solo un\'auto. Basterà selezionarla ed eliminarla dal bottone dedicato.</string>
 </resources>

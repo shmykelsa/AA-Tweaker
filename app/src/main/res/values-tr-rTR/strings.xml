@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="main_string">Welcome in AA AIO Tweaker\n
-This app will let you apply some tweaks to Android Auto\n
-Simply select what tweak you want to apply :)\n
-If you are unsure of what a tweak does, long press on it and a tutorial will show up.</string>
+    <string name="main_string">AA AIO Tweaker \'e Hoşgeldiniz.\n
+Bu uygulama Android Auto\'ya bazı düzenlemeler uygulamanıza izin verecektir.\n
+Uygulamak istediğiniz ince ayarı seçmeniz yeterlidir :).\n
+Bir tweak\'in ne yaptığından emin değilseniz, üzerine uzun basın ve bir öğretici göreceksiniz.</string>
     <string name="select_apps">Uygulamaları seç</string>
     <string name="enable_assistant_shortcuts">Asistan kısayolları</string>
     <string name="patch_custom_apps">özel uygulamalar</string>
     <string name="disable_speed_limitations">dokunma kısıtlamaları</string>
     <string name="unlimited_scrolling_when_driving">hız kısıtlamaları</string>
     <string name="enable_assistant_animation_in_navbar">Alt çubukta asistan animasyonu</string>
-    <string name="splash">This app can alter Android Auto behaviour and bypass some safety features that Google has implemented in Android Auto.\n
-By using this software, you agree that YOU, and ONLY YOU, are solely responsible for any possible consequence that may result in altering safety features such as injury to yourself and/or others, property damage, loss of life.\n
-Under no circumstances is the author of this app responsible for its use</string>
+    <string name="splash">Bu uygulama, Android Auto davranışını değiştirebilir ve Google\'ın Android Auto\'da uyguladığı bazı güvenlik özelliklerini atlayabilir.\n
+Bu yazılımı kullanarak, kendinize ve / veya başkalarına zarar verme, mal hasarı, can kaybı gibi güvenlik özelliklerinin değiştirilmesine neden olabilecek olası sonuçlardan yalnızca SİZ ve YALNIZCA SİZİN sorumlu olduğunu kabul edersiniz.\n
+Hiçbir koşulda, bu uygulamanın yazarı kullanımından sorumlu değildir</string>
     <string name="proceed">Anladım</string>
     <string name="navigation_at_start">Başlangıçta navigasyon</string>
     <string name="statb_opaque_string">Durum çubuğunda opaklığı zorla</string>
-    <string name="battery_outline_string">battery saver outline</string>
+    <string name="battery_outline_string">pil tasarrufu uyarısı</string>
     <string name="legend">Durum Açıklaması:\n
 YEŞİL= Yama uygulandı\n
 SARI= Yamayı uygulamak için telefonu yeniden başlatın\n
@@ -26,32 +26,32 @@ RED= Yama uygulanmadı\n</string>
     <string name="force_widescreen_text">Geniş ekrana zorla</string>
     <string name="media_notification_duration_to">Medya bildirim zamanı</string>
     <string name="bluetooth_auto_connect">Bluetooth otomatik bağlanma</string>
-    <string name="tutorial_nospeed">This tweak will make Android Auto think that the car is at 0 speed. As a result, Android Auto will always show the preview of messages. This tweak does not apply to keyboard or first configuration of Android Auto.</string>
-    <string name="tutorial_sixtap">This tweak will override the 6 tap limit of Android Auto and will make unlimited browsing of content always possible.</string>
-    <string name="tutorial_shortcuts">This tweak will unlock the new Assistant Shortcuts feature. Once activated you can go in Android Auto settings, and in the customize launcher section you can start adding shortcuts to Google Assistant commands</string>
-    <string name="tutorial_startup">This tweak will override the default behaviour of Android Auto opening a navigation app at start and will make Android Auto start on launcher.\n
-In some cases this tweak will disable auto start of music. A known workaround is to disable and re-enable the option within Android Auto settings.\n
-IT\'S NOT POSSIBLE TO SET A SPECIFIC APP TO START FIRST.</string>
-    <string name="tutorial_widescreen">This tweak will force Android Auto in widescreen mode.</string>
-    <string name="tutorial_no_widescreen">This tweak will force Android Auto in no widescreen mode.</string>
-    <string name="tutorial_animation">This tweak enable an animation of Google Assistant in the navigation bar.</string>
-    <string name="tutorial_statusbar_opaque">This tweak will make the status bar always black.</string>
-    <string name="tutorial_battery_outline">This tweak will prevent the battery icon with the red outline when battery saver is on.</string>
-    <string name="tutorial_hun">This tweak let you set a custom duration for heads up notifications</string>
-    <string name="tutorial_media_hun">This tweak let you set a custom duration for media notifications in navigation bar to up to 15 minutes.</string>
-    <string name="tutorial_bluetooth">This tweak should prevent Bluetooth from turning on when Android Auto is connected. This tweak won\'t work if Bluetooth is already on.</string>
-    <string name="tutorial_patchapps">This tweak will enable third-party apps made specifically with Android Auto custom SDK to work on Android Auto.\n
-If you are familiar with AA Phenotype Patcher, this tweak is pretty much identical to it.\n
-It\'s not possible to add just any app to Android Auto, but it\'s possible to patch sideloaded apps MADE FOR ANDROID AUTO to work in cars.</string>
+    <string name="tutorial_nospeed">Bu ayar, Android Auto\'nun aracın 0 hızında olduğunu düşünmesini sağlayacaktır. Sonuç olarak, Android Auto her zaman mesajların önizlemesini gösterecektir. Bu ince ayar klavye veya Android Auto\'nun ilk yapılandırması için geçerli değildir.</string>
+    <string name="tutorial_sixtap">Bu ince ayar, Android Auto\'nun 6 dokunma sınırını geçersiz kılar ve içeriğe sınırsız taramayı her zaman mümkün kılar.</string>
+    <string name="tutorial_shortcuts">Bu ayar, yeni asistan Kısayolları özelliğinin kilidini açacaktır. Etkinleştirildikten sonra, Android Auto\'dan ayarlar bölümüne gidebilir ve başlatıcıyı Özelleştir bölümünde Google asistan komutlarına kısayollar eklemeye başlayabilirsiniz</string>
+    <string name="tutorial_startup">Bu ayar, başlangıçta Android Auto navigasyon uygulamasını açmanın varsayılan davranışını geçersiz kılacak ve Android\'in başlatıcıda otomatik olarak başlatılmasını sağlayacaktır.\n
+Bazı durumlarda bu ince ayar, müziğin otomatik başlatılmasını devre dışı bırakır. Bilinen bir çözüm, seçeneği Android Auto ayarlarında devre dışı bırakmak ve yeniden etkinleştirmektir.\n
+Önce başlatmak için belirli bir uygulama belirlemek mümkün değildir.</string>
+    <string name="tutorial_widescreen">Bu ayar, Android Auto\'yu geniş ekran modunda zorlayacaktır.</string>
+    <string name="tutorial_no_widescreen">Bu ayar, Android Auto\'yu geniş ekran modunda zorlayacaktır.</string>
+    <string name="tutorial_animation">Bu ayar, gezinme çubuğunda Google asistan animasyonunu etkinleştirmenizi sağlar.</string>
+    <string name="tutorial_statusbar_opaque">Bu ayar, durum çubuğunu her zaman siyah hale getirecektir.</string>
+    <string name="tutorial_battery_outline">Bu ayar, pil tasarrufu açıkken pil simgesinin kırmızı bir konturla görünmesini önleyecektir.</string>
+    <string name="tutorial_hun">Bu ayar, uyarı bildirimleri için özel bir süre ayarlamanıza olanak tanır</string>
+    <string name="tutorial_media_hun">Bu Tweak Navigasyon çubuğundaki medya bildirimleri için özel bir süre ayarlamanıza imkan tanır 15 dakikaya kadar ayarlamanıza izin verir.</string>
+    <string name="tutorial_bluetooth">Bu ince ayar, Android Auto bağlandığında Bluetooth\'un açmasını önlemelidir. Bluetooth zaten açıksa bu ince ayar çalışmaz.</string>
+    <string name="tutorial_patchapps">Bu ince ayar, özellikle Android Auto özel SDK ile yapılan üçüncü taraf uygulamalarının Android Auto\'da çalışmasını sağlayacaktır.\n
+AA Phenotype Patcher\'ı biliyorsunuz, bu ince ayar onunla hemen hemen aynıdır.\n
+Android Auto\'ya herhangi bir uygulama eklemek mümkün değildir, ancak ANDROID AUTO\'nun otomobillerde çalışması için yapılan yüklenmiş uygulamaları yamalamak mümkündür.</string>
     <string name="multi_display_string">Çoklu Ekran</string>
-    <string name="tutorial_multidisplay">This is an hidden feature inside Android Auto that will turn the second space in widescreen mode to a real second display that is completely taken by a seond activity. Google Maps will display a full map with navigation status, music and phones will take the full space.\n
-Additionally, this mode activates another feature that will turn the phone\'s screen in a second display for navigation in Android Auto.\n
-Settings for tweaking this feature will be available in Android Auto homescreen.\n
-Apparently, only Google Maps currently supports this mode.\n
-This feature is probably under development and could potentially not work as intended.\n
-Android Auto 5.8 or superior is required.</string>
+    <string name="tutorial_multidisplay">Bu, geniş ekran modundaki ikinci alanı, ikinci bir etkinlik tarafından tamamen alınan gerçek bir ikinci ekrana dönüştürecek olan Android Auto içindeki gizli bir özelliktir. Google Haritalar, navigasyon durumuyla birlikte tam bir harita gösterecektir, müzik ve telefonlar tam alan alacaktır.\n
+Ayrıca, bu mod, Android Auto\'da gezinmek için telefonun ekranını ikinci bir ekranda döndürecek başka bir özelliği etkinleştirir.\n
+Bu özelliği ayarlamak için ayarlar Android Auto anaekranında mevcut olacaktır.\n
+Görünüşe göre, şuanda sadece Google Haritalar bu modu destekliyor.\n
+Bu özellik muhtemelen geliştirilmektedir ve potansiyel olarak amaçlandığı gibi çalışmaz.\n
+Android Auto 5.8 veya üstü gereklidir.</string>
     <string name="battery_warning">Pil tasarrufu uyarısı</string>
-    <string name="tutorial_battery_saver_warning">This tweak will prevent Android Auto from giving popup warnings when battery saver mode is on</string>
+    <string name="tutorial_battery_saver_warning">Bu ince ayar, pil tasarrufu modu açıkken Android Auto\'nun açılır pencere uyarıları vermesini önleyecektir</string>
     <string name="disable_tweak_string">Etkisizleştir\u0020</string>
     <string name="enable_tweak_string">Etkinleştir\u0020</string>
     <string name="re_enable_tweak_string">Yeniden etkinleştir\u0020</string>
@@ -60,8 +60,8 @@ Android Auto 5.8 or superior is required.</string>
     <string name="revert_everything">Tümünü geri çevir</string>
     <string name="force_disable_tweak">Etkisizleştirmeye zorla\u0020</string>
     <string name="reset_tweak">Sıfırla\u0020</string>
-    <string name="force_widescreen_warning">Force widescreen has been automatically disabled</string>
-    <string name="force_disable_widescreen_warning">Force disable widescreen has been automatically disabled</string>
+    <string name="force_widescreen_warning">Geniş ekran zorla otomatik olarak devre dışı bırakıldı</string>
+    <string name="force_disable_widescreen_warning">Geniş ekranı devre dışı bırakmaya zorla ayarı otomatik olarak devre dışı bırakıldı</string>
     <string name="set_value">Ayarla\u0020</string>
     <string name="reboot_to_apply">UYGULAMAK İÇİN YENİDEN BAŞLATIN</string>
     <string name="warning_title">UYARI</string>
@@ -69,47 +69,61 @@ Android Auto 5.8 or superior is required.</string>
     <string name="patch_app">Yamala\u0020</string>
     <string name="default_string">\u0020Varsayılan</string>
     <string name="app_list_label">Uygulamalar Listesi</string>
-    <string name="positive_button">tamam</string>
     <string name="translators_button">Çeviren: </string>
     <string name="about_part_one"><![CDATA[AA AIO TWEAKE Shmykelsa tarafından geliştirilip yönetilmektedir.<br><br>Kaynak kodu için <a href=\"https://github.com/shmykelsa/AA-Tweaker\">GitHub</a><br><br>]]></string>
-    <string name="about_part_two"><![CDATA[If you really like my work, please consider a donation.<br> You can donate me through <a href=\"http://www.paypal.me/grizzo96\">PayPal</a> or you can copy my Bitcoin address with the button down below.<br><br>Even a small amount will be much appreciated :)]]></string>
+    <string name="about_part_two"><![CDATA[Çalışmamı gerçekten seviyorsanız, lütfen bir bağış yapmayı düşünün.<br>Bana bağış yapabilirsin<a href=\"http://www.paypal.me/grizzo96\">PayPal</a>veya aşağıdaki düğme ile Bitcoin adresimi kopyalayabilirsiniz.<br><br>Küçük bir miktar bile çok takdir edilecektir :)]]></string>
     <string name="copied_address_toast">BTC adresi kopyalandı</string>
     <string name="custom_wallpapers">Duvar Kağıtları</string>
-    <string name="tutorial_wallpapers">This tweak will activate the new built in wallpaper changer in Android Auto. Android Auto 5.8 or superior is required.\nWARNING: If you are a user of Wallpapers For Android Auto, you will need to update it to at least version 3.0, otherwise this tweak will break Wallpapers For Android Auto functionality.</string>
-    <string name="tutorial_dark_mode">Starting from December 2020, Google reverted a behaviour that happened since Android 10. Previously, the light/dark mode on Android Auto followed the light/dark mode on the phone and vice versa. This meant that switching the phone to dark mode had effect on the car, or if the phone was in dark mode and the car had lights off it used to switch on the light theme on the phone.\n However, since this feature of \"independent\" dark mode was introduced, users with Aftermarket headunits have no way to switch to dark mode anymore without actually wiring the stereo to the car\'s lights.\n This tweak makes sure that night mode is again dependent from phone and switching light/dark mode on phone will have its effects on cars too.</string>
+    <string name="tutorial_wallpapers">Bu ayar, Android Auto\'daki yeni yerleşik duvar kağıdı değiştiricisini etkinleştirecektir. Android Auto 5.8 veya üstü gereklidir.\nUyarı: Android Auto için bir duvar kağıdı kullanıcısıysanız, en az 3.0 sürümüne güncellemeniz gerekir, aksi takdirde bu ayar Android Auto işlevselliği için duvar kağıdını kıracaktır.</string>
+    <string name="tutorial_dark_mode">Aralık 2020\'den itibaren Google, Android 10\'ten bu yana olan bir davranışı geri döndürdü. Önceden, Android Auto\'daki açık / koyu modu, telefondaki açık / koyu modu takip ediyordu ve bunun tersi de geçerliydi. Bu, telefonu karanlık moda geçirmenin araba üzerinde bir etkisi olduğu anlamına geliyordu ya da telefon karanlık moddaysa ve araba ışıkları kapalıysa, telefondaki ışık temasını açmak için kullanıldı.\nBununla birlikte, \"bağımsız\" karanlık modun bu özelliği tanıtıldığında, Satış Sonrası headunit\'lere sahip kullanıcıların stereoyu aracın ışıklarına aktarmadan artık karanlık moda geçmelerinin bir yolu yoktur.\nBu ayar, gece modunun yine telefondan bağımlı olduğundan ve telefondaki açık / karanlık modu değiştirmenin de otomobiller üzerinde etkileri olacağından emin olur.</string>
     <string name="dark_mode_tweak">bağımsız karanlık modu</string>
-    <string name="telemetry_string">telemetry</string>
-    <string name="tutorial_telemetry">It\'s no mistery that Google logs a lot of datas about us. This tweak will make so that Google Play Services will stop a lot of tracking and logging activity.\n
-WARNING: This tweak has not been extensively tested and could potentially break Android Auto. If you find out that this tweak breaks Android Auto, please open an issue on GitHub.</string>
+    <string name="telemetry_string">telemetri</string>
+    <string name="tutorial_telemetry">Google\'ın Hakkımızda çok fazla veri kaydetmesi bir gizem değil. Bu ayar, Google Play hizmetlerinin çok sayıda izleme ve günlüğe kaydetme etkinliğini durdurmasını sağlayacaktır.\n
+UYARI: Bu ince ayar kapsamlı bir şekilde test edilmiştir ve Android Auto\'ya potansiyel olarak son verebilir. Bu ince ayarın Android Auto\'yu kırdığını öğrenirseniz, lütfen GitHub\'da bir sorun açın.</string>
     <string name="reboot_prompt">Telefon Yeniden Başlatılsın mı?</string>
     <string name="rebooting_action">Yeniden başlatılıyor…</string>
     <string name="negative_button">iptal</string>
     <string name="added_app_action">Eklendi: </string>
-    <string name="removed_app_action">Kaldırıldı: </string>
+    <string name="removed_app_action">Kaldırıldı\u0020</string>
     <string name="root_access_warning">Kök erişimi reddedildi. Lütfen kök erişimine izin verin.</string>
     <string name="revert_everything_dialog">Her şeyi geri çevirmek mi istiyorsunuz? Bunu yaptıktan sonra lütfen programı yeniden başlatın</string>
-    <string name="calendar_tweak">Set %1$s visible days in calendar</string>
-    <string name="calendar_tweak_single">Set %1$s visible day in calendar</string>
-    <string name="tutorial_calendar_tweak">This tweak will make so that calendar app into Android Auto can show more days than just one. Please note that even increasing the number of days, it\'s still not obviously possible to distinguish which day you are viewing the events of. Android Auto will just show how many events are set in one day and it won\'t show which day it is.</string>
+    <string name="calendar_tweak">Takvimde %1$s günleri gizler</string>
+    <string name="calendar_tweak_single">Takvimde %1$s günü gizler</string>
+    <string name="tutorial_calendar_tweak">Bu ayar, Android Auto\'daki takvim uygulamasının sadece bir günden daha fazla gün göstermesini sağlayacaktır. Gün sayısını arttırsanız bile, olayları hangi günde görüntülediğinizi ayırt etmenin hala mümkün olmadığını unutmayın. Android Auto, bir günde kaç etkinliğin ayarlandığını gösterecek ve hangi gün olduğunu göstermeyecek.</string>
     <string name="choose_apps_warning">Beyaz listeye eklemek için aplikasyonları seçin</string>
     <string name="log_first_line">KAYIT\n</string>
     <string name="menu_aa_settings">Android Auto Ayarlarını Aç</string>
     <string name="not_enabled_warning">Android Auto etkin değil</string>
     <string name="not_installed_warning">Android Auto yüklü değil</string>
     <string name="currently_set">"Şu anki değeri: "</string>
-    <string name="tutorial_messages_tweak">"This tweak will make some messaging apps appear as an icon on Android Auto. Once opened, the notifications of that app will appear. Notifications will still be received on notifications' center too. "</string>
+    <string name="tutorial_messages_tweak">"Bu tweak, bazı mesajlaşma uygulamalarının Android Otomatik'teki bir simge olarak görünmesini sağlayacaktır. Açıldıktan sonra, bu uygulamanın bildirimleri görünecektir. Bildirimler hala bildirimlerin merkezinde de alınacak. "</string>
     <string name="messages_tweak_string">mesajlaşma uygulamaları</string>
-    <string name="no_accounts_warning">AA AIO TWEAKER could not find any account in Google Play Services database. This can be caused by several different things such as:\n • Device that is mostly not connected to internet\n • Fresh install of the phone\n • Corrupted Google Play Services database\n • Removal of Google account(s) from the phone\n • Cleared datas of Google Play Services\n\nIn this scenario, AA AIO TWEAKER will FAIL to work properly. If you recently removed a Google account or cleared Google Play Services datas, please keep the phone connected to internet and let it build the Google Play Services database fully. This might take several hours, in some cases also days.\n\nIf you are not in one of the above conditions, please open a issue on GitHub.</string>
-    <string name="media_tabs_string">media apps tabbed view</string>
-    <string name="tutorial_media_tabs">"This tweak will force enable a new UI for media player applications. Not every app support this UI. Android Auto 5.8 or superior is required. "</string>
+    <string name="no_accounts_warning">AA AIO TWEAKER, Google Play Hizmetleri veritabanında herhangi bir hesap bulamadı. Bunun nedeni şu gibi birkaç farklı şey olabilir:\n• Çoğunlukla internete bağlı olmayan cihaz\n• Telefon yeni kurulduysa\n• Bozuk Google Play Hizmetleri veritabanı\n• Google hesaplarının telefondan kaldırılması\n• Google Play Services\'in verileri temizlenmiş\n\nBu senaryoda, AA AIO TWEAKER düzgün çalışamayacaktır. Yakın zamanda bir Google hesabını kaldırdıysanız veya Google Play Hizmetleri verilerini temizlediyseniz, lütfen telefonu internete bağlı tutun ve Google Play Hizmetleri veritabanını tam olarak oluşturmasına izin verin. Bu, bazı durumlarda günlerce veya birkaç saat sürebilir.\n\nYukarıdaki koşullardan birinde değilseniz, lütfen Github\'da bir sorun açın.</string>
+    <string name="media_tabs_string">medya Uygulamaları Sekmeli Görünüm</string>
+    <string name="tutorial_media_tabs">"Bu ince ayar, medya oynatıcı uygulamaları için yeni bir kullanıcı arabirimini etkinleştirmeye zorlayacaktır. Her uygulama bu kullanıcı arabirimini desteklemez. Android Auto 5.8 veya üstü gereklidir. "</string>
     <string name="tweak_loading">Yama uygulanıyor...</string>
     <string name="loading">Yükleniyor, lütfen bekleyin...</string>
-    <string name="tutorial_bitrate">This tweak will increase or decrease video bitrate according to the multiplier set (up to 2.0x). Increasing the bitrate (more than 1.0x) will mean that more datas will be streamed to the car and quality of video streaming could be improved in visual quality, however it might cause instability. Decreasing the bitrate (less than 1.0x) will compress the stream to the car and quality will be decreased, but it will result in a more reliable and fast connection.</string>
+    <string name="tutorial_bitrate">Bu ayar, video bit hızını çarpan ayarına göre artıracak veya azaltacaktır (2.0x\'e kadar). Bit hızının arttırılması (1.0 x\'den fazla), araca daha fazla veri aktarılacağı ve video akışının kalitesinin görsel kalitede geliştirilebileceği anlamına gelecektir, ancak kararsızlığa neden olabilir. Bit hızının azaltılması (1.0 x\'den az) yayın akışını sıkıştırır ve kalite azalır, ancak daha güvenilir ve hızlı bir bağlantı ile sonuçlanır.</string>
     <string name="set_wifi_tweak">wifi bitrate</string>
     <string name="set_usb_bitrate">USB bitrate</string>
     <string name="choose_value_first">Önce bir değer seçin</string>
     <string name="open_issue_button">Sorun Bildir</string>
-    <string name="error_generic">The command was not successful. Please wait some minutes and try again. If problem is still ongoing, please open a issue on GitHub</string>
-    <string name="tutorial_alphajump">This tweak will activate a new (and hidden) redesign that changes how lists can be browsed with letters. Instead of the A-Z button at the top, the button will appear on the scrollbar when there\'s no scroll happening and you won\'t be forced to go to top to browse with letters again.</string>
-    <string name="alpha_jump_tweak">new alphabet jump</string>
+    <string name="error_generic">Komut başarılı olmadı. Lütfen bir kaç dakika bekleyin ve yeniden deneyin. Eğer problem hala devam ediyorsa, lütfen GitHub üzerinden bildirin</string>
+    <string name="tutorial_alphajump">Bu ayar, listelerin harflerle nasıl görüntülenebileceğini değiştiren yeni (ve gizli) bir yeniden tasarlamayı etkinleştirir.
+Üstteki A-Z düğmesi yerine, kaydırma olmadığında kaydırma çubuğunda görünecek ve harflerle tekrar göz atmak için en üste gitmek zorunda kalmayacaksınız.</string>
+    <string name="alpha_jump_tweak">yeni alfabe atlama</string>
+    <string name="choose_accounts">Choose accounts</string>
+    <string name="use_all">Use all (EXPERIMENTAL)</string>
+    <string name="copied_pastebin">A link to the log has been created and copied to clipboard</string>
+    <string name="log_copied">Log has been copied</string>
+    <string name="new_version_available">New Version available</string>
+    <string name="go_to_new_version">A new version of AA AIO TWEAKER (version %1$s) is available on GitHub. Do you want to download it now?</string>
+    <string name="go_to_download">Go to download</string>
+    <string name="ignore_for_now">Ignore for now</string>
+    <string name="many_accounts_warning">AA AIO TWEAKER found a large number (%1$s) of Google accounts saved in the device.\nThis can negatively impact on the success of the patching process and AA AIO TWEAKER might fail.\nYou can either choose the account(s) that you mostly use with Google Play Services to apply the patch to just them (2 or less is recommended) or activate an experimental mode that should patch all accounts.\nPLEASE NOTE that the experimental mode might cause some crashes to the phone while the patch is running.</string>
+    <string name="dark_switch_tweak">day/night option</string>
+    <string name="tutorial_darkmodeswitch">This tweak will activate a dedicated toggle in Android Auto generic settings (both car and phone) that can control the status of day/night mode on Android Auto. This option is different from the one in developer settings because it doesn\'t need a restart of Android Auto and it will actually have effect on the usage after Google enabling the independent dark mode. Android Auto 6.3 or superior is required.</string>
+    <string name="remove_paired_car">Remove a paired car</string>
+    <string name="choose_cars">Choose car(s)</string>
+    <string name="tutorial_carremover">Did you know that you can only remove all the paired cars from Android Auto and you cannot remove just one at a time? This option will rescue you if you want to delete a car from Android Auto, just select which car(s) you want and it/they will be removed.</string>
 </resources>

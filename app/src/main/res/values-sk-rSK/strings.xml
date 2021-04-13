@@ -72,7 +72,6 @@ Do aplikácie Android Auto nie je možné pridať ľubovoľnú aplikáciu, ale j
     <string name="patch_app">Záplata \u0020</string>
     <string name="default_string">\u0020Prednastavené</string>
     <string name="app_list_label">Zoznam aplikácií</string>
-    <string name="positive_button">ok</string>
     <string name="translators_button">Preložil</string>
     <string name="about_part_one"><![CDATA[AA AIO TWEAKER je vyvíjaný a spravovaný s p. Shmykelsa.<br><br>Zdrojový kód je dostupný na<a href=\"https://github.com/shmykelsa/AA-Tweaker\">GitHub</a><br><br>]]></string>
     <string name="about_part_two"><![CDATA[Ak skutočne mate radi moju prácu, prosím zvážte príspevok.<br>Môžete ma podporiť cez<a href=\"http://www.paypal.me/grizzo96\">PayPal</a>alebo môžete kopírovať moju Bitcoin adresu s tlačidlom nižšie.<br><br>Aj malé množstvo bude veľmi ocenené :)]]></string>
@@ -88,7 +87,7 @@ UPOZORNENIE: Toto vylepšenie nebolo podrobne testované a mohlo by potenciálne
     <string name="rebooting_action">Reštartovanie…</string>
     <string name="negative_button">zrušenie</string>
     <string name="added_app_action">Pridané: </string>
-    <string name="removed_app_action">Odobraté: </string>
+    <string name="removed_app_action">Odobraté\u0020</string>
     <string name="root_access_warning">Zamietnutý Root prístup. Prosím povoľte Root prístup.</string>
     <string name="revert_everything_dialog">Chcete všetko vrátiť späť? Po vykonaní aplikáciu reštartujte manuálne</string>
     <string name="calendar_tweak">Nastaviť %1$s viditeľných dní v kalendári</string>
@@ -115,4 +114,18 @@ UPOZORNENIE: Toto vylepšenie nebolo podrobne testované a mohlo by potenciálne
     <string name="error_generic">Príkaz nebol úspešný. Počkajte jednu minútu a skúste to znova. Ak problém stále pretrváva, otvorte ho na GitHub</string>
     <string name="tutorial_alphajump">Toto vylepšenie aktivuje nový (a skrytý) redizajn, ktorý zmení spôsob prehľadávania zoznamov písmenami. Namiesto tlačidla A-Z v hornej časti sa toto tlačidlo zobrazí na posuvnom paneli keď sa žiadne posúvanie nedeje, takže už nebudete nútení prechádzať na začiatok, aby ste znova mali možnosť prechádzať cez písmená.</string>
     <string name="alpha_jump_tweak">nový abecedný skok</string>
+    <string name="choose_accounts">Vybrať účty</string>
+    <string name="use_all">Vybrať všetky (EXPERIMENTÁLNE)</string>
+    <string name="copied_pastebin">Bol vytvorený odkaz na protokol a skopírovaný do schránky</string>
+    <string name="log_copied">Protokol bol skopírovaný</string>
+    <string name="new_version_available">Dostupná nová verzia</string>
+    <string name="go_to_new_version">Nová verzia AA AIO TWEAKER (verzia%1$s) je dostupná na GitHub. Chcete ju teraz stiahnuť?</string>
+    <string name="go_to_download">Prejsť k stiahnutiu</string>
+    <string name="ignore_for_now">Nateraz ignorovať</string>
+    <string name="many_accounts_warning">AA AIO TWEAKER našiel veľké množstvo (%1$s) účtov Google uložených v tomto zariadení.\n To môže mať negatívny dopad na úspešnosť procesu opravy a AA AIO TWEAKER môže zlyhať.\nMôžete si vybrať účty, ktoré väčšinou používate so službami Google Play, aby ste použili opravu iba na ne (odporúčajú sa 2 alebo menej), alebo aktivovať experimentálny režim, ktorý by mal opraviť všetky účty.\nUPOZORŇUJEM, že experimentálny režim môže počas spustenia opravy spôsobiť niektoré poruchy telefónu.</string>
+    <string name="dark_switch_tweak">voľba deň/noc</string>
+    <string name="tutorial_darkmodeswitch">Toto vylepšenie aktivuje vyhradené prepínanie vo všeobecných nastaveniach Android Auto (auto aj telefón), ktoré dokáže ovládať stav denného / nočného režimu v Android Auto. Táto možnosť sa líši od možnosti v nastaveniach vývojára, pretože nepotrebuje reštartovanie aplikácie Android Auto a bude mať skutočne vplyv na použitie po tom, čo Google povolí nezávislý tmavý režim. Vyžaduje sa Android Auto 6.3 alebo vyšší.</string>
+    <string name="remove_paired_car">Odobrať spárované vozidlo</string>
+    <string name="choose_cars">Výber auta (áut)</string>
+    <string name="tutorial_carremover">Vedeli ste, že Android Auto vie odstrániť iba všetky spárované autá a nemôžete odstrániť jedno po druhom? Táto možnosť vám pomôže, ak chcete vymazať jednotlivo autá z Android Auto, stačí zvoliť, ktoré auto (autá) chcete, a to bude odstránené.</string>
 </resources>

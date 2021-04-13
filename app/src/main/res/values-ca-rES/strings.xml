@@ -65,7 +65,6 @@ VERMELL= Patch no aplicat\n</string>
     <string name="patch_app">Patch\u0020</string>
     <string name="default_string">\u0020Per defecte</string>
     <string name="app_list_label">Llista d\'Aplicacions</string>
-    <string name="positive_button">d\'acord</string>
     <string name="translators_button">Traduït per</string>
     <string name="about_part_one"><![CDATA[AA AIO TWEAKER está desenvolupat i mantingut per Shmykelsa.<br><br>El codi font està disponible a <a href=\"https://github.com/shmykelsa/AA-Tweaker\">GitHub</a><br><br>]]></string>
     <string name="about_part_two"><![CDATA[Si realment t\'agrada la meva feina, siusplau considera fer un donatiu.<br> Pots fer un donatiu a través de <a href=\"http://www.paypal.me/grizzo96\">PayPal</a> o potscopiar la meva adreça de Bitcoin amb el boto a sota.<br><br> Qualsevol donació per petita que sigui serà molt apreciada :)]]></string>
@@ -75,13 +74,13 @@ VERMELL= Patch no aplicat\n</string>
     <string name="tutorial_dark_mode">Starting from December 2020, Google reverted a behaviour that happened since Android 10. Previously, the light/dark mode on Android Auto followed the light/dark mode on the phone and vice versa. This meant that switching the phone to dark mode had effect on the car, or if the phone was in dark mode and the car had lights off it used to switch on the light theme on the phone.\n However, since this feature of \"independent\" dark mode was introduced, users with Aftermarket headunits have no way to switch to dark mode anymore without actually wiring the stereo to the car\'s lights.\n This tweak makes sure that night mode is again dependent from phone and switching light/dark mode on phone will have its effects on cars too.</string>
     <string name="dark_mode_tweak">independent dark mode</string>
     <string name="telemetry_string">telemetry</string>
-    <string name="tutorial_telemetry">It\'s no mistery that Google logs a lot of datas about us. This tweak will make so that Google Play Services will stop a lot of tracking and logging activity.\n
+    <string name="tutorial_telemetry">It\'s no mystery that Google logs a lot of datas about us. This tweak will make so that Google Play Services will stop a lot of tracking and logging activity.\n
 WARNING: This tweak has not been extensively tested and could potentially break Android Auto. If you find out that this tweak breaks Android Auto, please open an issue on GitHub.</string>
     <string name="reboot_prompt">Reboot phone now?</string>
     <string name="rebooting_action">Rebooting…</string>
     <string name="negative_button">cancel</string>
     <string name="added_app_action">Added: </string>
-    <string name="removed_app_action">Removed: </string>
+    <string name="removed_app_action">Removed\u0020</string>
     <string name="root_access_warning">Root access denied. Please allow root access.</string>
     <string name="revert_everything_dialog">Do you want to revert everything? Please manually restart the app after doing so</string>
     <string name="calendar_tweak">Set %1$s visible days in calendar</string>
@@ -108,4 +107,18 @@ WARNING: This tweak has not been extensively tested and could potentially break 
     <string name="error_generic">The command was not successful. Please wait some minutes and try again. If problem is still ongoing, please open a issue on GitHub</string>
     <string name="tutorial_alphajump">This tweak will activate a new (and hidden) redesign that changes how lists can be browsed with letters. Instead of the A-Z button at the top, the button will appear on the scrollbar when there\'s no scroll happening and you won\'t be forced to go to top to browse with letters again.</string>
     <string name="alpha_jump_tweak">new alphabet jump</string>
+    <string name="choose_accounts">Choose accounts</string>
+    <string name="use_all">Use all (EXPERIMENTAL)</string>
+    <string name="copied_pastebin">A link to the log has been created and copied to clipboard</string>
+    <string name="log_copied">Log has been copied</string>
+    <string name="new_version_available">New Version available</string>
+    <string name="go_to_new_version">A new version of AA AIO TWEAKER (version %1$s) is available on GitHub. Do you want to download it now?</string>
+    <string name="go_to_download">Go to download</string>
+    <string name="ignore_for_now">Ignore for now</string>
+    <string name="many_accounts_warning">AA AIO TWEAKER found a large number (%1$s) of Google accounts saved in the device.\nThis can negatively impact on the success of the patching process and AA AIO TWEAKER might fail.\nYou can either choose the account(s) that you mostly use with Google Play Services to apply the patch to just them (2 or less is recommended) or activate an experimental mode that should patch all accounts.\nPLEASE NOTE that the experimental mode might cause some crashes to the phone while the patch is running.</string>
+    <string name="dark_switch_tweak">day/night option</string>
+    <string name="tutorial_darkmodeswitch">This tweak will activate a dedicated toggle in Android Auto generic settings (both car and phone) that can control the status of day/night mode on Android Auto. This option is different from the one in developer settings because it doesn\'t need a restart of Android Auto and it will actually have effect on the usage after Google enabling the independent dark mode. Android Auto 6.3 or superior is required.</string>
+    <string name="remove_paired_car">Remove a paired car</string>
+    <string name="choose_cars">Choose car(s)</string>
+    <string name="tutorial_carremover">Did you know that you can only remove all the paired cars from Android Auto and you cannot remove just one at a time? This option will rescue you if you want to delete a car from Android Auto, just select which car(s) you want and it/they will be removed.</string>
 </resources>

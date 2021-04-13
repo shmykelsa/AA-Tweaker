@@ -71,7 +71,6 @@ Wymagany jest Android Auto 5.8 lub nowszy.</string>
     <string name="patch_app">Łatka\u0020</string>
     <string name="default_string">\u0020Domyślne</string>
     <string name="app_list_label">Lista Aplikacji</string>
-    <string name="positive_button">Ok</string>
     <string name="translators_button">Przetłumaczone przez</string>
     <string name="about_part_one"><![CDATA[AA AIO TWEAKER jest rozwijany i utrzymywany przez Shmykelsa.<br><br>Kod źródłowy jest dostępny na <a href=\"https://github.com/shmykelsa/AA-Tweaker\">GitHub</a><br><br>]]></string>
     <string name="about_part_two"><![CDATA[Jeśli naprawdę podoba ci się moja praca, rozważ darowiznę.<br> Możesz przekazać mi darowiznę poprzez <a href=\"http://www.paypal.me/grizzo96\">PayPal</a> lub skopiować mój adres Bitcoin za pomocą przycisku poniżej.<br><br>Nawet niewielka kwota będzie bardzo mile widziana :)]]></string>
@@ -88,7 +87,7 @@ OSTRZEŻENIE: ta modyfikacja nie została dokładnie przetestowana i może poten
     <string name="rebooting_action">Restartowanie…</string>
     <string name="negative_button">Anuluj</string>
     <string name="added_app_action">Dodano:</string>
-    <string name="removed_app_action">Usunięto: </string>
+    <string name="removed_app_action">Usunięto\u0020</string>
     <string name="root_access_warning">Odmowa dostępu do roota. Zezwól na dostęp do roota.</string>
     <string name="revert_everything_dialog">Czy chcesz wszystko przywrócić? Po tej czynności proszę ręcznie zrestartować aplikację</string>
     <string name="calendar_tweak">Ustaw %1$s widocznych dni w kalendarzu.</string>
@@ -113,6 +112,20 @@ OSTRZEŻENIE: ta modyfikacja nie została dokładnie przetestowana i może poten
     <string name="choose_value_first">Najpierw wybierz wartość</string>
     <string name="open_issue_button">Problem do rozwiązania</string>
     <string name="error_generic">Polecenie nie powiodło się. Poczekaj minutę i spróbuj ponownie. Jeśli nie rozwiązało to problemu proszę zgłosić problem na GitHub</string>
-    <string name="tutorial_alphajump">Ta funkcja aktywuje nowy (ukryta) sposób przeglądania list za pomocą liter. Zamiast przycisku A-Z u góry, litery pojawią się na pasku przewijania, i nie będziesz zmuszony przechodzić do góry, aby ponownie przeglądać litery.</string>
-    <string name="alpha_jump_tweak">nowy skok w alfabecie</string>
+    <string name="tutorial_alphajump">Ta funkcja aktywuje nowy sposób przeglądania list za pomocą liter. Naciskając przycisk  A-Z wybierasz literę od której rozpocznie się lista i tym samym nie musisz przesuwać całej listy od początku.</string>
+    <string name="alpha_jump_tweak">wyszukiwanie wg litery</string>
+    <string name="choose_accounts">Wybierz konto</string>
+    <string name="use_all">Użyj wszystkie (EKSPERYMENTALNE)</string>
+    <string name="copied_pastebin">Link do log został utworzony i skopiowany do schowka</string>
+    <string name="log_copied">Log został skopiowany</string>
+    <string name="new_version_available">Dostępna jest nowa wersja</string>
+    <string name="go_to_new_version">Nowa wersja AA AIO TWEAKER (wersja% 1 $ s) jest dostępna na GitHub. Czy chcesz ją teraz pobrać?</string>
+    <string name="go_to_download">Kliknij aby pobrać</string>
+    <string name="ignore_for_now">Na razie zignoruj</string>
+    <string name="many_accounts_warning">AA AIO TWEAKER znalazł dużą liczbę (%1$s) kont Googla zapisanych w urządzeniu.\nMoże to mieć negatywny wpływ na sukces procesu patchowania, a AA AIO TWEAKER może się nie udać.\nMożesz wybrać konto, którego najczęściej używasz w ramach usług Google Play, aby zaaplikować łatkę tylko dla nich (2 lub mniej) lub aktywować tryb eksperymentalny, który powinien naprawić wszystkie konta.\nPROSZĘ PAMIĘTAĆ, że tryb eksperymentalny może spowodować pewne awarie telefonu, gdy łata jest uruchomiona.</string>
+    <string name="dark_switch_tweak">opcja dzień/noc</string>
+    <string name="tutorial_darkmodeswitch">To ulepszenie aktywuje dedykowany przełącznik w ustawieniach ogólnych Android Auto (zarówno w samochodzie, jak i telefonie), który może kontrolować stan trybu dzień / noc w Android Auto. Ta opcja różni się od tej w ustawieniach programisty, ponieważ nie wymaga ponownego uruchamiania Androida Auto i faktycznie będzie miała wpływ na użycie po włączeniu przez Googla niezależnego trybu ciemnego. Wymagany jest Android Auto 6.3 lub nowszy. </string>
+    <string name="remove_paired_car">Usuń sparowany samochód</string>
+    <string name="choose_cars">Wybierz samochód (y) </string>
+    <string name="tutorial_carremover">Czy wiesz, że możesz usunąć wszystkie sparowane samochody z Android Auto na raz i nie musisz usunąć ich pojedynczo? Jeśli chcesz usunąć samochód z Android Auto, po prostu wybierz, który samochód (y) chcesz usunąć, a on / one zostaną usunięte. </string>
 </resources>

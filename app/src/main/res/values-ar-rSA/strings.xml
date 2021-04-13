@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_string">مرحبا بك في AA AIO Tweaker\n
+هذا التطبيق سيسمح لك بتفعيل بعض التعديلات على Android Auto\n
+ببساطة اضغط على الأداة التي تريد تطبيقها :)\n
+إن كنت غير متأكد من وظيفة الأداة، اضغط مطولاً عليها لتظهر نافذة تشرح مهمة الأداة.</string>
+    <string name="select_apps">اختر الأداة</string>
+    <string name="enable_assistant_shortcuts">اختصارات مساعدة</string>
+    <string name="patch_custom_apps">تخصيص التطبيقات</string>
+    <string name="disable_speed_limitations">قيود لمس الشاشة</string>
+    <string name="unlimited_scrolling_when_driving">سحب للأسفل أثناء القيادة</string>
+    <string name="enable_assistant_animation_in_navbar">تفعيل التأثيرات بشريط التنقل</string>
+    <string name="splash">يمكن لهذا التطبيق تغيير سلوك Android Auto وتجاوز بعض ميزات الأمان التي نفذتها Google في Android Auto.\n
+باستخدام هذا البرنامج فإنك توافق على أنك أنت و أنت فقط، تكون فقط مسؤولة عن أي نتيجة محتملة قد تؤدي إلى تغيير ميزات الأمان مثل الضرر الذي يلحق بنفسك و/أو بالآخرين، • الضرر الذي يلحق بالممتلكات والخسائر في الأرواح.\n
+لا يكون مؤلف هذا التطبيق مسؤولا تحت أي ظرف من الظروف عن استخدامه أو أي ضرر ينتج عن سوء استخدامه</string>
+    <string name="proceed">تفعيل</string>
+    <string name="navigation_at_start">الملاحة عند البدء</string>
+    <string name="statb_opaque_string">فرض شريط الحالة</string>
+    <string name="battery_outline_string">تفعيل موفر البطارية</string>
+    <string name="legend">شرح الألوان:\n
+الاخضر= الأداة مفعلة بنجاح\n
+الاصفر= يجب إعادة تشغيل الجهاز لتفعيل الأداة\n
+الاحمر= الأداة غير مفعلة\n</string>
+    <string name="set_notification_duration_to">مدة بقاء الإشعارات</string>
+    <string name="base_no_ws">عرض الشاشة</string>
+    <string name="force_widescreen_text">فرض عرض الشاشة</string>
+    <string name="media_notification_duration_to">مدة عرض إشعارات الوسائط</string>
+    <string name="bluetooth_auto_connect">ربط Bluetooth التلقائي</string>
+    <string name="tutorial_nospeed">هذا التعديل سيجعل Android Auto يعتقد أن سرعة السيارة صفر. ونتيجة لذلك، سيعرض Android Auto دائماً معاينة الرسائل. لا ينطبق هذا الأداة على لوحة المفاتيح أو الإعدادات الرئيسية لـ Android Auto.</string>
+    <string name="tutorial_sixtap">هذه الأداة تسمح بتجاوز حد 6 لمسات على Android Auto وسيجعل تصفح المحتوى غير محدود متاح دائماً.</string>
+    <string name="tutorial_shortcuts">هذه الأداة ستفتح خاصية مساعد الاختصارات الجديدة. بمجرد تفعيلك يمكنك الذهاب إلى إعدادات Android Auto، وفي قسم تخصيص المشغل يمكنك البدء بإضافة اختصارات إلى أوامر مساعد Google</string>
+    <string name="tutorial_startup">سيؤدي هذا التعديل إلى تجاوز السلوك الافتراضي لنظام Android Auto لفتح تطبيق الخرائط في البداية وسيجعل نظام Android Auto على المشغل.\n
+في بعض الحالات ستؤدي هذا الأداة إلى تعطيل بدء الموسيقى تلقائياً. نعمل على تطوير خيار تفعيل او ابطال من داخل تطبيق Android Auto.\n
+ليس هناك أي تطبيق محدد لبدء تشغيل هذا التطبيق.</string>
+    <string name="tutorial_widescreen">هذة الأداة ستفرض Android Auto في وضع شاشة بالعرض.</string>
+    <string name="tutorial_no_widescreen">هذة الأداة ستبطل Android Auto في وضع شاشة بالعرض.</string>
+    <string name="tutorial_animation">هذه الأداة تمكن الرسوم المتحركة لمساعد Google في شريط التنقل.</string>
+    <string name="tutorial_statusbar_opaque">هذة الأداة ستجعل شريط الحالة دائما أسود.</string>
+    <string name="tutorial_battery_outline">هذة الأداة ستزيل الاطار الاحمر من رمز البطارية عند تشغيل موفر البطارية.</string>
+    <string name="tutorial_hun">هذة الأداة تسمح لك بتعيين مدة مخصصة للإشعارات العلوية</string>
+    <string name="tutorial_media_hun">هذة الاداة لتعيين مدة مخصصة لإشعارات الوسائط في شريط التنقل إلى ما يصل إلى 15 دقيقة.</string>
+    <string name="tutorial_bluetooth">هذة الأداة تمنع البلوتوث من التشغيل عند التوصيل بـ Android Auto. هذة الأداة لن تعمل إذا كان البلوتوث يعمل بالفعل.</string>
+    <string name="tutorial_patchapps">هذة الأداة تعمل إلى تمكين تطبيقات أطراف ثالثة التي تم إنشاؤها على وجه التحديد باستخدام SDK الخاصة بالأندرويد للعمل على Android Auto.\n
+هذة الأداة شبيهة بعمل AA Phenotype Patcher.\n
+لا يمكن إضافة أي تطبيق فقط إلى Android Auto، ولكن من الممكن تصحيح بعض التطبيقات لتعمل بشكل تلقائي في Android Auto في السيارات.</string>
+    <string name="multi_display_string">شاشات متعددة</string>
+    <string name="tutorial_multidisplay">هذه ميزة مخفية داخل Android Auto التي ستحول الجزء الثاني في وضع عرض الشاشة إلى عرض ثان حقيقي يتم استخدامة بالكامل. خرائط جوجل ستعرض خريطة كاملة مع حالة التنقل، الموسيقى و برامج الاتصال ستأخذ المساحة الكاملة.\n
+بالإضافة إلى ذلك، يقوم هذا الوضع بتفعيل ميزة أخرى ستقوم بتشغيل شاشة الهاتف في عرض ثان للتنقل في Android Auto.\n
+إعدادات تغيير هذه الميزة ستكون متاحة في الشاشة الرئيسية لـ Android Auto.\n
+فقط خرائط جوجل فقط تدعم هذا الوضع.\n
+ربما تكون هذه الميزة قيد التطوير ومن المحتمل ألا تعمل كما هو متوقع.\n
+Android Auto اصدار 5.8 او أعلى.</string>
+    <string name="battery_warning">تنبية موفر البطارية</string>
+    <string name="tutorial_battery_saver_warning">هذة الأداة ستمنع Android Auto من إعطاء تحذير عند تشغيل وضع توفير البطارية</string>
+    <string name="disable_tweak_string">تعطيل\u0020</string>
+    <string name="enable_tweak_string">تفعيل\u0020</string>
+    <string name="re_enable_tweak_string">إعادة تفعيل\u0020</string>
+    <string name="copy_log">نسخ السجل</string>
+    <string name="about">حول التطبيق</string>
+    <string name="revert_everything">إعادة تهيئة</string>
+    <string name="force_disable_tweak">تعطيل إجباري\u0020</string>
+    <string name="reset_tweak">اعادة تشغيل</string>
+    <string name="force_widescreen_warning">تم تعطيل عرض الشاشة تلقائياً</string>
+    <string name="force_disable_widescreen_warning">تم تعطيل عرض الشاشة تلقائياً</string>
+    <string name="set_value">ضبط\u0020</string>
+    <string name="reboot_to_apply">اعادة تشغيل الجهاز للتفعيل</string>
+    <string name="warning_title">تحذير</string>
+    <string name="unpatch">تعطيل الباتش\u0020</string>
+    <string name="patch_app">تفعيل الباتش\u0020</string>
+    <string name="default_string">\u0020افتراضي</string>
+    <string name="app_list_label">قائمة التطبيقات</string>
+    <string name="translators_button">ترجمة عن</string>
+    <string name="about_part_one"><![CDATA[AIO TWEAKER تم تطويره وبرمجته بواسطة Shmykelsa.<br><br>المصدر المفتوح متاح على <a href=\"https://github.com/shmykelsa/AA-Tweaker\">GitHub</a><br><br>]]></string>
+    <string name="about_part_two"><![CDATA[إذا كنت تحب عملي حقاً، فيرجى التبرع لي.<br> يمكنك التبرع لي من خلال <a href=\"http://www.paypal.me/grizzo96\">Pay Pal</a> أو يمكنك نسخ عنوان بيتكوين الخاص بي مع الزر أسفل أدناه.<br><br>المبالغ الصغيرة تجعل الاحلام الكبيرة حقيقة:)]]></string>
+    <string name="copied_address_toast">تم نسخ عنوان البتكوين للحافظة</string>
+    <string name="custom_wallpapers">خلفيات</string>
+    <string name="tutorial_wallpapers">هذة الأداة تقوم بتفعيل تغيير الخلفية الجديد في نظام Android Auto. 5.8 أو احدث.\nتحذير: إذا كنت مستخدم للخلفيات من أجل Android Auto, سوف تحتاج إلى تحديثها على الأقل إلى الإصدار 3. وإلا فسيؤدي هذا التعديل إلى فشل ميزة الخلفيات في Android Auto.</string>
+    <string name="tutorial_dark_mode">بدءاً من ديسمبر 2020، قامت جوجل بإجراء تحديث في أندرويد 10. سابقاً، كان الوضع نهاري/ليلي على Android Auto يتبع الوضع على الهاتف والعكس بالعكس. وهذا يعني أن تبديل الهاتف إلى الوضع الليلي له تأثير على السيارة، أو إذا كان الهاتف في الوضع الليلي وكان للسيارة أضواء مطفأة تستخدم لتشغيل الوضع على الهاتف.\n ومع ذلك، منذ أن تم تقديم هذه الميزة من الوضع الليلي \"المستقل\"، لا يملك المستخدمون الذين لديهم سماعات الرأس الخارجية أي طريقة للتبديل إلى الوضع المظلم بعد الآن بدون ربط المذياع بأضواء السيارة.\n هذا التعديل يضمن أن الوضع الليلي يعتمد مرة أخرى على الهاتف وأن تبديل الوضع النهاري/الليلي على الهاتف سيكون له آثاره على السيارات أيضًا.</string>
+    <string name="dark_mode_tweak">الوضع الليلي مستقل</string>
+    <string name="telemetry_string">قياس عن بعد</string>
+    <string name="tutorial_telemetry">ليس من الغريب أن يسجل جوجل الكثير من البيانات عننا. هذة الأداة سوف تجعل خدمات Google Play توقف الكثير من أنشطة التتبع و التسجيل.\n
+تحذير: لم يتم اختبار هذة الاداة على نطاق واسع ويمكن أن ينهار Android Auto. إذا كنت واجهت مشكله مع Android Auto بعد التفعيل, الرجاء فتح مشكلة في GitHub.</string>
+    <string name="reboot_prompt">إعادة تشغيل الهاتف الآن؟</string>
+    <string name="rebooting_action">إعادة التشغيل…</string>
+    <string name="negative_button">إلغاء</string>
+    <string name="added_app_action">أضيفت ب: </string>
+    <string name="removed_app_action">ازيلت ب: </string>
+    <string name="root_access_warning">تم رفض صلاحيات الجذر. الرجاء السماح بالوصول إلى الجذر.</string>
+    <string name="revert_everything_dialog">هل تريد تهيئة كل شيء؟ الرجاء إعادة تشغيل التطبيق يدوياً بعد القيام بذلك</string>
+    <string name="calendar_tweak">تعيين %1$s أيام مشاهدة في التقويم</string>
+    <string name="calendar_tweak_single">تعيين %1$s يوم مشاهد في التقويم</string>
+    <string name="tutorial_calendar_tweak">هذة الأداة ستجعل تطبيق التقويم إلى Android Auto يمكن أن يعرض أكثر من يوم واحد. يرجى ملاحظة أنه حتى زيادة عدد الأيام، لا يزال من غير الواضح أنه يمكن التمييز بين اليوم الذي تشاهدون فيه الأحداث. سيظهر Android Auto عدد الأحداث التي يتم تعيينها في يوم واحد ولن يظهر أي يوم هو الآن.</string>
+    <string name="choose_apps_warning">اختر التطبيقات للقائمة المسموحة</string>
+    <string name="log_first_line">سجل:\n</string>
+    <string name="menu_aa_settings">فتح إعدادات Android Auto</string>
+    <string name="not_enabled_warning">Android Auto غير متاح</string>
+    <string name="not_installed_warning">لم يتم تثبيت Android Auto</string>
+    <string name="currently_set">"الضبط الحالي: "</string>
+    <string name="tutorial_messages_tweak">"هذة الأداة ستجعل بعض تطبيقات الرسائل تظهر كأيقونة على Android Auto. بمجرد فتحها، ستظهر إشعارات هذا التطبيق. ستظل الإشعارات تصل في مركز الإشعارات أيضًا. "</string>
+    <string name="messages_tweak_string">تطبيقات الرسائل</string>
+    <string name="no_accounts_warning">لم تجد AA AIO TWEAKER أي حساب في قاعدة بيانات خدمات Google Play. يمكن أن يسبب هذا عدة أشياء مختلفة مثل:\n • جهاز غير متصل في الغالب بالإنترنت\n • تثبيت جديد للهاتف\n • قاعدة بيانات خدمات Google Play معطلة\n • إزالة حساب Google من الهاتف\n • مسح البيانات من خدمات Google Play\n\nفي هذا ، سيفشل AIO TWEAKER بالعمل بشكل صحيح. إذا قمت مؤخرا بإزالة حساب (حسابات) جوجل أو مسح بيانات خدمات جوجل، يرجى إبقاء الهاتف متصلاً بالإنترنت والسماح له ببناء قاعدة بيانات خدمات Google Play بالكامل. وقد يستغرق ذلك عدة ساعات، وفي بعض الحالات أيضا أيام.\n\nإذا لم تحدث اي مشكلة معك اعلاه، يرجى فتح مشكلة في GitHub.</string>
+    <string name="media_tabs_string">عرض تطبيقات الوسائط</string>
+    <string name="tutorial_media_tabs">"هذة الأداة تقوم بتمكين واجهة جديدة لتطبيقات مشغل الوسائط. ليس كل تطبيق يدعم واجهة المستخدم هذه. Android Auto 5.8 أو أحدث مطلوب. "</string>
+    <string name="tweak_loading">جارٍ تطبيق الأداة...</string>
+    <string name="loading">تحميل برجاء الانتظار...</string>
+    <string name="tutorial_bitrate">هذة الأداة تزيد أو تقلل من معدل البتات الفيديو وفقا لإعداد المضاعف (يصل إلى 2.0x). زيادة معدل البت(أكثر من 1. `10\' سيعني ذلك أن مزيدا من البيانات سيتم بثها في السيارة وأن من الممكن تحسين نوعية البث المرئي من حيث الجودة، بيد أنه قد يسبب عدم الاستقرار. خفض معدل البتات (أقل من 1. \'10` سوف تضغط عملية البث إلى السيارة وسوف تتقلص الجودة، ولكنها ستؤدي إلى زيادة ثبات الاتصال وسرعته.</string>
+    <string name="set_wifi_tweak">معدل واي فاي الى</string>
+    <string name="set_usb_bitrate">معدل USB الى</string>
+    <string name="choose_value_first">اختر قيمة أولا</string>
+    <string name="open_issue_button">رفع بمشكلة</string>
+    <string name="error_generic">لم ينجح الأمر. الرجاء الانتظار بعض الدقائق والمحاولة مرة أخرى. إذا كانت المشكلة لا تزال مستمرة، الرجاء فتح مشكلة على GitHub</string>
+    <string name="tutorial_alphajump">هذة الأداة تقوم بتنشيط إعادة تصميم جديدة (ومخفية) تغير كيف يمكن تصفح القوائم بحروف. بدلاً من زر A-Z في الأعلى، سيظهر الزر على شريط التمرير عندما لا يحدث التمرير ولن تضطر إلى الذهاب إلى الأعلى لتصفح الأحرف مرة أخرى.</string>
+    <string name="alpha_jump_tweak">قفزة احرف جديدة</string>
+    <string name="choose_accounts">Choose accounts</string>
+    <string name="use_all">Use all (EXPERIMENTAL)</string>
+    <string name="copied_pastebin">A link to the log has been created and copied to clipboard</string>
+    <string name="log_copied">Log has been copied</string>
+    <string name="new_version_available">New Version available</string>
+    <string name="go_to_new_version">A new version of AA AIO TWEAKER (version %1$s) is available on GitHub. Do you want to download it now?</string>
+    <string name="go_to_download">Go to download</string>
+    <string name="ignore_for_now">Ignore for now</string>
+    <string name="many_accounts_warning">AA AIO TWEAKER found a large number (%1$s) of Google accounts saved in the device.\nThis can negatively impact on the success of the patching process and AA AIO TWEAKER might fail.\nYou can either choose the account(s) that you mostly use with Google Play Services to apply the patch to just them (2 or less is recommended) or activate an experimental mode that should patch all accounts.\nPLEASE NOTE that the experimental mode might cause some crashes to the phone while the patch is running.</string>
+    <string name="dark_switch_tweak">day/night option</string>
+    <string name="tutorial_darkmodeswitch">This tweak will activate a dedicated toggle in Android Auto generic settings (both car and phone) that can control the status of day/night mode on Android Auto. This option is different from the one in developer settings because it doesn\'t need a restart of Android Auto and it will actually have effect on the usage after Google enabling the independent dark mode. Android Auto 6.3 or superior is required.</string>
+    <string name="remove_paired_car">Remove a paired car</string>
+    <string name="choose_cars">Choose car(s)</string>
+    <string name="tutorial_carremover">Did you know that you can only remove all the paired cars from Android Auto and you cannot remove just one at a time? This option will rescue you if you want to delete a car from Android Auto, just select which car(s) you want and it/they will be removed.</string>
+</resources>

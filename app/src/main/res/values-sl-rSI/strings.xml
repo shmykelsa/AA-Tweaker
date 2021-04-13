@@ -4,7 +4,7 @@
 S to aplikacijo vam bo mogoče prilagoditi Android Auto\n
 Preprosto: izberite želeno spremembo :)\n
 Če niste gotovi o kaki spremembi, dolgo pritisnite nanjo, da prikličete vadnico.</string>
-    <string name="select_apps">Izberite aplikacijo</string>
+    <string name="select_apps">Izbira aplikacije</string>
     <string name="enable_assistant_shortcuts">Povezave Asistenta</string>
     <string name="patch_custom_apps">aplikacija po meri</string>
     <string name="disable_speed_limitations">limita tapkanja</string>
@@ -72,7 +72,6 @@ Preprosto: izberite želeno spremembo :)\n
     <string name="patch_app">Popravi\u0020</string>
     <string name="default_string">\u0020Privzeto</string>
     <string name="app_list_label">Seznam aplikacij</string>
-    <string name="positive_button">v redu</string>
     <string name="translators_button">Prevedel</string>
     <string name="about_part_one"><![CDATA[AA AIO TWEAKER razvija in servisira Shmykelsa.<br><br>Izvirna koda je na razpolago na <a href=\"https://github.com/shmykelsa/AA-Tweaker\">GitHub</a><br><br>]]></string>
     <string name="about_part_two"><![CDATA[Če vam je moje delo všeč, prosim razmislite o donaciji.<br> Lahko donirate preko <a href=\"http://www.paypal.me/grizzo96\">PayPal</a> ali lahko kopirate moj Bitcoin naslov s sledečim gumbom.<br><br>Tudi mala vsota je zelo cenjena :)]]></string>
@@ -88,7 +87,7 @@ OPOZORILO: Popravka ni še bilo mogoče obširno testirati, zato lahko pride do 
     <string name="rebooting_action">Ponovni zagon…</string>
     <string name="negative_button">prekliči</string>
     <string name="added_app_action">Dodano: </string>
-    <string name="removed_app_action">Odstranjeno: </string>
+    <string name="removed_app_action">Odstranjeno\u0020</string>
     <string name="root_access_warning">Preprečen izvirni dostop. Prosimo, omogočite izvirni dostop (root).</string>
     <string name="revert_everything_dialog">Ali res hočete ponastaviti vse? Prosimo, da za tem ponovno zaženete aplikacijo</string>
     <string name="calendar_tweak">Pokaži %1$s dni v koledarju</string>
@@ -100,19 +99,33 @@ OPOZORILO: Popravka ni še bilo mogoče obširno testirati, zato lahko pride do 
     <string name="not_enabled_warning">Android Auto ne deluje</string>
     <string name="not_installed_warning">Android Auto ni nameščen</string>
     <string name="currently_set">"Trenutno nastavljeno: "</string>
-    <string name="tutorial_messages_tweak">"This tweak will make some messaging apps appear as an icon on Android Auto. Once opened, the notifications of that app will appear. Notifications will still be received on notifications' center too. "</string>
+    <string name="tutorial_messages_tweak">"S tem popravkom se bodo aplikacije za sporočila pokazale kot ikona v Android Auto. Ko jih boste odprli se bodo prikazala njihova obvestila. Obvestila bodo tudi pokazana v centru za obvestila. "</string>
     <string name="messages_tweak_string">aplikacije za sporočanje</string>
     <string name="no_accounts_warning">AA AIO TWEAKER ni dobil nobenega uporabniškega računa v podatkovni bazi Google Play Storitev. Razlogi za to so lahko sledeči:\n • Internetna povezava ni vzpostavljena\n • Na novo nastavljen telefon\n • Pokvarjena podatkovna baza Google Play Storitev.\n • Izbrisan(i) Google uporabniški račun(i)\n • Izbrisani podatki Google Play Storitev\n\nV tem primeru, AA AIO TWEAKER NE bo pravilno deloval. Če ste predčasno odstranili vaš Google uporabniški račun ali izbrisali podatke Google Play Storitev, povežite telefon z internetom in pustite, da znova zgradi podatkovno bazo Google Play Storitev. Za to lahko potrebuje več ur, v redkih primerih tudi več dni.\n\nČe vaš primer ni naveden, prosimo da odprete prošnjo za pomoč na GitHub platformi.</string>
     <string name="media_tabs_string">ogled multimedijskih aplikacij v zavihkih</string>
     <string name="tutorial_media_tabs">"Popravek prisili nastavitev nov vmesnik (UI) za multimedijske programe. Ne vse aplikacije so narjene za nov vmesnik. Potrebna je verzija Android Auto 5.8 ali višja. "</string>
     <string name="tweak_loading">Nastavljanje popravka...</string>
     <string name="loading">Nalaganje, prosimo počakajte...</string>
-    <string name="tutorial_bitrate">This tweak will increase or decrease video bitrate according to the multiplier set (up to 2.0x). Increasing the bitrate (more than 1.0x) will mean that more datas will be streamed to the car and quality of video streaming could be improved in visual quality, however it might cause instability. Decreasing the bitrate (less than 1.0x) will compress the stream to the car and quality will be decreased, but it will result in a more reliable and fast connection.</string>
-    <string name="set_wifi_tweak">wifi bitrate to</string>
-    <string name="set_usb_bitrate">USB bitrate to</string>
+    <string name="tutorial_bitrate">S tem popravkom se lahko zviša ali zniža bitno hitrost (bitrate) glede na željeni multiplikator (do 2.0 kratni). Višja je hitrost (više od 1.0 krat) višja količina podatkov, ki se prenašajo v avto, in se izboljša kakovost video prenosa; lahko pa privede do nestabilnosti. ko se bitna hitrost zniža (nižje od 1.0 krat), se prenos podatkov zgosti in kakovost video prenosa pade, kar pa lahko zviša hitrost in zanesljivost prenosa podatkov.</string>
+    <string name="set_wifi_tweak">bitna hitrost (bitrate) wifi</string>
+    <string name="set_usb_bitrate">USB bitna hitrost (bitrate)</string>
     <string name="choose_value_first">Najprej izberite vrednost</string>
     <string name="open_issue_button">Odpri prošnjo za pomoč</string>
-    <string name="error_generic">The command was not successful. Please wait some minutes and try again. If problem is still ongoing, please open a issue on GitHub</string>
-    <string name="tutorial_alphajump">This tweak will activate a new (and hidden) redesign that changes how lists can be browsed with letters. Instead of the A-Z button at the top, the button will appear on the scrollbar when there\'s no scroll happening and you won\'t be forced to go to top to browse with letters again.</string>
+    <string name="error_generic">Neuspešen ukaz. Prosimo, da počakate nekaj minut in poskusite znova. Če se težava ne odstrani, prosimo da odprete prošnjo za pomoč na GitHub</string>
+    <string name="tutorial_alphajump">S tem popravkom lahko spremenimo način iskanja in premikanja po seznamu. Namesto običajnega gumba A-Ž na vrhu seznama, se bo prikazal gumb na drsniku, na katerega lahko pritisnemo, da izberemo začetnico. Na ta način se ne bo potrebno premikati do vrha seznama vsakič, ko želimo izbrati drugo črko.</string>
     <string name="alpha_jump_tweak">new alphabet jump</string>
+    <string name="choose_accounts">Izberite račun</string>
+    <string name="use_all">Uporabi vse (EKSPERIMENTALNA FUNKCIJA)</string>
+    <string name="copied_pastebin">Povezava na spisek je bila ustvarjena in kopirana v odložišče</string>
+    <string name="log_copied">Dnevnik aktivnosti je bil kopiran</string>
+    <string name="new_version_available">Na voljo je nova verzija</string>
+    <string name="go_to_new_version">Na razpolago je nova verzija AA AIO TWEAKER (verzija %1$s) na Github platformi. Ali si jo hočete prevzeti sedaj?</string>
+    <string name="go_to_download">Povezava na prenos</string>
+    <string name="ignore_for_now">Za zdaj ignoriraj</string>
+    <string name="many_accounts_warning">AA AIO TWEAKER je zaznal veliko število (%1$s) Google uporabnikov v napravi.\nTo lahko negativno vpliva na uvedbo popravkov in AA AIO TWEAKER lahko odpove.\nImate na razpolago dve možnosti: lahko izberete, da boste uvedli popravke samo na določene Google Play uporabnike (priporočeno 2 ali manj) ali pa aktivirate eksperimentalno način, kateri naj bi uvedel popravke na vse uporabnike.\nPOZOR: eksperimentalni način lahko povzroči, da se telefon sesuje medtem ko popravek deluje.</string>
+    <string name="dark_switch_tweak">preklop dan / noč</string>
+    <string name="tutorial_darkmodeswitch">Ta popravek bo dodal stikalo v splošne nastavitve Android Auto (bodisi v avtu kot na telefonu), s katerim se lahko nastavi dnevni ali nočen način. Ta izbira je drugačna od tiste, ki jo dobimo v nastavitvah za razvijalce, saj ne potrebuje ponovnega zagona naprave; prav tako je učinkovita tudi potem ko nam je Google omogočil neodvisen temen način. Potrebna je Android Auto verzija 6.3 ali višja.</string>
+    <string name="remove_paired_car">Odstrani povezan avto</string>
+    <string name="choose_cars">Izberite avto/e</string>
+    <string name="tutorial_carremover">Ali ste vedeli, da je iz Android Auto programa mogoče odstraniti le vse avte na enkrat, ne pa vsakega posamezno? Ta funkcija vam pride na pomoč: izberite avte, ki jih hočete odstraniti iz Android Auto in samo izbrani bodo odstranjeni.</string>
 </resources>
