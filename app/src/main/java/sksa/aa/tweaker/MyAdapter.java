@@ -56,8 +56,8 @@ public class MyAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder, final int i) {
-        final AppInfo appInfo = mAppInfo.get(i);
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder, int i) {
+        final AppInfo appInfo = mAppInfo.get(viewHolder.getAdapterPosition());
         ((MyViewHolder) viewHolder).mName.setText(appInfo.getName());
         ((MyViewHolder) viewHolder).mPackageName.setText(appInfo.getPackageName());
         ((MyViewHolder) viewHolder).mCheckboxApp.setChecked(appInfo.getIsChecked());
@@ -66,9 +66,8 @@ public class MyAdapter extends RecyclerView.Adapter {
             @Override
             public void onClick(View v) {
                 ((MyViewHolder) viewHolder).mCheckboxApp.setChecked(appInfo.getIsChecked());
-                Log.d("eselter", "Clicked checkboc: " + i);
-                onClickSaveAppsWhiteList(v, i);
-                notifyItemChanged(i);
+                onClickSaveAppsWhiteList(v, viewHolder.getAdapterPosition());
+                notifyItemChanged(viewHolder.getAdapterPosition());
             }
         });
     }
