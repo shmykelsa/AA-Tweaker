@@ -48,6 +48,7 @@ public class AppInfo implements Comparable<AppInfo> {
         aAutoAppsList.add("com.mqbcoding.stats");
         aAutoAppsList.add("org.openauto.aautolauncher");
         aAutoAppsList.add("ru.inceptive.screentwoauto");
+        aAutoAppsList.add("com.garage.aastream");
         int comp1;
         int comp2;
         int result;
