@@ -5,6 +5,7 @@
 
 
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -32,6 +33,14 @@
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_list_label"
             android:parentActivityName=".MainActivity" />
+
+        <activity
+            android:name=".AccountsChooseActivity.AccountsChooser"
+            android:configChanges="orientation|keyboardHidden" />
+
+        <activity
+            android:name=".CarRemoverActivity.CarRemover"
+            android:configChanges="orientation|keyboardHidden" />
 
     </application>
 
