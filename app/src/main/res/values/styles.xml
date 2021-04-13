@@ -18,6 +18,12 @@
 
     <style name="TitleBarTextAppearance" parent="android:TextAppearance">
         <item name="android:fontFamily">@font/raleway_semibold</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/dialog_text_color</item>
+    </style>
+
+    <style name="NormalTextAppeareance" parent="android:TextAppearance">
+        <item name="android:fontFamily">@font/raleway_medium</item>
         <item name="android:textColor">@color/dialog_text_color</item>
     </style>
 

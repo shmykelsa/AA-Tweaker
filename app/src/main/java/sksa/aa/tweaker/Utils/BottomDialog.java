@@ -128,6 +128,7 @@ public class BottomDialog {
         if (builder.title != null) {
             vTitle.setText(builder.title);
             vTitle.setTextColor(builder.context.getResources().getColor(R.color.dialog_text_color, builder.context.getTheme()));
+            vTitle.setTextAppearance(R.style.TitleBarTextAppearance);
         } else {
             vTitle.setVisibility(View.GONE);
         }
@@ -135,7 +136,7 @@ public class BottomDialog {
         if (builder.content != null) {
             vContent.setText(builder.content);
             vContent.setTextColor(builder.context.getResources().getColor(R.color.dialog_text_color, builder.context.getTheme()));
-
+            vContent.setTextAppearance(R.style.NormalTextAppeareance);
         } else {
             vContent.setVisibility(View.GONE);
         }
