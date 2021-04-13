@@ -6,9 +6,4 @@
     <item name="android:windowLightStatusBar">false</item>
     <item name="colorAccent">@color/colorAccent</item>
 </style>
-
-    <style name="TitleBarTextAppearance" parent="android:TextAppearance">
-        <item name="android:fontFamily">@font/raleway_semibold</item>
-        <item name="android:textColor">#FFFFFF</item>
-    </style>
 </resources>
