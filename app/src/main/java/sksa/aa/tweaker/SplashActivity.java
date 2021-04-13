@@ -168,7 +168,7 @@ public class SplashActivity extends AppCompatActivity {
                         try {
                             String fetchedVersion = response.getString("tag_name");
                             Version actualCheck = new Version(actualVersion);
-                            Version newCheck = new Version(fetchedVersion.substring(2));
+                            Version newCheck = new Version(fetchedVersion.substring(1));
 
 
                             if (actualCheck.compareTo(newCheck) == -1) {
