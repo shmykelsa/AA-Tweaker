@@ -1,7 +1,9 @@
 package sksa.aa.tweaker.AccountsChooseActivity;
 
+import android.accounts.Account;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -59,10 +61,22 @@ public class AccountsChooser extends AppCompatActivity {
 
         String getAccounts = runSuWithCmd(
                 path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                        "'SELECT DISTINCT user FROM Flags WHERE user != \"\";'").getInputStreamLog();
+                        "'SELECT DISTINCT user FROM ApplicationStates WHERE user != \"\" ORDER BY user ASC;'").getInputStreamLog();
 
 
         ArrayList<AccountInfo> allAccounts = new ArrayList<>();
+
+        final ProgressDialog dialog = ProgressDialog.show(AccountsChooser.this, "",
+                getString(R.string.loading), true);
+        dialog.show();
+
+        while (getAccounts.length() < 1) {
+
+        }
+
+        dialog.dismiss();
+
+
 
         for (String str : getAccounts.split(Objects.requireNonNull(System.getProperty("line.separator")))) {
             allAccounts.add(new AccountInfo(str, false));
