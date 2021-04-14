@@ -2008,11 +2008,6 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.copy:
 
-                final TextView textView = findViewById(R.id.logs);
-
-
-                final String contents = (String) textView.getText();
-
                 final String title = "log";
                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                 StrictMode.setThreadPolicy(policy);
@@ -2023,7 +2018,8 @@ public class MainActivity extends AppCompatActivity {
                         try {
                             final ClipboardManager clipboard = (ClipboardManager)
                                     getSystemService(Context.CLIPBOARD_SERVICE);
-                            URL newstring = Pastebin.pastePaste(BuildConfig.PASTEBIN_API_KEY, contents, title);
+                            TextView textView = findViewById(R.id.logs);
+                            URL newstring = Pastebin.pastePaste(BuildConfig.PASTEBIN_API_KEY, String.valueOf(textView.getText()), title);
                             Toast.makeText(getApplicationContext(), getString(R.string.copied_pastebin), Toast.LENGTH_LONG).show();
                             ClipData clip = ClipData.newPlainText("logs", newstring.toString());
                             clipboard.setPrimaryClip(clip);
@@ -2031,9 +2027,9 @@ public class MainActivity extends AppCompatActivity {
                             e.printStackTrace();
                             final ClipboardManager clipboard = (ClipboardManager)
                                     getSystemService(Context.CLIPBOARD_SERVICE);
-
+                            TextView textView = findViewById(R.id.logs);
                             Toast.makeText(getApplicationContext(), getString(R.string.log_copied), Toast.LENGTH_LONG).show();
-                            ClipData clip = ClipData.newPlainText("logs", contents);
+                            ClipData clip = ClipData.newPlainText("logs", textView.getText());
                             clipboard.setPrimaryClip(clip);
                         } catch (RuntimeException e) {
                             e.printStackTrace();
@@ -2041,7 +2037,10 @@ public class MainActivity extends AppCompatActivity {
                                     getSystemService(Context.CLIPBOARD_SERVICE);
 
                             Toast.makeText(getApplicationContext(), getString(R.string.log_copied), Toast.LENGTH_LONG).show();
-                            ClipData clip = ClipData.newPlainText("logs", contents);
+                            Toast.makeText(getApplicationContext(), getString(R.string.log_copied), Toast.LENGTH_LONG).show();
+                            TextView textView = findViewById(R.id.logs);
+
+                            ClipData clip = ClipData.newPlainText("logs", textView.getText());
                             clipboard.setPrimaryClip(clip);
                         }
                     }
@@ -2152,15 +2151,15 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i <= (usercount - 1); i++) {
             if (multiAccountsMode && !xpmode && !accountsPrefs.getBoolean(String.valueOf(i), false)) {
-                break;
+                continue;
             }
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, stringVal, committed) VALUES (\"com.google.android.gms.car\",0,\"app_white_list\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, stringVal, committed) VALUES (\"com.google.android.gms.car\",0,\"app_white_list\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1),\"");
             finalCommand.append(whiteListStringFinal);
             finalCommand.append("\",1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"should_bypass_validation\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"should_bypass_validation\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -2250,13 +2249,13 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i <= (usercount - 1); i++) {
             if (multiAccountsMode && !xpmode && !accountsPrefs.getBoolean(String.valueOf(i), false)) {
-                break;
+                continue;
             }
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"LauncherShortcuts__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"LauncherShortcuts__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"LauncherShortcuts__assistant_shortcut_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"LauncherShortcuts__assistant_shortcut_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -2346,13 +2345,13 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i <= (usercount - 1); i++) {
             if (multiAccountsMode && !xpmode && !accountsPrefs.getBoolean(String.valueOf(i), false)) {
-                break;
+                continue;
             }
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"AlphaJump__button_in_scroll_bar_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"AlphaJump__button_in_scroll_bar_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"AlphaJump__exclude_from_alpha_jump_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"AlphaJump__exclude_from_alpha_jump_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -2408,7 +2407,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.dismiss();
                 if (xpmode) {
                     appendText(logs, "\n\n--  restoring Google Play Services   --");
-                    appendText(logs, runSuWithCmd("pm disable com.google.android.gms").getStreamLogsWithLabels());
+                    appendText(logs, runSuWithCmd("pm enable com.google.android.gms").getStreamLogsWithLabels());
                 }
                 if (!suitableMethodFound) {
                     final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
@@ -2433,19 +2432,24 @@ public class MainActivity extends AppCompatActivity {
 
         final StringBuilder finalCommand = new StringBuilder();
 
+        if (xpmode) {
+            appendText(logs, "\n\n--  killing Google Play Services   --");
+            appendText(logs, runSuWithCmd("pm disable com.google.android.gms").getStreamLogsWithLabels());
+        }
+
         for (int i = 0; i <= (usercount - 1); i++) {
             if (multiAccountsMode && !xpmode && !accountsPrefs.getBoolean(String.valueOf(i), false)) {
-                break;
+                continue;
             }
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"DayNightMode__car_screen_setting_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"DayNightMode__car_screen_setting_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"DayNightMode__companion_app_setting_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"DayNightMode__companion_app_setting_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"DayNightMode__update_ui_when_setting_changes_kill_switch\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"DayNightMode__update_ui_when_setting_changes_kill_switch\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -2455,9 +2459,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 String path = getApplicationInfo().dataDir;
+
+                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
+
                 suitableMethodFound = true;
                 appendText(logs, "\n\n--  Force stopping Google Play Services   --");
                 appendText(logs, runSuWithCmd("am kill all com.google.android.gms").getStreamLogsWithLabels());
+
+
+
+                appendText(logs, "\n\n--  Gaining ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown root /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
 
 
                 if (xpmode) {
@@ -2484,6 +2496,9 @@ public class MainActivity extends AppCompatActivity {
                     appendText(logs, runSuWithCmd("pm enable com.google.android.gms").getStreamLogsWithLabels());
                 }
 
+                appendText(logs, "\n\n--  Restoring ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
                 if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_daynight_switch\";'").getInputStreamLog().length() <= 4) {
                     suitableMethodFound = false;
                 } else {
@@ -2502,12 +2517,12 @@ public class MainActivity extends AppCompatActivity {
                 dialog.dismiss();
                 if (xpmode) {
                     appendText(logs, "\n\n--  restoring Google Play Services   --");
-                    appendText(logs, runSuWithCmd("pm disable com.google.android.gms").getStreamLogsWithLabels());
+                    appendText(logs, runSuWithCmd("pm enable com.google.android.gms").getStreamLogsWithLabels());
                 }
                 if (!suitableMethodFound) {
                     final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
                     Bundle bundle = new Bundle();
-                    bundle.putString("tweak", "aa_new_alphajump");
+                    bundle.putString("tweak", "aa_daynight_switch");
                     bundle.putString("log", logs.getText().toString());
                     notSuccessfulDialog.setArguments(bundle);
                     notSuccessfulDialog.show(getSupportFragmentManager(), "NotSuccessfulDialog");
@@ -2527,9 +2542,9 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i <= (usercount - 1); i++) {
             if (multiAccountsMode && !xpmode && !accountsPrefs.getBoolean(String.valueOf(i), false)) {
-                break;
+                continue;
             }
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__rail_assistant_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__rail_assistant_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -2605,37 +2620,37 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i <= (usercount - 1); i++) {
             if (multiAccountsMode && !xpmode && !accountsPrefs.getBoolean(String.valueOf(i), false)) {
-                break;
+                continue;
             }
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"CarSensorParameters__max_parked_speed_gps_sensor\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"CarSensorParameters__max_parked_speed_gps_sensor\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,999,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"CarSensorParameters__max_parked_speed_wheel_sensor\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"CarSensorParameters__max_parked_speed_wheel_sensor\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,999,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__enable\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__enable\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__flake_filter_delay_ms\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__flake_filter_delay_ms\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,9999999,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__telemetry_enabled_without_smoothing\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ParkingStateSmoothing__telemetry_enabled_without_smoothing\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreview__unchained\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreview__unchained\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreview__chained\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreview__chained\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreviewVisibilityControl__require_high_accuracy_speed_sensor\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"VisualPreviewVisibilityControl__require_high_accuracy_speed_sensor\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -2715,41 +2730,41 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i <= (usercount - 1); i++) {
             if (multiAccountsMode && !xpmode && !accountsPrefs.getBoolean(String.valueOf(i), false)) {
-                break;
+                continue;
             }
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__multi_region_new_widescreen_activities_enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__multi_region_new_widescreen_activities_enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__require_bfr\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__require_bfr\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"EnhancedNavigationMetadata__enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"EnhancedNavigationMetadata__enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"EnhancedNavigationMetadata__verify_turn_side_when_disabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"EnhancedNavigationMetadata__verify_turn_side_when_disabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__clustersim_enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__clustersim_enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__gal_munger_enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__gal_munger_enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__multi_region_enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__multi_region_enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__cluster_launcher_enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MultiDisplay__cluster_launcher_enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -2833,45 +2848,45 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i <= (usercount - 1); i++) {
             if (multiAccountsMode && !xpmode && !accountsPrefs.getBoolean(String.valueOf(i), false)) {
-                break;
+                continue;
             }
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__drawer_default_allowed_taps_touchpad\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__drawer_default_allowed_taps_touchpad\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,999,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__max_permits\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__max_permits\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,999.0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__enable_speed_bump_projected\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__enable_speed_bump_projected\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__lockout_ms\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__lockout_ms\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__permits_per_sec\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__permits_per_sec\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,999.0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__speedbump_unrestricted_consecutive_scroll_up_actions\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentBrowse__speedbump_unrestricted_consecutive_scroll_up_actions\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,999,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentForwardBrowse__invisalign_default_allowed_items_rotary\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentForwardBrowse__invisalign_default_allowed_items_rotary\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,999,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentForwardBrowse__invisalign_default_allowed_items_touch\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentForwardBrowse__invisalign_default_allowed_items_touch\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,999,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentForwardBrowse__invisalign_default_allowed_items_touchpad\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ContentForwardBrowse__invisalign_default_allowed_items_touchpad\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,999,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Dialer__speedbump_enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Dialer__speedbump_enabled\",(SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -2949,13 +2964,13 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i <= (usercount - 1); i++) {
             if (multiAccountsMode && !xpmode && !accountsPrefs.getBoolean(String.valueOf(i), false)) {
-                break;
+                continue;
             }
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUI__startup_app_policy\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUI__startup_app_policy\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUI__start_in_launcher_if_no_user_selected_nav_app\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUI__start_in_launcher_if_no_user_selected_nav_app\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -3037,9 +3052,9 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i <= (usercount - 1); i++) {
             if (multiAccountsMode && !xpmode && !accountsPrefs.getBoolean(String.valueOf(i), false)) {
-                break;
+                continue;
             }
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BatterySaver__warning_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BatterySaver__warning_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -3119,9 +3134,9 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i <= (usercount - 1); i++) {
             if (multiAccountsMode && !xpmode && !accountsPrefs.getBoolean(String.valueOf(i), false)) {
-                break;
+                continue;
             }
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BatterySaver__icon_outline_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BatterySaver__icon_outline_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -3198,9 +3213,9 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i <= (usercount - 1); i++) {
             if (multiAccountsMode && !xpmode && !accountsPrefs.getBoolean(String.valueOf(i), false)) {
-                break;
+                continue;
             }
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Boardwalk__status_bar_force_opaque\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Boardwalk__status_bar_force_opaque\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -3277,13 +3292,13 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i <= (usercount - 1); i++) {
             if (multiAccountsMode && !xpmode && !accountsPrefs.getBoolean(String.valueOf(i), false)) {
-                break;
+                continue;
             }
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_disable\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_disable\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_skip_pairing\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"BluetoothPairing__car_bluetooth_service_skip_pairing\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -3362,9 +3377,9 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i <= (usercount - 1); i++) {
             if (multiAccountsMode && !xpmode && !accountsPrefs.getBoolean(String.valueOf(i), false)) {
-                break;
+                continue;
             }
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"IndependentNightModeFeature__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"IndependentNightModeFeature__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -3441,141 +3456,141 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i <= (usercount - 1); i++) {
             if (multiAccountsMode && !xpmode && !accountsPrefs.getBoolean(String.valueOf(i), false)) {
-                break;
+                continue;
             }
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"CarEventLoggerRefactorFeature__convert_car_setup_analytics_telemetry\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"CarEventLoggerRefactorFeature__convert_car_setup_analytics_telemetry\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"CarServiceTelemetry__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"CarServiceTelemetry__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"CarServiceTelemetry__is_wifi_kbps_logging_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"CarServiceTelemetry__is_wifi_kbps_logging_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"CarServiceTelemetry__log_battery_temperature\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"CarServiceTelemetry__log_battery_temperature\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.gms.car\",0,\"CarServiceTelemetry__wifi_latency_log_frequency_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.gms.car\",0,\"CarServiceTelemetry__wifi_latency_log_frequency_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,99999999,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.gms.car\",0,\"ConnectivityLogging__heartbeat_interval_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.gms.car\",0,\"ConnectivityLogging__heartbeat_interval_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,99999999,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"TelemetryDriveIdFeature__enable_log_event_validation\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"TelemetryDriveIdFeature__enable_log_event_validation\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"TelemetryDriveIdFeature__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"TelemetryDriveIdFeature__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"UsbStatusLoggingFeature__monitor_usb_ping_telemetry_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"UsbStatusLoggingFeature__monitor_usb_ping_telemetry_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"TelemetryDriveIdForGearheadFeature__enable_frx_setup_logging_via_gearhead\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"TelemetryDriveIdForGearheadFeature__enable_frx_setup_logging_via_gearhead\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.gms.car\",0,\"AudioStatsLoggingFeature__audio_stats_logging_period_milliseconds\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.gms.car\",0,\"AudioStatsLoggingFeature__audio_stats_logging_period_milliseconds\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,99999999,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"FrameworkMediaStatsLoggingFeature__is_media_stats_queue_time_logging_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"FrameworkMediaStatsLoggingFeature__is_media_stats_queue_time_logging_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__num_background_threads\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__num_background_threads\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__include_extra_events\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__include_extra_events\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__enable_heartbeat\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__enable_heartbeat\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"WifiChannelLogging__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"WifiChannelLogging__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__session_info_dump_size\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__session_info_dump_size\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BluetoothMetadataLogger__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"BluetoothMetadataLogger__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"CarEventLoggerRefactorFeature__convert_car_analytics_telemetry\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"CarEventLoggerRefactorFeature__convert_car_analytics_telemetry\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Bugfix__sensitive_permissions_extra_logging\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Bugfix__sensitive_permissions_extra_logging\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__log_bluetooth_rssi\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__log_bluetooth_rssi\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__save_log_when_usb_starts\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__save_log_when_usb_starts\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__skip_retroactive_usb_logging\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__skip_retroactive_usb_logging\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"InternetConnectivityLogging__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"InternetConnectivityLogging__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Telemetry__local_logging\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Telemetry__local_logging\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"WirelessProjectionInGearhead__wireless_wifi_additional_start_logging\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"WirelessProjectionInGearhead__wireless_wifi_additional_start_logging\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Dialer__r_telemetry_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Dialer__r_telemetry_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"AssistantSilenceDiagnostics__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"AssistantSilenceDiagnostics__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"TelemetryDriveIdForGearheadFeature__enable_continuous_telemetry_binding\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"TelemetryDriveIdForGearheadFeature__enable_continuous_telemetry_binding\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"TelemetryDriveIdForGearheadFeature__enable_telemetry_impl_conversion\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"TelemetryDriveIdForGearheadFeature__enable_telemetry_impl_conversion\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,0,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__long_session_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__long_session_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__short_session_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__short_session_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__session_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__session_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__use_realtime_if_invalid\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"ConnectivityLogging__use_realtime_if_invalid\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -3653,9 +3668,9 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i <= (usercount - 1); i++) {
             if (multiAccountsMode && !xpmode && !accountsPrefs.getBoolean(String.valueOf(i), false)) {
-                break;
+                continue;
             }
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__hun_default_heads_up_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__hun_default_heads_up_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1)," + value + ",1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -3733,9 +3748,9 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i <= (usercount - 1); i++) {
             if (multiAccountsMode && !xpmode && !accountsPrefs.getBoolean(String.valueOf(i), false)) {
-                break;
+                continue;
             }
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__media_hun_in_rail_widget_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__media_hun_in_rail_widget_timeout_ms\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1)," + value + ",1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -3816,29 +3831,29 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i <= (usercount - 1); i++) {
             if (multiAccountsMode && !xpmode && !accountsPrefs.getBoolean(String.valueOf(i), false)) {
-                break;
+                continue;
             }
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_1080p_usb\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_1080p_usb\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1)," + String.format("%.0f", 16000000 * value) + ",1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_1080p_usb_hevc\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_1080p_usb_hevc\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1)," + String.format("%.0f", 3000000 * value) + ",1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_480p_usb\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_480p_usb\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1)," + String.format("%.0f", 8000000 * value) + ",1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_480p_usb_hevc\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_480p_usb_hevc\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1)," + String.format("%.0f", 1000000 * value) + ",1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_720p_usb\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_720p_usb\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1)," + String.format("%.0f", 12000000 * value) + ",1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_720p_usb_hevc\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_720p_usb_hevc\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1)," + String.format("%.0f", 2000000 * value) + ",1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -3918,29 +3933,29 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i <= (usercount - 1); i++) {
             if (multiAccountsMode && !xpmode && !accountsPrefs.getBoolean(String.valueOf(i), false)) {
-                break;
+                continue;
             }
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_1080p_wireless\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_1080p_wireless\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1)," + String.format("%.0f", 16000000 * value) + ",1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_1080p_wireless_hevc\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_1080p_wireless_hevc\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1)," + String.format("%.0f", 3000000 * value) + ",1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_480p_wireless\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_480p_wireless\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1)," + String.format("%.0f", 8000000 * value) + ",1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_480p_wireless_hevc\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_480p_wireless_hevc\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1)," + String.format("%.0f", 1000000 * value) + ",1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_720p_wireless\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_720p_wireless\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1)," + String.format("%.0f", 12000000 * value) + ",1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_720p_wireless_hevc\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, floatVal, committed) VALUES (\"com.google.android.gms.car\",0,\"VideoEncoderParamsFeature__bitrate_720p_wireless_hevc\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1)," + String.format("%.0f", 2000000 * value) + ",1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -4018,9 +4033,9 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i <= (usercount - 1); i++) {
             if (multiAccountsMode && !xpmode && !accountsPrefs.getBoolean(String.valueOf(i), false)) {
-                break;
+                continue;
             }
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"McFly__num_days_in_agenda_view\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"McFly__num_days_in_agenda_view\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1)," + value + ",1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -4096,14 +4111,14 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i <= (usercount - 1); i++) {
             if (multiAccountsMode && !xpmode && !accountsPrefs.getBoolean(String.valueOf(i), false)) {
-                break;
+                continue;
             }
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__widescreen_breakpoint_dp\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__widescreen_breakpoint_dp\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1)," + value + ",1);");
             finalCommand.append(System.getProperty("line.separator"));
             if (value == 3000) {
-                finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__regular_layout_max_width_dp\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+                finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType, name, user, intVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__regular_layout_max_width_dp\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
                 finalCommand.append(i);
                 finalCommand.append(",1)," + value + ",1);");
                 finalCommand.append(System.getProperty("line.separator"));
@@ -4194,9 +4209,9 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i <= (usercount - 1); i++) {
             if (multiAccountsMode && !xpmode && !accountsPrefs.getBoolean(String.valueOf(i), false)) {
-                break;
+                continue;
             }
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"CustomWallpaper__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"CustomWallpaper__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -4272,25 +4287,25 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i <= (usercount - 1); i++) {
             if (multiAccountsMode && !xpmode && !accountsPrefs.getBoolean(String.valueOf(i), false)) {
-                break;
+                continue;
             }
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MesquiteFull__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MesquiteFull__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MesquiteLite__notification_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MesquiteLite__notification_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MesquiteLite__sms_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"MesquiteLite__sms_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"NotificationClientAbstraction__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"NotificationClientAbstraction__enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__launcher_notification_badge_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"SystemUi__launcher_notification_badge_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -4361,17 +4376,17 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i <= (usercount - 1); i++) {
             if (multiAccountsMode && !xpmode && !accountsPrefs.getBoolean(String.valueOf(i), false)) {
-                break;
+                continue;
             }
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Tabbouleh__tabs_media_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Tabbouleh__tabs_media_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Tabbouleh__media_browse_back_to_top_level_button_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Tabbouleh__media_browse_back_to_top_level_button_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
-            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Tabbouleh__tabs_media_sticky_tab_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" LIMIT ");
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",0,\"Tabbouleh__tabs_media_sticky_tab_enabled\", (SELECT DISTINCT user FROM Flags WHERE user != \"\" ORDER BY user ASC LIMIT ");
             finalCommand.append(i);
             finalCommand.append(",1) ,1,1);");
             finalCommand.append(System.getProperty("line.separator"));
@@ -4541,13 +4556,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showRebootButton() {
-        final Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.reboot_button_anim);
+        runOnUiThread(new Thread() {
+            @Override
+            public void run() {
+                final Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.reboot_button_anim);
 
-        if (!animationRun) {
-            rebootButton.setVisibility(View.VISIBLE);
-            rebootButton.startAnimation(anim);
-            animationRun = true;
-        }
+                if (!animationRun) {
+                    rebootButton.setVisibility(View.VISIBLE);
+                    rebootButton.startAnimation(anim);
+                    animationRun = true;
+                }
+            }
+        });
+
     }
 
     public static void openApp(Context context, String packageName) {
