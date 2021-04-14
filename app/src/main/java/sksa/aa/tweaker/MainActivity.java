@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
         appDirectory = path;
         loadStatus(path);
         String CountUsers = runSuWithCmd(
-                path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
                         "'SELECT COUNT(DISTINCT USER) FROM Flags WHERE user !=\"\";'").getInputStreamLog();
         final int UserCount = Integer.parseInt(CountUsers);
 
@@ -896,7 +896,7 @@ public class MainActivity extends AppCompatActivity {
             changeStatus(messagesHunStatus, 2, false);
             if (loadValue("messaging_hun_value") == 0) {
                 saveValue(Integer.parseInt(runSuWithCmd(
-                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                        path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
                                 "'SELECT DISTINCT intVal FROM FlagOverrides WHERE name=\"SystemUi__hun_default_heads_up_timeout_ms\";'").getInputStreamLog()), "messaging_hun_value");
             }
             currentlySetHun.setText(getString(R.string.currently_set) + loadValue("messaging_hun_value"));
@@ -1001,7 +1001,7 @@ public class MainActivity extends AppCompatActivity {
             changeStatus(mediaHunStatus, 2, false);
             if (loadValue("media_hun_value") == 0) {
                 saveValue(Integer.parseInt(runSuWithCmd(
-                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                        path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
                                 "'SELECT DISTINCT intVal FROM FlagOverrides WHERE name=\"SystemUi__media_hun_in_rail_widget_timeout_ms\";'").getInputStreamLog()), "media_hun_value");
             }
             currentlySetMediaHun.setText(getString(R.string.currently_set) + loadValue("media_hun_value"));
@@ -1104,7 +1104,7 @@ public class MainActivity extends AppCompatActivity {
             changeStatus(calendarTweakStatus, 2, false);
             if (loadValue("agenda_value") == 0) {
                 saveValue(Integer.parseInt(runSuWithCmd(
-                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                        path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
                                 "'SELECT DISTINCT intVal FROM FlagOverrides WHERE name=\"McFly__num_days_in_agenda_view\";'").getInputStreamLog()), "agenda_value");
             }
             currentlySetAgendaDays.setText(getString(R.string.currently_set) + loadValue("agenda_value"));
@@ -1981,11 +1981,11 @@ public class MainActivity extends AppCompatActivity {
 
                 appendText(logs, "\n\n-- Reverting the hack  --");
                 appendText(logs, runSuWithCmd(
-                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                        path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
                                 "'DROP TRIGGER IF EXISTS " + toRevert + ";'\n"
                 ).getStreamLogsWithLabels());
                 appendText(logs, runSuWithCmd(
-                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                        path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
                                 "'DELETE FROM FlagOverrides;'\n" //make sure a good clean is done after dropping the trigger
                 ).getStreamLogsWithLabels());
             }
@@ -2173,6 +2173,13 @@ public class MainActivity extends AppCompatActivity {
                 suitableMethodFound = true;
                 appendText(logs, "\n\n--  Force stopping Google Play Services   --");
                 appendText(logs, runSuWithCmd("am kill all com.google.android.gms").getStreamLogsWithLabels());
+                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
+                appendText(logs, "\n\n--  Gaining ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown root /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                String currentPolicy = runSuWithCmd("getenforce").getInputStreamLog();
+                appendText(logs, "\n\n--  Setting SELINUX to permessive   --");
+                appendText(logs, runSuWithCmd("setenforce 0").getStreamLogsWithLabels());
 
                 if (xpmode) {
                     appendText(logs, "\n\n--  killing Google Play Services   --");
@@ -2198,14 +2205,14 @@ public class MainActivity extends AppCompatActivity {
 
 
                     appendText(logs, runSuWithCmd(
-                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                            path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
                                     "'CREATE TRIGGER aa_patched_apps AFTER DELETE\n" +
                                     "ON FlagOverrides\n" +
                                     "BEGIN\n" +
                                     finalCommand +
                                     "END;'\n"
                     ).getStreamLogsWithLabels());
-                    if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_patched_apps\";'").getInputStreamLog().length() <= 4) {
+                    if (runSuWithCmd(path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_patched_apps\";'").getInputStreamLog().length() <= 4) {
                         suitableMethodFound = false;
                     } else {
                         appendText(logs, "\n--  end SQL method   --");
@@ -2224,6 +2231,14 @@ public class MainActivity extends AppCompatActivity {
                 if (xpmode) {
                     appendText(logs, "\n\n--  restoring Google Play Services   --");
                     appendText(logs, runSuWithCmd("pm enable com.google.android.gms").getStreamLogsWithLabels());
+                }
+
+appendText(logs, "\n\n--  Restoring ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                if (currentPolicy.toLowerCase().equals("permissive")) {
+                    appendText(logs, "\n\n--  Restoring SELINUX   --");
+                    appendText(logs, runSuWithCmd("setenforce 1").getStreamLogsWithLabels());
                 }
                 if (!suitableMethodFound) {
                     final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
@@ -2268,6 +2283,13 @@ public class MainActivity extends AppCompatActivity {
                 suitableMethodFound = true;
                 appendText(logs, "\n\n--  Force stopping Google Play Services   --");
                 appendText(logs, runSuWithCmd("am kill all com.google.android.gms").getStreamLogsWithLabels());
+                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
+                appendText(logs, "\n\n--  Gaining ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown root /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                String currentPolicy = runSuWithCmd("getenforce").getInputStreamLog();
+                appendText(logs, "\n\n--  Setting SELINUX to permessive   --");
+                appendText(logs, runSuWithCmd("setenforce 0").getStreamLogsWithLabels());
 
 
                 appendText(logs, "\n\n-- Run SQL Commands  --");
@@ -2290,14 +2312,14 @@ public class MainActivity extends AppCompatActivity {
                     ).getStreamLogsWithLabels());
 
                     appendText(logs, runSuWithCmd(
-                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                            path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
                                     "'CREATE TRIGGER assist_short AFTER DELETE\n" +
                                     "ON FlagOverrides\n" +
                                     "BEGIN\n" +
                                     finalCommand +
                                     "END;'\n"
                     ).getStreamLogsWithLabels());
-                    if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"assist_short\";'").getInputStreamLog().length() <= 4) {
+                    if (runSuWithCmd(path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"assist_short\";'").getInputStreamLog().length() <= 4) {
                         suitableMethodFound = false;
                     } else {
                         appendText(logs, "\n--  end SQL method   --");
@@ -2317,6 +2339,14 @@ public class MainActivity extends AppCompatActivity {
                 if (xpmode) {
                     appendText(logs, "\n\n--  restoring Google Play Services   --");
                     appendText(logs, runSuWithCmd("pm enable com.google.android.gms").getStreamLogsWithLabels());
+                }
+
+appendText(logs, "\n\n--  Restoring ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                if (currentPolicy.toLowerCase().equals("permissive")) {
+                    appendText(logs, "\n\n--  Restoring SELINUX   --");
+                    appendText(logs, runSuWithCmd("setenforce 1").getStreamLogsWithLabels());
                 }
 
                 dialog.dismiss();
@@ -2364,6 +2394,13 @@ public class MainActivity extends AppCompatActivity {
                 suitableMethodFound = true;
                 appendText(logs, "\n\n--  Force stopping Google Play Services   --");
                 appendText(logs, runSuWithCmd("am kill all com.google.android.gms").getStreamLogsWithLabels());
+                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
+                appendText(logs, "\n\n--  Gaining ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown root /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                String currentPolicy = runSuWithCmd("getenforce").getInputStreamLog();
+                appendText(logs, "\n\n--  Setting SELINUX to permessive   --");
+                appendText(logs, runSuWithCmd("setenforce 0").getStreamLogsWithLabels());
 
 
                 if (xpmode) {
@@ -2377,7 +2414,7 @@ public class MainActivity extends AppCompatActivity {
                                 "'DROP TRIGGER IF EXISTS \"aa_new_alphajump\";\n" + finalCommand + "'").getStreamLogsWithLabels());
 
                 appendText(logs, runSuWithCmd(
-                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                        path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
                                 "'CREATE TRIGGER aa_new_alphajump AFTER DELETE\n" +
                                 "ON FlagOverrides\n" +
                                 "BEGIN\n" +
@@ -2386,10 +2423,18 @@ public class MainActivity extends AppCompatActivity {
                 ).getStreamLogsWithLabels());
 
                 if (xpmode) {
-                    appendText(logs, "\n\n--  reenabling Google Play Services   --");
+                    appendText(logs, "\n\n--  restoring Google Play Services   --");
                     appendText(logs, runSuWithCmd("pm enable com.google.android.gms").getStreamLogsWithLabels());
                 }
-                if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_new_alphajump\";'").getInputStreamLog().length() <= 4) {
+
+appendText(logs, "\n\n--  Restoring ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                if (currentPolicy.toLowerCase().equals("permissive")) {
+                    appendText(logs, "\n\n--  Restoring SELINUX   --");
+                    appendText(logs, runSuWithCmd("setenforce 1").getStreamLogsWithLabels());
+                }
+                if (runSuWithCmd(path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_new_alphajump\";'").getInputStreamLog().length() <= 4) {
                     suitableMethodFound = false;
                 } else {
                     appendText(logs, "\n--  end SQL method   --");
@@ -2405,10 +2450,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 dialog.dismiss();
-                if (xpmode) {
-                    appendText(logs, "\n\n--  restoring Google Play Services   --");
-                    appendText(logs, runSuWithCmd("pm enable com.google.android.gms").getStreamLogsWithLabels());
-                }
+
                 if (!suitableMethodFound) {
                     final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
                     Bundle bundle = new Bundle();
@@ -2467,9 +2509,12 @@ public class MainActivity extends AppCompatActivity {
                 appendText(logs, runSuWithCmd("am kill all com.google.android.gms").getStreamLogsWithLabels());
 
 
-
                 appendText(logs, "\n\n--  Gaining ownership of the database   --");
                 appendText(logs, runSuWithCmd("chown root /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                String currentPolicy = runSuWithCmd("getenforce").getInputStreamLog();
+                appendText(logs, "\n\n--  Setting SELINUX to permessive   --");
+                appendText(logs, runSuWithCmd("setenforce 0").getStreamLogsWithLabels());
 
 
                 if (xpmode) {
@@ -2480,10 +2525,11 @@ public class MainActivity extends AppCompatActivity {
                 appendText(logs, "\n\n--  run SQL method   --");
                 appendText(logs, runSuWithCmd(
                         path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
-                                "'DROP TRIGGER IF EXISTS \"aa_daynight_switch\";\n" + finalCommand + "'").getStreamLogsWithLabels());
+                                "'DROP TRIGGER IF EXISTS \"aa_daynight_switch\";" + finalCommand + "'").getStreamLogsWithLabels());
+
 
                 appendText(logs, runSuWithCmd(
-                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                        path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
                                 "'CREATE TRIGGER aa_daynight_switch AFTER DELETE\n" +
                                 "ON FlagOverrides\n" +
                                 "BEGIN\n" +
@@ -2491,15 +2537,16 @@ public class MainActivity extends AppCompatActivity {
                                 "END;'\n"
                 ).getStreamLogsWithLabels());
 
-                if (xpmode) {
-                    appendText(logs, "\n\n--  reenabling Google Play Services   --");
-                    appendText(logs, runSuWithCmd("pm enable com.google.android.gms").getStreamLogsWithLabels());
-                }
 
                 appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
 
-                if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_daynight_switch\";'").getInputStreamLog().length() <= 4) {
+                if (currentPolicy.toLowerCase().equals("permissive")) {
+                    appendText(logs, "\n\n--  Restoring SELINUX   --");
+                    appendText(logs, runSuWithCmd("setenforce 1").getStreamLogsWithLabels());
+                }
+
+                if (runSuWithCmd(path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_daynight_switch\";'").getInputStreamLog().length() <= 4) {
                     suitableMethodFound = false;
                 } else {
                     appendText(logs, "\n--  end SQL method   --");
@@ -2557,6 +2604,13 @@ public class MainActivity extends AppCompatActivity {
                 suitableMethodFound = true;
                 appendText(logs, "\n\n--  Force stopping Google Play Services   --");
                 appendText(logs, runSuWithCmd("am kill all com.google.android.gms").getStreamLogsWithLabels());
+                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
+                appendText(logs, "\n\n--  Gaining ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown root /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                String currentPolicy = runSuWithCmd("getenforce").getInputStreamLog();
+                appendText(logs, "\n\n--  Setting SELINUX to permessive   --");
+                appendText(logs, runSuWithCmd("setenforce 0").getStreamLogsWithLabels());
 
                 if (xpmode) {
                     appendText(logs, "\n\n--  killing Google Play Services   --");
@@ -2571,14 +2625,14 @@ public class MainActivity extends AppCompatActivity {
                                 "'DROP TRIGGER IF EXISTS aa_assistant_rail;\n" + finalCommand + "'").getStreamLogsWithLabels());
 
                 appendText(logs, runSuWithCmd(
-                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                        path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
                                 "'CREATE TRIGGER aa_assistant_rail AFTER DELETE\n" +
                                 "ON FlagOverrides\n" +
                                 "BEGIN\n" +
                                 finalCommand +
                                 "END;'\n"
                 ).getStreamLogsWithLabels());
-                if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_assistant_rail\";'").getInputStreamLog().length() <= 4) {
+                if (runSuWithCmd(path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_assistant_rail\";'").getInputStreamLog().length() <= 4) {
                     suitableMethodFound = false;
                 } else {
                     appendText(logs, "\n--  end SQL method   --");
@@ -2595,6 +2649,14 @@ public class MainActivity extends AppCompatActivity {
                 if (xpmode) {
                     appendText(logs, "\n\n--  restoring Google Play Services   --");
                     appendText(logs, runSuWithCmd("pm enable com.google.android.gms").getStreamLogsWithLabels());
+                }
+
+appendText(logs, "\n\n--  Restoring ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                if (currentPolicy.toLowerCase().equals("permissive")) {
+                    appendText(logs, "\n\n--  Restoring SELINUX   --");
+                    appendText(logs, runSuWithCmd("setenforce 1").getStreamLogsWithLabels());
                 }
                 if (!suitableMethodFound) {
                     final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
@@ -2663,6 +2725,13 @@ public class MainActivity extends AppCompatActivity {
                 suitableMethodFound = true;
                 appendText(logs, "\n\n--  Force stopping Google Play Services   --");
                 appendText(logs, runSuWithCmd("am kill all com.google.android.gms").getStreamLogsWithLabels());
+                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
+                appendText(logs, "\n\n--  Gaining ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown root /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                String currentPolicy = runSuWithCmd("getenforce").getInputStreamLog();
+                appendText(logs, "\n\n--  Setting SELINUX to permessive   --");
+                appendText(logs, runSuWithCmd("setenforce 0").getStreamLogsWithLabels());
 
                 if (xpmode) {
                     appendText(logs, "\n\n--  killing Google Play Services   --");
@@ -2679,14 +2748,14 @@ public class MainActivity extends AppCompatActivity {
                                     "'DROP TRIGGER IF EXISTS aa_speed_hack;\n" + finalCommand + "'").getStreamLogsWithLabels());
 
                     appendText(logs, runSuWithCmd(
-                            path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                            path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
                                     "'CREATE TRIGGER aa_speed_hack AFTER DELETE\n" +
                                     "ON FlagOverrides\n" +
                                     "BEGIN\n" +
                                     finalCommand +
                                     "END;'\n"
                     ).getStreamLogsWithLabels());
-                    if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_speed_hack\";'").getInputStreamLog().length() <= 4) {
+                    if (runSuWithCmd(path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_speed_hack\";'").getInputStreamLog().length() <= 4) {
                         suitableMethodFound = false;
                     } else {
                         appendText(logs, "\n--  end SQL method   --");
@@ -2705,6 +2774,14 @@ public class MainActivity extends AppCompatActivity {
                 if (xpmode) {
                     appendText(logs, "\n\n--  restoring Google Play Services   --");
                     appendText(logs, runSuWithCmd("pm enable com.google.android.gms").getStreamLogsWithLabels());
+                }
+
+appendText(logs, "\n\n--  Restoring ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                if (currentPolicy.toLowerCase().equals("permissive")) {
+                    appendText(logs, "\n\n--  Restoring SELINUX   --");
+                    appendText(logs, runSuWithCmd("setenforce 1").getStreamLogsWithLabels());
                 }
                 if (!suitableMethodFound) {
                     final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
@@ -2777,6 +2854,13 @@ public class MainActivity extends AppCompatActivity {
                 suitableMethodFound = true;
                 appendText(logs, "\n\n--  Force stopping Google Play Services   --");
                 appendText(logs, runSuWithCmd("am kill all com.google.android.gms").getStreamLogsWithLabels());
+                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
+                appendText(logs, "\n\n--  Gaining ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown root /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                String currentPolicy = runSuWithCmd("getenforce").getInputStreamLog();
+                appendText(logs, "\n\n--  Setting SELINUX to permessive   --");
+                appendText(logs, runSuWithCmd("setenforce 0").getStreamLogsWithLabels());
 
                 if (xpmode) {
                     appendText(logs, "\n\n--  killing Google Play Services   --");
@@ -2795,14 +2879,14 @@ public class MainActivity extends AppCompatActivity {
 
 
                 appendText(logs, runSuWithCmd(
-                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                        path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
                                 "'CREATE TRIGGER multi_display AFTER DELETE\n" +
                                 "ON FlagOverrides\n" +
                                 "BEGIN\n" +
                                 finalCommand +
                                 "END;'\n"
                 ).getStreamLogsWithLabels());
-                if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"multi_display\";'").getInputStreamLog().length() <= 4) {
+                if (runSuWithCmd(path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"multi_display\";'").getInputStreamLog().length() <= 4) {
                     suitableMethodFound = false;
                 } else {
                     appendText(logs, "\n--  end SQL method   --");
@@ -2822,6 +2906,14 @@ public class MainActivity extends AppCompatActivity {
                 if (xpmode) {
                     appendText(logs, "\n\n--  restoring Google Play Services   --");
                     appendText(logs, runSuWithCmd("pm enable com.google.android.gms").getStreamLogsWithLabels());
+                }
+
+appendText(logs, "\n\n--  Restoring ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                if (currentPolicy.toLowerCase().equals("permissive")) {
+                    appendText(logs, "\n\n--  Restoring SELINUX   --");
+                    appendText(logs, runSuWithCmd("setenforce 1").getStreamLogsWithLabels());
                 }
                 if (!suitableMethodFound) {
                     final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
@@ -2899,6 +2991,13 @@ public class MainActivity extends AppCompatActivity {
                 suitableMethodFound = true;
                 appendText(logs, "\n\n--  Force stopping Google Play Services   --");
                 appendText(logs, runSuWithCmd("am kill all com.google.android.gms").getStreamLogsWithLabels());
+                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
+                appendText(logs, "\n\n--  Gaining ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown root /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                String currentPolicy = runSuWithCmd("getenforce").getInputStreamLog();
+                appendText(logs, "\n\n--  Setting SELINUX to permessive   --");
+                appendText(logs, runSuWithCmd("setenforce 0").getStreamLogsWithLabels());
 
 
                 appendText(logs, "\n\n-- Run SQL Commands  --");
@@ -2920,7 +3019,7 @@ public class MainActivity extends AppCompatActivity {
                                     "'CREATE TRIGGER aa_six_tap AFTER DELETE\n" +
                                     "ON FlagOverrides\n BEGIN\n" + finalCommand + "END;'\n"
                     ).getStreamLogsWithLabels());
-                    if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_six_tap\";'").getInputStreamLog().length() <= 4) {
+                    if (runSuWithCmd(path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_six_tap\";'").getInputStreamLog().length() <= 4) {
                         suitableMethodFound = false;
                     } else {
                         appendText(logs, "\n--  end SQL method   --");
@@ -2938,6 +3037,14 @@ public class MainActivity extends AppCompatActivity {
                 if (xpmode) {
                     appendText(logs, "\n\n--  restoring Google Play Services   --");
                     appendText(logs, runSuWithCmd("pm enable com.google.android.gms").getStreamLogsWithLabels());
+                }
+
+appendText(logs, "\n\n--  Restoring ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                if (currentPolicy.toLowerCase().equals("permissive")) {
+                    appendText(logs, "\n\n--  Restoring SELINUX   --");
+                    appendText(logs, runSuWithCmd("setenforce 1").getStreamLogsWithLabels());
                 }
                 dialog.dismiss();
                 if (!suitableMethodFound) {
@@ -2983,6 +3090,13 @@ public class MainActivity extends AppCompatActivity {
                 suitableMethodFound = true;
                 appendText(logs, "\n\n--  Force stopping Google Play Services   --");
                 appendText(logs, runSuWithCmd("am kill all com.google.android.gms").getStreamLogsWithLabels());
+                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
+                appendText(logs, "\n\n--  Gaining ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown root /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                String currentPolicy = runSuWithCmd("getenforce").getInputStreamLog();
+                appendText(logs, "\n\n--  Setting SELINUX to permessive   --");
+                appendText(logs, runSuWithCmd("setenforce 0").getStreamLogsWithLabels());
 
                 if (xpmode) {
                     appendText(logs, "\n\n--  killing Google Play Services   --");
@@ -3007,7 +3121,7 @@ public class MainActivity extends AppCompatActivity {
                                 "BEGIN\n" + "DELETE FROM FLAGS WHERE packageName=\"com.google.android.projection.gearhead\" AND name LIKE \"SystemUi__start%\";\n" +
                                 "END;'\n"
                 ).getStreamLogsWithLabels());
-                if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_startup_policy_cleanup\";'").getInputStreamLog().length() <= 4) {
+                if (runSuWithCmd(path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_startup_policy_cleanup\";'").getInputStreamLog().length() <= 4) {
                     suitableMethodFound = false;
                 } else {
                     appendText(logs, "\n--  end SQL method   --");
@@ -3024,6 +3138,14 @@ public class MainActivity extends AppCompatActivity {
                 if (xpmode) {
                     appendText(logs, "\n\n--  restoring Google Play Services   --");
                     appendText(logs, runSuWithCmd("pm enable com.google.android.gms").getStreamLogsWithLabels());
+                }
+
+appendText(logs, "\n\n--  Restoring ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                if (currentPolicy.toLowerCase().equals("permissive")) {
+                    appendText(logs, "\n\n--  Restoring SELINUX   --");
+                    appendText(logs, runSuWithCmd("setenforce 1").getStreamLogsWithLabels());
                 }
                 dialog.dismiss();
                 if (!suitableMethodFound) {
@@ -3067,6 +3189,13 @@ public class MainActivity extends AppCompatActivity {
                 suitableMethodFound = true;
                 appendText(logs, "\n\n--  Force stopping Google Play Services   --");
                 appendText(logs, runSuWithCmd("am kill all com.google.android.gms").getStreamLogsWithLabels());
+                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
+                appendText(logs, "\n\n--  Gaining ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown root /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                String currentPolicy = runSuWithCmd("getenforce").getInputStreamLog();
+                appendText(logs, "\n\n--  Setting SELINUX to permessive   --");
+                appendText(logs, runSuWithCmd("setenforce 0").getStreamLogsWithLabels());
 
                 if (xpmode) {
                     appendText(logs, "\n\n--  killing Google Play Services   --");
@@ -3084,12 +3213,12 @@ public class MainActivity extends AppCompatActivity {
                 ).getStreamLogsWithLabels());
 
                 appendText(logs, runSuWithCmd(
-                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                        path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
                                 "'CREATE TRIGGER battery_saver_warning AFTER DELETE\n" +
                                 "ON FlagOverrides\n" +
                                 "BEGIN\n" + finalCommand + "END;'\n"
                 ).getStreamLogsWithLabels());
-                if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"battery_saver_warning\";'").getInputStreamLog().length() <= 4) {
+                if (runSuWithCmd(path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"battery_saver_warning\";'").getInputStreamLog().length() <= 4) {
                     suitableMethodFound = false;
                 } else {
                     appendText(logs, "\n--  end SQL method   --");
@@ -3106,6 +3235,14 @@ public class MainActivity extends AppCompatActivity {
                 if (xpmode) {
                     appendText(logs, "\n\n--  restoring Google Play Services   --");
                     appendText(logs, runSuWithCmd("pm enable com.google.android.gms").getStreamLogsWithLabels());
+                }
+
+appendText(logs, "\n\n--  Restoring ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                if (currentPolicy.toLowerCase().equals("permissive")) {
+                    appendText(logs, "\n\n--  Restoring SELINUX   --");
+                    appendText(logs, runSuWithCmd("setenforce 1").getStreamLogsWithLabels());
                 }
                 dialog.dismiss();
                 if (!suitableMethodFound) {
@@ -3149,6 +3286,13 @@ public class MainActivity extends AppCompatActivity {
                 suitableMethodFound = true;
                 appendText(logs, "\n\n--  Force stopping Google Play Services   --");
                 appendText(logs, runSuWithCmd("am kill all com.google.android.gms").getStreamLogsWithLabels());
+                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
+                appendText(logs, "\n\n--  Gaining ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown root /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                String currentPolicy = runSuWithCmd("getenforce").getInputStreamLog();
+                appendText(logs, "\n\n--  Setting SELINUX to permessive   --");
+                appendText(logs, runSuWithCmd("setenforce 0").getStreamLogsWithLabels());
 
                 if (xpmode) {
                     appendText(logs, "\n\n--  killing Google Play Services   --");
@@ -3163,12 +3307,12 @@ public class MainActivity extends AppCompatActivity {
                 ).getStreamLogsWithLabels());
 
                 appendText(logs, runSuWithCmd(
-                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                        path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
                                 "'CREATE TRIGGER aa_battery_outline AFTER DELETE\n" +
                                 "ON FlagOverrides\n" +
                                 "BEGIN\n" + finalCommand + "END;'\n"
                 ).getStreamLogsWithLabels());
-                if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_battery_outline\";'").getInputStreamLog().length() <= 4) {
+                if (runSuWithCmd(path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_battery_outline\";'").getInputStreamLog().length() <= 4) {
                     suitableMethodFound = false;
                 } else {
                     appendText(logs, "\n--  end SQL method   --");
@@ -3185,6 +3329,14 @@ public class MainActivity extends AppCompatActivity {
                 if (xpmode) {
                     appendText(logs, "\n\n--  restoring Google Play Services   --");
                     appendText(logs, runSuWithCmd("pm enable com.google.android.gms").getStreamLogsWithLabels());
+                }
+
+appendText(logs, "\n\n--  Restoring ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                if (currentPolicy.toLowerCase().equals("permissive")) {
+                    appendText(logs, "\n\n--  Restoring SELINUX   --");
+                    appendText(logs, runSuWithCmd("setenforce 1").getStreamLogsWithLabels());
                 }
                 dialog.dismiss();
                 if (!suitableMethodFound) {
@@ -3228,6 +3380,13 @@ public class MainActivity extends AppCompatActivity {
                 suitableMethodFound = true;
                 appendText(logs, "\n\n--  Force stopping Google Play Services   --");
                 appendText(logs, runSuWithCmd("am kill all com.google.android.gms").getStreamLogsWithLabels());
+                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
+                appendText(logs, "\n\n--  Gaining ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown root /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                String currentPolicy = runSuWithCmd("getenforce").getInputStreamLog();
+                appendText(logs, "\n\n--  Setting SELINUX to permessive   --");
+                appendText(logs, runSuWithCmd("setenforce 0").getStreamLogsWithLabels());
 
                 if (xpmode) {
                     appendText(logs, "\n\n--  killing Google Play Services   --");
@@ -3243,12 +3402,12 @@ public class MainActivity extends AppCompatActivity {
 
 
                 appendText(logs, runSuWithCmd(
-                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                        path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
                                 "'CREATE TRIGGER aa_sb_opaque AFTER DELETE\n" +
                                 "ON FlagOverrides\n" +
                                 "BEGIN\n" + finalCommand + "END;'\n"
                 ).getStreamLogsWithLabels());
-                if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_sb_opaque\";'").getInputStreamLog().length() <= 4) {
+                if (runSuWithCmd(path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_sb_opaque\";'").getInputStreamLog().length() <= 4) {
                     suitableMethodFound = false;
                 } else {
                     appendText(logs, "\n--  end SQL method   --");
@@ -3265,6 +3424,14 @@ public class MainActivity extends AppCompatActivity {
                 if (xpmode) {
                     appendText(logs, "\n\n--  restoring Google Play Services   --");
                     appendText(logs, runSuWithCmd("pm enable com.google.android.gms").getStreamLogsWithLabels());
+                }
+
+appendText(logs, "\n\n--  Restoring ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                if (currentPolicy.toLowerCase().equals("permissive")) {
+                    appendText(logs, "\n\n--  Restoring SELINUX   --");
+                    appendText(logs, runSuWithCmd("setenforce 1").getStreamLogsWithLabels());
                 }
                 dialog.dismiss();
                 if (!suitableMethodFound) {
@@ -3311,6 +3478,13 @@ public class MainActivity extends AppCompatActivity {
                 suitableMethodFound = true;
                 appendText(logs, "\n\n--  Force stopping Google Play Services   --");
                 appendText(logs, runSuWithCmd("am kill all com.google.android.gms").getStreamLogsWithLabels());
+                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
+                appendText(logs, "\n\n--  Gaining ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown root /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                String currentPolicy = runSuWithCmd("getenforce").getInputStreamLog();
+                appendText(logs, "\n\n--  Setting SELINUX to permessive   --");
+                appendText(logs, runSuWithCmd("setenforce 0").getStreamLogsWithLabels());
 
                 if (xpmode) {
                     appendText(logs, "\n\n--  killing Google Play Services   --");
@@ -3328,12 +3502,12 @@ public class MainActivity extends AppCompatActivity {
 
 
                 appendText(logs, runSuWithCmd(
-                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                        path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
                                 "'CREATE TRIGGER bluetooth_pairing_off AFTER DELETE\n" +
                                 "ON FlagOverrides\n" +
                                 "BEGIN\n" + finalCommand + "END;'\n"
                 ).getStreamLogsWithLabels());
-                if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"bluetooth_pairing_off\";'").getInputStreamLog().length() <= 4) {
+                if (runSuWithCmd(path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"bluetooth_pairing_off\";'").getInputStreamLog().length() <= 4) {
                     suitableMethodFound = false;
                 } else {
                     appendText(logs, "\n--  end SQL method   --");
@@ -3350,6 +3524,14 @@ public class MainActivity extends AppCompatActivity {
                 if (xpmode) {
                     appendText(logs, "\n\n--  restoring Google Play Services   --");
                     appendText(logs, runSuWithCmd("pm enable com.google.android.gms").getStreamLogsWithLabels());
+                }
+
+appendText(logs, "\n\n--  Restoring ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                if (currentPolicy.toLowerCase().equals("permissive")) {
+                    appendText(logs, "\n\n--  Restoring SELINUX   --");
+                    appendText(logs, runSuWithCmd("setenforce 1").getStreamLogsWithLabels());
                 }
                 dialog.dismiss();
                 if (!suitableMethodFound) {
@@ -3392,6 +3574,13 @@ public class MainActivity extends AppCompatActivity {
                 suitableMethodFound = true;
                 appendText(logs, "\n\n--  Force stopping Google Play Services   --");
                 appendText(logs, runSuWithCmd("am kill all com.google.android.gms").getStreamLogsWithLabels());
+                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
+                appendText(logs, "\n\n--  Gaining ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown root /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                String currentPolicy = runSuWithCmd("getenforce").getInputStreamLog();
+                appendText(logs, "\n\n--  Setting SELINUX to permessive   --");
+                appendText(logs, runSuWithCmd("setenforce 0").getStreamLogsWithLabels());
 
                 if (xpmode) {
                     appendText(logs, "\n\n--  killing Google Play Services   --");
@@ -3407,12 +3596,12 @@ public class MainActivity extends AppCompatActivity {
                 ).getStreamLogsWithLabels());
 
                 appendText(logs, runSuWithCmd(
-                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                        path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
                                 "'CREATE TRIGGER aa_night_mode_revert AFTER DELETE\n" +
                                 "ON FlagOverrides\n" +
                                 "BEGIN\n" + finalCommand + "END;'\n"
                 ).getStreamLogsWithLabels());
-                if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_night_mode_revert\";'").getInputStreamLog().length() <= 4) {
+                if (runSuWithCmd(path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_night_mode_revert\";'").getInputStreamLog().length() <= 4) {
                     suitableMethodFound = false;
                 } else {
                     appendText(logs, "\n--  end SQL method   --");
@@ -3429,6 +3618,14 @@ public class MainActivity extends AppCompatActivity {
                 if (xpmode) {
                     appendText(logs, "\n\n--  restoring Google Play Services   --");
                     appendText(logs, runSuWithCmd("pm enable com.google.android.gms").getStreamLogsWithLabels());
+                }
+
+appendText(logs, "\n\n--  Restoring ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                if (currentPolicy.toLowerCase().equals("permissive")) {
+                    appendText(logs, "\n\n--  Restoring SELINUX   --");
+                    appendText(logs, runSuWithCmd("setenforce 1").getStreamLogsWithLabels());
                 }
                 dialog.dismiss();
                 if (!suitableMethodFound) {
@@ -3603,6 +3800,13 @@ public class MainActivity extends AppCompatActivity {
                 suitableMethodFound = true;
                 appendText(logs, "\n\n--  Force stopping Google Play Services   --");
                 appendText(logs, runSuWithCmd("am kill all com.google.android.gms").getStreamLogsWithLabels());
+                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
+                appendText(logs, "\n\n--  Gaining ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown root /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                String currentPolicy = runSuWithCmd("getenforce").getInputStreamLog();
+                appendText(logs, "\n\n--  Setting SELINUX to permessive   --");
+                appendText(logs, runSuWithCmd("setenforce 0").getStreamLogsWithLabels());
 
                 if (xpmode) {
                     appendText(logs, "\n\n--  killing Google Play Services   --");
@@ -3620,12 +3824,12 @@ public class MainActivity extends AppCompatActivity {
 
 
                 appendText(logs, runSuWithCmd(
-                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                        path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
                                 "'CREATE TRIGGER kill_telemetry AFTER DELETE\n" +
                                 "ON FlagOverrides\n" +
                                 "BEGIN\n" + finalCommand + "END;'\n"
                 ).getStreamLogsWithLabels());
-                if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"kill_telemetry\";'").getInputStreamLog().length() <= 4) {
+                if (runSuWithCmd(path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"kill_telemetry\";'").getInputStreamLog().length() <= 4) {
                     suitableMethodFound = false;
                 } else {
                     appendText(logs, "\n--  end SQL method   --");
@@ -3644,6 +3848,14 @@ public class MainActivity extends AppCompatActivity {
                 if (xpmode) {
                     appendText(logs, "\n\n--  restoring Google Play Services   --");
                     appendText(logs, runSuWithCmd("pm enable com.google.android.gms").getStreamLogsWithLabels());
+                }
+
+appendText(logs, "\n\n--  Restoring ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                if (currentPolicy.toLowerCase().equals("permissive")) {
+                    appendText(logs, "\n\n--  Restoring SELINUX   --");
+                    appendText(logs, runSuWithCmd("setenforce 1").getStreamLogsWithLabels());
                 }
                 if (!suitableMethodFound) {
                     final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
@@ -3684,6 +3896,13 @@ public class MainActivity extends AppCompatActivity {
                 suitableMethodFound = true;
                 appendText(logs, "\n\n--  Force stopping Google Play Services   --");
                 appendText(logs, runSuWithCmd("am kill all com.google.android.gms").getStreamLogsWithLabels());
+                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
+                appendText(logs, "\n\n--  Gaining ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown root /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                String currentPolicy = runSuWithCmd("getenforce").getInputStreamLog();
+                appendText(logs, "\n\n--  Setting SELINUX to permessive   --");
+                appendText(logs, runSuWithCmd("setenforce 0").getStreamLogsWithLabels());
 
                 if (xpmode) {
                     appendText(logs, "\n\n--  killing Google Play Services   --");
@@ -3699,12 +3918,12 @@ public class MainActivity extends AppCompatActivity {
 
 
                 appendText(logs, runSuWithCmd(
-                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                        path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
                                 "'CREATE TRIGGER aa_hun_ms AFTER DELETE\n" +
                                 "ON FlagOverrides\n" +
                                 "BEGIN\n" + finalCommand + "END;'\n"
                 ).getStreamLogsWithLabels());
-                if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_hun_ms\";'").getInputStreamLog().length() <= 4) {
+                if (runSuWithCmd(path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_hun_ms\";'").getInputStreamLog().length() <= 4) {
                     suitableMethodFound = false;
                 } else {
                     appendText(logs, "\n--  end SQL method   --");
@@ -3722,6 +3941,14 @@ public class MainActivity extends AppCompatActivity {
                 if (xpmode) {
                     appendText(logs, "\n\n--  restoring Google Play Services   --");
                     appendText(logs, runSuWithCmd("pm enable com.google.android.gms").getStreamLogsWithLabels());
+                }
+
+appendText(logs, "\n\n--  Restoring ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                if (currentPolicy.toLowerCase().equals("permissive")) {
+                    appendText(logs, "\n\n--  Restoring SELINUX   --");
+                    appendText(logs, runSuWithCmd("setenforce 1").getStreamLogsWithLabels());
                 }
                 if (!suitableMethodFound) {
                     final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
@@ -3764,6 +3991,13 @@ public class MainActivity extends AppCompatActivity {
                 suitableMethodFound = true;
                 appendText(logs, "\n\n--  Force stopping Google Play Services   --");
                 appendText(logs, runSuWithCmd("am kill all com.google.android.gms").getStreamLogsWithLabels());
+                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
+                appendText(logs, "\n\n--  Gaining ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown root /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                String currentPolicy = runSuWithCmd("getenforce").getInputStreamLog();
+                appendText(logs, "\n\n--  Setting SELINUX to permessive   --");
+                appendText(logs, runSuWithCmd("setenforce 0").getStreamLogsWithLabels());
 
                 if (xpmode) {
                     appendText(logs, "\n\n--  killing Google Play Services   --");
@@ -3779,12 +4013,12 @@ public class MainActivity extends AppCompatActivity {
                 ).getStreamLogsWithLabels());
 
                 appendText(logs, runSuWithCmd(
-                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                        path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
                                 "'CREATE TRIGGER aa_media_hun AFTER DELETE\n" +
                                 "ON FlagOverrides\n" +
                                 "BEGIN\n" + finalCommand + "END;'\n"
                 ).getStreamLogsWithLabels());
-                if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_media_hun\";'").getInputStreamLog().length() <= 4) {
+                if (runSuWithCmd(path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_media_hun\";'").getInputStreamLog().length() <= 4) {
                     suitableMethodFound = false;
                 } else {
                     appendText(logs, "\n--  end SQL method   --");
@@ -3803,6 +4037,14 @@ public class MainActivity extends AppCompatActivity {
                 if (xpmode) {
                     appendText(logs, "\n\n--  restoring Google Play Services   --");
                     appendText(logs, runSuWithCmd("pm enable com.google.android.gms").getStreamLogsWithLabels());
+                }
+
+appendText(logs, "\n\n--  Restoring ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                if (currentPolicy.toLowerCase().equals("permissive")) {
+                    appendText(logs, "\n\n--  Restoring SELINUX   --");
+                    appendText(logs, runSuWithCmd("setenforce 1").getStreamLogsWithLabels());
                 }
 
                 if (!suitableMethodFound) {
@@ -3866,6 +4108,13 @@ public class MainActivity extends AppCompatActivity {
                 suitableMethodFound = true;
                 appendText(logs, "\n\n--  Force stopping Google Play Services   --");
                 appendText(logs, runSuWithCmd("am kill all com.google.android.gms").getStreamLogsWithLabels());
+                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
+                appendText(logs, "\n\n--  Gaining ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown root /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                String currentPolicy = runSuWithCmd("getenforce").getInputStreamLog();
+                appendText(logs, "\n\n--  Setting SELINUX to permessive   --");
+                appendText(logs, runSuWithCmd("setenforce 0").getStreamLogsWithLabels());
 
                 if (xpmode) {
                     appendText(logs, "\n\n--  killing Google Play Services   --");
@@ -3883,12 +4132,12 @@ public class MainActivity extends AppCompatActivity {
 
 
                 appendText(logs, runSuWithCmd(
-                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                        path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
                                 "'CREATE TRIGGER aa_bitrate_usb AFTER DELETE\n" +
                                 "ON FlagOverrides\n" +
                                 "BEGIN\n" + finalCommand + "END;'\n"
                 ).getStreamLogsWithLabels());
-                if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_bitrate_usb\";'").getInputStreamLog().length() <= 4) {
+                if (runSuWithCmd(path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_bitrate_usb\";'").getInputStreamLog().length() <= 4) {
                     suitableMethodFound = false;
                 } else {
                     appendText(logs, "\n--  end SQL method   --");
@@ -3906,6 +4155,14 @@ public class MainActivity extends AppCompatActivity {
                 if (xpmode) {
                     appendText(logs, "\n\n--  restoring Google Play Services   --");
                     appendText(logs, runSuWithCmd("pm enable com.google.android.gms").getStreamLogsWithLabels());
+                }
+
+appendText(logs, "\n\n--  Restoring ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                if (currentPolicy.toLowerCase().equals("permissive")) {
+                    appendText(logs, "\n\n--  Restoring SELINUX   --");
+                    appendText(logs, runSuWithCmd("setenforce 1").getStreamLogsWithLabels());
                 }
                 dialog.dismiss();
                 if (!suitableMethodFound) {
@@ -3968,6 +4225,13 @@ public class MainActivity extends AppCompatActivity {
                 suitableMethodFound = true;
                 appendText(logs, "\n\n--  Force stopping Google Play Services   --");
                 appendText(logs, runSuWithCmd("am kill all com.google.android.gms").getStreamLogsWithLabels());
+                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
+                appendText(logs, "\n\n--  Gaining ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown root /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                String currentPolicy = runSuWithCmd("getenforce").getInputStreamLog();
+                appendText(logs, "\n\n--  Setting SELINUX to permessive   --");
+                appendText(logs, runSuWithCmd("setenforce 0").getStreamLogsWithLabels());
 
 
                 if (xpmode) {
@@ -3982,12 +4246,12 @@ public class MainActivity extends AppCompatActivity {
                 ).getStreamLogsWithLabels());
 
                 appendText(logs, runSuWithCmd(
-                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                        path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
                                 "'CREATE TRIGGER aa_bitrate_wireless AFTER DELETE\n" +
                                 "ON FlagOverrides\n" +
                                 "BEGIN\n" + finalCommand + "END;'\n"
                 ).getStreamLogsWithLabels());
-                if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_bitrate_wireless\";'").getInputStreamLog().length() <= 4) {
+                if (runSuWithCmd(path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_bitrate_wireless\";'").getInputStreamLog().length() <= 4) {
                     suitableMethodFound = false;
                 } else {
                     appendText(logs, "\n--  end SQL method   --");
@@ -4006,6 +4270,14 @@ public class MainActivity extends AppCompatActivity {
                 if (xpmode) {
                     appendText(logs, "\n\n--  restoring Google Play Services   --");
                     appendText(logs, runSuWithCmd("pm enable com.google.android.gms").getStreamLogsWithLabels());
+                }
+
+appendText(logs, "\n\n--  Restoring ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                if (currentPolicy.toLowerCase().equals("permissive")) {
+                    appendText(logs, "\n\n--  Restoring SELINUX   --");
+                    appendText(logs, runSuWithCmd("setenforce 1").getStreamLogsWithLabels());
                 }
                 dialog.dismiss();
                 if (!suitableMethodFound) {
@@ -4048,6 +4320,13 @@ public class MainActivity extends AppCompatActivity {
                 suitableMethodFound = true;
                 appendText(logs, "\n\n--  Force stopping Google Play Services   --");
                 appendText(logs, runSuWithCmd("am kill all com.google.android.gms").getStreamLogsWithLabels());
+                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
+                appendText(logs, "\n\n--  Gaining ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown root /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                String currentPolicy = runSuWithCmd("getenforce").getInputStreamLog();
+                appendText(logs, "\n\n--  Setting SELINUX to permessive   --");
+                appendText(logs, runSuWithCmd("setenforce 0").getStreamLogsWithLabels());
                 if (xpmode) {
                     appendText(logs, "\n\n--  killing Google Play Services   --");
                     appendText(logs, runSuWithCmd("pm disable com.google.android.gms").getStreamLogsWithLabels());
@@ -4061,14 +4340,14 @@ public class MainActivity extends AppCompatActivity {
 
                 appendText(logs, "\n\n--  run SQL method   --");
                 appendText(logs, runSuWithCmd(
-                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                        path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
                                 "'CREATE TRIGGER calendar_aa_tweak AFTER DELETE\n" +
                                 "ON FlagOverrides\n" +
                                 "BEGIN\n" + finalCommand + "END;'\n"
                 ).getStreamLogsWithLabels());
 
 
-                if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"calendar_aa_tweak\";'").getInputStreamLog().length() <= 4) {
+                if (runSuWithCmd(path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"calendar_aa_tweak\";'").getInputStreamLog().length() <= 4) {
                     suitableMethodFound = false;
                 } else {
                     appendText(logs, "\n--  end SQL method   --");
@@ -4086,6 +4365,14 @@ public class MainActivity extends AppCompatActivity {
                 if (xpmode) {
                     appendText(logs, "\n\n--  restoring Google Play Services   --");
                     appendText(logs, runSuWithCmd("pm enable com.google.android.gms").getStreamLogsWithLabels());
+                }
+
+appendText(logs, "\n\n--  Restoring ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                if (currentPolicy.toLowerCase().equals("permissive")) {
+                    appendText(logs, "\n\n--  Restoring SELINUX   --");
+                    appendText(logs, runSuWithCmd("setenforce 1").getStreamLogsWithLabels());
                 }
                 dialog.dismiss();
                 if (!suitableMethodFound) {
@@ -4132,6 +4419,13 @@ public class MainActivity extends AppCompatActivity {
                 suitableMethodFound = true;
                 appendText(logs, "\n\n--  Force stopping Google Play Services   --");
                 appendText(logs, runSuWithCmd("am kill all com.google.android.gms").getStreamLogsWithLabels());
+                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
+                appendText(logs, "\n\n--  Gaining ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown root /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                String currentPolicy = runSuWithCmd("getenforce").getInputStreamLog();
+                appendText(logs, "\n\n--  Setting SELINUX to permessive   --");
+                appendText(logs, runSuWithCmd("setenforce 0").getStreamLogsWithLabels());
                 String decideWhat = new String();
 
                 if (xpmode) {
@@ -4155,12 +4449,12 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 appendText(logs, runSuWithCmd(
-                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                        path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
                                 "'CREATE TRIGGER " + decideWhat + " AFTER DELETE\n" +
                                 "ON FlagOverrides\n" +
                                 "BEGIN\n" + finalCommand + "END;'\n"
                 ).getStreamLogsWithLabels());
-                if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"" + decideWhat + "\";'").getInputStreamLog().length() <= 4) {
+                if (runSuWithCmd(path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"" + decideWhat + "\";'").getInputStreamLog().length() <= 4) {
                     suitableMethodFound = false;
                 } else {
                     appendText(logs, "\n--  end SQL method   --");
@@ -4182,6 +4476,14 @@ public class MainActivity extends AppCompatActivity {
                 if (xpmode) {
                     appendText(logs, "\n\n--  restoring Google Play Services   --");
                     appendText(logs, runSuWithCmd("pm enable com.google.android.gms").getStreamLogsWithLabels());
+                }
+
+appendText(logs, "\n\n--  Restoring ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                if (currentPolicy.toLowerCase().equals("permissive")) {
+                    appendText(logs, "\n\n--  Restoring SELINUX   --");
+                    appendText(logs, runSuWithCmd("setenforce 1").getStreamLogsWithLabels());
                 }
                 dialog.dismiss();
                 if (!suitableMethodFound) {
@@ -4224,7 +4526,14 @@ public class MainActivity extends AppCompatActivity {
                 suitableMethodFound = true;
 
                 appendText(logs, "\n\n--  Force stopping Google Play Services   --");
-                appendText(logs, runSuWithCmd("am kill com.google.android.gms").getStreamLogsWithLabels());
+                appendText(logs, runSuWithCmd("am kill all com.google.android.gms").getStreamLogsWithLabels());
+                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
+                appendText(logs, "\n\n--  Gaining ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown root /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                String currentPolicy = runSuWithCmd("getenforce").getInputStreamLog();
+                appendText(logs, "\n\n--  Setting SELINUX to permessive   --");
+                appendText(logs, runSuWithCmd("setenforce 0").getStreamLogsWithLabels());
 
 
                 if (xpmode) {
@@ -4240,12 +4549,12 @@ public class MainActivity extends AppCompatActivity {
                 ).getStreamLogsWithLabels());
 
                 appendText(logs, runSuWithCmd(
-                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                        path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
                                 "'CREATE TRIGGER aa_wallpapers AFTER DELETE\n" +
                                 "ON FlagOverrides\n" +
                                 "BEGIN\n" + finalCommand + "END;'\n"
                 ).getStreamLogsWithLabels());
-                if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_wallpapers\";'").getInputStreamLog().length() <= 4) {
+                if (runSuWithCmd(path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_wallpapers\";'").getInputStreamLog().length() <= 4) {
                     suitableMethodFound = false;
                 } else {
                     appendText(logs, "\n--  end SQL method   --");
@@ -4260,6 +4569,14 @@ public class MainActivity extends AppCompatActivity {
                 if (xpmode) {
                     appendText(logs, "\n\n--  restoring Google Play Services   --");
                     appendText(logs, runSuWithCmd("pm enable com.google.android.gms").getStreamLogsWithLabels());
+                }
+
+appendText(logs, "\n\n--  Restoring ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                if (currentPolicy.toLowerCase().equals("permissive")) {
+                    appendText(logs, "\n\n--  Restoring SELINUX   --");
+                    appendText(logs, runSuWithCmd("setenforce 1").getStreamLogsWithLabels());
                 }
 
                 if (!suitableMethodFound) {
@@ -4318,6 +4635,13 @@ public class MainActivity extends AppCompatActivity {
                 suitableMethodFound = true;
                 appendText(logs, "\n\n--  Force stopping Google Play Services   --");
                 appendText(logs, runSuWithCmd("am kill all com.google.android.gms").getStreamLogsWithLabels());
+                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
+                appendText(logs, "\n\n--  Gaining ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown root /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                String currentPolicy = runSuWithCmd("getenforce").getInputStreamLog();
+                appendText(logs, "\n\n--  Setting SELINUX to permessive   --");
+                appendText(logs, runSuWithCmd("setenforce 0").getStreamLogsWithLabels());
 
                 if (xpmode) {
                     appendText(logs, "\n\n--  killing Google Play Services   --");
@@ -4331,12 +4655,12 @@ public class MainActivity extends AppCompatActivity {
                 ).getStreamLogsWithLabels());
 
                 appendText(logs, runSuWithCmd(
-                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                        path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
                                 "'CREATE TRIGGER aa_messaging_apps AFTER DELETE\n" +
                                 "ON FlagOverrides\n" +
                                 "BEGIN\n" + finalCommand + "END;'\n"
                 ).getStreamLogsWithLabels());
-                if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_messaging_apps\";'").getInputStreamLog().length() <= 4) {
+                if (runSuWithCmd(path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_messaging_apps\";'").getInputStreamLog().length() <= 4) {
                     suitableMethodFound = false;
                 } else {
                     appendText(logs, "\n--  end SQL method   --");
@@ -4349,6 +4673,14 @@ public class MainActivity extends AppCompatActivity {
                 if (xpmode) {
                     appendText(logs, "\n\n--  restoring Google Play Services   --");
                     appendText(logs, runSuWithCmd("pm enable com.google.android.gms").getStreamLogsWithLabels());
+                }
+
+appendText(logs, "\n\n--  Restoring ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                if (currentPolicy.toLowerCase().equals("permissive")) {
+                    appendText(logs, "\n\n--  Restoring SELINUX   --");
+                    appendText(logs, runSuWithCmd("setenforce 1").getStreamLogsWithLabels());
                 }
 
                 dialog.dismiss();
@@ -4399,6 +4731,13 @@ public class MainActivity extends AppCompatActivity {
                 suitableMethodFound = true;
                 appendText(logs, "\n\n--  Force stopping Google Play Services   --");
                 appendText(logs, runSuWithCmd("am kill all com.google.android.gms").getStreamLogsWithLabels());
+                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
+                appendText(logs, "\n\n--  Gaining ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown root /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                String currentPolicy = runSuWithCmd("getenforce").getInputStreamLog();
+                appendText(logs, "\n\n--  Setting SELINUX to permessive   --");
+                appendText(logs, runSuWithCmd("setenforce 0").getStreamLogsWithLabels());
 
                 if (xpmode) {
                     appendText(logs, "\n\n--  killing Google Play Services   --");
@@ -4412,12 +4751,12 @@ public class MainActivity extends AppCompatActivity {
                 ).getStreamLogsWithLabels());
 
                 appendText(logs, runSuWithCmd(
-                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                        path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
                                 "'CREATE TRIGGER aa_media_tabs AFTER DELETE\n" +
                                 "ON FlagOverrides\n" +
                                 "BEGIN\n" + finalCommand + "END;'\n"
                 ).getStreamLogsWithLabels());
-                if (runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_media_tabs\";'").getInputStreamLog().length() <= 4) {
+                if (runSuWithCmd(path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_media_tabs\";'").getInputStreamLog().length() <= 4) {
                     suitableMethodFound = false;
                 } else {
                     appendText(logs, "\n--  end SQL method   --");
@@ -4429,6 +4768,14 @@ public class MainActivity extends AppCompatActivity {
                 if (xpmode) {
                     appendText(logs, "\n\n--  restoring Google Play Services   --");
                     appendText(logs, runSuWithCmd("pm enable com.google.android.gms").getStreamLogsWithLabels());
+                }
+
+appendText(logs, "\n\n--  Restoring ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                if (currentPolicy.toLowerCase().equals("permissive")) {
+                    appendText(logs, "\n\n--  Restoring SELINUX   --");
+                    appendText(logs, runSuWithCmd("setenforce 1").getStreamLogsWithLabels());
                 }
                 dialog.dismiss();
                 if (!suitableMethodFound) {
@@ -4506,7 +4853,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 String get_names = runSuWithCmd(
-                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                        path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
                                 "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND tbl_name=\"FlagOverrides\";" +
                                 "SELECT name FROM sqlite_master WHERE type=\"trigger\" AND tbl_name=\"Flags\" AND name=\"after_delete\";" +
                                 "SELECT name FROM sqlite_master WHERE type=\"trigger\" AND tbl_name=\"Flags\" AND name=\"aa_patched_apps\";'").getInputStreamLog();
@@ -4529,9 +4876,9 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
 
                 String path = appDirectory;
-                allTriggerString[0] = path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'";
+                allTriggerString[0] = path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " + "'";
                 String get_names = runSuWithCmd(
-                        path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
+                        path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
                                 "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND tbl_name=\"FlagOverrides\";" +
                                 "SELECT name FROM sqlite_master WHERE type=\"trigger\" AND tbl_name=\"Flags\" AND name=\"after_delete\";" +
                                 "SELECT name FROM sqlite_master WHERE type=\"trigger\" AND tbl_name=\"Flags\" AND name=\"aa_startup_policy_cleanup\";" +
@@ -4544,9 +4891,9 @@ public class MainActivity extends AppCompatActivity {
                     finalCommand.append("\n");
                 }
                 for (int i = 0; i < lines.length; i++) {
-                    appendText(log, runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'" + finalCommand + "'").getOutputStreamLog());
+                    appendText(log, runSuWithCmd(path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " + "'" + finalCommand + "'").getOutputStreamLog());
                 }
-                runSuWithCmd(path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " + "'DELETE FROM FlagOverrides;'");
+                runSuWithCmd(path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " + "'DELETE FROM FlagOverrides;'");
                 dialog.dismiss();
             }
 
