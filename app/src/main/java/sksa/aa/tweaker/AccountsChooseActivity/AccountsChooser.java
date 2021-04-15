@@ -61,7 +61,7 @@ public class AccountsChooser extends AppCompatActivity {
 
         String getAccounts = runSuWithCmd(
                 path + "/sqlite3 /data/data/com.google.android.gms/databases/phenotype.db " +
-                        "'SELECT DISTINCT user FROM ApplicationStates WHERE user != \"\" ORDER BY user ASC;'").getInputStreamLog();
+                        "'SELECT DISTINCT user FROM ApplicationTags WHERE user != \"\" ORDER BY user ASC;'").getInputStreamLog();
 
 
         ArrayList<AccountInfo> allAccounts = new ArrayList<>();
