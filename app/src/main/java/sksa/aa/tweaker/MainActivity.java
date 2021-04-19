@@ -1445,11 +1445,12 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         if (load("aa_night_mode_revert")) {
-                            revert("aa_night_mode_revert");
+                            newDarkMode(view, UserCount);
                             oldDarkMode.setText(getString(R.string.disable_tweak_string) + getString(R.string.dark_mode_tweak));
                             changeStatus(oldDarkModeStatus, 0, true);
                             showRebootButton();
                         } else {
+                            revert("aa_night_mode_restore");
                             oldDarkMode(view, UserCount);
                         }
                     }
@@ -1818,8 +1819,9 @@ public class MainActivity extends AppCompatActivity {
                 videoTutorial.setVideoURI(Uri.parse(path));
                 ViewGroup.LayoutParams params = videoTutorial.getLayoutParams();
 
-                float videoHeightDp = 800 * getResources().getDisplayMetrics().density;
-                float videoWidthDp = 480 * getResources().getDisplayMetrics().density;
+
+                float videoHeightDp = 400 * getResources().getDisplayMetrics().scaledDensity;
+                float videoWidthDp = 240 * getResources().getDisplayMetrics().scaledDensity;
 
                 params.width = (int) videoWidthDp - 45;
                 params.height = (int) videoHeightDp;
@@ -1827,9 +1829,11 @@ public class MainActivity extends AppCompatActivity {
                 videoTutorial.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                     @Override
                     public void onPrepared(MediaPlayer mp) {
+
                         mp.setLooping(true);
                     }
                 });
+
                 videoTutorial.start();
 
                 dialog.setContentView(view);
@@ -3206,9 +3210,6 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 appendText(logs, runSuWithCmd(
                         path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
                                 "'DROP TRIGGER IF EXISTS battery_saver_warning;\n" +
-                                "DELETE FROM Flags WHERE name=\"BatterySaver__warning_enabled\";\n" +
-                                "DELETE FROM Flags WHERE name=\"BatterySaver__switched_on_warning_delay_ms\";\n" +
-                                "DELETE FROM Flags WHERE name=\"BatterySaver__on_at_start_warning_delay_ms\";\n" +
                                 finalCommand + "'"
                 ).getStreamLogsWithLabels());
 
@@ -3396,7 +3397,7 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 appendText(logs, "\n\n--  run SQL method   --");
                 appendText(logs, runSuWithCmd(
                         path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
-                                "'DROP TRIGGER IF EXISTS aa_sb_opaque;\nDELETE FROM Flags WHERE name=\"Boardwalk__status_bar_force_opaque\";\n"
+                                "'DROP TRIGGER IF EXISTS aa_sb_opaque;\n"
                                 + finalCommand + "'"
                 ).getStreamLogsWithLabels());
 
@@ -3591,7 +3592,6 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 appendText(logs, runSuWithCmd(
                         path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
                                 "'DROP TRIGGER IF EXISTS aa_night_mode_revert;\n" +
-                                "DELETE FROM Flags WHERE name=\"IndependentNightModeFeature__enabled\";\n" +
                                 finalCommand + "'"
                 ).getStreamLogsWithLabels());
 
@@ -3621,6 +3621,99 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 }
 
 appendText(logs, "\n\n--  Restoring ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                if (currentPolicy.toLowerCase().equals("permissive")) {
+                    appendText(logs, "\n\n--  Restoring SELINUX   --");
+                    appendText(logs, runSuWithCmd("setenforce 1").getStreamLogsWithLabels());
+                }
+                dialog.dismiss();
+                if (!suitableMethodFound) {
+                    final DialogFragment notSuccessfulDialog = new NotSuccessfulDialog();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("tweak", "aa_night_mode_revert");
+                    bundle.putString("log", logs.getText().toString());
+                    notSuccessfulDialog.setArguments(bundle);
+                    notSuccessfulDialog.show(getSupportFragmentManager(), "NotSuccessfulDialog");
+                }
+            }
+        }.start();
+
+    }
+
+    public void newDarkMode(View view, int usercount) {
+        final TextView logs = findViewById(R.id.logs);
+        logs.setHorizontallyScrolling(true);
+        logs.setMovementMethod(new ScrollingMovementMethod());
+
+        final ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
+                getString(R.string.tweak_loading), true);
+
+        final StringBuilder finalCommand = new StringBuilder();
+
+        for (int i = 0; i <= (usercount - 1); i++) {
+            if (multiAccountsMode && !xpmode && !accountsPrefs.getBoolean(String.valueOf(i), false)) {
+                continue;
+            }
+            finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.gms.car\",0,\"IndependentNightModeFeature__enabled\", (SELECT DISTINCT user FROM ApplicationTags WHERE user != \"\" ORDER BY user ASC LIMIT ");
+            finalCommand.append(i);
+            finalCommand.append(",1) ,1,1);");
+            finalCommand.append(System.getProperty("line.separator"));
+        }
+
+        new Thread() {
+            @Override
+            public void run() {
+                String path = getApplicationInfo().dataDir;
+                suitableMethodFound = true;
+                appendText(logs, "\n\n--  Force stopping Google Play Services   --");
+                appendText(logs, runSuWithCmd("am kill all com.google.android.gms").getStreamLogsWithLabels());
+                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
+                appendText(logs, "\n\n--  Gaining ownership of the database   --");
+                appendText(logs, runSuWithCmd("chown root /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+
+                String currentPolicy = runSuWithCmd("getenforce").getInputStreamLog();
+                appendText(logs, "\n\n--  Setting SELINUX to permessive   --");
+                appendText(logs, runSuWithCmd("setenforce 0").getStreamLogsWithLabels());
+
+                if (xpmode) {
+                    appendText(logs, "\n\n--  killing Google Play Services   --");
+                    appendText(logs, runSuWithCmd("pm disable com.google.android.gms").getStreamLogsWithLabels());
+                }
+
+                appendText(logs, "\n\n--  run SQL method   --");
+                appendText(logs, runSuWithCmd(
+                        path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'DROP TRIGGER IF EXISTS aa_night_mode_revert;\n" +
+                                finalCommand + "'"
+                ).getStreamLogsWithLabels());
+
+                appendText(logs, runSuWithCmd(
+                        path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
+                                "'CREATE TRIGGER aa_night_mode_restore AFTER DELETE\n" +
+                                "ON FlagOverrides\n" +
+                                "BEGIN\n" + finalCommand + "END;'\n"
+                ).getStreamLogsWithLabels());
+                if (runSuWithCmd(path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " + "'SELECT name FROM sqlite_master WHERE type=\"trigger\" AND name=\"aa_night_mode_revert\";'").getInputStreamLog().length() <= 4) {
+                    suitableMethodFound = false;
+                } else {
+                    appendText(logs, "\n--  end SQL method   --");
+                    save(true, "aa_night_mode_restore");
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            changeStatus(oldDarkModeStatus, 1, true);
+                            showRebootButton();
+                            oldDarkMode.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.dark_mode_tweak));
+                        }
+                    });
+                }
+                if (xpmode) {
+                    appendText(logs, "\n\n--  restoring Google Play Services   --");
+                    appendText(logs, runSuWithCmd("pm enable com.google.android.gms").getStreamLogsWithLabels());
+                }
+
+                appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
 
                 if (currentPolicy.toLowerCase().equals("permissive")) {
