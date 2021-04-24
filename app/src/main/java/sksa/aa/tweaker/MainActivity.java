@@ -327,31 +327,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        nospeed.setOnLongClickListener(new View.OnLongClickListener() {
-            public boolean onLongClick(View arg0) {
-                final Dialog dialog = new Dialog(MainActivity.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setCanceledOnTouchOutside(true);
-                dialog.setCancelable(true);
-                View view = getLayoutInflater().inflate(R.layout.dialog_layout, null);
-
-
-                TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getString(R.string.tutorial_nospeed));
-
-                ImageView img1 = view.findViewById(R.id.tutorialimage1);
-                img1.setImageDrawable(getDrawable(R.drawable.tutorial_nospeed));
-
-                dialog.setContentView(view);
-
-
-                Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT, WRAP_CONTENT);
-                dialog.show();
-
-                return true;
-            }
-        });
+        setOnLongClickListener(nospeed, R.string.tutorial_nospeed, R.drawable.tutorial_nospeed);
 
         assistshort = findViewById(R.id.assistshort);
         assistantShortcutsStatus = findViewById(R.id.shortcutstatus);
@@ -364,35 +340,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        assistshort.setOnLongClickListener(new View.OnLongClickListener() {
-            public boolean onLongClick(View arg0) {
-                final Dialog dialog = new Dialog(MainActivity.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setCanceledOnTouchOutside(true);
-                dialog.setCancelable(true);
-                View view = getLayoutInflater().inflate(R.layout.dialog_layout, null);
-
-
-                TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getString(R.string.tutorial_shortcuts));
-
-                ImageView img1 = view.findViewById(R.id.tutorialimage1);
-                ImageView img2 = view.findViewById(R.id.tutorialimage2);
-                ImageView img3 = view.findViewById(R.id.tutorialimage3);
-                img1.setImageDrawable(getDrawable(R.drawable.tutorial_shortcuts_1));
-                img2.setImageDrawable(getDrawable(R.drawable.tutorial_shortcuts_2));
-                img3.setImageDrawable(getDrawable(R.drawable.tutorial_shortcuts_3));
-
-                dialog.setContentView(view);
-
-                dialog.show();
-
-                Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT, 880);
-
-                return true;
-            }
-        });
+        setOnLongClickListener(assistshort, R.string.tutorial_shortcuts, R.drawable.tutorial_shortcuts_1, R.drawable.tutorial_shortcuts_2, R.drawable.tutorial_shortcuts_3);
 
 
         assistshort.setOnClickListener(
@@ -422,31 +370,8 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        taplimitat.setOnLongClickListener(new View.OnLongClickListener() {
-            public boolean onLongClick(View arg0) {
-                final Dialog dialog = new Dialog(MainActivity.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setCanceledOnTouchOutside(true);
-                dialog.setCancelable(true);
-                View view = getLayoutInflater().inflate(R.layout.dialog_layout, null);
+        setOnLongClickListener(taplimitat, R.string.tutorial_sixtap, R.drawable.tutorial_sixtap);
 
-
-                TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getString(R.string.tutorial_sixtap));
-
-                ImageView img1 = view.findViewById(R.id.tutorialimage1);
-                img1.setImageDrawable(getDrawable(R.drawable.tutorial_sixtap));
-
-                dialog.setContentView(view);
-
-                dialog.show();
-
-                Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT, WRAP_CONTENT);
-
-                return true;
-            }
-        });
 
         taplimitat.setOnClickListener(
                 new View.OnClickListener() {
@@ -487,28 +412,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        startupnav.setOnLongClickListener(new View.OnLongClickListener() {
-            public boolean onLongClick(View arg0) {
-                final Dialog dialog = new Dialog(MainActivity.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setCanceledOnTouchOutside(true);
-                dialog.setCancelable(true);
-                View view = getLayoutInflater().inflate(R.layout.dialog_layout, null);
-
-
-                TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getString(R.string.tutorial_startup));
-
-                dialog.setContentView(view);
-
-                dialog.show();
-
-                Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT, WRAP_CONTENT);
-
-                return true;
-            }
-        });
+        setOnLongClickListener(startupnav, R.string.tutorial_startup);
 
         patchapps = findViewById(R.id.patchapps);
         patchappstatus = findViewById(R.id.patchedappstatus);
@@ -545,28 +449,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        patchapps.setOnLongClickListener(new View.OnLongClickListener() {
-            public boolean onLongClick(View arg0) {
-                final Dialog dialog = new Dialog(MainActivity.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setCanceledOnTouchOutside(true);
-                dialog.setCancelable(true);
-                View view = getLayoutInflater().inflate(R.layout.dialog_layout, null);
+        setOnLongClickListener(patchapps, R.string.tutorial_patchapps);
 
-
-                TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getString(R.string.tutorial_patchapps));
-
-                dialog.setContentView(view);
-
-                dialog.show();
-
-                Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT, WRAP_CONTENT);
-
-                return true;
-            }
-        });
 
         assistanim = findViewById(R.id.assistanim);
         assistanimstatus = findViewById(R.id.assistanimstatus);
@@ -594,31 +478,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        assistanim.setOnLongClickListener(new View.OnLongClickListener() {
-            public boolean onLongClick(View arg0) {
-                final Dialog dialog = new Dialog(MainActivity.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setCanceledOnTouchOutside(true);
-                dialog.setCancelable(true);
-                View view = getLayoutInflater().inflate(R.layout.dialog_layout, null);
+        setOnLongClickListener(assistanim, R.string.tutorial_animation, R.drawable.tutorial_animation);
 
-
-                TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getString(R.string.tutorial_animation));
-
-                ImageView img1 = view.findViewById(R.id.tutorialimage1);
-                img1.setImageDrawable(getDrawable(R.drawable.tutorial_animation));
-
-                dialog.setContentView(view);
-
-                dialog.show();
-
-                Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT, 600);
-
-                return true;
-            }
-        });
 
         batteryoutline = findViewById(R.id.battoutline);
         batteryOutlineStatus = findViewById(R.id.batterystatus);
@@ -646,31 +507,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        batteryoutline.setOnLongClickListener(new View.OnLongClickListener() {
-            public boolean onLongClick(View arg0) {
-                final Dialog dialog = new Dialog(MainActivity.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setCanceledOnTouchOutside(true);
-                dialog.setCancelable(true);
-                View view = getLayoutInflater().inflate(R.layout.dialog_layout, null);
-
-
-                TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getString(R.string.tutorial_battery_outline));
-
-                ImageView img1 = view.findViewById(R.id.tutorialimage1);
-                img1.setImageDrawable(getDrawable(R.drawable.tutorial_outline));
-
-                dialog.setContentView(view);
-
-                dialog.show();
-
-                Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT, WRAP_CONTENT);
-
-                return true;
-            }
-        });
+        setOnLongClickListener(batteryoutline, R.string.tutorial_battery_outline, R.drawable.tutorial_outline);
 
         statusbaropaque = findViewById(R.id.statusbar_opaque);
         opaqueStatus = findViewById(R.id.statusbar_opaque_status);
@@ -698,28 +535,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        statusbaropaque.setOnLongClickListener(new View.OnLongClickListener() {
-            public boolean onLongClick(View arg0) {
-                final Dialog dialog = new Dialog(MainActivity.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setCanceledOnTouchOutside(true);
-                dialog.setCancelable(true);
-                View view = getLayoutInflater().inflate(R.layout.dialog_layout, null);
-
-
-                TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getString(R.string.tutorial_statusbar_opaque));
-
-                dialog.setContentView(view);
-
-                dialog.show();
-
-                Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT, WRAP_CONTENT);
-
-                return true;
-            }
-        });
+        setOnLongClickListener(statusbaropaque, R.string.tutorial_statusbar_opaque);
 
         forceNoWideScreen = findViewById(R.id.force__no_ws_button);
         forceNoWideScreenStatus = findViewById(R.id.force_no_ws_status);
@@ -757,31 +573,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        forceWideScreenButton.setOnLongClickListener(new View.OnLongClickListener() {
-            public boolean onLongClick(View arg0) {
-                final Dialog dialog = new Dialog(MainActivity.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setCanceledOnTouchOutside(true);
-                dialog.setCancelable(true);
-                View view = getLayoutInflater().inflate(R.layout.dialog_layout, null);
-
-
-                TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getString(R.string.tutorial_widescreen));
-
-                ImageView img1 = view.findViewById(R.id.tutorialimage1);
-                img1.setImageDrawable(getDrawable(R.drawable.tutorial_widescreen));
-
-                dialog.setContentView(view);
-
-                dialog.show();
-
-                Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT, WRAP_CONTENT);
-
-                return true;
-            }
-        });
+        setOnLongClickListener(forceWideScreenButton, R.string.tutorial_widescreen, R.drawable.tutorial_widescreen);
 
 
         if (load("force_no_ws")) {
@@ -815,32 +607,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        forceNoWideScreen.setOnLongClickListener(new View.OnLongClickListener() {
-            public boolean onLongClick(View arg0) {
-                final Dialog dialog = new Dialog(MainActivity.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setCanceledOnTouchOutside(true);
-                dialog.setCancelable(true);
-                View view = getLayoutInflater().inflate(R.layout.dialog_layout, null);
-
-
-                TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getString(R.string.tutorial_no_widescreen));
-
-                ImageView img1 = view.findViewById(R.id.tutorialimage1);
-                img1.setImageDrawable(getDrawable(R.drawable.tutorial_nowidescreen));
-
-                dialog.setContentView(view);
-
-                dialog.show();
-
-                Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT, WRAP_CONTENT);
-
-                return true;
-            }
-        });
-
+        setOnLongClickListener(forceNoWideScreen, R.string.tutorial_no_widescreen, R.drawable.tutorial_nowidescreen);
 
         messagesHunThrottling = findViewById(R.id.hunthrottlingbutton);
         final int[] messagesHunScrollbarValue = {0};
@@ -905,6 +672,8 @@ public class MainActivity extends AppCompatActivity {
             changeStatus(messagesHunStatus, 0, false);
         }
 
+
+
         messagesHunThrottling.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -925,30 +694,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        messagesHunThrottling.setOnLongClickListener(new View.OnLongClickListener() {
-            public boolean onLongClick(View arg0) {
-                final Dialog dialog = new Dialog(MainActivity.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setCanceledOnTouchOutside(true);
-                dialog.setCancelable(true);
-                View view = getLayoutInflater().inflate(R.layout.dialog_layout, null);
-
-                TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getString(R.string.tutorial_hun));
-
-                ImageView img1 = view.findViewById(R.id.tutorialimage1);
-                img1.setImageDrawable(getDrawable(R.drawable.tutorial_hun));
-
-                dialog.setContentView(view);
-
-                dialog.show();
-
-                Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT, WRAP_CONTENT);
-
-                return true;
-            }
-        });
+        setOnLongClickListener(messagesHunThrottling, R.string.tutorial_hun, R.drawable.tutorial_hun);
 
         mediathrottlingbutton = findViewById(R.id.media_throttling_button);
         final int[] secondScrollBarStatus = {0};
@@ -1030,32 +776,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        mediathrottlingbutton.setOnLongClickListener(new View.OnLongClickListener() {
-            public boolean onLongClick(View arg0) {
-                final Dialog dialog = new Dialog(MainActivity.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setCanceledOnTouchOutside(true);
-                dialog.setCancelable(true);
-                View view = getLayoutInflater().inflate(R.layout.dialog_layout, null);
-
-
-                TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getString(R.string.tutorial_media_hun));
-
-                ImageView img1 = view.findViewById(R.id.tutorialimage1);
-                img1.setImageDrawable(getDrawable(R.drawable.tutorial_media_hun));
-
-                dialog.setContentView(view);
-
-                dialog.show();
-
-                Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT, WRAP_CONTENT);
-
-                return true;
-            }
-        });
-
+        setOnLongClickListener(mediathrottlingbutton, R.string.tutorial_media_hun, R.drawable.tutorial_media_hun);
 
         moreCalendarButton = findViewById(R.id.calendar_more_events_button);
         final int[] calendarSeekbarStatus = {0};
@@ -1134,33 +855,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        moreCalendarButton.setOnLongClickListener(new View.OnLongClickListener() {
-            public boolean onLongClick(View arg0) {
-                final Dialog dialog = new Dialog(MainActivity.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setCanceledOnTouchOutside(true);
-                dialog.setCancelable(true);
-                View view = getLayoutInflater().inflate(R.layout.dialog_layout, null);
-
-
-                TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getString(R.string.tutorial_calendar_tweak));
-
-                ImageView img1 = view.findViewById(R.id.tutorialimage1);
-                img1.setImageDrawable(getDrawable(R.drawable.tutorial_agenda));
-
-
-                dialog.setContentView(view);
-
-                dialog.show();
-
-                Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT, WRAP_CONTENT);
-
-                return true;
-            }
-        });
-
+        setOnLongClickListener(moreCalendarButton, R.string.tutorial_calendar_tweak, R.drawable.tutorial_agenda);
 
         bluetoothoff = findViewById(R.id.bluetooth_disable_button);
         btstatus = findViewById(R.id.bt_disable_status);
@@ -1188,28 +883,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        bluetoothoff.setOnLongClickListener(new View.OnLongClickListener() {
-            public boolean onLongClick(View arg0) {
-                final Dialog dialog = new Dialog(MainActivity.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setCanceledOnTouchOutside(true);
-                dialog.setCancelable(true);
-                View view = getLayoutInflater().inflate(R.layout.dialog_layout, null);
-
-
-                TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getString(R.string.tutorial_bluetooth));
-
-                dialog.setContentView(view);
-
-                dialog.show();
-
-                Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT, WRAP_CONTENT);
-
-                return true;
-            }
-        });
+        setOnLongClickListener(bluetoothoff, R.string.tutorial_bluetooth);
 
         messagesButton = findViewById(R.id.messaging_app_unlock_button);
         messagesTweakStatus = findViewById(R.id.messaging_tweak_status);
@@ -1236,37 +910,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        messagesButton.setOnLongClickListener(new View.OnLongClickListener() {
-            public boolean onLongClick(View arg0) {
-                final Dialog dialog = new Dialog(MainActivity.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setCanceledOnTouchOutside(true);
-                dialog.setCancelable(true);
-                View view = getLayoutInflater().inflate(R.layout.dialog_layout, null);
-
-
-                TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getString(R.string.tutorial_messages_tweak));
-
-                ImageView img1 = view.findViewById(R.id.tutorialimage1);
-                img1.setImageDrawable(getDrawable(R.drawable.tutorial_messaging_1));
-
-                ImageView img2 = view.findViewById(R.id.tutorialimage2);
-                img2.setImageDrawable(getDrawable(R.drawable.tutorial_messaging_2));
-
-                ImageView img3 = view.findViewById(R.id.tutorialimage3);
-                img3.setImageDrawable(getDrawable(R.drawable.tutorial_messaging_3));
-
-                dialog.setContentView(view);
-
-                dialog.show();
-
-                Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT, WRAP_CONTENT);
-
-                return true;
-            }
-        });
+        setOnLongClickListener(messagesButton, R.string.tutorial_messages_tweak, R.drawable.tutorial_messaging_1, R.drawable.tutorial_messaging_2, R.drawable.tutorial_messaging_3);
 
         mdbutton = findViewById(R.id.multi_display_button);
         mdstatus = findViewById(R.id.multi_display_status);
@@ -1293,36 +937,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        mdbutton.setOnLongClickListener(new View.OnLongClickListener() {
-            public boolean onLongClick(View arg0) {
-                final Dialog dialog = new Dialog(MainActivity.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setCanceledOnTouchOutside(true);
-                dialog.setCancelable(true);
-                View view = getLayoutInflater().inflate(R.layout.dialog_layout, null);
-
-
-                TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getString(R.string.tutorial_multidisplay));
-
-                ImageView img1 = view.findViewById(R.id.tutorialimage1);
-                img1.setImageDrawable(getDrawable(R.drawable.tutorial_md1));
-
-                ImageView img2 = view.findViewById(R.id.tutorialimage2);
-                img2.setImageDrawable(getDrawable(R.drawable.tutorial_md2));
-
-                ImageView img3 = view.findViewById(R.id.tutorialimage3);
-                img3.setImageDrawable(getDrawable(R.drawable.tutorial_md3));
-
-                dialog.setContentView(view);
-
-                dialog.show();
-
-                Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT, WRAP_CONTENT);
-                return true;
-            }
-        });
+        setOnLongClickListener(mdbutton, R.string.tutorial_multidisplay, R.drawable.tutorial_md1, R.drawable.tutorial_md2, R.drawable.tutorial_md3);
 
         batteryWarning = findViewById(R.id.battery_warning_button);
         batteryWarningStatus = findViewById(R.id.battery_warning_status);
@@ -1349,30 +964,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        batteryWarning.setOnLongClickListener(new View.OnLongClickListener() {
-            public boolean onLongClick(View arg0) {
-                final Dialog dialog = new Dialog(MainActivity.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setCanceledOnTouchOutside(true);
-                dialog.setCancelable(true);
-                View view = getLayoutInflater().inflate(R.layout.dialog_layout, null);
+        setOnLongClickListener(batteryWarning, R.string.tutorial_battery_saver_warning, R.drawable.tutorial_battery_saver);
 
-
-                TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getString(R.string.tutorial_battery_saver_warning));
-
-                ImageView img1 = view.findViewById(R.id.tutorialimage1);
-                img1.setImageDrawable(getDrawable(R.drawable.tutorial_battery_saver));
-
-                dialog.setContentView(view);
-
-                dialog.show();
-
-                Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT, WRAP_CONTENT);
-                return true;
-            }
-        });
 
         activateWallpapersButton = findViewById(R.id.custom_wallpapers_button);
         activateWallpapersStatus = findViewById(R.id.custom_wallpapers_status);
@@ -1399,36 +992,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        activateWallpapersButton.setOnLongClickListener(new View.OnLongClickListener() {
-            public boolean onLongClick(View arg0) {
-                final Dialog dialog = new Dialog(MainActivity.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setCanceledOnTouchOutside(true);
-                dialog.setCancelable(true);
-                View view = getLayoutInflater().inflate(R.layout.dialog_layout, null);
-
-
-                TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getString(R.string.tutorial_wallpapers));
-
-                ImageView img1 = view.findViewById(R.id.tutorialimage1);
-                img1.setImageDrawable(getDrawable(R.drawable.tutorial_wallpapers_3));
-
-                ImageView img2 = view.findViewById(R.id.tutorialimage2);
-                img2.setImageDrawable(getDrawable(R.drawable.tutorial_wallpapers_1));
-
-                ImageView img3 = view.findViewById(R.id.tutorialimage3);
-                img3.setImageDrawable(getDrawable(R.drawable.tutorial_wallpapers_2));
-
-                dialog.setContentView(view);
-
-                dialog.show();
-
-                Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT, WRAP_CONTENT);
-                return true;
-            }
-        });
+        setOnLongClickListener(activateWallpapersButton, R.string.tutorial_wallpapers, R.drawable.tutorial_wallpapers_3, R.drawable.tutorial_wallpapers_1, R.drawable.tutorial_wallpapers_2);
 
         oldDarkMode = findViewById(R.id.dark_mode_tweak_button);
         oldDarkModeStatus = findViewById(R.id.dark_mode_status);
@@ -1450,33 +1014,13 @@ public class MainActivity extends AppCompatActivity {
                             changeStatus(oldDarkModeStatus, 0, true);
                             showRebootButton();
                         } else {
-                            revert("aa_night_mode_restore");
                             oldDarkMode(view, UserCount);
                         }
                     }
                 });
 
-        oldDarkMode.setOnLongClickListener(new View.OnLongClickListener() {
-            public boolean onLongClick(View arg0) {
-                final Dialog dialog = new Dialog(MainActivity.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setCanceledOnTouchOutside(true);
-                dialog.setCancelable(true);
-                View view = getLayoutInflater().inflate(R.layout.dialog_layout, null);
+        setOnLongClickListener(oldDarkMode, R.string.tutorial_dark_mode);
 
-
-                TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getString(R.string.tutorial_dark_mode));
-
-                dialog.setContentView(view);
-
-                dialog.show();
-
-                Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT, WRAP_CONTENT);
-                return true;
-            }
-        });
 
 
         disableTelemetryButton = findViewById(R.id.telemetry_disable_tweak);
@@ -1505,27 +1049,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        disableTelemetryButton.setOnLongClickListener(new View.OnLongClickListener() {
-            public boolean onLongClick(View arg0) {
-                final Dialog dialog = new Dialog(MainActivity.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setCanceledOnTouchOutside(true);
-                dialog.setCancelable(true);
-                View view = getLayoutInflater().inflate(R.layout.dialog_layout, null);
-
-
-                TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getString(R.string.tutorial_telemetry));
-
-                dialog.setContentView(view);
-
-                dialog.show();
-
-                Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT, WRAP_CONTENT);
-                return true;
-            }
-        });
+        setOnLongClickListener(disableTelemetryButton, R.string.tutorial_telemetry);
 
         activateMediaTabs = findViewById(R.id.media_tabs_tweak);
         mediaTabsStatus = findViewById(R.id.media_tabs_status);
@@ -1553,31 +1077,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        activateMediaTabs.setOnLongClickListener(new View.OnLongClickListener() {
-            public boolean onLongClick(View arg0) {
-                final Dialog dialog = new Dialog(MainActivity.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setCanceledOnTouchOutside(true);
-                dialog.setCancelable(true);
-                View view = getLayoutInflater().inflate(R.layout.dialog_layout, null);
-
-
-                TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getString(R.string.tutorial_media_tabs));
-
-                ImageView tutorialimg = view.findViewById(R.id.tutorialimage1);
-                tutorialimg.setImageResource(R.drawable.tutorial_tabs_media);
-
-                dialog.setContentView(view);
-
-                dialog.show();
-
-                Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT, WRAP_CONTENT);
-                return true;
-            }
-        });
-
+        setOnLongClickListener(activateMediaTabs, R.string.tutorial_media_tabs, R.drawable.tutorial_tabs_media);
 
         tweakUSBBitrateButton = findViewById(R.id.tweak_bitrate_usb);
         final int[] usbBitrateValue = {0};
@@ -1658,27 +1158,10 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        tweakUSBBitrateButton.setOnLongClickListener(new View.OnLongClickListener() {
-            public boolean onLongClick(View arg0) {
-                final Dialog dialog = new Dialog(MainActivity.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setCanceledOnTouchOutside(true);
-                dialog.setCancelable(true);
-                View view = getLayoutInflater().inflate(R.layout.dialog_layout, null);
+        setOnLongClickListener(tweakUSBBitrateButton, R.string.tutorial_bitrate);
 
-                TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getString(R.string.tutorial_bitrate));
 
-                dialog.setContentView(view);
 
-                dialog.show();
-
-                Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT, WRAP_CONTENT);
-
-                return true;
-            }
-        });
 
         tweakWiFiBitrateButton = findViewById(R.id.tweak_bitrate_wifi);
         final int[] wifiBitrateValue = {0};
@@ -1713,6 +1196,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        setOnLongClickListener(tweakWiFiBitrateButton, R.string.tutorial_bitrate);
 
         revertWifiBitrate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1753,28 +1238,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
-
-        tweakWiFiBitrateButton.setOnLongClickListener(new View.OnLongClickListener() {
-            public boolean onLongClick(View arg0) {
-                final Dialog dialog = new Dialog(MainActivity.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setCanceledOnTouchOutside(true);
-                dialog.setCancelable(true);
-                View view = getLayoutInflater().inflate(R.layout.dialog_layout, null);
-
-                TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getString(R.string.tutorial_bitrate));
-
-                dialog.setContentView(view);
-
-                dialog.show();
-
-                Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT, WRAP_CONTENT);
-
-                return true;
-            }
-        });
 
         alphaJumpTweakButton = findViewById(R.id.alpha_jump_tweak);
         alphaJumpStatus = findViewById(R.id.alpha_jump_tweak_status);
@@ -1820,8 +1283,8 @@ public class MainActivity extends AppCompatActivity {
                 ViewGroup.LayoutParams params = videoTutorial.getLayoutParams();
 
 
-                float videoHeightDp = 400 * getResources().getDisplayMetrics().scaledDensity;
-                float videoWidthDp = 240 * getResources().getDisplayMetrics().scaledDensity;
+                float videoHeightDp = 400 * getResources().getDisplayMetrics().densityDpi;
+                float videoWidthDp = 240 * getResources().getDisplayMetrics().densityDpi;
 
                 params.width = (int) videoWidthDp - 45;
                 params.height = (int) videoHeightDp;
@@ -1874,36 +1337,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        darkModeSwitchButton.setOnLongClickListener(new View.OnLongClickListener() {
-            public boolean onLongClick(View arg0) {
-                final Dialog dialog = new Dialog(MainActivity.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setCanceledOnTouchOutside(true);
-                dialog.setCancelable(true);
-                View view = getLayoutInflater().inflate(R.layout.dialog_layout, null);
-
-                TextView tutorial = view.findViewById(R.id.dialog_content);
-                tutorial.setText(getString(R.string.tutorial_darkmodeswitch));
-
-                ImageView img1 = view.findViewById(R.id.tutorialimage1);
-                img1.setImageDrawable(getDrawable(R.drawable.tutorial_darkswitch1));
-
-                ImageView img2 = view.findViewById(R.id.tutorialimage2);
-                img2.setImageDrawable(getDrawable(R.drawable.tutorial_darkswitch2));
-
-                ImageView img3 = view.findViewById(R.id.tutorialimage3);
-                img3.setImageDrawable(getDrawable(R.drawable.tutorial_darkswitch3));
-
-                dialog.setContentView(view);
-
-                dialog.show();
-
-                Window window = dialog.getWindow();
-                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT, WRAP_CONTENT);
-
-                return true;
-            }
-        });
+        setOnLongClickListener(darkModeSwitchButton, R.string.tutorial_darkmodeswitch, R.drawable.tutorial_darkswitch1, R.drawable.tutorial_darkswitch2, R.drawable.tutorial_darkswitch3);
 
         deleteCarMode = findViewById(R.id.car_remover);
         deleteCarMode.setOnClickListener(new View.OnClickListener() {
@@ -1937,6 +1371,46 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void setOnLongClickListener(Button button, final int... p) {
+        button.setOnLongClickListener(new View.OnLongClickListener() {
+            public boolean onLongClick(View arg0) {
+                final Dialog dialog = new Dialog(MainActivity.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.setCancelable(true);
+                View view = getLayoutInflater().inflate(R.layout.dialog_layout, null);
+
+                TextView tutorial = view.findViewById(R.id.dialog_content);
+                tutorial.setText(getString(p[0]));
+
+                ImageView img1 = view.findViewById(R.id.tutorialimage1);
+
+                if (p.length>1) {
+                    img1.setImageDrawable(getDrawable(p[1]));
+                }
+
+                ImageView img2 = view.findViewById(R.id.tutorialimage2);
+                if (p.length>2) {
+                    img2.setImageDrawable(getDrawable(p[2]));
+                }
+
+                ImageView img3 = view.findViewById(R.id.tutorialimage3);
+                if (p.length>3) {
+                    img3.setImageDrawable(getDrawable(p[3]));
+                }
+
+                dialog.setContentView(view);
+
+                dialog.show();
+
+                Window window = dialog.getWindow();
+                window.setLayout(ViewPager.LayoutParams.MATCH_PARENT, WRAP_CONTENT);
+
+                return true;
+            }
+        });
     }
 
     private void showManyAccountsWarning(final String path, int userCount) {
@@ -3427,7 +2901,7 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                     appendText(logs, runSuWithCmd("pm enable com.google.android.gms").getStreamLogsWithLabels());
                 }
 
-appendText(logs, "\n\n--  Restoring ownership of the database   --");
+                appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
 
                 if (currentPolicy.toLowerCase().equals("permissive")) {
@@ -3591,7 +3065,7 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 appendText(logs, "\n\n--  run SQL method   --");
                 appendText(logs, runSuWithCmd(
                         path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
-                                "'DROP TRIGGER IF EXISTS aa_night_mode_revert;\n" +
+                                "'DROP TRIGGER IF EXISTS aa_night_mode_restore; DROP TRIGGER IF EXISTS aa_night_mode_revert;\n" +
                                 finalCommand + "'"
                 ).getStreamLogsWithLabels());
 
@@ -3698,13 +3172,13 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                     suitableMethodFound = false;
                 } else {
                     appendText(logs, "\n--  end SQL method   --");
-                    save(true, "aa_night_mode_restore");
+                    save(false, "aa_night_mode_revert");
                     new Handler(Looper.getMainLooper()).post(new Runnable() {
                         @Override
                         public void run() {
-                            changeStatus(oldDarkModeStatus, 1, true);
+                            changeStatus(oldDarkModeStatus, 0, true);
                             showRebootButton();
-                            oldDarkMode.setText(getString(R.string.re_enable_tweak_string) + getString(R.string.dark_mode_tweak));
+                            oldDarkMode.setText(getString(R.string.disable_tweak_string) + getString(R.string.dark_mode_tweak));
                         }
                     });
                 }
