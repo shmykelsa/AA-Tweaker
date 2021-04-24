@@ -27,6 +27,8 @@
             android:id="@+id/tutorialVideo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginHorizontal="27.5dp"
+            android:fitsSystemWindows="true"
             android:layout_marginBottom="4dp"/>
 
         <ImageView

@@ -1283,8 +1283,8 @@ public class MainActivity extends AppCompatActivity {
                 ViewGroup.LayoutParams params = videoTutorial.getLayoutParams();
 
 
-                float videoHeightDp = 400 * getResources().getDisplayMetrics().densityDpi;
-                float videoWidthDp = 240 * getResources().getDisplayMetrics().densityDpi;
+                float videoHeightDp = 400 * getResources().getDisplayMetrics().density;
+                float videoWidthDp = 240 * getResources().getDisplayMetrics().density;
 
                 params.width = (int) videoWidthDp - 45;
                 params.height = (int) videoHeightDp;
