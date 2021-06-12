@@ -47,10 +47,6 @@ This app doesn't need Xposed, which in some cases is one more pain to have. Also
 Yes, you can. The functionaility is the same, the only "advantage" is not having to install Xposed to make it work. This app won't check if you have SAAX installed so you won't have a green check status at the start. If you are familiar with SAAX and you want to keep it, you may not want to disable speed limitation and six tap with this app.
 
 
-## NO REUPLOADS
-
-Please, if you want to share AA AIO TWEAKER, DO NOT reupload the APK elsewhere. Just redirect the users to the download page. Any unauthorized re-upload of the APK, in any way, will result in a DMCA takedown request. 
-
 ## NEW
 
 AA AIO TWEAKER is open to translations! [Join translations on Crowdin](https://crwd.in/aa-aio-tweaker)
