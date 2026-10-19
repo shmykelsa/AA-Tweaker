@@ -50,6 +50,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -58,6 +59,7 @@ import java.util.regex.Pattern;
 
 import sksa.aa.tweaker.CarRemoverActivity.CarRemover;
 import sksa.aa.tweaker.Utils.BottomDialog;
+import sksa.aa.tweaker.Utils.PhenotypeDb;
 
 @SuppressWarnings("ALL")
 public class MainActivity extends AppCompatActivity {
@@ -1536,10 +1538,17 @@ public class MainActivity extends AppCompatActivity {
                 save(false, toRevert);
 
                 appendText(logs, "\n\n-- Reverting the hack  --");
-                appendText(logs, runSuWithCmd(
-                        path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
-                                "'DROP TRIGGER IF EXISTS " + toRevert + "; DELETE FROM FlagOverrides;'\n"
-                ).getStreamLogsWithLabels());
+                if (PhenotypeDb.isNewSchema(path)) {
+                    // flag_overrides also holds Play Services' own overrides: delete only this tweak's flags.
+                    appendText(logs, runSuRaw(PhenotypeDb.revertCommand(path, toRevert)).getStreamLogsWithLabels());
+                } else {
+                    appendText(logs, runSuWithCmd(
+                            path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +
+                                    "'DROP TRIGGER IF EXISTS " + toRevert + "; DELETE FROM FlagOverrides;'\n"
+                    ).getStreamLogsWithLabels());
+                }
+                appendText(logs, "\n\n--  Restoring ownership of the database   --");
+                appendText(logs, runSuWithCmd(PhenotypeDb.restoreOwnershipCommand()).getStreamLogsWithLabels());
             }
 
 
@@ -1762,7 +1771,6 @@ public class MainActivity extends AppCompatActivity {
                 String path = getApplicationInfo().dataDir;
                 suitableMethodFound = true;
                 killps(logs);
-                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
                 String currentPolicy = gainOwnership(logs);
 
                 appendText(logs, "\n\n--  run SQL method   --");
@@ -1809,7 +1817,7 @@ public class MainActivity extends AppCompatActivity {
                 
 
 appendText(logs, "\n\n--  Restoring ownership of the database   --");
-                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+                appendText(logs, runSuWithCmd(PhenotypeDb.restoreOwnershipCommand()).getStreamLogsWithLabels());
 
                 if (currentPolicy.toLowerCase().equals("permissive")) {
                     appendText(logs, "\n\n--  Restoring SELINUX   --");
@@ -1858,7 +1866,6 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 String path = getApplicationInfo().dataDir;
                 suitableMethodFound = true;
                 killps(logs);
-                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
                 String currentPolicy = gainOwnership(logs);
 
 
@@ -1896,7 +1903,7 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 
 
 appendText(logs, "\n\n--  Restoring ownership of the database   --");
-                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+                appendText(logs, runSuWithCmd(PhenotypeDb.restoreOwnershipCommand()).getStreamLogsWithLabels());
 
                 if (currentPolicy.toLowerCase().equals("permissive")) {
                     appendText(logs, "\n\n--  Restoring SELINUX   --");
@@ -1942,7 +1949,6 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 String path = getApplicationInfo().dataDir;
                 suitableMethodFound = true;
                 killps(logs);
-                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
                 String currentPolicy = gainOwnership(logs);
 
 
@@ -1984,7 +1990,7 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 
 
 appendText(logs, "\n\n--  Restoring ownership of the database   --");
-                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+                appendText(logs, runSuWithCmd(PhenotypeDb.restoreOwnershipCommand()).getStreamLogsWithLabels());
 
                 if (currentPolicy.toLowerCase().equals("permissive")) {
                     appendText(logs, "\n\n--  Restoring SELINUX   --");
@@ -2030,7 +2036,6 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 String path = getApplicationInfo().dataDir;
                 suitableMethodFound = true;
                 killps(logs);
-                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
                 String currentPolicy = gainOwnership(logs);
 
 
@@ -2075,7 +2080,7 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 
 
 appendText(logs, "\n\n--  Restoring ownership of the database   --");
-                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+                appendText(logs, runSuWithCmd(PhenotypeDb.restoreOwnershipCommand()).getStreamLogsWithLabels());
 
                 if (currentPolicy.toLowerCase().equals("permissive")) {
                     appendText(logs, "\n\n--  Restoring SELINUX   --");
@@ -2181,7 +2186,6 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 String path = getApplicationInfo().dataDir;
                 suitableMethodFound = true;
                 killps(logs);
-                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
                 String currentPolicy = gainOwnership(logs);
 
 
@@ -2221,7 +2225,7 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 
 
 appendText(logs, "\n\n--  Restoring ownership of the database   --");
-                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+                appendText(logs, runSuWithCmd(PhenotypeDb.restoreOwnershipCommand()).getStreamLogsWithLabels());
 
                 if (currentPolicy.toLowerCase().equals("permissive")) {
                     appendText(logs, "\n\n--  Restoring SELINUX   --");
@@ -2261,7 +2265,6 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 String path = getApplicationInfo().dataDir;
                 suitableMethodFound = true;
                 killps(logs);
-                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
                 String currentPolicy = gainOwnership(logs);
 
 
@@ -2300,7 +2303,7 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 
 
 appendText(logs, "\n\n--  Restoring ownership of the database   --");
-                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+                appendText(logs, runSuWithCmd(PhenotypeDb.restoreOwnershipCommand()).getStreamLogsWithLabels());
 
                 if (currentPolicy.toLowerCase().equals("permissive")) {
                     appendText(logs, "\n\n--  Restoring SELINUX   --");
@@ -2342,7 +2345,6 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 String path = getApplicationInfo().dataDir;
                 suitableMethodFound = true;
                 killps(logs);
-                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
                 String currentPolicy = gainOwnership(logs);
 
 
@@ -2380,7 +2382,7 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 
 
 appendText(logs, "\n\n--  Restoring ownership of the database   --");
-                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+                appendText(logs, runSuWithCmd(PhenotypeDb.restoreOwnershipCommand()).getStreamLogsWithLabels());
 
                 if (currentPolicy.toLowerCase().equals("permissive")) {
                     appendText(logs, "\n\n--  Restoring SELINUX   --");
@@ -2419,7 +2421,6 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 String path = getApplicationInfo().dataDir;
                 suitableMethodFound = true;
                 killps(logs);
-                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
                 String currentPolicy = gainOwnership(logs);
 
 
@@ -2457,7 +2458,7 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 
 
 appendText(logs, "\n\n--  Restoring ownership of the database   --");
-                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+                appendText(logs, runSuWithCmd(PhenotypeDb.restoreOwnershipCommand()).getStreamLogsWithLabels());
 
                 if (currentPolicy.toLowerCase().equals("permissive")) {
                     appendText(logs, "\n\n--  Restoring SELINUX   --");
@@ -2524,7 +2525,7 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
         finalCommand.append(System.getProperty("line.separator"));
         finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",  0,\"Coolwalk__rotary_proximity_navigation\", \"\" ,0,0);");
         finalCommand.append(System.getProperty("line.separator"));
-        finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.p   rojection.gearhead\",  0,\"Coolwalk__semi_wide_vertical_enabled\", \"\" ,1,0);");
+        finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",  0,\"Coolwalk__semi_wide_vertical_enabled\", \"\" ,1,0);");
         finalCommand.append(System.getProperty("line.separator"));
         finalCommand.append("INSERT OR REPLACE INTO FlagOverrides (packageName, flagType,  name, user, boolVal, committed) VALUES (\"com.google.android.projection.gearhead\",  0,\"Coolwalk__short_canonical_vertical_enabled\", \"\" ,1,0);");
         finalCommand.append(System.getProperty("line.separator"));
@@ -2601,7 +2602,6 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 String path = getApplicationInfo().dataDir;
                 suitableMethodFound = true;
                 killps(logs);
-                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
                 String currentPolicy = gainOwnership(logs);
 
 
@@ -2644,7 +2644,7 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 
 
                 appendText(logs, "\n\n--  Restoring ownership of the database   --");
-                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+                appendText(logs, runSuWithCmd(PhenotypeDb.restoreOwnershipCommand()).getStreamLogsWithLabels());
 
                 if (currentPolicy.toLowerCase().equals("permissive")) {
                     appendText(logs, "\n\n--  Restoring SELINUX   --");
@@ -2743,7 +2743,6 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 String path = getApplicationInfo().dataDir;
                 suitableMethodFound = true;
                 killps(logs);
-                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
                 String currentPolicy = gainOwnership(logs);
 
 
@@ -2783,7 +2782,7 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
 
 
                 appendText(logs, "\n\n--  Restoring ownership of the database   --");
-                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+                appendText(logs, runSuWithCmd(PhenotypeDb.restoreOwnershipCommand()).getStreamLogsWithLabels());
 
                 if (currentPolicy.toLowerCase().equals("permissive")) {
                     appendText(logs, "\n\n--  Restoring SELINUX   --");
@@ -2822,7 +2821,6 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 String path = getApplicationInfo().dataDir;
                 suitableMethodFound = true;
                 killps(logs);
-                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
                 String currentPolicy = gainOwnership(logs);
 
 
@@ -2861,7 +2859,7 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
 
 
                 appendText(logs, "\n\n--  Restoring ownership of the database   --");
-                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+                appendText(logs, runSuWithCmd(PhenotypeDb.restoreOwnershipCommand()).getStreamLogsWithLabels());
 
                 if (currentPolicy.toLowerCase().equals("permissive")) {
                     appendText(logs, "\n\n--  Restoring SELINUX   --");
@@ -2901,7 +2899,6 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 String path = getApplicationInfo().dataDir;
                 suitableMethodFound = true;
                 killps(logs);
-                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
                 String currentPolicy = gainOwnership(logs);
 
 
@@ -2940,7 +2937,7 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 
 
                 appendText(logs, "\n\n--  Restoring ownership of the database   --");
-                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+                appendText(logs, runSuWithCmd(PhenotypeDb.restoreOwnershipCommand()).getStreamLogsWithLabels());
 
                 if (currentPolicy.toLowerCase().equals("permissive")) {
                     appendText(logs, "\n\n--  Restoring SELINUX   --");
@@ -2981,7 +2978,6 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 String path = getApplicationInfo().dataDir;
                 suitableMethodFound = true;
                 killps(logs);
-                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
                 String currentPolicy = gainOwnership(logs);
 
 
@@ -3020,7 +3016,7 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 
 
                 appendText(logs, "\n\n--  Restoring ownership of the database   --");
-                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+                appendText(logs, runSuWithCmd(PhenotypeDb.restoreOwnershipCommand()).getStreamLogsWithLabels());
 
                 if (currentPolicy.toLowerCase().equals("permissive")) {
                     appendText(logs, "\n\n--  Restoring SELINUX   --");
@@ -3057,7 +3053,6 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 String path = getApplicationInfo().dataDir;
                 suitableMethodFound = true;
                 killps(logs);
-                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
                 String currentPolicy = gainOwnership(logs);
 
 
@@ -3096,7 +3091,7 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 
 
                 appendText(logs, "\n\n--  Restoring ownership of the database   --");
-                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+                appendText(logs, runSuWithCmd(PhenotypeDb.restoreOwnershipCommand()).getStreamLogsWithLabels());
 
                 if (currentPolicy.toLowerCase().equals("permissive")) {
                     appendText(logs, "\n\n--  Restoring SELINUX   --");
@@ -3151,7 +3146,6 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 String path = getApplicationInfo().dataDir;
                 suitableMethodFound = true;
                 killps(logs);
-                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
                 String currentPolicy = gainOwnership(logs);
 
 
@@ -3190,7 +3184,7 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 
 
 appendText(logs, "\n\n--  Restoring ownership of the database   --");
-                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+                appendText(logs, runSuWithCmd(PhenotypeDb.restoreOwnershipCommand()).getStreamLogsWithLabels());
 
                 if (currentPolicy.toLowerCase().equals("permissive")) {
                     appendText(logs, "\n\n--  Restoring SELINUX   --");
@@ -3320,7 +3314,6 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 String path = getApplicationInfo().dataDir;
                 suitableMethodFound = true;
                 killps(logs);
-                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
                 String currentPolicy = gainOwnership(logs);
 
 
@@ -3363,7 +3356,7 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 
 
 appendText(logs, "\n\n--  Restoring ownership of the database   --");
-                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+                appendText(logs, runSuWithCmd(PhenotypeDb.restoreOwnershipCommand()).getStreamLogsWithLabels());
 
                 if (currentPolicy.toLowerCase().equals("permissive")) {
                     appendText(logs, "\n\n--  Restoring SELINUX   --");
@@ -3403,7 +3396,6 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 String path = getApplicationInfo().dataDir;
                 suitableMethodFound = true;
                 killps(logs);
-                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
                 String currentPolicy = gainOwnership(logs);
 
 
@@ -3443,7 +3435,7 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 
 
                 appendText(logs, "\n\n--  Restoring ownership of the database   --");
-                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+                appendText(logs, runSuWithCmd(PhenotypeDb.restoreOwnershipCommand()).getStreamLogsWithLabels());
 
                 if (currentPolicy.toLowerCase().equals("permissive")) {
                     appendText(logs, "\n\n--  Restoring SELINUX   --");
@@ -3479,7 +3471,6 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 String path = getApplicationInfo().dataDir;
                 suitableMethodFound = true;
                 killps(logs);
-                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
                 String currentPolicy = gainOwnership(logs);
 
 
@@ -3518,7 +3509,7 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 
 
 appendText(logs, "\n\n--  Restoring ownership of the database   --");
-                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+                appendText(logs, runSuWithCmd(PhenotypeDb.restoreOwnershipCommand()).getStreamLogsWithLabels());
 
                 if (currentPolicy.toLowerCase().equals("permissive")) {
                     appendText(logs, "\n\n--  Restoring SELINUX   --");
@@ -3556,7 +3547,6 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 String path = getApplicationInfo().dataDir;
                 suitableMethodFound = true;
                 killps(logs);
-                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
                 String currentPolicy = gainOwnership(logs);
 
 
@@ -3596,7 +3586,7 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 
 
 appendText(logs, "\n\n--  Restoring ownership of the database   --");
-                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+                appendText(logs, runSuWithCmd(PhenotypeDb.restoreOwnershipCommand()).getStreamLogsWithLabels());
 
                 if (currentPolicy.toLowerCase().equals("permissive")) {
                     appendText(logs, "\n\n--  Restoring SELINUX   --");
@@ -3645,7 +3635,6 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 String path = getApplicationInfo().dataDir;
                 suitableMethodFound = true;
                 killps(logs);
-                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
                 String currentPolicy = gainOwnership(logs);
 
 
@@ -3687,7 +3676,7 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 
 
 appendText(logs, "\n\n--  Restoring ownership of the database   --");
-                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+                appendText(logs, runSuWithCmd(PhenotypeDb.restoreOwnershipCommand()).getStreamLogsWithLabels());
 
                 if (currentPolicy.toLowerCase().equals("permissive")) {
                     appendText(logs, "\n\n--  Restoring SELINUX   --");
@@ -3735,7 +3724,6 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 String path = getApplicationInfo().dataDir;
                 suitableMethodFound = true;
                 killps(logs);
-                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
                 String currentPolicy = gainOwnership(logs);
 
 
@@ -3775,7 +3763,7 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 
 
 appendText(logs, "\n\n--  Restoring ownership of the database   --");
-                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+                appendText(logs, runSuWithCmd(PhenotypeDb.restoreOwnershipCommand()).getStreamLogsWithLabels());
 
                 if (currentPolicy.toLowerCase().equals("permissive")) {
                     appendText(logs, "\n\n--  Restoring SELINUX   --");
@@ -3813,7 +3801,6 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 String path = getApplicationInfo().dataDir;
                 suitableMethodFound = true;
                 killps(logs);
-                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
                 String currentPolicy = gainOwnership(logs);
 
 
@@ -3852,7 +3839,7 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 
 
 appendText(logs, "\n\n--  Restoring ownership of the database   --");
-                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+                appendText(logs, runSuWithCmd(PhenotypeDb.restoreOwnershipCommand()).getStreamLogsWithLabels());
 
                 if (currentPolicy.toLowerCase().equals("permissive")) {
                     appendText(logs, "\n\n--  Restoring SELINUX   --");
@@ -3891,7 +3878,6 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 String path = getApplicationInfo().dataDir;
                 suitableMethodFound = true;
                 killps(logs);
-                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
                 String currentPolicy = gainOwnership(logs);
 
 
@@ -3930,7 +3916,7 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
 
 
                 appendText(logs, "\n\n--  Restoring ownership of the database   --");
-                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+                appendText(logs, runSuWithCmd(PhenotypeDb.restoreOwnershipCommand()).getStreamLogsWithLabels());
 
                 if (currentPolicy.toLowerCase().equals("permissive")) {
                     appendText(logs, "\n\n--  Restoring SELINUX   --");
@@ -3996,7 +3982,6 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 String path = getApplicationInfo().dataDir;
                 suitableMethodFound = true;
                 killps(logs);
-                String currentOwner = runSuWithCmd("stat -c \"%U\" /data/data/com.google.android.gms/databases/phenotype.db").getInputStreamLog();
                 String currentPolicy = gainOwnership(logs);
                 String decideWhat = new String();
 
@@ -4069,7 +4054,7 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
                 
 
 appendText(logs, "\n\n--  Restoring ownership of the database   --");
-                appendText(logs, runSuWithCmd("chown " + currentOwner + " /data/data/com.google.android.gms/databases/phenotype.db").getStreamLogsWithLabels());
+                appendText(logs, runSuWithCmd(PhenotypeDb.restoreOwnershipCommand()).getStreamLogsWithLabels());
 
                 if (currentPolicy.toLowerCase().equals("permissive")) {
                     appendText(logs, "\n\n--  Restoring SELINUX   --");
@@ -4096,6 +4081,11 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
 
 
     public static StreamLogs runSuWithCmd(String cmd) {
+        return runSuRaw(PhenotypeDb.rewriteCommand(cmd));
+    }
+
+    /** Runs {@code cmd} as root without translating phenotype.db SQL for the new schema. */
+    public static StreamLogs runSuRaw(String cmd) {
         DataOutputStream outputStream = null;
         InputStream inputStream = null;
         InputStream errorStream = null;
@@ -4182,6 +4172,21 @@ appendText(logs, "\n\n--  Restoring ownership of the database   --");
             public void run() {
 
                 String path = appDirectory;
+                if (PhenotypeDb.isNewSchema(path)) {
+                    // Dropping/recreating the legacy table would only leave an orphan Play Services ignores:
+                    // revert each of our triggers and delete just their overrides.
+                    List<String> triggers = PhenotypeDb.ourTriggers(path);
+                    appendText(log, "\n" + triggers);
+                    if (!triggers.isEmpty()) {
+                        appendText(log, runSuRaw(PhenotypeDb.command(PhenotypeDb.sqlite3Path(path), PhenotypeDb.revertSql(triggers))).getStreamLogsWithLabels());
+                    }
+                    for (String trigger : triggers) {
+                        save(false, trigger);
+                    }
+                    appendText(log, runSuWithCmd(PhenotypeDb.restoreOwnershipCommand()).getStreamLogsWithLabels());
+                    dialog.dismiss();
+                    return;
+                }
                 allTriggerString[0] = path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " + "'";
                 String get_names = runSuWithCmd(
                         path + "/sqlite3 -batch /data/data/com.google.android.gms/databases/phenotype.db " +

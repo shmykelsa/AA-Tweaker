@@ -3,6 +3,7 @@ package sksa.aa.tweaker;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -38,6 +39,8 @@ public class SplashActivity extends AppCompatActivity {
     String newVersionName;
 
     private static final String actualVersion = BuildConfig.VERSION_NAME;
+    /** Bump whenever res/raw/sqlite3_* change, so existing installs get the new binary. */
+    private static final String SQLITE3_VERSION = "3.54.1-static";
     private static final String BASE_URL = "https://api.github.com/repos/shmykelsa/AA-Tweaker/releases/latest";
 
     @Override
@@ -133,7 +136,10 @@ public class SplashActivity extends AppCompatActivity {
         String path = getApplicationInfo().dataDir;
         boolean sqlite3 = new File(path, "sqlite3").exists();
 
-        if (sqlite3) {
+        // Older versions shipped a sqlite3 too old to parse the new phenotype.db schema: replace it
+        // whenever the bundled binary changes.
+        SharedPreferences prefs = getSharedPreferences("sqlite3", MODE_PRIVATE);
+        if (sqlite3 && SQLITE3_VERSION.equals(prefs.getString("version", null))) {
             return;
         }
 
@@ -147,22 +153,38 @@ public class SplashActivity extends AppCompatActivity {
             InputStream in;
             OutputStream out;
             try {
-                in = this.getResources().openRawResource(R.raw.sqlite3);
+                in = this.getResources().openRawResource(sqlite3Resource());
 
                 String outDir = getApplicationInfo().dataDir;
 
-                File outFile = new File(outDir, "sqlite3");
+                File tmpFile = new File(outDir, "sqlite3.tmp");
 
-                out = new FileOutputStream(outFile);
+                out = new FileOutputStream(tmpFile);
                 copyFile(in, out);
                 in.close();
                 out.flush();
                 out.close();
+                if (!tmpFile.renameTo(file)) {
+                    throw new IOException("Cannot rename " + tmpFile + " to " + file);
+                }
+                prefs.edit().putString("version", SQLITE3_VERSION).commit();
             } catch (IOException e) {
                 Log.e("sksa.aa.tweaker", "Failed to copy asset file: sqlite3", e);
             }
             Log.v("sksa.aa.tweaker", runSuWithCmd("chmod 777 " + path + "/sqlite3").getStreamLogsWithLabels());
 
+    }
+
+    private static int sqlite3Resource() {
+        for (String abi : Build.SUPPORTED_ABIS) {
+            if (abi.equals("arm64-v8a")) {
+                return R.raw.sqlite3_arm64;
+            }
+            if (abi.startsWith("armeabi")) {
+                return R.raw.sqlite3_arm;
+            }
+        }
+        return R.raw.sqlite3_arm;
     }
 
     public String requestLatest() {
